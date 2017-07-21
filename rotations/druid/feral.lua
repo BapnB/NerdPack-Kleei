@@ -3,7 +3,7 @@ local GUI = {
 	--------------------------------
 	-- Coming Soon
 	--------------------------------
-        --Shift keybind in meelee will use stun Mighty Bash or Maim (if Mighty Bash is on CD)
+    --Shift keybind in meelee will use stun Mighty Bash or Maim (if Mighty Bash is on CD)
 	--Shift keybind in range > 10 will use Wild Charge or  Skull Bash(if Wild Charge is on CD)
 	--Alt keybind = Pause
 	--In combat if your target is friendly and dead will use Rebirth to ress him
@@ -37,21 +37,21 @@ end
 
 local Thrash = {
 
-        {'%pause', 'player.energy <=49'},
+    {'%pause', 'player.energy <=49'},
 	{'Thrash'},
 	
 }
 
 local Rake = {
 
-        {'%pause', 'player.energy <=34'},
-        {'Rake'},
+    {'%pause', 'player.energy <=34'},
+    {'Rake'},
 
 }
 
 local PreCombat = {
 
-        --{Thrash, 'toggle(auto) & !isattacking & target.range <6 & target.enemy & target.alive', 'target'},   
+    --{Thrash, 'toggle(auto) & !isattacking & target.range <6 & target.enemy & target.alive', 'target'},   
 
  	{'Prowl', '!player.buff(Prowl) & !toggle(auto) & {target.enemy & target.alive || player.area(20).enemies >=1}'},
 	
@@ -68,7 +68,7 @@ local Cooldowns = {
 }
 
 local Combat = {
-        --Mass
+    --Mass
 	{Thrash, 'toggle(AoE) & target.debuff(Thrash).duration <= 2.5 & player.area(10).enemies >=2'},
 	
 	--Dotting
@@ -95,7 +95,7 @@ local Keybinds = {
 
 	{'%pause', 'keybind(alt)'},
 	
-        {'Mighty Bash', '!player.buff(Prowl) & keybind(shift) & target.range <10 & target.enemy & target.alive'},
+    {'Mighty Bash', '!player.buff(Prowl) & keybind(shift) & target.range <10 & target.enemy & target.alive'},
 	
 	{'Maim', '!player.buff(Prowl) & keybind(shift) & player.spell(Mighty Bash).cooldown >gcd & !player.lastcast(Mighty Bash) & target.range <10 & target.enemy & target.alive'},
 	
@@ -118,11 +118,11 @@ local Interrupts = {
 
 local Survival = {
 
-        {'#Healthstone', 'player.health <=60'},
+    {'#Healthstone', 'player.health <=60'},
 	
-        {'Regrowth', 'player.buff(Predatory Swiftness).duration >=10 & !lastcast(Regrowth) & player.health <=90', 'player'},
+    {'Regrowth', 'player.buff(Predatory Swiftness).duration >=10 & !lastcast(Regrowth) & player.health <=90', 'player'},
 	
-        {'Survival Instincts', 'player.health <=75 & !player.buff(Survival Instincts)'},
+    {'Survival Instincts', 'player.health <=75 & !player.buff(Survival Instincts)'},
 	
 }
 
@@ -132,13 +132,13 @@ local inCombat = {
 	
 	{'Cat Form', '!player.buff(Cat Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >=1}'},
 	
-        {'/startattack', '!toggle(auto) & !isattacking & target.range <6 & target.enemy & target.alive', 'target'},
+    {'/startattack', '!toggle(auto) & !isattacking & target.range <6 & target.enemy & target.alive', 'target'},
 	
-        {'Rebirth', '!target.enemy & target.dead', 'target'},
+    {'Rebirth', '!target.enemy & target.dead', 'target'},
 	
 	{Keybinds},
 	{Interrupts, 'target.interruptAt(35) & toggle(interrupts)'},
-        {Survival, 'player.health <100'},
+    {Survival, 'player.health <100'},
 	{Cooldowns, 'toggle(cooldowns)'},
 	{Combat, 'target.range <=13 & target.enemy & target.alive'},
 	
@@ -154,16 +154,16 @@ local inCombat = {
 
 local outCombat = {
 
-        --test
+    --test
 	
 	--{'Treant Form', '!player.buff(Treant Form)'},
 	--{'/s Я есть груд', 'player.buff(Treant Form) & lastcast(Treant Form)'},
 	
-        --{'%SendKey(SPACE)'},
+    --{'%SendKey(SPACE)'},
 	
 	{Keybinds},
 	
-        {'%dispelall'},
+    {'%dispelall'},
 	
 	{PreCombat},
 
