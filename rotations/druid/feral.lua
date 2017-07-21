@@ -171,6 +171,7 @@ local outCombat = {
 	
 	--{'Travel Form', '!indoors & !player.buff(Travel Form) & !player.buff(Prowl) & target.enemy & !target.alive'},
 	
+	--Cancel form when not swimming / Travel Form when swimming
 	{'Cat Form', '!player.buff(Cat Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >=1}'},
 	{'Revive', '!target.enemy & target.dead', 'target'},
 	{'Regrowth', '!player.buff(Prowl) & player.health <= 96', 'player'},
