@@ -99,7 +99,6 @@ local DPS = {
 local Healing = { 
 	
 	--Ironbark
-	--{"Ironbark", "player.health <= UI(ironbark) & player.incdmg >=4 & player.spell(Swiftmend).cooldown > gcd", "player"},
 	{"Ironbark", "tank.health <= UI(ironbark)", "tank"},
 	{"Ironbark", "tank2.health <= UI(ironbark)", "tank2"},
 	
