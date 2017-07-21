@@ -3,7 +3,10 @@ local GUI = {
 	--------------------------------
 	-- Coming Soon
 	--------------------------------
-
+	--Alt Keybinds = Pause
+	--Shift Keybinds = Cheap Shot in melee and Stealth
+	--Shift Keybinds = Kidney Shot in melee not in Stealth
+	--Shift Keybinds = Blind if target are in 10 or more yards
 } 
 
 local exeOnLoad = function()
@@ -76,6 +79,7 @@ local Keybinds = {
 }
 
 local Interrupts = {
+
 	{'Kick', 'target.range <6'},
 	{'Cheap Shot', 'target.range <6 & {player.buff(Stealth) || player.buff(Subterfuge)}'},
 	{'Kidney Shot', 'player.spell(Kick).cooldown >gcd & target.range <6'},
@@ -84,11 +88,12 @@ local Interrupts = {
 }
 
 local Survival ={
+
     {'Cloak of Shadows', 'player.health <=15'},
     {'Vanish', '!player.buff(Stealth) & lastcast(Cloak of Shadows) & player.health <=15'},
 	{'Crimson Vial', 'player.health <=75'},
 	{'Evasion', 'player.health <=80'},
-	--{'#Healthstone', 'player.health <=60'},
+	{'#Healthstone', 'player.health <=60'},
 }
 
 local inCombat = {

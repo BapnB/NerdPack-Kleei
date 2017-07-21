@@ -3,7 +3,11 @@ local GUI = {
 	--------------------------------
 	-- Coming Soon
 	--------------------------------
-
+	--Alt Keybinds = Pause
+	--Shift Keybinds will use Leg Sweep if target is in range <=5
+	--Shift Keybinds will use Paralysis if target are in 10 or more yards
+	--In out of combat if your target is friendly and dead will use Resuscitate to ress him
+	
 } 
 
 local exeOnLoad = function()
@@ -17,7 +21,7 @@ end
 
 local Survival = {
     {'Gift of the Naaru', 'player.health <= 40 & target.enemy & target.alive', 'player'},
-	--{'#Healthstone', 'player.health<=60'},
+	{'#Healthstone', 'player.health<=60'},
 	{'!Touch of Karma', 'target.enemy & target.alive & {player.health <= 60 & target.deathin >7 & || player.health <= 35}'},
 	{'Chi Wave', 'talent(1,3) & player.health <= 60', 'player'},
 	{'Healing Elixir', 'player.health <= 70'},

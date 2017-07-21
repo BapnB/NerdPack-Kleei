@@ -23,13 +23,12 @@ local PreCombat = {
 
 local Survival = {
 
-    --{'#Healthstone', 'player.health<=60'},
+    {'#Healthstone', 'player.health<=60'},
 	
     {'Death Strike', 'player.health<=85 & player.buff(Dark Succor)'},
 	
 	{'Icebound Fortitude', 'player.health <= 65'},
 	
-	--{'#trinket1', 'player.health <= 65'},
 }
 
 local Cooldowns = {
