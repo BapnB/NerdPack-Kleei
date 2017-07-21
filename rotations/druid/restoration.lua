@@ -79,7 +79,6 @@ local Innervate = {
 
 	{ 'Rejuvenation', '!buff(Rejuvenation', 'lowest'},
 	{ 'Rejuvenation', 'talent(6,3) & buff(Rejuvenation) & !buff(Rejuvenation (Germination))', 'lowest'},
-	{ 'Regrowth', nil, 'lowest'},
 	
 }
 
@@ -104,7 +103,6 @@ local Healing = {
 	{'Ironbark', 'player.health <= UI(ironbark) & player.incdmg >=4 & player.spell(Swiftmend).cooldown > gcd', 'player'},
 	{'Ironbark', 'tank.health <= UI(ironbark)', 'tank'},
 	
-	
 	--Swiftmend
 	{'Swiftmend', 'tank.health <= UI(tanksm) & player.health >= tank.health', 'tank'},
 	{'Swiftmend', 'tank2.health <= UI(tanksm) & player.health >= tank.health', 'tank2'},
@@ -125,21 +123,18 @@ local Healing = {
 	{'Regrowth', 'player.health <= UI(lowestreg) & lowest.health >= player.health', 'player'},	
 	{'Regrowth', 'lowestpredicted.health <= UI(lowestreg)', 'lowestpredicted'},
 
-	
     -- Rejuvenation
 	{'Rejuvenation', 'tank.health <= UI(tankrej) & !buff & player.health >= tank.health', 'tank'},
 	{'Rejuvenation', 'tank2.health <= UI(tankrej) & !buff & player.health >= tank.health', 'tank2)'},
 	{'Rejuvenation', 'player.health <= UI(lowestrej) & lowest.health >= player.health & !buff', 'player'},	
 	{'Rejuvenation', 'lowestpredicted.health <= UI(lowestrej) & !buff', 'lowestpredicted'},
 
-	
 	--Germination
 	{'Rejuvenation', 'talent(6,3) & tank.health <= UI(tankgerm) & !buff(Rejuvenation (Germination)) & player.health >= tank.health', 'tank'},
 	{'Rejuvenation', 'talent(6,3) & tank2.health <= UI(tankgerm) & !buff(Rejuvenation (Germination)) & player.health >= tank.health', 'tank2'},
 	{'Rejuvenation', 'talent(6,3) & player.health <= UI(lowestgerm) & lowest.health >= player.health & !buff(Rejuvenation (Germination))', 'player'},	
 	{'Rejuvenation', 'talent(6,3) & lowestpredicted.health <= UI(lowestgerm) & !buff(Rejuvenation (Germination))', 'lowestpredicted'},
 
-	
 	--Healing Touch
 	{'Healing Touch', 'tank.health <= UI(tankht) & player.health >= tank.health', 'tank'},
 	{'Healing Touch', 'tank2.health <= UI(tankht) & player.health >= tank.health', 'tank2'},
@@ -151,7 +146,6 @@ local Healing = {
 }
 
 local inCombat = {
-
 
     {'Innervate', 'keybind(control)', 'player'},
 	
@@ -173,6 +167,7 @@ local inCombat = {
 }
 
 local outCombat = {
+
 	{Keybinds},
 	
 	--Dispell
