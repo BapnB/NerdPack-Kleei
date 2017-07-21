@@ -23,6 +23,8 @@ local GUI = {
 	--Shift keybind = Efflorescence on cursor ground
 	--Control keybind = Innervate (inCombat only)
 	--Alt keybind = Pause	
+	--In combat if your target is friendly and dead will use Rebirth to ress him
+	--In out of combat if your target is friendly and dead will use Revitalize to ress him	
 	
 }
 
@@ -61,7 +63,7 @@ local Survival = {
 	--Renewal
 	{'Renewal', 'player.health <=40'},
     --Health stone (Warlock)
-	--{'#Healthstone', 'player.health <=60', 'player'},
+	{'#Healthstone', 'player.health <=60', 'player'},
 	
 }
 
@@ -177,7 +179,6 @@ local outCombat = {
 	{'%dispelall', 'toggle(dispelall) & player.spell(Nature\'s Cure).cooldown <gcd'},
 	
     --MASS Ress
-	{'Revitalize', 'ingroup.dead'},
     {'Revitalize', '!target.enemy & target.dead', 'target'},
 	
 	--Clearcasting

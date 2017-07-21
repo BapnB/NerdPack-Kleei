@@ -3,7 +3,11 @@ local GUI = {
 	--------------------------------
 	-- Coming Soon
 	--------------------------------
-
+    --Alt Keybinds = Pause
+	--Shift Keybinds will use Leg Sweep if target is in range <=5
+	--Shift Keybinds will use Paralysis if target are in 10 or more yards
+	--Control Keybinds = Exploding Keg on cursor ground
+	--In out of combat if your target is friendly and dead will use Resuscitate to ress him
 } 
 
 local exeOnLoad = function()
@@ -22,7 +26,6 @@ local Keybinds = {
 	{'Paralysis', 'keybind(shift) & target.range >=10 & target.enemy & target.alive'},
 	{'Exploding Keg', 'keybind(control) & target.enemy & target.alive', 'cursor.ground'},
 	
-
 }
 
 local Interrupts ={
@@ -35,33 +38,18 @@ local Interrupts ={
 local Survival = {
 
 	{'Fortifying Brew', 'player.health <= 35'},	
-	--{'#Healthstone', 'player.health <=60'},
+	{'#Healthstone', 'player.health <=60'},
 	{'Healing Elixir', 'player.health <= 75 & !lastcast(Healing Elixir)'},
     {'Black Ox Brew', '!player.buff(Ironskin Brew) & player.spell(Ironskin Brew).charges<1'},
 	{'Expel Harm', 'player.health <= 80'},
 	{'Chi Wave', 'player.health <= 90', 'player'},
 	{'Ironskin Brew', 'player.buff(Ironskin Brew).duration <=1 & player.spell(Ironskin Brew).charges >=2 & !lastcast(Ironskin Brew)'},-- Ironskin Brew 
 
-
-
-
 }
 
 local Cooldowns = {
 
-
    {'Rushing Jade Wind', '!player.buff(Rushing Jade Wind)'},
-	--Put items you want used on CD below:     Example: {'skillid'},  
-	-- Nimble Brew if pvp talent taken
---	{'137648', 'player.state.disorient'},
---	{'137648', 'player.state.stun'}, 
---	{'137648', 'player.state.fear'},
---	{'137648', 'player.state.horror'},
--- Tiger's Lust if cd taken
---	{'116841', 'player.state.root'},
---	{'116841', 'player.state.snare'},
---{'#trinket1', 'UI(trink1)'},
---{'#trinket2', 'UI(trink2)'},
 
 }
 
@@ -87,7 +75,7 @@ local Action = {
 
 local inCombat = {
 
-	{Keybinds, 'target.enemy & target.alive'},
+	{Keybinds},
 	
 	{'%taunt(Provoke)'},
 	

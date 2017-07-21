@@ -6,7 +6,10 @@ local GUI = {
     --Shift keybind in meelee will use stun Mighty Bash or Maim (if Mighty Bash is on CD)
 	--Shift keybind in range > 10 will use Wild Charge or  Skull Bash(if Wild Charge is on CD)
 	--Alt keybind = Pause
-	}
+	--In combat if your target is friendly and dead will use Rebirth to ress him
+	--In out of combat if your target is friendly and dead will use Revive to ress him
+
+}
 
 local exeOnLoad = function()
 
@@ -22,7 +25,7 @@ local exeOnLoad = function()
 		text = 'ON/OFF Dotting rotation',
 	})
 	
-	-- Next Toggle is for botting , don't use it if you don't use bot for mobs farm.
+	-- Next Toggle is for botting , don't use it if you don't use bot for farm mobs.
 	NeP.Interface:AddToggle({
 		key = 'auto',
 		icon = 'Interface\\Icons\\ability_siege_engineer_automatic_repair_beam',
@@ -89,7 +92,7 @@ local Combat = {
 }
 
 local Keybinds = {
-	-- Pause
+
 	{'%pause', 'keybind(alt)'},
 	
     {'Mighty Bash', '!player.buff(Prowl) & keybind(shift) & target.range <10 & target.enemy & target.alive'},
@@ -115,7 +118,7 @@ local Interrupts = {
 
 local Survival = {
 
-    --{'#Healthstone', 'player.health <=60'},
+    {'#Healthstone', 'player.health <=60'},
 	
     {'Regrowth', 'player.buff(Predatory Swiftness).duration >=10 & !lastcast(Regrowth) & player.health <=90', 'player'},
 	
@@ -125,7 +128,7 @@ local Survival = {
 
 local inCombat = {
 	
-	{'%dispelself'},
+	--{'%dispelself'},
 	
 	{'Cat Form', '!player.buff(Cat Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >=1}'},
 	
