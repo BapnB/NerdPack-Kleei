@@ -20,12 +20,12 @@ local exeOnLoad = function()
 		key = 'Stun',
 		name = 'PreCombat Stun/Garrote',
 		text = 'ON-Stun/OFF-Garrote',
-		icon = 'Interface\\Icons\\Ability_rogue_findweakness.png',
+		icon = 'Interface\\Icons\\Spell_frost_stun',
 	})
 	
 		NeP.Interface:AddToggle({
 		key = 'Dotting',
-		icon = 'Interface\\Icons\\Ability_creature_cursed_05.png',
+		icon = 'Interface\\Icons\\ability_rogue_nightblade',
 		name = 'Auto Dotting',
 		text = 'ON/OFF Dotting rotation',
 	})
@@ -49,7 +49,7 @@ local Cooldowns ={
 local Combat = {
     --{"#trinket1", "player.buff(Congealing Goo)"},
 	
-    {"'Goremaw's Bite", "!player.buff(Shadow Dance) & !player.buff(Subterfuge) & player.combopoints <= 2 & player.energy <= 85"},
+    {"Goremaw's Bite", "!player.buff(Shadow Dance) & !player.buff(Subterfuge) & player.combopoints <= 2 & player.energy <= 85"},
 	
 	--MASS Shuriken
 	{"Shuriken Storm", "toggle(aoe) & !player.buff(Stealth) & !player.buff(Vanish) & !player.combopoints >= 4 & player.area(10).enemies >= 4"},
