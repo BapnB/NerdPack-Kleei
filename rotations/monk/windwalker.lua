@@ -24,43 +24,43 @@ local Survival = {
 
     {"Gift of the Naaru", "player.health <= 40 & target.enemy & target.alive", "player"},
 	{"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
-	{"!Touch of Karma", "target.enemy & target.alive & {player.health <= 60 & target.deathin > 7 & || player.health <= 35}"},
-	{"Chi Wave", "talent(1,3) & player.health <= 60", "player"},
-	{"Healing Elixir", "talent(5,1) & player.health <= 70 & !lastcast(Healing Elixir)"},
+	{"Touch of Karma", "target.enemy & target.alive & {player.health <= 60 & target.deathin >= 7 || player.health <= 35}"},
+	{"Healing Elixir", "talent(5,1) & player.health <= 70 & !lastcast(Healing Elixir)", "player"},
 	
 }
 
 local Cooldowns = {
 
-	{"Touch of Death", "keybind(control)"},
+	{"Touch of Death", "keybind(control)", "target"},
 	{"Serenity", "player.spell(Fists of Fury).cooldown < gcd"},
 	--{"Storm, Earth, and Fire", "!player.buff(Storm, Earth, and Fire)"},
 }
 
 local AoE = {
+
     --{"Rushing Jade Wind" ,"player.spell(Fists of Fury).cooldown > 1"},
     
 }
 
 local Interrupts = {
 
-    {"Spear Hand Strike", "target.range <= 5"},
-	{"Paralysis", "target.range >= 6 || player.spell(Spear Hand Strike).cooldown > gcd"},
+    {"Spear Hand Strike", "target.range <= 5", "target"},
+	{"Paralysis", "target.range >= 6 || player.spell(Spear Hand Strike).cooldown > gcd", "target"},
 	
 }
 
 local Actions = {
 
 	{"Whirling Dragon Punch"},
-    {"Energizing Elixir", "target.deathin > 6 & target.infront & player.energy < 40 & player.chi < 2 & player.spell(Fists of Fury).cooldown < gcd"},
-    {"Rushing Jade Wind", "player.spell(Fists of Fury).cooldown >gcd & player.area(8).enemies >= 2"},
+    {"Energizing Elixir", "target.deathin > 6 & target.infront & player.energy < 40 & player.chi <= 2 & player.spell(Fists of Fury).cooldown < gcd"},
+    {"Rushing Jade Wind", "player.spell(Fists of Fury).cooldown > gcd & player.area(8).enemies >= 2"},
 	{"Blackout Kick", "player.buff(Blackout Kick!)"},
     {"Strike of the Windlord"},
     {"Fists of Fury", "target.deathin > 4 & target.infront"},
     {"Rising Sun Kick", "player.spell(Fists of Fury).cooldown > gcd || target.deathin <= 6"},
-	{"Blackout Kick", "player.spell(Fists of Fury).cooldown > gcd || target.deathin <= 6"},
+	--{"Blackout Kick", "player.spell(Fists of Fury).cooldown > gcd || target.deathin <= 6"},
 	{"Tiger Palm"},
-	{"Chi Wave", "talent(1,3) & player.chi =0 & player.energy <47 || target.range > 10", "target"},
+	{"Chi Wave", "talent(1,3) & player.chi == 0 & player.energy < 47"},
 	
 }
 
@@ -68,12 +68,13 @@ local Keybinds = {
 	-- Pause
 	{"%pause", "keybind(alt)"},
 	{"Leg Sweep", "keybind(shift) & target.range <= 5 & target.enemy & target.alive"},
-	{"Paralysis", "keybind(shift) & target.range >= 10 & target.enemy & target.alive"},
+	{"Paralysis", "keybind(shift) & target.range >= 10 & target.enemy & target.alive", "target"},
 
 }
 
 local inCombat = {
-    {"/startattack", "!isattacking & target.range < 10 & target.enemy & target.alive"},
+
+    {"/startattack", "!isattacking & target.range < 10 & target.enemy & target.alive", "target"},
 	{Keybinds},
 	{Survival, "player.health < 100"},
 	{Interrupts, "target.interruptAt(40) & toggle(interrupts)"},

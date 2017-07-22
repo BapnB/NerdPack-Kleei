@@ -59,7 +59,7 @@ local Combat = {
 	{"Soul Carver", "target.debuff(Fiery Brand)"},
 	{"Immolation Aura", "player.pain <= 80"},
 	{"Felblade", "talent(3,1) & player.pain <= 70"},
-	{"Soul Cleave", "player.buff(Soul Fragments).count == 5 || player.incdmg(5) >= player.health.max*0.70 || player.pain >= 80 & player.buff(Soul Fragments).count < 4 & player.incdmg(4) <= player.health.max*0.20 || player.pain >= 80"},
+	{"Soul Cleave", "player.buff(Soul Fragments).count == 5 || player.incdmg(5) >= player.health.max*0.70 || player.pain >= 80"},
 	{"Shear", "player.buff(Blade Turning)"},
 	{"Fracture", "talent(4,2) & player.pain >= 60"},
 	{"Shear"}
