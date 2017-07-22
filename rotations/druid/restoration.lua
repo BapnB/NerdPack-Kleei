@@ -60,17 +60,17 @@ local Keybinds = {
 local Survival = {
 
 	--Renewal
-	{"Renewal", "player.health <=40", "player"},
+	{"Renewal", "player.health <= 40", "player"},
     --Health stone (Warlock)
-	{"#Healthstone", "item(Healthstone).count >= 1 & player.health <=60", "player"},
+	{"#Healthstone", "item(Healthstone).count >= 1 & player.health <= 60", "player"},
 	
 }
 
 local Interrupts = {
 	
-	{"Typhoon", "talent(4,3) & target.range <=18"},
+	{"Typhoon", "talent(4,3) & target.range <= 18"},
 	
-	{"Mighty Bash", "talent(4,1) & target.range <=10"},
+	{"Mighty Bash", "talent(4,1) & target.range <= 10"},
 	
 }
 
@@ -83,13 +83,13 @@ local Innervate = {
 
 local DPS = {
 
-	{"Sunfire",  "!target.debuff(Sunfire) & target.area(5).enemies >=2", "target"},
+	{"Sunfire",  "!target.debuff(Sunfire) & target.area(5).enemies >= 2", "target"},
     {"Moonfire", "!target.debuff(Moonfire)", "target"},
 
 	{"Moonkin Form", "!player.buff(Moonkin Form)"},
 	
 	{"Starsurge", "player.buff(Moonkin Form)", "target"},
-	{"Lunar Strike", "player.buff(Lunar Empowerment) & target.area(5).enemies >=2", "target"},
+	{"Lunar Strike", "player.buff(Lunar Empowerment) & target.area(5).enemies >= 2", "target"},
 	{"Solar Wrath", "player.buff(Solar Empowerment)", "target"},
 	
 	{"Solar Wrath", "player.buff(Moonkin Form)", "target"},
