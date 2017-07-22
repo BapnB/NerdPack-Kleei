@@ -30,82 +30,84 @@ end
 
 local FelRush = {
 
-    --{"%SendKey(SPACE)"}, -- @MrTheSoulz#9040 SendKey doesn't work for me. example:  {"%SendKey(SPACE)"},  or i do something wrong ?
-	--{'Fel Rush'},
+    --{"%SendKey(SPACE)"},
+	--{"Fel Rush"},
 
 }
 
 local Survival = {
 
-    --{'#Healthstone', 'item(Healthstone).count >=1 & player.health<=60'},
-	{'Blur', 'player.health <= 70'}
+    {"#Healthstone", "item(Healthstone).count >= 1 & player.health <= 60", "player"},
+	{"Blur", "player.health <= 70"}
 
 }
 
 local Interrupts = {
 
-	{'Consume Magic'},
-	--{'Chaos Nova', 'player.spell(Consume Magic).cooldown>gcd&target.range<=5'}
+	{"Consume Magic"},
+	
+	--{"Chaos Nova", "player.spell(Consume Magic).cooldown > gcd & target.range <= 5"}
 }
 
 local Keybinds = {
 
-    {'Metamorphosis', 'toggle(cooldowns) & keybind(shift)', 'cursor.ground'},
-	{'%pause', 'keybind(alt)'},
-	{'Chaos Nova', 'keybind(control) & player.area(5).enemies >==1'},
-	{'Imprison', 'keybind(control) & target.range <=20 & target.range >=10'},
+    {"Metamorphosis", "toggle(cooldowns) & keybind(shift)", "cursor.ground"},
+	{"%pause", "keybind(alt)"},
+	{"Chaos Nova", "keybind(control) & player.area(5).enemies >= 1"},
+	{"Imprison", "keybind(control) & target.range <= 20 & target.range >= 10"},
 	
 }
 
 local Cooldowns = {
 
-	{'Nemesis', 'talent(5,3) & target.deathin >= 15'},
-	{'Chaos Blades', 'talent(7,1) & target.deathin >= 15'},
+	{"Nemesis", "talent(5,3) & target.deathin >= 15"},
+	{"Chaos Blades", "talent(7,1) & target.deathin >= 15"},
 }
 
 local Melee = {
 
+	{"Chaos Strike", "player.fury >= 40 & {player.area(8).enemies <= 5 || player.spell(Eye Beam).cooldown > gcd}"},
+	{"Annihilation", "player.fury >= 40 & {player.area(8).enemies <= 5 || player.spell(Eye Beam).cooldown > gcd}"},
     --
-	{'Chaos Strike', 'player.fury >= 40 & {player.area(8).enemies <=5 || player.spell(Eye Beam).cooldown >gcd}'},
-	{'Annihilation', 'player.fury >= 40 & {player.area(8).enemies <=5 || player.spell(Eye Beam).cooldown >gcd}'},
-	--
-	{'Demon\'s Bite', '!talent(2,2) & player.fury <=39'},
+	{"Demon's Bite", "!talent(2,2) & player.fury <= 39"},
 }
 
 local inCombat = {
+
 	{Keybinds},
-	{Survival, 'player.health <100'},
-	{Interrupts, 'target.interruptAt(40) & toggle(interrupts)'},
-	{Cooldowns, 'toggle(cooldowns) & target.enemy & target.alive & target.range <=2'},
+	{Survival, "player.health < 100"},
+	{Interrupts, "target.interruptAt(40) & toggle(interrupts)"},
+	{Cooldowns, "toggle(cooldowns) & target.enemy & target.alive & target.range <=2"},
 	---------------
-	{'/startattack', '!isattacking & target.range <10 & target.enemy & target.alive'},
+	
+	{"/startattack", "!isattacking & target.range < 10 & target.enemy & target.alive"},
 	
 	---Mass
-	{'Fury of the Illidari', '!player.moving & target.deathin >5 & target.enemy & target.alive & !lastcast(Vengeful Retreat) & target.range <=1'},
-	{'Eye Beam', 'toggle(AoE) & !player.moving & target.enemy & target.alive & !lastcast(Vengeful Retreat) & target.range <=15 & target.infront & player.area(8).enemies >=5'},
+	{"Fury of the Illidari", "!player.moving & target.deathin > 5 & target.enemy & target.alive & !player.lastcast(Vengeful Retreat) & target.range <= 1"},
+	{"Eye Beam", "toggle(AoE) & !player.moving & target.enemy & target.alive & !player.lastcast(Vengeful Retreat) & target.range <= 15 & target.infront & player.area(8).enemies >= 5"},
 	
-	{'Blade Dance', 'talent(3,1) & toggle(AoE) & { player.area(5).enemies =4 || player.spell(Eye Beam).cooldown >gcd & player.area(5).enemies >=5}'},
-	{'Death Sweep', 'talent(3,1) & toggle(AoE) & { player.area(5).enemies =4 || player.spell(Eye Beam).cooldown >gcd & player.area(5).enemies >=5}'},
+	{"Blade Dance", "talent(3,1) & toggle(AoE) & {player.area(5).enemies = 4 || player.spell(Eye Beam).cooldown > gcd & player.area(5).enemies >= 5}"},
+	{"Death Sweep", "talent(3,1) & toggle(AoE) & {player.area(5).enemies = 4 || player.spell(Eye Beam).cooldown > gcd & player.area(5).enemies >= 5}"},
 	
-	{'Blade Dance', 'talent(3,2) & toggle(AoE) & { player.area(5).enemies >=1 & player.area(5).enemies <=4 || player.spell(Eye Beam).cooldown >gcd & player.area(5).enemies >=5}'},
-	{'Death Sweep', 'talent(3,2) & toggle(AoE) & { player.area(5).enemies =1 & player.fury <=39 || player.area(5).enemies >=2 & player.area(5).enemies <=4 || player.spell(Eye Beam).cooldown >gcd & player.area(5).enemies >=5}'},
+	{"Blade Dance", "talent(3,2) & toggle(AoE) & {player.area(5).enemies >= 1 & player.area(5).enemies <= 4 || player.spell(Eye Beam).cooldown > gcd & player.area(5).enemies >= 5}"},
+	{"Death Sweep", "talent(3,2) & toggle(AoE) & {player.area(5).enemies == 1 & player.fury <= 39 || player.area(5).enemies >= 2 & player.area(5).enemies <= 4 || player.spell(Eye Beam).cooldown > gcd & player.area(5).enemies >= 5}"},
 	
 	---Charge
-	{'Felblade', 'toggle(charge) & talent(1,2) & target.enemy & target.alive & target.range <=15 & {player.fury <=39 || target.range >=8 & player.fury <=100}'},
-	--{FelRush, 'player.spell(Fel Rush).charges >=1 & target.enemy & target.alive & target.range <=5 & player.fury <=39'},
-	--{'Fel Rush', 'toggle(charge) & player.spell(Felblade).cooldown <gcd & target.enemy & target.alive & target.range <=5 & player.energy <=39'},
+	{"Felblade", "toggle(charge) & talent(1,2) & target.enemy & target.alive & target.range <= 15 & {player.fury <= 39 || target.range >= 8 & player.fury <= 100}"},
+	--{FelRush, "player.spell(Fel Rush).charges >= 1 & target.enemy & target.alive & target.range <= 5 & player.fury <= 39"},
+	--{"Fel Rush", "toggle(charge) & player.spell(Felblade).cooldown < gcd & target.enemy & target.alive & target.range <= 5 & player.energy <= 39"},
 	
 	---Out of melee range
-	{'Fel Eruption', 'talent(5,2) & target.range <=20 & player.fury >=10'},
-	{'Fel Barrage', 'talent(7,2) & !target.debuff(Imprison) & target.enemy & target.alive & target.range <=30 & player.spell(Fel Barrage).charges >=5 & {player.buff(Metamorphosis) & player.fury <=39 & player.spell(Death Sweep).cooldown >=gcd || player.buff(Metamorphosis) & player.fury <=15 || !player.buff(Metamorphosis)}'},
-	{'Throw Glaive', 'player.spell(Fel Rush).charges <1 & player.spell(Felblade).cooldown >gcd & !target.debuff(Imprison) & target.enemy & target.alive & target.range >=8 & target.range <=30'},
-	{'Fel Rush', 'toggle(charge) & target.enemy & target.alive & target.infront & target.range >5'},
-	{'Throw Glaive', 'player.fury <=38 & target.alive & target.enemy ', 'target'},
+	{"Fel Eruption", "talent(5,2) & target.range <= 20 & player.fury >= 10"},
+	{"Fel Barrage", "talent(7,2) & !target.debuff(Imprison) & target.enemy & target.alive & target.range <= 30 & player.spell(Fel Barrage).charges >= 5 & {player.buff(Metamorphosis) & player.fury <= 39 & player.spell(Death Sweep).cooldown >= gcd || player.buff(Metamorphosis) & player.fury <= 15 || !player.buff(Metamorphosis)}"},
+	{"Throw Glaive", "player.spell(Fel Rush).charges < 1 & player.spell(Felblade).cooldown > gcd & !target.debuff(Imprison) & target.enemy & target.alive & target.range >= 8 & target.range <= 30"},
+	{"Fel Rush", "toggle(charge) & target.enemy & target.alive & target.infront & target.range > 5"},
+	{"Throw Glaive", "player.fury <= 38 & target.alive & target.enemy", "target"},
 	
-	---Acrobat
-	--{'Vengeful Retreat', 'toggle(charge) & !player.buff(Metamorphosis) & player.spell(Fel Rush).charges >=1 & target.range<=3 & target.enemy & target.alive & player.energy <= 39'},
+	---Acrobat (old thing, for now is dissabled) 
+	--{"Vengeful Retreat", "toggle(charge) & !player.buff(Metamorphosis) & player.spell(Fel Rush).charges >= 1 & target.range <= 3 & target.enemy & target.alive & player.energy <= 39"},
 	
-	{Melee, 'target.enemy & target.alive & target.inmelee'},
+	{Melee, "target.enemy & target.alive & target.inmelee"},
 }
 
 local outCombat = {
