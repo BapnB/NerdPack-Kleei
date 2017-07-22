@@ -111,7 +111,8 @@ local outCombat = {
 	
 	-- Poisons
 	{"Deadly Poison", "!player.moving & player.buff(Deadly Poison).duration <= 600"},
-	{"Leeching Poison", "!player.moving & player.buff(Leeching Poison).duration <= 600"},
+	{"Leeching Poison", "talent(4,1) & !player.moving & player.buff(Leeching Poison).duration <= 600"},
+	{"Crippling Poison", "!talent(4,1) & !player.moving & player.buff(Crippling Poison).duration <= 600"},
 }
 
 NeP.CR:Add(259, {
