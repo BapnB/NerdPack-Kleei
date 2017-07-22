@@ -68,7 +68,6 @@ local Melee = {
 
 	{"Chaos Strike", "player.fury >= 40 & {player.area(8).enemies <= 5 || player.spell(Eye Beam).cooldown > gcd}"},
 	{"Annihilation", "player.fury >= 40 & {player.area(8).enemies <= 5 || player.spell(Eye Beam).cooldown > gcd}"},
-    --
 	{"Demon's Bite", "!talent(2,2) & player.fury <= 39"},
 }
 
@@ -77,7 +76,7 @@ local inCombat = {
 	{Keybinds},
 	{Survival, "player.health < 100"},
 	{Interrupts, "target.interruptAt(40) & toggle(interrupts)"},
-	{Cooldowns, "toggle(cooldowns) & target.enemy & target.alive & target.range <=2"},
+	{Cooldowns, "toggle(cooldowns) & target.enemy & target.alive & target.range <= 2"},
 	---------------
 	
 	{"/startattack", "!isattacking & target.range < 10 & target.enemy & target.alive"},

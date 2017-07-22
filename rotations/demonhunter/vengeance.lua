@@ -21,86 +21,71 @@ end
 
 local Keybinds = {
 
-	{'Sigil of Flame', 'keybind(control)', 'cursor.ground'},
+	{"Sigil of Flame", "keybind(control)", "cursor.ground"},
 	
-	{'%pause', 'keybind(alt)'},
+	{"%pause", "keybind(alt)"},
 	
-	{'Infernal Strike', 'keybind(shift)', 'cursor.ground'},
+	{"Infernal Strike", "keybind(shift)", "cursor.ground"},
 }
 
 local Interrupts = {
-	{'Arcane Torrent', 'target.range<=8 & spell(Consume Magic).cooldown >gcd & !prev_gcd(Consume Magic)'},
-	{'Consume Magic'},
+
+	{"Arcane Torrent", "target.range <= 8 & spell(Consume Magic).cooldown > gcd & !prev_gcd(Consume Magic)"},
+	{"Consume Magic"},
+	
 }
 
 local Survival = {
 
-	{'Soul Barrier', 'talent(7,3) & player.health <= 70'},
+	{"Soul Barrier", "talent(7,3) & player.health <= 70"},
 	
-	{'Fel Devastation', 'talent(6,1) & player.health <= 60 & !player.moving'},
+	{"Fel Devastation", "talent(6,1) & player.health <= 60 & !player.moving"},
 	
-	{'#trinket1', 'player.health <= 65'},
+	{"#trinket1", "player.health <= 65"},
 	
-	{'#trinket2', 'player.health <= 60'},
+	{"#trinket2", "player.health <= 60"},
 	
-	--{'#Healthstone', 'player.health<=60'},
+    {"#Healthstone", "item(Healthstone).count >= 1 & player.health <= 60", "player"},
 	
-	{'Metamorphosis', 'player.health <= 40'},
+	{"Metamorphosis", "player.health <= 40"},
 }	
 
 local Combat = {
 	
-	{'Fiery Brand', '!player.buff(Demon Spikes) & !player.buff(Metamorphosis)'},
+	{"Fiery Brand", "!player.buff(Demon Spikes) & !player.buff(Metamorphosis)"},
+	{"Demon Spikes", "!player.buff(Demon Spikes)"},
+	{"!Empower Wards", "target.casting.percent > 70"},
+	{"Spirit Bomb", "!target.debuff(Frailty) & player.buff(Soul Fragments).count >= 1"},
+	{"Soul Carver", "target.debuff(Fiery Brand)"},
+	{"Immolation Aura", "player.pain <= 80"},
+	{"Felblade", "talent(3,1) & player.pain <= 70"},
+	{"Soul Cleave", "player.buff(Soul Fragments).count == 5 || player.incdmg(5) >= player.health.max*0.70 || player.pain >= 80 & player.buff(Soul Fragments).count < 4 & player.incdmg(4) <= player.health.max*0.20 || player.pain >= 80"},
+	{"Shear", "player.buff(Blade Turning)"},
+	{"Fracture", "talent(4,2) & player.pain >= 60"},
+	{"Shear"}
 	
-	{'Demon Spikes', '!player.buff(Demon Spikes)'},
-	
-	{'!Empower Wards', 'target.casting.percent>80'},
-	
-	--{'Sigil of Flame', '!target.debuff(Sigil of Flame)', 'target.ground'},
-	
-	{'Spirit Bomb', '!target.debuff(Frailty) & player.buff(Soul Fragments).count>=1'},
-	
-	{'Soul Carver', 'target.debuff(Fiery Brand)'},
-	
-	{'Immolation Aura', 'player.pain<=80'},
-	
-	{'Felblade', 'talent(3,1) & player.pain<=70'},
-	
-	{'Soul Cleave', 'player.buff(Soul Fragments).count=5'},
-	
-	{'Soul Cleave', 'player.incdmg(5) >= player.health.max*0.70'},
-	
-	{'Fel Eruption', 'talent(3,3)'},
-	
-	{'Soul Cleave', 'player.pain >=80 & player.buff(Soul Fragments).count <4 & player.incdmg(4) <=player.health.max*0.20'},
-	
-	{'Soul Cleave', 'player.pain>=80'},
-	
-	{'Shear', 'player.buff(Blade Turning)'},
-	
-	{'Fracture', 'talent(4,2) & player.pain>=60'},
-	
-	{'Shear'}
 }
 
 local Ranged = {
-	{'Throw Glaive'},
+
+	{"Throw Glaive"},
+	
 }
 
 local inCombat = {
-    {'/startattack', '!isattacking & target.range <10 & target.enemy & target.alive'},
+    {"/startattack", "!isattacking & target.range < 10 & target.enemy & target.alive"},
 	
 	{Keybinds},
 	
-	{'%taunt(Torment'},
+	{"%taunt(Torment"},
 	
-	{Survival, 'player.health<100 & target.enemy & target.alive'},
+	{Survival, "player.health < 100 & target.enemy & target.alive"},
 	
-	{Interrupts, 'target.interruptAt(40) & toggle(interrupts)&target.infront&target.range<=8&target.enemy&target.alive'},
+	{Interrupts, "target.interruptAt(40) & toggle(interrupts) & target.infront & target.range <= 8 & target.enemy & target.alive"},
 	
-	{Ranged, 'target.range >8 & target.range <=30 & target.enemy & target.alive'},
+	{Ranged, "target.range > 8 & target.range <= 30 & target.enemy & target.alive"},
 	
-	{Combat, 'target.range <=8 & target.enemy & target.alive'},
+	{Combat, "target.range <= 8 & target.enemy & target.alive"},
 }
 
 local outCombat = {
