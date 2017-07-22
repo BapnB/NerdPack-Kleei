@@ -62,7 +62,7 @@ local Survival = {
 	--Renewal
 	{"Renewal", "player.health <= 40", "player"},
     --Health stone (Warlock)
-	{"#Healthstone", "item(Healthstone).count >= 1 & player.health <= 60", "player"},
+	{"#5512", "item(5512).count >= 1 & player.health <= 60", "player"},
 	
 }
 
@@ -101,6 +101,7 @@ local Healing = {
 	--Ironbark
 	{"Ironbark", "tank.health <= UI(ironbark)", "tank"},
 	{"Ironbark", "tank2.health <= UI(ironbark)", "tank2"},
+	{"Ironbark", "player.health <= UI(ironbark)", "player"},
 	
 	--Swiftmend
 	{"Swiftmend", "tank.health <= UI(tanksm) & player.health >= tank.health", "tank"},
@@ -154,7 +155,7 @@ local inCombat = {
 	{"Rebirth", "!target.enemy & target.dead", "target"},
 	
 	--Dispell
-	{"%dispelall", "toggle(dispelall) & !player.spell(Nature's Cure).cooldown"},
+	{"&%dispelall", "toggle(dispelall) & player.spell(Nature's Cure).cooldown < 0.3"},
 	
 	--Typhoon enemies when they is in front of you
 	--{"Typhoon", "enemies.range <=5 & enemies.infront"}
