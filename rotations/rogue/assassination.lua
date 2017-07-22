@@ -97,11 +97,15 @@ local Combat = {
 }
 
 local inCombat = {
+
+    {"%pause", "player.buff(Vanish)"},
+	
     {Interrupts, "target.interruptAt(40) & toggle(interrupts) & target.infront"},
 	{Keybinds},
 	{Survival, "player.health < 100"},
 	{Cooldowns, "toggle(cooldowns) & target.enemy & target.alive"},
 	{Combat, "target.range < 8 & target.enemy & target.alive"},
+	
 }
 
 local outCombat = {
