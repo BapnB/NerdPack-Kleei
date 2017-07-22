@@ -52,9 +52,9 @@ local Interrupts = {
 local Actions = {
 
 	{"Whirling Dragon Punch"},
-    {"Energizing Elixir", "target.deathin > 6 & target.infront & player.energy < 40 & player.chi <= 2 & player.spell(Fists of Fury).cooldown < gcd"},
-    {"Rushing Jade Wind", "player.spell(Fists of Fury).cooldown > gcd & player.area(8).enemies >= 2"},
-	--{"Blackout Kick", "player.buff(Blackout Kick!)"},
+    {"Energizing Elixir", "target.deathin > 6 & target.infront & player.energy < 35 & player.chi <= 2 & player.spell(Fists of Fury).cooldown < gcd"},
+    {"Rushing Jade Wind", "toggle(AoE) & player.spell(Fists of Fury).cooldown > gcd & player.area(8).enemies >= 2"},
+	{"Blackout Kick", "player.buff(Blackout Kick!)"},
     {"Strike of the Windlord"},
     {"Fists of Fury", "target.deathin > 4 & target.infront"},
     {"Rising Sun Kick", "player.spell(Fists of Fury).cooldown > gcd || target.deathin <= 6"},

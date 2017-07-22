@@ -19,7 +19,7 @@ local exeOnLoad = function()
 	
 	NeP.Interface:AddToggle({
 		key = 'Stun',
-		name = 'PreCombat Stun/Garrote',
+		name = 'PreCombat Stun || Garrote',
 		text = 'ON-Stun/OFF-Garrote',
 		icon = 'Interface\\Icons\\Ability_rogue_findweakness.png',
 	})
