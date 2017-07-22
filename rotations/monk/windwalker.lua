@@ -58,7 +58,7 @@ local Actions = {
     {"Strike of the Windlord"},
     {"Fists of Fury", "target.deathin > 4 & target.infront"},
     {"Rising Sun Kick", "player.spell(Fists of Fury).cooldown > gcd || target.deathin <= 6"},
-	--{"Blackout Kick", "player.spell(Fists of Fury).cooldown > gcd || target.deathin <= 6"},
+	{"Blackout Kick", "player.spell(Fists of Fury).cooldown > gcd || target.deathin <= 6"},
 	{"Tiger Palm"},
 	{"Chi Wave", "talent(1,3) & player.chi == 0 & player.energy < 47"},
 	
