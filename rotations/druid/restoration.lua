@@ -62,7 +62,7 @@ local Survival = {
 	--Renewal
 	{"Renewal", "player.health <= 40", "player"},
     --Health stone (Warlock)
-	{"#5512", "item(5512).count >= 1 & player.health <= 60", "player"},
+	{"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
 	
 }
 

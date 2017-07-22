@@ -23,7 +23,7 @@ local PreCombat = {
 
 local Survival = {
 
-    {'#Healthstone', 'player.health<=60'},
+  	{"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
 	
     {'Death Strike', 'player.health<=85 & player.buff(Dark Succor)'},
 	

@@ -45,7 +45,7 @@ local Survival = {
 	
 	{"#trinket2", "player.health <= 60"},
 	
-    {"#Healthstone", "item(Healthstone).count >= 1 & player.health <= 60", "player"},
+ 	{"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
 	
 	{"Metamorphosis", "player.health <= 40"},
 }	

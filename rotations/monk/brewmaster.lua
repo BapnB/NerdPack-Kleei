@@ -38,7 +38,7 @@ local Interrupts ={
 local Survival = {
 
 	{"Fortifying Brew", "player.health <= 35"},	
-	{"#Healthstone", "player.health <= 60"},
+	{"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
 	{"Healing Elixir", "talent(5,1) & player.health <= 75 & !lastcast(Healing Elixir)"},
     {"Black Ox Brew", "!player.buff(Ironskin Brew) & player.spell(Ironskin Brew).charges < 1"},
 	{"Expel Harm", "player.health <= 80"},

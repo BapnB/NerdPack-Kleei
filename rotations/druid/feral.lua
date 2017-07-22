@@ -115,7 +115,7 @@ local Interrupts = {
 
 local Survival = {
 
-    {"#Healthstone", "item(Healthstone).count >= 1 & player.health <= 60", "player"},
+	{"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
 	
     {"Regrowth", "player.buff(Predatory Swiftness).duration >= 10 & !lastcast(Regrowth) & player.health <= 90", "player"},
 	

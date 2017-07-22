@@ -20,8 +20,9 @@ local exeOnLoad = function()
 end
 
 local Survival = {
+
     {'Gift of the Naaru', 'player.health <= 40 & target.enemy & target.alive', 'player'},
-	{'#Healthstone', 'player.health<=60'},
+	{"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
 	{'!Touch of Karma', 'target.enemy & target.alive & {player.health <= 60 & target.deathin >7 & || player.health <= 35}'},
 	{'Chi Wave', 'talent(1,3) & player.health <= 60', 'player'},
 	{'Healing Elixir', 'player.health <= 70'},

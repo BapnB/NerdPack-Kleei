@@ -63,7 +63,7 @@ local Survival ={
     {'Cloak of Shadows', 'player.buff(Vanish) & player.health <=15'},
 	{'Crimson Vial', 'player.health <=75'},
 	{'Evasion', 'player.health <=80'},
-	{'#Healthstone', 'player.health <=60'},
+	{"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
 	--{'Faint', 'player.health<=50'},
 	
 }
