@@ -64,7 +64,6 @@ local Interrupts = {
 local Survival ={
 
     {"Vanish", "!player.buff(Stealth) & player.health <= 15"},
-    {"Cloak of Shadows", "player.buff(Vanish)"},
 	{"Crimson Vial", "player.health <= 75"},
 	{"Evasion", "player.health <= 80"},
 	{"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
