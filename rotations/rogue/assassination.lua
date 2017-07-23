@@ -36,6 +36,10 @@ end
 
 local PreCombat = {
 
+    {"/stopattack", "player.buff(Vanish) & isattacking"},
+    {"Cloak of Shadows", "player.buff(Vanish)"},
+    {"%pause", "player.buff(Vanish)"},
+
 	{"Stealth", "!player.buff(Stealth)"},
 	{"Cheap Shot", "toggle(Stun) & player.buff(Stealth) & target.range <= 5"},
 	{"Garrote", "!toggle(Stun) & player.buff(Stealth) & target.range <= 5"},
@@ -60,7 +64,7 @@ local Interrupts = {
 local Survival ={
 
     {"Vanish", "!player.buff(Stealth) & player.health <= 15"},
-    {"Cloak of Shadows", "player.buff(Vanish) & player.health <= 15"},
+    {"Cloak of Shadows", "player.buff(Vanish)"},
 	{"Crimson Vial", "player.health <= 75"},
 	{"Evasion", "player.health <= 80"},
 	{"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
@@ -78,9 +82,8 @@ local Keybinds = {
 
 local Combat = {
 
-    {"/startattack", "!isattacking & target.range < 10 & target.enemy & target.alive"},
     --Mass
-    {"Fan of Knives", "toggle(AoE) & !player.buff(Stealth) & !player.buff(Vanish) & !player.combopoints >= 5 & player.area(10).enemies >= 3"},
+    {"Fan of Knives", "toggle(AoE) & !player.combopoints >= 5 & player.area(10).enemies >= 3"},
 	
 	--{"Kidney Shot", "player.combopoints >= 4 & !target.debuff(Cheap Shot)"},
 	
@@ -94,21 +97,34 @@ local Combat = {
 
 	{"Envenom", "player.combopoints >= 5"},
 	{"Mutilate", "!player.combopoints >= 5"},
+	
+    {"/startattack", "!isattacking & target.range < 10"},
+   
 }
 
 local inCombat = {
 
+    {"%pause", "target.immune", "target"},
+
+    {"/stopattack", "player.buff(Vanish) & isattacking"},
+    {"Cloak of Shadows", "player.buff(Vanish)"},
     {"%pause", "player.buff(Vanish)"},
+	
+	{"Cheap Shot", "toggle(Stun) & player.buff(Stealth) & target.range < 8 & target.enemy & target.alive", "target"},
+	{"Garrote", "!toggle(Stun) & player.buff(Stealth) & target.range < 8 & target.enemy & target.alive", "target"},
 	
     {Interrupts, "target.interruptAt(40) & toggle(interrupts) & target.infront"},
 	{Keybinds},
 	{Survival, "player.health < 100"},
 	{Cooldowns, "toggle(cooldowns) & target.enemy & target.alive"},
-	{Combat, "target.range < 8 & target.enemy & target.alive"},
+	{Combat, "!player.buff(Stealth) & target.range < 8 & target.enemy & target.alive"},
 	
 }
 
 local outCombat = {
+
+    {"%pause", "target.immune", "target"},
+
     {Keybinds},
 	{PreCombat, "target.enemy & target.alive"},
 	{"Crimson Vial", "player.health <= 85"},
