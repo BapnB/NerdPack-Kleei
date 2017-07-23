@@ -47,7 +47,7 @@ local PreCombat = {
 
 local Cooldowns = {
 
-	{"Vendetta", "target.deathin >= 6 & player.energy <= 45 & target.range <= 5"},
+	{"Vendetta", "target.deathin >= 6 & target.range <= 5 & {artifact.enabled(Urge to Kill) & player.energy <= 45 || !artifact.enabled(Urge to Kill)}"},
 	
 }
 
