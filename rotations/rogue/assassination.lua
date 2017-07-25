@@ -36,8 +36,10 @@ end
 
 local PreCombat = {
 
+    {"%pause", "target.immune", "target"},
+
     {"/stopattack", "player.buff(Vanish) & isattacking"},
-    {"Cloak of Shadows", "player.buff(Vanish)"},
+    {"Cloak of Shadows", "player.buff(Vanish) & player.state.purge(Cloak of Shadows)"},
     {"%pause", "player.buff(Vanish)"},
 
 	{"Stealth", "!player.buff(Stealth)"},
@@ -103,11 +105,13 @@ local Combat = {
 
 local inCombat = {
 
-    {"%pause", "target.immune", "target"},
+    {"%pause", "target.immune(all)", "target"},
 
     {"/stopattack", "player.buff(Vanish) & isattacking"},
-    {"Cloak of Shadows", "player.buff(Vanish)"},
+    {"Cloak of Shadows", "player.buff(Vanish) &  player.state(dot)"},
     {"%pause", "player.buff(Vanish)"},
+	
+	{"Gladiator's Medallion", "player.state(stun) || player.state(root) & target.range > 4 || player.state(fear) || player.state(disorient) || player.state(charm)"},
 	
 	{"Cheap Shot", "toggle(Stun) & player.buff(Stealth) & target.range < 8 & target.enemy & target.alive", "target"},
 	{"Garrote", "!toggle(Stun) & player.buff(Stealth) & target.range < 8 & target.enemy & target.alive", "target"},
@@ -121,8 +125,6 @@ local inCombat = {
 }
 
 local outCombat = {
-
-    {"%pause", "target.immune", "target"},
 
     {Keybinds},
 	{PreCombat, "target.enemy & target.alive"},
