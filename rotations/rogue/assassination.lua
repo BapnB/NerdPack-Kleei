@@ -99,7 +99,7 @@ local Combat = {
 	{"Envenom", "player.combopoints >= 5"},
 	{"Mutilate", "!player.combopoints >= 5"},
 	
-    {"/startattack", "!isattacking & target.range < 10"},
+    {"/startattack", "!isattacking"},
    
 }
 
