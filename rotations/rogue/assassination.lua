@@ -43,13 +43,13 @@ local PreCombat = {
     {"%pause", "player.buff(Vanish)"},
 
 	{"Stealth", "!player.buff(Stealth)"},
-	{"Cheap Shot", "toggle(Stun) & player.buff(Stealth) & target.range <= 5"},
-	{"Garrote", "!toggle(Stun) & player.buff(Stealth) & target.range <= 5"},
+	{"Cheap Shot", "toggle(Stun) & player.buff(Stealth) & target.range < 5"},
+	{"Garrote", "!toggle(Stun) & player.buff(Stealth) & target.range < 5"},
 }
 
 local Cooldowns = {
 
-	{"Vendetta", "target.deathin >= 6 & target.range <= 5 & {artifact.enabled(Urge to Kill) & player.energy <= 45 || !artifact.enabled(Urge to Kill)}"},
+	{"Vendetta", "target.deathin >= 6 & target.range < 5 & {artifact.enabled(Urge to Kill) & player.energy <= 45 || !artifact.enabled(Urge to Kill)}"},
 	
 }
 
@@ -113,8 +113,8 @@ local inCombat = {
 	
 	{"Gladiator's Medallion", "player.state(stun) || player.state(root) & target.range > 4 || player.state(fear) || player.state(disorient) || player.state(charm)"},
 	
-	{"Cheap Shot", "toggle(Stun) & player.buff(Stealth) & target.range < 8 & target.enemy & target.alive", "target"},
-	{"Garrote", "!toggle(Stun) & player.buff(Stealth) & target.range < 8 & target.enemy & target.alive", "target"},
+	{"Cheap Shot", "target.range < 5 & toggle(Stun) & player.buff(Stealth) & target.range < 8 & target.enemy & target.alive", "target"},
+	{"Garrote", "target.range < 5 & !toggle(Stun) & player.buff(Stealth) & target.range < 8 & target.enemy & target.alive", "target"},
 	
     {Interrupts, "target.interruptAt(40) & toggle(interrupts) & target.infront"},
 	{Keybinds},
