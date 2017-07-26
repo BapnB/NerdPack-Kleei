@@ -16,90 +16,87 @@ local exeOnLoad = function()
 
 end
 
-local PreCombat = {
-
-
-}
-
 local Survival = {
 
   	{"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
 	
-    {'Death Strike', 'player.health<=85 & player.buff(Dark Succor)'},
+    {"Death Strike", "player.health <= 85 & player.buff(Dark Succor)"},
 	
-	{'Icebound Fortitude', 'player.health <= 65'},
+	{"Icebound Fortitude", "player.health <= 65"},
 	
 }
 
 local Cooldowns = {
  	
-	{'Pillar of Frost', 'target.deathin >8 & target.range <=8'},
+	{"Pillar of Frost", "target.deathin > 8 & target.range <= 8"},
  	
 	--{'Obliteration'},
  	
-	{'Horn of Winter', 'talent(2,2) & !talent(7,2)'},
+	{"Horn of Winter", "talent(2,2) & !talent(7,2)"},
  	
-	{'Empower Rune Weapon', '!talent(7,2) & target.deathin >8 & runes <1'},
+	{"Empower Rune Weapon", "!talent(7,2) & target.deathin > 8 & runes < 1"},
 	
-	{'Sindragosa\'s Fury', 'keybind(control) & toggle(cooldowns)'},
+	{"Sindragosa's Fury", "keybind(control) & toggle(cooldowns)"},
 	
-	{'#trinket2', 'keybind(control) & target.deathin >10 & target.range <=8'},
+	{"#trinket2", "keybind(control) & target.deathin > 10 & target.range <= 8 & equipped(Wriggling Sinew)"},
 	
 }
 
 local Combat = {
-    {'/startattack', '!isattacking & target.range <10 & target.enemy & target.alive'},
+    {"/startattack", "!isattacking & target.range < 10"},
 
 	--Mass
-	{'Remorseless Winter', 'toggle(aoe) & player.area(8).enemies >=3 || talent(6,3)'},
-	{'Glacial Advance', 'talent(7,3) & toggle(aoe) & player.area(8).enemies >=3'},
+	{"Remorseless Winter", "toggle(aoe) & player.area(8).enemies >= 3 || target.range <= 5 & talent(6,3)"},
+	{"Glacial Advance", "talent(7,3) & toggle(aoe) & player.area(8).enemies >= 3"},
 	--{'Remorseless Winter', 'artifact(Frozen Soul).enabled'},
 	
 	--Combat
 	
- 	{'Frost Strike', 'target.range <=5 & {{talent(1,2) & {player.buff(Icy Talons).count <3 || player.buff(Icy Talons).duration <=1.5}} || player.buff(Obliteration) & !player.buff(Killing Machine)}'},
+ 	{"Frost Strike", "target.range <= 5 & {{talent(1,2) & {player.buff(Icy Talons).count < 3 || player.buff(Icy Talons).duration <=1.5}} || player.buff(Obliteration) & !player.buff(Killing Machine)}"},
 	
- 	{'Howling Blast', '!target.debuff(Frost Fever) || player.buff(Rime)'},
+ 	{"Howling Blast", "!target.debuff(Frost Fever) || player.buff(Rime)"},
 	
-	{'Obliterate', 'target.range <=5 & player.buff(Killing Machine)'},
+	{"Obliterate", "target.range <= 5 & player.buff(Killing Machine)"},
 	
-    --{'Frostscythe', 'talent(6,1)&!talent(7,2)&{player.buff(Killing Machine)||player.area(8).enemies>=4}'},
+    --{"Frostscythe", "talent(6,1) & !talent(7,2) & {player.buff(Killing Machine) || player.area(8).enemies >= 4}"},
 	
-    {'Obliterate', 'target.range <=5'},
+    {"Obliterate", "target.range <= 5"},
 	
-	{'Frost Strike', 'target.range <=5'},
+	{"Frost Strike", "target.range <= 5"},
 	
- 	--{'Remorseless Winter'},
- 	--{'Frostscythe', 'talent(6,1)&talent(2,2)'},
- 	--{'Howling Blast', 'talent(2,2)'},
+ 
+ 	--{"Frostscythe", "talent(6,1) & talent(2,2)"},
+
 }
 
 local Keybinds = {
 	-- Pause
-	{'%pause', 'keybind(alt)'},
+	{"%pause", "keybind(alt)"},
 	
 }
 
 local Interrupts = {
-	{'Mind Freeze', 'target.range <=15'},
+	{"Mind Freeze", "target.range <= 15"},
 }
 
 local inCombat = {
+
 	{Keybinds},
-	{Interrupts, 'target.interruptAt(30) & toggle(interrupts) & target.infront'},
+	{Interrupts, |target.interruptAt(30) & toggle(interrupts)"},
 	
 	--Ress 
-	{'Raise Ally', '!target.enemy & target.dead', 'target'},
+	{"Raise Ally", "!target.enemy & target.dead", "target"},
 	
-	{Survival, 'player.health <100'},
-	{Cooldowns, 'toggle(cooldowns) & target.range <8'},
-	{Combat, 'target.enemy & target.alive'}
+	{Survival, "player.health < 100"},
+	{Cooldowns, "toggle(cooldowns) & target.range < 8"},
+	{Combat, "target.enemy & target.alive"}
 }
 
 local outCombat = {
+
 	{Keybinds},
-	{'Path of Frost', 'player.swimming & !buff'},
-	--{PreCombat},
+	{"Path of Frost", "player.swimming & !buff"},
+
 }
 NeP.CR:Add(251, {
 	name = '[|cffff6060Kleei|r]|cffff6060 Death Knight - Frost',
