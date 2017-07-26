@@ -105,7 +105,7 @@ local Combat = {
 
 local inCombat = {
 
-    {"%pause", "target.immune(all)", "target"},
+    {"%pause", "target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)", "target"},
 
     {"/stopattack", "player.buff(Vanish) & isattacking"},
     {"Cloak of Shadows", "player.buff(Vanish) &  player.state(dot)"},
