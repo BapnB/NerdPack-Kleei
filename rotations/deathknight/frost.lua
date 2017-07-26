@@ -82,7 +82,7 @@ local Interrupts = {
 local inCombat = {
 
 	{Keybinds},
-	{Interrupts, |target.interruptAt(30) & toggle(interrupts)"},
+	{Interrupts, "target.interruptAt(30) & toggle(interrupts)"},
 	
 	--Ress 
 	{"Raise Ally", "!target.enemy & target.dead", "target"},
