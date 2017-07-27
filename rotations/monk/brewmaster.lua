@@ -1,10 +1,10 @@
 local GUI = {
 
 	{type = 'header', text = 'Keybinds', align = 'center'},
-	{type = 'text', text = 'Alt Keybinds = Pause.'},
-	{type = 'text', text = 'Shift Keybinds will use Leg Sweep if target is in range <= 5.'},
-	{type = 'text', text = 'Shift Keybinds will use Paralysis if target are in 10 or more yards.'},
-	{type = 'text', text = 'Control Keybinds = Exploding Keg on cursor ground.'},
+	{type = 'text', text = 'Alt Keybind = Pause.'},
+	{type = 'text', text = 'Shift Keybind will use Leg Sweep if target is in range <= 5.'},
+	{type = 'text', text = 'Shift Keybind will use Paralysis if target are in 10 or more yards.'},
+	{type = 'text', text = 'Control Keybind = Exploding Keg on cursor ground.'},
 	{type = 'text', text = 'In out of combat if your target is friendly and dead will use Resuscitate to ress him.'},
 	
 } 

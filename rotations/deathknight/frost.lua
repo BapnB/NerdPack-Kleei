@@ -1,7 +1,7 @@
 local GUI = {
 
     {type = 'header', text = 'Keybinds', align = 'center'},
-	{type = 'text', text = 'Alt Keybinds = Pause.'},
+	{type = 'text', text = 'Alt Keybind = Pause.'},
 
 } 
 
