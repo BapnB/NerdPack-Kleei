@@ -76,7 +76,7 @@ local Keybinds = {
     --Pause
 	{"%pause", "keybind(alt)"},
 	{"Cheap Shot", "keybind(shift) & !target.debuff(Cheap Shot) & !target.debuff(Kidney Shot) & player.buff(Stealth) & target.range < 6 & target.enemy & target.alive"},
-	{"Kidney Shot", "keybind(shift) & !target.debuff(Cheap Shot) & player.combopoints >= 4 & target.range < 6 & target.enemy & target.alive"},
+	{"Kidney Shot", "keybind(shift) & !target.debuff(Cheap Shot) & player.combopoints >= 3 & target.range < 6 & target.enemy & target.alive"},
 	{"Blind", "keybind(shift) & target.range >= 10 & target.enemy & target.alive"},
 }
 
