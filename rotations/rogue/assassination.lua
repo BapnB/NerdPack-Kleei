@@ -35,10 +35,10 @@ end
 
 local PreCombat = {
 
-    {"%pause", "target.immune", "target"},
+    {"%pause", "target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)", "target"},
 
     {"/stopattack", "player.buff(Vanish) & isattacking"},
-    {"Cloak of Shadows", "player.buff(Vanish) & player.state.purge(Cloak of Shadows)"},
+    {"Cloak of Shadows", "player.buff(Vanish) &  player.state(dot)"},
     {"%pause", "player.buff(Vanish)"},
 
 	{"Stealth", "!player.buff(Stealth)"},
@@ -112,8 +112,8 @@ local inCombat = {
 	
 	{"Gladiator's Medallion", "player.state(stun) || player.state(root) & target.range > 4 || player.state(fear) || player.state(disorient) || player.state(charm)"},
 	
-	{"Cheap Shot", "target.range < 5 & toggle(Stun) & player.buff(Stealth) & target.range < 8 & target.enemy & target.alive", "target"},
-	{"Garrote", "target.range < 5 & !toggle(Stun) & player.buff(Stealth) & target.range < 8 & target.enemy & target.alive", "target"},
+	{"Cheap Shot", "target.range < 5 & toggle(Stun) & player.buff(Stealth) & target.enemy & target.alive", "target"},
+	{"Garrote", "target.range < 5 & !toggle(Stun) & player.buff(Stealth) & target.enemy & target.alive", "target"},
 	
 	{Keybinds},
     {Interrupts, "target.interruptAt(40) & toggle(interrupts) & target.infront"},

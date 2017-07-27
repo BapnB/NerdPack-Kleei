@@ -125,7 +125,7 @@ local inCombat = {
 	
 	--{'%dispelself'},
 	
-	{"Cat Form", "!player.buff(Cat Form) || !player.buff(Travel Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >= 1}"},
+	{"Cat Form", "!player.buff(Cat Form) & !player.buff(Travel Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >= 1}"},
 	
     {"/startattack", "!toggle(auto) & !isattacking & target.range < 6 & target.enemy & target.alive", "target"},
 	
@@ -168,7 +168,7 @@ local outCombat = {
 	--{"Travel Form", "!indoors & !player.buff(Travel Form) & !player.buff(Prowl)"},
 	
 	--Cancel form when not swimming / Travel Form when swimming
-	{"Cat Form", "!player.buff(Cat Form) || !player.buff(Travel Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >= 1}"},
+	{"Cat Form", "!player.buff(Cat Form) & !player.buff(Travel Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >= 1}"},
 	{"Regrowth", "!player.buff(Prowl) & player.health <= 96", "player"},
 	{"/cancelform", "player.swimming & !player.buff(Prowl) & !indoors & {player.buff(Cat Form) || player.buff(Bear Form)}"},
 	{"Travel Form", "player.swimming & !player.buff(Cat Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form)"},
