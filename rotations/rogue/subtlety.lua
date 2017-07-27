@@ -1,12 +1,11 @@
 local GUI = {
 
-	--------------------------------
-	-- Coming Soon
-	--------------------------------
-	--Alt Keybinds = Pause
-	--Shift Keybinds = Cheap Shot in melee and Stealth
-	--Shift Keybinds = Kidney Shot in melee not in Stealth
-	--Shift Keybinds = Blind if target are in 10 or more yards
+	{type = 'header', text = 'Keybinds', align = 'center'},
+	{type = 'text', text = 'Alt Keybinds = Pause.'},
+	{type = 'text', text = 'Shift Keybinds = Cheap Shot in melee and Stealth.'},
+	{type = 'text', text = 'Shift Keybinds = Kidney Shot in melee not in Stealth.'},
+	{type = 'text', text = 'Shift Keybinds = Blind if target are in 10 or more yards.'},
+	
 } 
 
 local exeOnLoad = function()

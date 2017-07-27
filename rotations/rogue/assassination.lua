@@ -1,12 +1,11 @@
 local GUI = {
 
-	--------------------------------
-	-- Coming Soon
-	--------------------------------
-	--Alt Keybinds = Pause
-	--Shift Keybinds = Cheap Shot in melee and Stealth
-	--Shift Keybinds = Kidney Shot in melee not in Stealth
-	--Shift Keybinds = Blind if target are in 10 or more yards
+	{type = 'header', text = 'Keybinds', align = 'center'},
+	{type = 'text', text = 'Alt Keybinds = Pause.'},
+	{type = 'text', text = 'Shift Keybinds = Cheap Shot in melee and Stealth.'},
+	{type = 'text', text = 'Shift Keybinds = Kidney Shot in melee not in Stealth.'},
+	{type = 'text', text = 'Shift Keybinds = Blind if target are in 10 or more yards.'},
+	
 } 
 
 local exeOnLoad = function()
@@ -116,8 +115,8 @@ local inCombat = {
 	{"Cheap Shot", "target.range < 5 & toggle(Stun) & player.buff(Stealth) & target.range < 8 & target.enemy & target.alive", "target"},
 	{"Garrote", "target.range < 5 & !toggle(Stun) & player.buff(Stealth) & target.range < 8 & target.enemy & target.alive", "target"},
 	
-    {Interrupts, "target.interruptAt(40) & toggle(interrupts) & target.infront"},
 	{Keybinds},
+    {Interrupts, "target.interruptAt(40) & toggle(interrupts) & target.infront"},
 	{Survival, "player.health < 100"},
 	{Cooldowns, "toggle(cooldowns) & target.enemy & target.alive"},
 	{Combat, "!player.buff(Stealth) & target.range < 8 & target.enemy & target.alive"},

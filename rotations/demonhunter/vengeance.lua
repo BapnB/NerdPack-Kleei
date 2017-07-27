@@ -1,11 +1,9 @@
 local GUI = {
 
-	--------------------------------
-	-- Coming Soon
-	--------------------------------
-    --Shift keybind will use Infernal Strike on cursor ground
-	--Control keybind will use Sigil of Flame on cursor ground
-	--Alt keybind = Pause
+	{type = 'header', text = 'Keybinds', align = 'center'},
+	{type = 'text', text = 'Shift keybind will use Infernal Strike on cursor ground.'},
+	{type = 'text', text = 'Control keybind will use Sigil of Flame on cursor ground.'},
+	{type = 'text', text = 'Alt keybind = Pause.'},
 	
 } 
 

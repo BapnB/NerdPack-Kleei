@@ -7,6 +7,7 @@ local GUI = {
 	{type = 'spinner', 	text = 'Swiftmend', 	key = 'tanksm', 	 default = 60},
 	{type = 'spinner', 	text = 'Ironbark - tank or player', key = 'ironbark', default = 65},
 	{type = 'spinner', 	text = 'Healing touch',   key = 'tankht',	     default = 0},
+	--------------------------------
 	{type = 'ruler'}, {type = 'spacer'},
 	--------------------------------
 	{type = 'header', 	text = 'Lowests (player included)', align = 'center'},
@@ -16,14 +17,19 @@ local GUI = {
 	{type = 'spinner', 	text = 'Swiftmend', 	 key = 'lowestsm', 	default = 60},
 	{type = 'spinner', 	text = 'Healing touch',   key = 'lowestht',	    default = 0},
 	--------------------------------
+	{type = 'ruler'}, {type = 'spacer'},
+	--------------------------------
 	{type = 'header', 	text = 'DPS', align = 'center'},
-	{type = 'spinner', 	text = 'Mana',  key = 'mana',  default = 60},
-	
-	--Shift keybind = Efflorescence on cursor ground
-	--Control keybind = Innervate (inCombat only)
-	--Alt keybind = Pause	
-	--In combat if your target is friendly and dead will use Rebirth to ress him
-	--In out of combat if your target is friendly and dead will use Revitalize to ress him	
+	{type = 'spinner', 	text = 'Mana >=',  key = 'mana',  default = 60},
+	--------------------------------
+	{type = 'ruler'}, {type = 'spacer'},
+	--------------------------------
+	{type = 'header', text = 'Keybinds', align = 'center'},
+	{type = 'text', text = 'Shift keybind = Efflorescence on cursor ground.'},
+	{type = 'text', text = 'Control keybind = Innervate (inCombat only).'},
+	{type = 'text', text = 'Alt keybind = Pause.'},
+	{type = 'text', text = 'In combat if your target is friendly and dead will use Rebirth to ress him.'},
+	{type = 'text', text = 'In out of combat if your target is friendly and dead will use Revitalize to ress him.'},	
 	
 }
 

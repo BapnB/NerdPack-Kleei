@@ -1,13 +1,11 @@
 local GUI = {
 
-	--------------------------------
-	-- Coming Soon
-	--------------------------------
-	--Alt Keybinds = Pause
-	--Shift Keybinds will use Leg Sweep if target is in range <=5
-	--Shift Keybinds will use Paralysis if target are in 10 or more yards
-	--Control  Keybinds + Cooldowns toggle will use Touch of Death on target.
-	--In out of combat if your target is friendly and dead will use Resuscitate to ress him
+	{type = 'header', text = 'Keybinds', align = 'center'},
+	{type = 'text', text = 'Alt Keybinds = Pause.'},
+	{type = 'text', text = 'Shift Keybinds will use Leg Sweep if target is in range <= 5.'},
+	{type = 'text', text = 'Shift Keybinds will use Paralysis if target are in 10 or more yards.'},
+	{type = 'text', text = 'Control  Keybinds + Cooldowns toggle will use Touch of Death on target.'},
+	{type = 'text', text = 'In out of combat if your target is friendly and dead will use Resuscitate to ress him.'},
 	
 } 
 

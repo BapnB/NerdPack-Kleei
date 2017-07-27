@@ -1,13 +1,11 @@
 local GUI = {
 
-	--------------------------------
-	-- Coming Soon
-	--------------------------------
-    --Shift keybind in meelee will use stun Mighty Bash or Maim (if Mighty Bash is on CD)
-	--Shift keybind in range > 10 will use Wild Charge or  Skull Bash(if Wild Charge is on CD)
-	--Alt keybind = Pause
-	--In combat if your target is friendly and dead will use Rebirth to ress him
-	--In out of combat if your target is friendly and dead will use Revive to ress him
+	{type = 'header', text = 'Keybinds', align = 'center'},
+	{type = 'text', text = 'Shift keybind in meelee will use stun Mighty Bash or Maim (if Mighty Bash is on CD).'},
+	{type = 'text', text = 'Shift keybind in range > 10 will use Wild Charge or  Skull Bash(if Wild Charge is on CD).'},
+	{type = 'text', text = 'Alt keybind = Pause.'},
+	{type = 'text', text = 'In combat if your target is friendly and dead will use Rebirth to ress him.'},
+	{type = 'text', text = 'In out of combat if your target is friendly and dead will use Revive to ress him.'},
 
 }
 
@@ -127,7 +125,7 @@ local inCombat = {
 	
 	--{'%dispelself'},
 	
-	{"Cat Form", "!player.buff(Cat Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >= 1}"},
+	{"Cat Form", "!player.buff(Cat Form) || !player.buff(Travel Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >= 1}"},
 	
     {"/startattack", "!toggle(auto) & !isattacking & target.range < 6 & target.enemy & target.alive", "target"},
 	
@@ -170,7 +168,7 @@ local outCombat = {
 	--{"Travel Form", "!indoors & !player.buff(Travel Form) & !player.buff(Prowl)"},
 	
 	--Cancel form when not swimming / Travel Form when swimming
-	{"Cat Form", "!player.buff(Cat Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >= 1}"},
+	{"Cat Form", "!player.buff(Cat Form) || !player.buff(Travel Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >= 1}"},
 	{"Regrowth", "!player.buff(Prowl) & player.health <= 96", "player"},
 	{"/cancelform", "player.swimming & !player.buff(Prowl) & !indoors & {player.buff(Cat Form) || player.buff(Bear Form)}"},
 	{"Travel Form", "player.swimming & !player.buff(Cat Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form)"},

@@ -1,12 +1,10 @@
 local GUI = {
 
-	--------------------------------
-	-- Coming Soon
-	--------------------------------
-    --Shift keybind + Cooldowns Toggle = Metamorphosis on cursor ground
-	--Control keybind = Chaos Nova (if in player area(5) is more than 1 enemies)
-	--Control keybind in range will use Imprison (if target are in 10 or more yards)
-	--Alt keybind = Pause
+	{type = 'header', text = 'Keybinds', align = 'center'},
+	{type = 'text', text = 'Shift keybind + Cooldowns Toggle = Metamorphosis on cursor ground.'},
+	{type = 'text', text = 'Control keybind = Chaos Nova (if in player area(5) is more than 1 enemies).'},
+	{type = 'text', text = 'Control keybind in range will use Imprison (if target are in 10 or more yards).'},
+	{type = 'text', text = 'Alt keybind = Pause.'},
 	
 } 
 
