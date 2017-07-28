@@ -33,9 +33,17 @@ local exeOnLoad = function()
 	
 end
 
+local Keybinds = {
+    --Pause
+	{"%pause", "keybind(alt)"},
+	{"Cheap Shot", "keybind(shift) & !target.debuff(Cheap Shot) & player.buff(Stealth) & target.range < 6 & target.enemy & target.alive"},
+	{"Kidney Shot", "keybind(shift) & !target.debuff(Cheap Shot) & !player.buff(Stealth) & player.combopoints >= 3 & target.range < 6 & target.enemy & target.alive"},
+	{"Blind", "keybind(shift) & !player.buff(Stealth) & target.range >= 10 & target.enemy & target.alive"},
+}
+
 local PreCombat = {
 
-    {"%pause", "target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)", "target"},
+    {"%pause", "target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)"},
 
     {"/stopattack", "player.buff(Vanish) & isattacking"},
     {"Cloak of Shadows", "player.buff(Vanish) &  player.state(dot)"},
@@ -44,6 +52,16 @@ local PreCombat = {
 	{"Stealth", "!player.buff(Stealth)"},
 	{"Cheap Shot", "toggle(Stun) & player.buff(Stealth) & target.range < 5"},
 	{"Garrote", "!toggle(Stun) & player.buff(Stealth) & target.range < 5"},
+}
+
+local Survival ={
+
+    {"Vanish", "!player.buff(Stealth) & player.health <= 15"},
+	{"Crimson Vial", "player.health <= 75"},
+	{"Evasion", "player.health <= 80"},
+	{"#5512", "item(5512).count >= 1 & player.health <= 60"}, --Health Stone
+	--{'Faint', 'player.health<=50'},
+	
 }
 
 local Cooldowns = {
@@ -55,29 +73,11 @@ local Cooldowns = {
 local Interrupts = {
 
 	{"Kick", "target.range < 6"},
-	{"Cheap Shot", "player.buff(Stealth) & target.range < 6"},
-	{"Kidney Shot", "cooldown(Kick).duration > gcd & target.range < 6"},
-	{"Blind", "target.range >= 10"},
-	{"Blind", "cooldown(Kidney Shot).duration > gcd"},
+	--{"Cheap Shot", "player.buff(Stealth) & target.range < 6"},
+	--{"Kidney Shot", "cooldown(Kick).duration > gcd & target.range < 6"},
+	--{"Blind", "target.range >= 10"},
+	--{"Blind", "cooldown(Kidney Shot).duration > gcd"},
 	
-}
-
-local Survival ={
-
-    {"Vanish", "!player.buff(Stealth) & player.health <= 15"},
-	{"Crimson Vial", "player.health <= 75"},
-	{"Evasion", "player.health <= 80"},
-	{"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
-	--{'Faint', 'player.health<=50'},
-	
-}
-
-local Keybinds = {
-    --Pause
-	{"%pause", "keybind(alt)"},
-	{"Cheap Shot", "keybind(shift) & !target.debuff(Cheap Shot) & !target.debuff(Kidney Shot) & player.buff(Stealth) & target.range < 6 & target.enemy & target.alive"},
-	{"Kidney Shot", "keybind(shift) & !target.debuff(Cheap Shot) & player.combopoints >= 3 & target.range < 6 & target.enemy & target.alive"},
-	{"Blind", "keybind(shift) & target.range >= 10 & target.enemy & target.alive"},
 }
 
 local Combat = {
@@ -95,8 +95,8 @@ local Combat = {
 	
 	--{"Exsanguinate", "target.debuff(Rupture).duration > 20 & target.debuff(Garrote).duration > 10"},
 
-	{"Envenom", "player.combopoints >= 5"},
-	{"Mutilate", "!player.combopoints >= 5"},
+	{"Envenom", "player.combopoints >= 4"},
+	{"Mutilate", "!player.combopoints >= 4"},
 	
     {"/startattack", "!isattacking"},
    
@@ -104,18 +104,19 @@ local Combat = {
 
 local inCombat = {
 
-    {"%pause", "target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)", "target"},
+    {"%pause", "target.enemy & {target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)}"},
 
     {"/stopattack", "player.buff(Vanish) & isattacking"},
     {"Cloak of Shadows", "player.buff(Vanish) &  player.state(dot)"},
     {"%pause", "player.buff(Vanish)"},
 	
+	{Keybinds},	
+	
 	{"Gladiator's Medallion", "player.state(stun) || player.state(root) & target.range > 4 || player.state(fear) || player.state(disorient) || player.state(charm)"},
 	
-	{"Cheap Shot", "target.range < 5 & toggle(Stun) & player.buff(Stealth) & target.enemy & target.alive", "target"},
-	{"Garrote", "target.range < 5 & !toggle(Stun) & player.buff(Stealth) & target.enemy & target.alive", "target"},
+	{"Cheap Shot", "target.range < 5 & toggle(Stun) & player.buff(Stealth) & target.enemy & target.alive"},
+	{"Garrote", "target.range < 5 & !toggle(Stun) & player.buff(Stealth) & target.enemy & target.alive"},
 	
-	{Keybinds},
     {Interrupts, "target.interruptAt(40) & toggle(interrupts) & target.infront"},
 	{Survival, "player.health < 100"},
 	{Cooldowns, "toggle(cooldowns) & target.enemy & target.alive"},
