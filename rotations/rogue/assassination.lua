@@ -36,8 +36,8 @@ end
 local Keybinds = {
     --Pause
 	{"%pause", "keybind(alt)"},
-	{"Cheap Shot", "keybind(shift) & !target.debuff(Cheap Shot) & player.buff(Stealth) & target.range < 6 & target.enemy & target.alive"},
-	{"Kidney Shot", "keybind(shift) & !target.debuff(Cheap Shot) & !player.buff(Stealth) & player.combopoints >= 3 & target.range < 6 & target.enemy & target.alive"},
+	{"Cheap Shot", "keybind(shift) & !target.debuff(Cheap Shot) & player.buff(Stealth) & target.range < 7 & target.enemy & target.alive"},
+	{"Kidney Shot", "keybind(shift) & !target.debuff(Cheap Shot) & !player.buff(Stealth) & player.combopoints >= 3 & target.range < 7 & target.enemy & target.alive"},
 	{"Blind", "keybind(shift) & !player.buff(Stealth) & target.range >= 10 & target.enemy & target.alive"},
 }
 
@@ -50,8 +50,8 @@ local PreCombat = {
     {"%pause", "player.buff(Vanish)"},
 
 	{"Stealth", "!player.buff(Stealth)"},
-	{"Cheap Shot", "toggle(Stun) & player.buff(Stealth) & target.range < 5"},
-	{"Garrote", "!toggle(Stun) & player.buff(Stealth) & target.range < 5"},
+	{"Cheap Shot", "toggle(Stun) & player.buff(Stealth) & target.range < 7"},
+	{"Garrote", "!toggle(Stun) & player.buff(Stealth) & target.range < 7"},
 }
 
 local Survival ={
@@ -66,7 +66,7 @@ local Survival ={
 
 local Cooldowns = {
 
-	{"Vendetta", "target.deathin >= 6 & target.range < 5 & {artifact.enabled(Urge to Kill) & player.energy <= 45 || !artifact.enabled(Urge to Kill)}"},
+	{"Vendetta", "target.deathin >= 6 & target.range < 6 & {artifact.enabled(Urge to Kill) & player.energy <= 45 || !artifact.enabled(Urge to Kill)}"},
 	
 }
 
