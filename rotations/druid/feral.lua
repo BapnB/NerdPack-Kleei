@@ -66,6 +66,8 @@ local Cooldowns = {
 }
 
 local Combat = {
+
+    {"/startattack", "!toggle(auto) & !isattacking & target.range < 6 & target.enemy & target.alive", "target"},
     --Mass
 	{Thrash, "toggle(AoE) & player.area(10).enemies > 2 & target.debuff(Thrash).duration <= 3.5", "target"},
 	
@@ -90,7 +92,7 @@ local Keybinds = {
 
 	{"%pause", "keybind(alt)"},
 	
-    {"Mighty Bash", "!player.buff(Prowl) & !player.buff(163505) & keybind(shift) & target.range < 10 & target.enemy & target.alive"},
+    {"Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & !target.debuff(163505) & keybind(shift) & target.range < 10 & target.enemy & target.alive"},
 	
 	{"Maim", "!player.buff(Prowl) & keybind(shift) & player.spell(Mighty Bash).cooldown > gcd & !player.lastcast(Mighty Bash) & target.range < 10 & target.enemy & target.alive"},
 	
@@ -124,8 +126,7 @@ local Survival = {
 
 local inCombat = {
 	
-	{"Cat Form", "!player.buff(Cat Form) & !player.buff(Travel Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >= 1}"},
-    {"/startattack", "!toggle(auto) & !isattacking & target.range < 6 & target.enemy & target.alive", "target"},
+	{"Cat Form", "!player.buff(Cat Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >= 1}"},
 	
     {"Rebirth", "!target.enemy & target.dead", "target"},
 	
@@ -141,8 +142,8 @@ local inCombat = {
 	--working on some private servers
 	{"Moonfire", "!toggle(auto) & !talent(1,3) & target.alive & target.enemy & target.range > 8 & target.range <= 40 & target.infront & !player.buff(Prowl) & !target.debuff(Moonfire)"},
 
- 	{"/cancelform", "player.swimming & player.area(10).enemies >= 1 & !player.buff(Prowl) & !indoors & {player.buff(Cat Form) || player.buff(Bear Form)}"},
-	{"Travel Form", "player.swimming & player.area(10).enemies >= 1 & !player.buff(Cat Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form)"},
+ 	{"/cancelform", "player.swimming & !player.area(10).enemies >= 1 & !player.buff(Prowl) & !indoors & {player.buff(Cat Form) || player.buff(Bear Form)}"},
+	{"Travel Form", "player.swimming & !player.area(10).enemies >= 1 & !player.buff(Cat Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form)"},
 	
 }
 
@@ -157,7 +158,7 @@ local outCombat = {
 	{"/cleartarget", "toggle(auto) & target.range >= 7"},
 
 	--Cancel form when not swimming / Travel Form when swimming
-	{"Cat Form", "!player.buff(Cat Form) & !player.buff(Travel Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >= 1}"},
+	{"Cat Form", "!player.buff(Cat Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >= 1}"},
 	{"Regrowth", "!player.buff(Prowl) & player.health <= 96", "player"},
 	{"/cancelform", "player.swimming & !player.buff(Prowl) & !indoors & {player.buff(Cat Form) || player.buff(Bear Form)}"},
 	{"Travel Form", "player.swimming & !player.buff(Cat Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form)"},
