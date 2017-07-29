@@ -108,9 +108,9 @@ local Interrupts = {
 	
 	{"Typhoon", "talent(4,3) & player.spell(Skull Bash).cooldown > gcd"},
 	
-	{"Mighty Bash", "talent(4,1) & player.spell(Skull Bash).cooldown > gcd & target.range <= 10"},
+	--{"Mighty Bash", "talent(4,1) & player.spell(Skull Bash).cooldown > gcd & target.range <= 10"},
 	
-	{"Maim", "player.spell(Skull Bash).cooldown > gcd & player.spell(Mighty Bash).cooldown > gcd & target.range <= 10"},
+	--{"Maim", "player.spell(Skull Bash).cooldown > gcd & player.spell(Mighty Bash).cooldown > gcd & target.range <= 10"},
 	
 }
 
@@ -125,6 +125,9 @@ local Survival = {
 }
 
 local inCombat = {
+
+    {"%pause", "target.enemy & {target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)}"},
+	{"Gladiator's Medallion", "player.state(stun) || player.state(root) & target.range > 4 || player.state(fear) || player.state(disorient) || player.state(charm)"},
 	
 	{"Cat Form", "!player.buff(Cat Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >= 1}"},
 	
@@ -159,7 +162,7 @@ local outCombat = {
 
 	--Cancel form when not swimming / Travel Form when swimming
 	{"Cat Form", "!player.buff(Cat Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >= 1}"},
-	{"Regrowth", "!player.buff(Prowl) & player.health <= 96", "player"},
+	{"Regrowth", "!player.buff(Prowl) & !player.moving & player.health <= 96", "player"},
 	{"/cancelform", "player.swimming & !player.buff(Prowl) & !indoors & {player.buff(Cat Form) || player.buff(Bear Form)}"},
 	{"Travel Form", "player.swimming & !player.buff(Cat Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form)"},
 
