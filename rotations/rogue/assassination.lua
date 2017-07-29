@@ -107,7 +107,7 @@ local inCombat = {
     {"%pause", "target.enemy & {target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)}"},
 
     {"/stopattack", "player.buff(Vanish) & isattacking"},
-    {"Cloak of Shadows", "player.buff(Vanish) &  player.state(dot)"},
+    {"Cloak of Shadows", "player.buff(Vanish)"}, -- &  player.state(dot)
     {"%pause", "player.buff(Vanish)"},
 	
 	{Keybinds},	
@@ -125,6 +125,8 @@ local inCombat = {
 }
 
 local outCombat = {
+
+    {"%pause", "target.enemy & {target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)}"},
 
     {Keybinds},
 	{PreCombat, "target.enemy & target.alive"},
