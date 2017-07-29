@@ -67,7 +67,7 @@ local Cooldowns = {
 
 local Combat = {
     --Mass
-	{Thrash, "toggle(AoE) & player.area(10).enemies > 2 & target.debuff(Thrash).duration <= 3", "target"},
+	{Thrash, "toggle(AoE) & player.area(10).enemies > 2 & target.debuff(Thrash).duration <= 3.5", "target"},
 	
 	--Dotting
 	{"Rip", "toggle(Dotting) & target.deathin >= 10 & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & player.combopoints >= 2 & target.debuff(Rip).duration <= 4}"},
@@ -90,9 +90,9 @@ local Keybinds = {
 
 	{"%pause", "keybind(alt)"},
 	
-    {"Mighty Bash", "!player.buff(Prowl) & keybind(shift) & target.range < 10 & target.enemy & target.alive"},
+    {"Mighty Bash", "!player.buff(Prowl) & !player.buff(163505) & keybind(shift) & target.range < 10 & target.enemy & target.alive"},
 	
-	{"Maim", "!player.buff(Prowl) & keybind(shift) & player.spell(Mighty Bash).cooldown > gcd & !player.lastcast(Mighty Bash) & target.range <10 & target.enemy & target.alive"},
+	{"Maim", "!player.buff(Prowl) & keybind(shift) & player.spell(Mighty Bash).cooldown > gcd & !player.lastcast(Mighty Bash) & target.range < 10 & target.enemy & target.alive"},
 	
 	{"Skull Bash", "keybind(shift) & player.spell(Wild Charge).cooldown > gcd & !player.lastcast(Wild Charge) & target.range > 8 & target.range <= 18 & target.enemy & target.alive"},
 	
@@ -124,10 +124,7 @@ local Survival = {
 
 local inCombat = {
 	
-	--{'%dispelself'},
-	
 	{"Cat Form", "!player.buff(Cat Form) & !player.buff(Travel Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >= 1}"},
-	
     {"/startattack", "!toggle(auto) & !isattacking & target.range < 6 & target.enemy & target.alive", "target"},
 	
     {"Rebirth", "!target.enemy & target.dead", "target"},
@@ -149,26 +146,16 @@ local inCombat = {
 	
 }
 
-local outCombat = {
-
-    --test
-	
-	--{'Treant Form', '!player.buff(Treant Form)'},
-	--{'/s Я есть груд', 'player.buff(Treant Form) & lastcast(Treant Form)'},
-	
-    --{'%SendKey(SPACE)'},	
-	{Keybinds},
+local outCombat = {	
 	
 	{"Revive", "!target.enemy & target.dead", "target"},
-	
     {"%dispelall"},
 	
 	{PreCombat},
+	{Keybinds},
 
 	{"/cleartarget", "toggle(auto) & target.range >= 7"},
-	
-	--{"Travel Form", "!indoors & !player.buff(Travel Form) & !player.buff(Prowl)"},
-	
+
 	--Cancel form when not swimming / Travel Form when swimming
 	{"Cat Form", "!player.buff(Cat Form) & !player.buff(Travel Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >= 1}"},
 	{"Regrowth", "!player.buff(Prowl) & player.health <= 96", "player"},
