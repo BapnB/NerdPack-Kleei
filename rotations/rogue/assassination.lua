@@ -83,7 +83,7 @@ local Interrupts = {
 local Combat = {
 
     --Mass
-    {"Fan of Knives", "toggle(AoE) & !player.combopoints >= 5 & player.area(10).enemies >= 3 & !debuff(Deadly Poison)"},
+    {"Fan of Knives", "toggle(AoE) & player.combopoints < 5 & count.enemies(Deadly Poison).debuffs < player.area(10).enemies", "target"},
 	
 	--{"Kidney Shot", "player.combopoints >= 4 & !target.debuff(Cheap Shot)"},
 	

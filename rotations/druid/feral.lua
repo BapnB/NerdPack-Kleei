@@ -67,10 +67,10 @@ local Cooldowns = {
 
 local Combat = {
     --Mass
-	{Thrash, "toggle(AoE) & target.debuff(Thrash).duration <= 2.5 & player.area(10).enemies >= 2"},
+	{Thrash, "toggle(AoE) & player.area(10).enemies > 2 & target.debuff(Thrash).duration <= 3", "target"},
 	
 	--Dotting
-	{"Rip", "toggle(Dotting) & {talent(6,1) & target.deathin >= 10 & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & target.deathin >= 10 & player.combopoints >= 2 & target.debuff(Rip).duration <= 4}"},
+	{"Rip", "toggle(Dotting) & target.deathin >= 10 & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & player.combopoints >= 2 & target.debuff(Rip).duration <= 4}"},
 	
 	{Rake, "toggle(Dotting) & player.combopoints <= 4 & target.debuff(Rake).duration <= 3 & {!talent(1,1) & target.deathin >= 6 || talent(1,1)}"},
 	
@@ -97,6 +97,7 @@ local Keybinds = {
 	{"Skull Bash", "keybind(shift) & player.spell(Wild Charge).cooldown > gcd & !player.lastcast(Wild Charge) & target.range > 8 & target.range <= 18 & target.enemy & target.alive"},
 	
 	{"Wild Charge", "keybind(shift) & target.range > 8 & target.range <= 30 & target.enemy & target.alive"},
+	
 }
 
 local Interrupts = {
@@ -140,7 +141,8 @@ local inCombat = {
 	{"/cleartarget", "toggle(auto) & target.range >= 7"},	
 	{"/run TargetNearestEnemy()", "toggle(auto) & !target.exists"},  --|| !target.alive || target.range >=5}
 
-	{"Moonfire", "!toggle(auto) & !talent(1,3) & target.alive & target.enemy & target.range > 8 & target.range <= 40 & target.infront & !player.buff(Prowl) & !target.debuff(Moonfire)"}, --working on some private servers
+	--working on some private servers
+	{"Moonfire", "!toggle(auto) & !talent(1,3) & target.alive & target.enemy & target.range > 8 & target.range <= 40 & target.infront & !player.buff(Prowl) & !target.debuff(Moonfire)"},
 
  	{"/cancelform", "player.swimming & player.area(10).enemies >= 1 & !player.buff(Prowl) & !indoors & {player.buff(Cat Form) || player.buff(Bear Form)}"},
 	{"Travel Form", "player.swimming & player.area(10).enemies >= 1 & !player.buff(Cat Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form)"},
