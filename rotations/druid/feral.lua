@@ -72,11 +72,11 @@ local Combat = {
 	{Thrash, "toggle(AoE) & player.area(10).enemies > 2 & target.debuff(Thrash).duration <= 3.5", "target"},
 	
 	--Dotting
-	{"Rip", "toggle(Dotting) & target.deathin >= 10 & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & player.combopoints >= 2 & target.debuff(Rip).duration <= 4}"},
+	{"Rip", "toggle(Dotting) & target.deathin >= 5 & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & player.combopoints >= 2 & target.debuff(Rip).duration <= 4}"},
 	
 	{Rake, "toggle(Dotting) & player.combopoints <= 4 & target.debuff(Rake).duration <= 3 & {!talent(1,1) & target.deathin >= 6 || talent(1,1)}"},
 	
-	{"Ashamane's Frenzy", "toggle(Dotting) & target.deathin >= 6 & player.combopoints <= 2"},
+	{"Ashamane's Frenzy", "toggle(Dotting) & target.deathin >= 5 & player.combopoints <= 2"},
 	
 	{"Ferocious Bite", "player.combopoints == 5 & {talent(6,1) || talent(6,2) & target.debuff(Rip).duration >= 4}"},
 	
