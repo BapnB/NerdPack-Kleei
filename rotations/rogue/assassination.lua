@@ -43,7 +43,7 @@ local Keybinds = {
 
 local PreCombat = {
 
-    {"%pause", "target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)"},
+    {"%pause", "target.enemy & {target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)}"},
 
     {"/stopattack", "player.buff(Vanish) & isattacking"},
     {"Cloak of Shadows", "player.buff(Vanish) &  player.state(dot)"},

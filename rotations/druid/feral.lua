@@ -1,7 +1,7 @@
 local GUI = {
 
 	{type = 'header', text = 'Keybinds', align = 'center'},
-	{type = 'text', text = 'Shift keybind in meelee will use stun Mighty Bash or Maim (if Mighty Bash is on CD).'},
+	{type = 'text', text = 'Shift keybind in meelee will use Mighty Bash or Maim(if Mighty Bash is on CD).'},
 	{type = 'text', text = 'Shift keybind in range > 10 will use Wild Charge or  Skull Bash(if Wild Charge is on CD).'},
 	{type = 'text', text = 'Alt keybind = Pause.'},
 	{type = 'text', text = 'In combat if your target is friendly and dead will use Rebirth to ress him.'},
@@ -151,6 +151,8 @@ local inCombat = {
 }
 
 local outCombat = {	
+
+    {"%pause", "target.enemy & {target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)}"},	
 	
 	{"Revive", "!target.enemy & target.dead", "target"},
     {"%dispelall"},
