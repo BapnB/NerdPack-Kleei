@@ -33,6 +33,13 @@ local exeOnLoad = function()
 
 end
 
+local Swipe = {
+
+    {"%pause", "player.energy <= 44"},
+    {"Swipe", nil, "target"},
+	
+}	
+	
 local Thrash = {
 
     {"%pause", "player.energy <= 49"},
@@ -67,22 +74,26 @@ local Cooldowns = {
 
 local Combat = {
 
+    {"Regrowth", "talent(7,2) & player.buff(Predatory Swiftness).duration >= 10 & !lastcast(Regrowth)", "player"},
+
     {"/startattack", "!toggle(auto) & !isattacking & target.range < 6 & target.enemy & target.alive", "target"},
     --Mass
-	{Thrash, "toggle(AoE) & player.area(10).enemies > 2 & target.debuff(Thrash).duration <= 3.5", "target"},
+	{Thrash, "toggle(AoE) & target.debuff(Thrash).duration <= 3.5 & {player.area(10).enemies > 4 !artifact.enabled(Shadow Thrash)|| player.area(10).enemies > 1 artifact.enabled(Shadow Thrash)}", "target"},
 	
 	--Dotting
-	{"Rip", "toggle(Dotting) & target.deathin >= 5 & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & player.combopoints >= 2 & target.debuff(Rip).duration <= 4}"},
+	{"Rip", "toggle(Dotting) & target.deathin >= 5 & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 4}"},
 	
 	{Rake, "toggle(Dotting) & player.combopoints <= 4 & target.debuff(Rake).duration <= 3 & {!talent(1,1) & target.deathin >= 6 || talent(1,1)}"},
 	
 	{"Ashamane's Frenzy", "toggle(Dotting) & target.deathin >= 5 & player.combopoints <= 2"},
 	
-	{"Ferocious Bite", "player.combopoints == 5 & {talent(6,1) || talent(6,2) & target.debuff(Rip).duration >= 4}"},
+	{"Ferocious Bite", "player.combopoints == 5 & {talent(6,1) || talent(6,2) & target.debuff(Rip).duration >= 4 || talent(6,2) & target.deathin < 2}"},
 	
 	{"Tiger's Fury", "!player.buff(Clearcasting) & player.energy <= 39 & {talent(1,1) & target.debuff(Rake) || talent(1,1) & target.debuff(Rip) || talent(1,1) & target.debuff(Thrash) || !talent(1,1) & target.deathin >= 7}"},
 	
 	{"Brutal Slash", "talent(7,3) & player.combopoints <= 4 & {target.range <= 10 || player.area(8).enemies >= 1}"},
+	
+	{Swipe, "toggle(AoE) & !talent(7,3) & player.area(10).enemies > 4 & target.debuff(Thrash) & player.combopoints < 5", "target"},	
 	
 	{"Shred", "talent(7,3) & !player.spell(Brutal Slash).charges >= 1 & player.combopoints < 5 || !talent(7,3) & player.combopoints < 5"},
 
@@ -143,7 +154,7 @@ local inCombat = {
 	{"/run TargetNearestEnemy()", "toggle(auto) & !target.exists"},  --|| !target.alive || target.range >=5}
 
 	--working on some private servers
-	{"Moonfire", "!toggle(auto) & !talent(1,3) & target.alive & target.enemy & target.range > 8 & target.range <= 40 & target.infront & !player.buff(Prowl) & !target.debuff(Moonfire)"},
+	--{"Moonfire", "!toggle(auto) & !talent(1,3) & target.alive & target.enemy & target.range > 8 & target.range <= 40 & target.infront & !player.buff(Prowl) & !target.debuff(Moonfire)"},
 
  	{"/cancelform", "player.swimming & !player.area(10).enemies >= 1 & !player.buff(Prowl) & !indoors & {player.buff(Cat Form) || player.buff(Bear Form)}"},
 	{"Travel Form", "player.swimming & !player.area(10).enemies >= 1 & !player.buff(Cat Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form)"},
