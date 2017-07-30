@@ -94,7 +94,7 @@ local Keybinds = {
 	
     {"Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & !target.debuff(163505) & keybind(shift) & target.range < 10 & target.enemy & target.alive"},
 	
-	{"Maim", "!player.buff(Prowl) & keybind(shift) & player.spell(Mighty Bash).cooldown > gcd & !player.lastcast(Mighty Bash) & target.range < 10 & target.enemy & target.alive"},
+	{"Maim", "!player.buff(Prowl) & keybind(shift) & player.combopoints >=3 &player.spell(Mighty Bash).cooldown > gcd & !player.lastcast(Mighty Bash) & target.range < 10 & target.enemy & target.alive"},
 	
 	{"Skull Bash", "keybind(shift) & player.spell(Wild Charge).cooldown > gcd & !player.lastcast(Wild Charge) & target.range > 8 & target.range <= 18 & target.enemy & target.alive"},
 	
