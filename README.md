@@ -9,6 +9,7 @@ Read GUI in every CR to understand how Keybinds are working. You can find it by 
  druid feral
 
  demonhunter havoc
+ 
  demonhunter vengeance
 
  monk brewmaster
