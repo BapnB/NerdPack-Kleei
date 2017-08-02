@@ -2,6 +2,7 @@ local GUI = {
 
 	{type = 'header', text = 'Keybinds', align = 'center'},
 	{type = 'text', text = 'Alt Keybind = Pause.'},
+	{type = 'text', text = 'Control Keybind = Sap if target are in 10 or less yards.'},
 	{type = 'text', text = 'Shift Keybind = Cheap Shot in melee and Stealth.'},
 	{type = 'text', text = 'Shift Keybind = Kidney Shot in melee not in Stealth.'},
 	{type = 'text', text = 'Shift Keybind = Blind if target are in 10 or more yards.'},
