@@ -12,7 +12,7 @@ local exeOnLoad = function()
 	
 	print('|cffADFF2F ----------------------------------------------------------------------|r')
  	print('|cffADFF2F --- |r|cffffff00ROGUE - Assassination |cffff0000 by KLEEI |r')
- 	print('|cffADFF2F --- |rRecommended Talents: 1/2 - 2/3 - 3/3 - 4/1 - 5/1 - 6/2 - 7/1')
+ 	print('|cffADFF2F --- |rRecommended Talents: 1/1 - 2/3 - 3/3 - 4/1 - 5/1 - 6/2 - 7/1')
  	print('|cffADFF2F ----------------------------------------------------------------------|r')
 
 	
@@ -33,16 +33,30 @@ local exeOnLoad = function()
 	
 end
 
+local Garrote = {
+
+    {"%pause", "player.energy <= 44"},
+    {"Garrote", nil, "target"},
+
+}
+
 local Keybinds = {
+
     --Pause
-	{"%pause", "keybind(alt)"},
-	{"Cheap Shot", "keybind(shift) & !target.debuff(Cheap Shot) & player.buff(Stealth) & target.range < 7 & target.enemy & target.alive"},
+	{"%pause", "keybind(alt) || keybind(control) & target.debuff(Sap)"},
+	{"Sap","keybind(control) & target.range <=10 & !target.debuff(Sap)", "target"},
+	{"Cheap Shot", "keybind(shift) & !target.debuff(Cheap Shot) & player.buff(Stealth) & target.range < 4 & target.enemy & target.alive"},
 	{"Kidney Shot", "keybind(shift) & !target.debuff(Cheap Shot) & !player.buff(Stealth) & player.combopoints >= 3 & target.range < 7 & target.enemy & target.alive"},
 	{"Blind", "keybind(shift) & !player.buff(Stealth) & target.range >= 10 & target.enemy & target.alive"},
+	
 }
 
 local PreCombat = {
-
+    --Leveling
+    {"Sinister Strike", "!keybind(shift) & target.range < 4 & {player.level < 8 || player.level >= 8 & player.level <=11 & !toggle(Stun)}"},
+	--{"Sinister Strike", " & target.range < 6"},
+	
+	--End Leveling
     {"%pause", "target.enemy & {target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)}"},
 
     {"/stopattack", "player.buff(Vanish) & isattacking"},
@@ -50,8 +64,8 @@ local PreCombat = {
     {"%pause", "player.buff(Vanish)"},
 
 	{"Stealth", "!player.buff(Stealth)"},
-	{"Cheap Shot", "toggle(Stun) & player.buff(Stealth) & target.range < 7"},
-	{"Garrote", "!toggle(Stun) & player.buff(Stealth) & target.range < 7"},
+	{"Cheap Shot", "toggle(Stun) & player.buff(Stealth) & target.range < 5"},
+	{"Garrote", "!keybind(shift) & !toggle(Stun) & player.buff(Stealth) & target.range < 5"},
 }
 
 local Survival ={
@@ -91,12 +105,15 @@ local Combat = {
 	--{"Hemorrhage", "!target.debuff(Hemorrhage)"},
 	{"KingsBane", "toggle(Dotting) & target.deathin > 8"},
 	{"Rupture", "toggle(Dotting) & target.deathin > 8 & player.combopoints >= 5 & target.debuff(Rupture).duration <= 8"},
-    {"Garrote", "toggle(Dotting) & target.deathin > 8 & target.debuff(Garrote).duration <= 5"},
+    {Garrote, "toggle(Dotting) & target.deathin > 8 & target.debuff(Garrote).duration <= 4"},
 	
 	--{"Exsanguinate", "target.debuff(Rupture).duration > 20 & target.debuff(Garrote).duration > 10"},
 
 	{"Envenom", "player.combopoints >= 4"},
 	{"Mutilate", "!player.combopoints >= 4"},
+	
+	{"Eviscerate", "player.level < 36 & player.combopoints == 5"},
+    {"Sinister Strike", "player.combopoints <= 4 & player.level < 40"},
 	
     {"/startattack", "!isattacking"},
    
