@@ -113,7 +113,7 @@ local Healing = {
 	{"Swiftmend", "tank.health <= UI(tanksm) & player.health >= tank.health", "tank"},
 	{"Swiftmend", "tank2.health <= UI(tanksm) & player.health >= tank2.health", "tank2"},
 	{"Swiftmend", "player.health <= UI(lowestsm) & lowest.health >= player.health", "player"},
-	{"Swiftmend", "lowestpredicted.health <= UI(lowestsm)", "lowestpredicted"},
+	{"Swiftmend", "lowest.health <= UI(lowestsm)", "lowestpredicted"},
 	
 	{"Lifebloom", "tank.buff.duration <= 4.5", "tank"},
 	
@@ -121,31 +121,31 @@ local Healing = {
 	{"Essence of G'Hanir", "lowest.area(30,75).heal >= 3"}, 
 	{"Flourish", "talent(7,3) & player.lastcast(Wild Growth) & lowest.health <= 50"}, 
 	
-    {"Regrowth", "player.buff(Clearcasting) & lowest.health <= 85", "lowest"},
+    {"Regrowth", "player.buff(Clearcasting) & lowest.health <= 85", "lowestpredicted"},
 	
 	--Regrowth
 	{"Regrowth", "tank.health <= UI(tankreg) & player.health >= tank.health", "tank"},
 	{"Regrowth", "tank2.health <= UI(tankreg) & player.health >= tank2.health", "tank2"},
 	{"Regrowth", "player.health <= UI(lowestreg) & lowest.health >= player.health", "player"},	
-	{"Regrowth", "lowestpredicted.health <= UI(lowestreg)", "lowestpredicted"},
+	{"Regrowth", "lowest.health <= UI(lowestreg)", "lowestpredicted"},
 
     -- Rejuvenation
 	{"Rejuvenation", "tank.health <= UI(tankrej) & !buff & player.health >= tank.health", "tank"},
 	{"Rejuvenation", "tank2.health <= UI(tankrej) & !buff & player.health >= tank2.health", "tank2)"},
 	{"Rejuvenation", "player.health <= UI(lowestrej) & lowest.health >= player.health & !buff", "player"},	
-	{"Rejuvenation", "lowestpredicted.health <= UI(lowestrej) & !buff", "lowestpredicted"},
+	{"Rejuvenation", "lowest.health <= UI(lowestrej) & !buff", "lowestpredicted"},
 
 	--Germination
 	{"Rejuvenation", "talent(6,3) & tank.health <= UI(tankgerm) & !buff(Rejuvenation (Germination)) & player.health >= tank.health", "tank"},
 	{"Rejuvenation", "talent(6,3) & tank2.health <= UI(tankgerm) & !buff(Rejuvenation (Germination)) & player.health >= tank2.health", "tank2"},
 	{"Rejuvenation", "talent(6,3) & player.health <= UI(lowestgerm) & lowest.health >= player.health & !buff(Rejuvenation (Germination))", "player"},	
-	{"Rejuvenation", "talent(6,3) & lowestpredicted.health <= UI(lowestgerm) & !buff(Rejuvenation (Germination))", "lowestpredicted"},
+	{"Rejuvenation", "talent(6,3) & lowest.health <= UI(lowestgerm) & !buff(Rejuvenation (Germination))", "lowestpredicted"},
 
 	--Healing Touch
 	{"Healing Touch", "tank.health <= UI(tankht) & player.health >= tank.health", "tank"},
 	{"Healing Touch", "tank2.health <= UI(tankht) & player.health >= tank2.health", "tank2"},
 	{"Healing Touch", "player.health <= UI(lowestht) & lowest.health >= player.health", "player"},	
-	{"Healing Touch", "lowestpredicted.health <= UI(lowestht)", "lowestpredicted"},
+	{"Healing Touch", "lowest.health <= UI(lowestht)", "lowestpredicted"},
 	
 	{Innervate, "player.buff(Innervate)"},
 	
@@ -189,25 +189,25 @@ local outCombat = {
 	{"Regrowth", "tank.health <= UI(tankreg) & player.health >= tank.health", "tank"},
 	{"Regrowth", "tank2.health <= UI(tankreg) & player.health >= tank2.health", "tank2"},
 	{"Regrowth", "player.health <= UI(lowestreg) & lowest.health >= player.health", "player"},	
-	{"Regrowth", "lowestpredicted.health <= UI(lowestreg)", "lowestpredicted"},
+	{"Regrowth", "lowest.health <= UI(lowestreg)", "lowestpredicted"},
 
     -- Rejuvenation
 	{"Rejuvenation", "tank.health <= UI(tankrej) & !buff & player.health >= tank.health", "tank"},
 	{"Rejuvenation", "tank2.health <= UI(tankrej) & !buff & player.health >= tank2.health", "tank2)"},
 	{"Rejuvenation", "player.health <= UI(lowestrej) & lowest.health >= player.health & !buff", "player"},	
-	{"Rejuvenation", "lowestpredicted.health <= UI(lowestrej) & !buff", "lowestpredicted"},
+	{"Rejuvenation", "lowest.health <= UI(lowestrej) & !buff", "lowestpredicted"},
 
 	--Germination
 	{"Rejuvenation", "talent(6,3) & tank.health <= UI(tankgerm) & !buff(Rejuvenation (Germination)) & player.health >= tank.health", "tank"},
 	{"Rejuvenation", "talent(6,3) & tank2.health <= UI(tankgerm) & !buff(Rejuvenation (Germination)) & player.health >= tank2.health", "tank2"},
 	{"Rejuvenation", "talent(6,3) & player.health <= UI(lowestgerm) & lowest.health >= player.health & !buff(Rejuvenation (Germination))", "player"},	
-	{"Rejuvenation", "talent(6,3) & lowestpredicted.health <= UI(lowestgerm) & !buff(Rejuvenation (Germination))", "lowestpredicted"},
+	{"Rejuvenation", "talent(6,3) & lowest.health <= UI(lowestgerm) & !buff(Rejuvenation (Germination))", "lowestpredicted"},
 
 	--Healing Touch
 	{"Healing Touch", "tank.health <= UI(tankht) & player.health >= tank.health", "tank"},
 	{"Healing Touch", "tank2.health <= UI(tankht) & player.health >= tank2.health", "tank2"},
 	{"Healing Touch", "player.health <= UI(lowestht) & lowest.health >= player.health", "player"},	
-	{"Healing Touch", "lowestpredicted.health <= UI(lowestht)", "lowestpredicted"},
+	{"Healing Touch", "lowest.health <= UI(lowestht)", "lowestpredicted"},
 	
 	--Cancel form when not swimming / Travel Form when swimming
 	{"/cancelform", "!player.swimming & player.buff(Travel Form)"},

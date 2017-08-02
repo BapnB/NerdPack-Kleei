@@ -138,7 +138,7 @@ local Survival = {
 local inCombat = {
 
     {"%pause", "target.enemy & {target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)}"},
-	{"Gladiator's Medallion", "player.state(stun) || player.state(root) & target.range > 4 || player.state(fear) || player.state(disorient) || player.state(charm)"},
+	{"Gladiator's Medallion", "player.state(stun) || player.state(root) & target.range > 4 || player.state(fear) || player.state(disorient) || player.state(charm)", "player"},
 	
 	{"Cat Form", "!player.buff(Cat Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >= 1}"},
 	
@@ -175,7 +175,7 @@ local outCombat = {
 
 	--Cancel form when not swimming / Travel Form when swimming
 	{"Cat Form", "!player.buff(Cat Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >= 1}"},
-	{"Regrowth", "!player.buff(Prowl) & !player.moving & player.health <= 96", "player"},
+	{"Regrowth", "!player.buff(Prowl) & !player.moving & player.health <= 95", "player"},
 	{"/cancelform", "player.swimming & !player.buff(Prowl) & !indoors & {player.buff(Cat Form) || player.buff(Bear Form)}"},
 	{"Travel Form", "player.swimming & !player.buff(Cat Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form)"},
 
