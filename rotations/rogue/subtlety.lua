@@ -2,6 +2,7 @@ local GUI = {
 
 	{type = 'header', text = 'Keybinds', align = 'center'},
 	{type = 'text', text = 'Alt Keybind = Pause.'},
+	{type = 'text', text = 'Control Keybind = Sap if target are in 10 or less yards.'},
 	{type = 'text', text = 'Shift Keybind = Cheap Shot in melee and Stealth.'},
 	{type = 'text', text = 'Shift Keybind = Kidney Shot in melee not in Stealth.'},
 	{type = 'text', text = 'Shift Keybind = Blind if target are in 10 or more yards.'},
@@ -71,7 +72,10 @@ local Combat = {
 
 local Keybinds = {
     --Pause
-	{"%pause", "keybind(alt)"},
+	
+	{"%pause", "keybind(alt) || keybind(control) & target.debuff(Sap)"},
+	{"Sap","keybind(control) & target.range <=10 & !target.debuff(Sap)", "target"},
+
 	{"Cheap Shot", "keybind(shift) & !target.debuff(Cheap Shot) & !target.debuff(Kidney Shot) & target.range < 6 & target.enemy & target.alive & {player.buff(Stealth) || player.buff(Subterfuge)}"},
 	{"Kidney Shot", "keybind(shift) & !target.debuff(Cheap Shot) & player.combopoints >= 4 & target.range < 6 & target.enemy & target.alive"},
 	{"Blind", "keybind(shift) & target.range >= 10 & target.enemy & target.alive"},
