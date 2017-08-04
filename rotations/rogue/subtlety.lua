@@ -17,8 +17,8 @@ local exeOnLoad = function()
 	
 		NeP.Interface:AddToggle({
 		key = 'Stun',
-		name = 'PreCombat Stun/Garrote',
-		text = 'ON-Stun/OFF-Garrote',
+		name = 'PreCombat Stun/Shadowstrike',
+		text = 'ON-Stun/OFF-Shadowstrike',
 		icon = 'Interface\\Icons\\Spell_frost_stun',
 	})
 	
