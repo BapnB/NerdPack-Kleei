@@ -42,19 +42,19 @@ local Garrote = {
 }
 
 local Keybinds = {
-
     --Pause
+	
 	{"%pause", "keybind(alt) || keybind(control) & target.debuff(Sap)"},
 	{"Sap","keybind(control) & target.range <=10 & !target.debuff(Sap)", "target"},
-	{"Cheap Shot", "keybind(shift) & !target.debuff(Cheap Shot) & player.buff(Stealth) & target.range < 4 & target.enemy & target.alive"},
-	{"Kidney Shot", "keybind(shift) & !target.debuff(Cheap Shot) & !player.buff(Stealth) & player.combopoints >= 3 & target.range < 7 & target.enemy & target.alive"},
-	{"Blind", "keybind(shift) & !player.buff(Stealth) & target.range >= 10 & target.enemy & target.alive"},
+	{"Cheap Shot", "keybind(shift) & !target.debuff(Cheap Shot) & player.buff(Stealth) & target.inmelee & target.enemy & target.alive"},
+	{"Kidney Shot", "keybind(shift) & !target.debuff(Cheap Shot) & !player.buff(Stealth) & player.combopoints >= 3 & target.inmelee & target.enemy & target.alive"},
+	{"Blind", "keybind(shift) & !player.buff(Stealth) & target.range >= 10 & target.range <= 15 & target.enemy & target.alive"},
 	
 }
 
 local PreCombat = {
     --Leveling
-    {"Sinister Strike", "!keybind(shift) & target.range < 4 & {player.level < 8 || player.level >= 8 & player.level <=11 & !toggle(Stun)}"},
+    {"Sinister Strike", "!keybind(shift) & target.inmelee & {player.level < 8 || player.level >= 8 & player.level <=11 & !toggle(Stun)}"},
 	--{"Sinister Strike", " & target.range < 6"},
 	
 	--End Leveling
@@ -65,8 +65,8 @@ local PreCombat = {
     {"%pause", "player.buff(Vanish)"},
 
 	{"Stealth", "!player.buff(Stealth)"},
-	{"Cheap Shot", "toggle(Stun) & player.buff(Stealth) & target.range < 5"},
-	{"Garrote", "!keybind(shift) & !toggle(Stun) & player.buff(Stealth) & target.range < 5"},
+	{"Cheap Shot", "toggle(Stun) & player.buff(Stealth) & target.inmelee"},
+	{"Garrote", "!keybind(shift) & !toggle(Stun) & player.buff(Stealth) & target.inmelee"},
 }
 
 local Survival ={
@@ -80,16 +80,16 @@ local Survival ={
 
 local Cooldowns = {
 
-	{"Vendetta", "target.deathin >= 6 & target.range < 6 & {artifact.enabled(Urge to Kill) & player.energy <= 45 || !artifact.enabled(Urge to Kill)}"},
+	{"Vendetta", "target.deathin >= 6 & target.inmelee & {artifact.enabled(Urge to Kill) & player.energy <= 45 || !artifact.enabled(Urge to Kill)}"},
 	
 }
 
 local Interrupts = {
 
-	{"Kick", "target.range < 6"},
-	--{"Cheap Shot", "player.buff(Stealth) & target.range < 6"},
-	--{"Kidney Shot", "cooldown(Kick).duration > gcd & target.range < 6"},
-	--{"Blind", "target.range >= 10"},
+	{"Kick", "target.inmelee"},
+	--{"Cheap Shot", "player.buff(Stealth) & target.inmelee"},
+	--{"Kidney Shot", "cooldown(Kick).duration > gcd & target.inmelee"},
+	--{"Blind", "target.inmelee"},
 	--{"Blind", "cooldown(Kidney Shot).duration > gcd"},
 	
 }
@@ -97,7 +97,7 @@ local Interrupts = {
 local Combat = {
 
     --Mass
-    {"Fan of Knives", "toggle(AoE) & player.combopoints < 5 & count.enemies(Deadly Poison).debuffs < player.area(10).enemies", "target"},
+    {"Fan of Knives", "toggle(AoE) & player.combopoints < 5 & count.enemies(Deadly Poison).debuffs < player.area(10).enemies"},
 	
 	--{"Kidney Shot", "player.combopoints >= 4 & !target.debuff(Cheap Shot)"},
 	
@@ -129,15 +129,16 @@ local inCombat = {
 	
 	{Keybinds},	
 	
-	{"Gladiator's Medallion", "player.state(stun) || player.state(root) & target.range > 4 || player.state(fear) || player.state(disorient) || player.state(charm)"},
+	{"Gladiator's Medallion", "player.state(stun) || player.state(root) & !target.inmelee || player.state(fear) || player.state(disorient) || player.state(charm)"},
+	{"Every Man for Himself", "player.state(stun) || player.state(root) & !target.inmelee || player.state(fear) || player.state(disorient) || player.state(charm)"},
 	
-	{"Cheap Shot", "target.range < 5 & toggle(Stun) & player.buff(Stealth) & target.enemy & target.alive"},
-	{"Garrote", "target.range < 5 & !toggle(Stun) & player.buff(Stealth) & target.enemy & target.alive"},
+	{"Cheap Shot", "target.inmelee & toggle(Stun) & player.buff(Stealth) & target.enemy & target.alive"},
+	{"Garrote", "target.inmelee & !toggle(Stun) & player.buff(Stealth) & target.enemy & target.alive"},
 	
     {Interrupts, "target.interruptAt(40) & toggle(interrupts) & target.infront"},
 	{Survival, "player.health < 100"},
 	{Cooldowns, "toggle(cooldowns) & target.enemy & target.alive"},
-	{Combat, "!player.buff(Stealth) & target.range < 8 & target.enemy & target.alive"},
+	{Combat, "!player.buff(Stealth) & target.inmelee & target.enemy & target.alive"},
 	
 }
 

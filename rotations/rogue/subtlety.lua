@@ -111,7 +111,7 @@ local inCombat = {
 	{Keybinds},
 	
 	{"Gladiator's Medallion", "player.state(stun) || player.state(root) & !target.inmelee || player.state(fear) || player.state(disorient) || player.state(charm)"},
-	
+	{"Every Man for Himself", "player.state(stun) || player.state(root) & !target.inmelee || player.state(fear) || player.state(disorient) || player.state(charm)"},
 	
 	{Cooldowns, "toggle(cooldowns)"},
 	{Interrupts, "target.interruptAt(40) & toggle(interrupts)"},
