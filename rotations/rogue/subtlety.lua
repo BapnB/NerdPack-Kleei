@@ -95,28 +95,29 @@ local Combat = {
     {"Shadow Dance", "!player.buff(Shadow Dance) & !player.buff(Subterfuge) & !player.combopoints >= 4 & player.energy >= 38 & target.range <= 15"},
     
 	--Build Combo Point
-	{"Backstab", "player.combopoints < 5 & !player.buff(Shadow Dance) & !player.buff(Vanish) & !player.buff(Subterfuge) & player.spell(Shadow Dance).charges < 1"},
+	{"Backstab", "player.combopoints < 5 & !player.buff(Stealth) & !player.buff(Shadow Dance) & !player.buff(Vanish) & !player.buff(Subterfuge) & player.spell(Shadow Dance).charges < 1"},
 	
+	{"/startattack", "!isattacking & target.inmelee & target.enemy & target.alive"},
 }
 
 local inCombat = {
 
     {"%pause", "target.enemy & {target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)}"},
 
-    {"/stopattack", "player.buff(Vanish) & isattacking"},
+    {"/stopattack", "player.buff(Vanish) & isattacking & target.inmelee", "target"},
     {"Cloak of Shadows", "player.buff(Vanish)"}, -- &  player.state(dot)
-    {"%pause", "player.buff(Vanish)"},
+    {"%pause", "player.buff(Vanish) & target.inmelee", "target"},
 	
 	{Keybinds},
 	
-	{"Gladiator's Medallion", "player.state(stun) || player.state(root) & target.range > 4 || player.state(fear) || player.state(disorient) || player.state(charm)"},
+	{"Gladiator's Medallion", "player.state(stun) || player.state(root) & !target.inmelee || player.state(fear) || player.state(disorient) || player.state(charm)"},
 	
 	
 	{Cooldowns, "toggle(cooldowns)"},
 	{Interrupts, "target.interruptAt(40) & toggle(interrupts)"},
 	{Survival, "player.health <100"},
-	{Combat, "target.enemy & target.alive"},
-    {"/startattack", "!isattacking & target.range < 10 & target.enemy & target.alive"},
+	{Combat, "!player.buff(Stealth) & target.enemy & target.alive"},
+    
 }
 
 local outCombat = {
