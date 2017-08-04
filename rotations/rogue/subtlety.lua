@@ -46,7 +46,7 @@ local Keybinds = {
 local PreCombat = {
 	
 	{"Stealth", "!player.buff(Stealth)"},
-	{"Shadowstrike", "!toggle(Stun) & player.buff(Stealth) & target.range <= 7 & target.infront"},
+	{"Shadowstrike", "!keybind(shift) & !toggle(Stun) & player.buff(Stealth) & target.range <= 7 & target.infront"},
 	{"Cheap Shot", "toggle(Stun) & player.buff(Stealth) & target.inmelee & target.infront"},
 	
 }
