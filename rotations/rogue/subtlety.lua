@@ -32,18 +32,47 @@ local exeOnLoad = function()
 
 end
 
+local Keybinds = {
+    --Pause
+	
+	{"%pause", "keybind(alt) || keybind(control) & target.debuff(Sap)"},
+	{"Sap","keybind(control) & target.range <=10 & !target.debuff(Sap)", "target"},
+	{"Cheap Shot", "keybind(shift) & !target.debuff(Cheap Shot) & player.buff(Stealth) & target.inmelee & target.enemy & target.alive"},
+	{"Kidney Shot", "keybind(shift) & !target.debuff(Cheap Shot) & !player.buff(Stealth) & player.combopoints >= 3 & target.inmelee & target.enemy & target.alive"},
+	{"Blind", "keybind(shift) & !player.buff(Stealth) & target.range >= 10 & target.range <= 15 & target.enemy & target.alive"},
+	
+}
+
 local PreCombat = {
 	
 	{"Stealth", "!player.buff(Stealth)"},
-	{"Shadowstrike", "!toggle(Stun) & player.buff(Stealth) & target.range <= 8 & target.infront"},
-	{"Cheap Shot", "toggle(Stun) & player.buff(Stealth) & target.range <= 5 & target.infront"},
+	{"Shadowstrike", "!toggle(Stun) & player.buff(Stealth) & target.range <= 7 & target.infront"},
+	{"Cheap Shot", "toggle(Stun) & player.buff(Stealth) & target.inmelee & target.infront"},
+	
+}
+
+local Survival ={
+
+    {"Vanish", "!player.buff(Stealth) & player.health <= 15"},
+	{"Crimson Vial", "player.health <= 75"},
+	{"Evasion", "player.health <= 80"},
+	{"#5512", "item(5512).count >= 1 & player.health <= 60"}, --Health Stone
 	
 }
 
 local Cooldowns ={
 
-	{"Shadow Blades", "target.range <= 5 & target.enemy & target.alive"},
+	{"Shadow Blades", "target.inmelee & target.enemy & target.alive"},
 	
+}
+
+local Interrupts = {
+
+	{"Kick", "target.inmelee"},
+	--{"Cheap Shot", "target.inmelee & {player.buff(Stealth) || player.buff(Subterfuge)}"},
+	--{"Kidney Shot", "player.spell(Kick).cooldown > gcd & target.inmelee"},
+	--{"Blind", "target.range >= 10 || player.spell(Kidney Shot).cooldown > gcd"},
+
 }
 
 local Combat = {
@@ -56,62 +85,38 @@ local Combat = {
 	
     --Steath Actions
 	{"Symbols of Death", "!player.buff(Shadowmeld) & target.deathin >= 4 & player.buff(Symbols of Death).duration <= player.buff(Symbols of Death).duration*0.3"},
-	{"Shadowstrike", "!player.buff(Vanish) & target.range <= 8 & player.combopoints <= 4 & {player.buff(Shadow Dance) || player.buff(Subterfuge)"},
+	{"Shadowstrike", "!player.buff(Vanish) & target.range <= 15 & player.combopoints <= 4 & {player.buff(Shadow Dance) || player.buff(Subterfuge)}"},
 	
 	--Finishers  
-	{"Nightblade", "toggle(Dotting) & target.deathin >= 10 & player.combopoints == 5 & target.debuff(Nightblade).duration <= 2"},
-	{"Eviscerate", "!keybind(shift) & player.combopoints >= 5"},
+	{"Nightblade", "toggle(Dotting) & target.deathin >= 10 & player.combopoints == 5 & target.debuff(Nightblade).duration <= 3.5"},
+	{"Eviscerate", "!keybind(shift) & player.combopoints == 5"},
 	
 	--Stealth Cooldowns
-    {"Shadow Dance", "!player.buff(Shadow Dance) & !player.buff(Subterfuge) & !player.combopoints >= 5 & player.energy >= 38 & target.range <= 8"},
+    {"Shadow Dance", "!player.buff(Shadow Dance) & !player.buff(Subterfuge) & !player.combopoints >= 4 & player.energy >= 38 & target.range <= 15"},
     
 	--Build Combo Point
-	{"Backstab", "!player.buff(Shadow Dance) & !player.buff(Vanish) & !player.buff(Subterfuge) & player.spell(Shadow Dance).charges < 1"},
-	
-}
-
-local Keybinds = {
-    --Pause
-	
-	{"%pause", "keybind(alt) || keybind(control) & target.debuff(Sap)"},
-	{"Sap","keybind(control) & target.range <=10 & !target.debuff(Sap)", "target"},
-
-	{"Cheap Shot", "keybind(shift) & !target.debuff(Cheap Shot) & !target.debuff(Kidney Shot) & target.range < 6 & target.enemy & target.alive & {player.buff(Stealth) || player.buff(Subterfuge)}"},
-	{"Kidney Shot", "keybind(shift) & !target.debuff(Cheap Shot) & player.combopoints >= 4 & target.range < 6 & target.enemy & target.alive"},
-	{"Blind", "keybind(shift) & target.range >= 10 & target.enemy & target.alive"},
-	
-}
-
-local Interrupts = {
-
-	{"Kick", "target.range < 6"},
-	{"Cheap Shot", "target.range < 6 & {player.buff(Stealth) || player.buff(Subterfuge)}"},
-	{"Kidney Shot", "player.spell(Kick).cooldown > gcd & target.range < 6"},
-	{"Blind", "target.range >= 10 || player.spell(Kidney Shot).cooldown > gcd"},
-
-}
-
-local Survival ={
-
-    {"Cloak of Shadows", "player.health <= 15"},
-    {"Vanish", "!player.buff(Stealth) & lastcast(Cloak of Shadows)"},
-	{"Crimson Vial", "player.health <= 75"},
-	{"Evasion", "player.health <= 80"},
-	{"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
+	{"Backstab", "player.combopoints < 5 & !player.buff(Shadow Dance) & !player.buff(Vanish) & !player.buff(Subterfuge) & player.spell(Shadow Dance).charges < 1"},
 	
 }
 
 local inCombat = {
 
+    {"%pause", "target.enemy & {target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)}"},
+
+    {"/stopattack", "player.buff(Vanish) & isattacking"},
+    {"Cloak of Shadows", "player.buff(Vanish)"}, -- &  player.state(dot)
     {"%pause", "player.buff(Vanish)"},
 	
-    {"/startattack", "!isattacking & target.range < 10 & target.enemy & target.alive"},
-	
 	{Keybinds},
+	
+	{"Gladiator's Medallion", "player.state(stun) || player.state(root) & target.range > 4 || player.state(fear) || player.state(disorient) || player.state(charm)"},
+	
+	
 	{Cooldowns, "toggle(cooldowns)"},
 	{Interrupts, "target.interruptAt(40) & toggle(interrupts)"},
 	{Survival, "player.health <100"},
 	{Combat, "target.enemy & target.alive"},
+    {"/startattack", "!isattacking & target.range < 10 & target.enemy & target.alive"},
 }
 
 local outCombat = {

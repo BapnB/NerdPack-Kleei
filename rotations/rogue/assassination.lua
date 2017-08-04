@@ -75,7 +75,6 @@ local Survival ={
 	{"Crimson Vial", "player.health <= 75"},
 	{"Evasion", "player.health <= 80"},
 	{"#5512", "item(5512).count >= 1 & player.health <= 60"}, --Health Stone
-	--{'Faint', 'player.health<=50'},
 	
 }
 
