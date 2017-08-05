@@ -78,25 +78,26 @@ local Interrupts = {
 local Combat = {
     --{"#trinket1", "player.buff(Congealing Goo)"},
 	
-    {"Goremaw's Bite", "!player.buff(Shadow Dance) & !player.buff(Subterfuge) & player.combopoints <= 2 & player.energy <= 85"},
+    {"Goremaw's Bite", "!player.buff(Shadow Dance) & !player.buff(Subterfuge) & player.combopoints <= 2 & player.energy <= 85", "target"},
 	
 	--MASS Shuriken
-	{"Shuriken Storm", "toggle(aoe) & !player.buff(Stealth) & !player.buff(Vanish) & !player.combopoints >= 4 & player.area(8).enemies >= 4"},
+	{"Shuriken Storm", "toggle(aoe) & !player.buff(Stealth) & !player.buff(Vanish) & !player.combopoints > 4 & player.area(8).enemies >= 4"},
 	
     --Steath Actions
-	{"Symbols of Death", "!player.buff(Shadowmeld) & target.deathin >= 4 & player.buff(Symbols of Death).duration <= player.buff(Symbols of Death).duration*0.3"},
-	{"Shadowstrike", "!player.buff(Vanish) & target.range <= 15 & player.combopoints <= 4 & {player.buff(Shadow Dance) || player.buff(Subterfuge)}"},
+	{"Symbols of Death", "!player.buff(Shadowmeld) & target.inmelee & player.buff(Symbols of Death).duration <= player.buff(Symbols of Death).duration*0.3"},
+	{"Shadowstrike", "!player.buff(Vanish) & target.range <= 15 & player.combopoints < 5 & {player.buff(Shadow Dance) || player.buff(Subterfuge)}", "target"},
+	{"Shadowstrike", "!player.buff(Vanish) & target.range <= 15 & player.combopoints < 5 & player.buff(Subterfuge)", "target"},
 	
 	--Finishers  
-	{"Nightblade", "toggle(Dotting) & target.deathin >= 10 & player.combopoints == 5 & target.debuff(Nightblade).duration <= 3.5"},
-	{"Eviscerate", "!keybind(shift) & player.combopoints == 5"},
+	{"Nightblade", "toggle(Dotting) & target.deathin >= 10 & player.combopoints == 5 & target.debuff(Nightblade).duration <= 3.5", "target"},
+	{"Eviscerate", "!keybind(shift) & player.combopoints == 5", "target"},
 	
 	--Stealth Cooldowns
     {"Shadow Dance", "!player.buff(Shadow Dance) & !player.buff(Subterfuge) & !player.combopoints > 4 & player.energy >= 38 & target.range <= 15"},
     
 	--Build Combo Point
-	{"Backstab", "player.combopoints < 5 & !player.buff(Stealth) & !player.buff(Shadow Dance) & !player.buff(Vanish) & !player.buff(Subterfuge)"}, -- & player.spell(Shadow Dance).charges < 1
-	{"Gloomblade", "talent(1,3) & player.combopoints < 5 & !player.buff(Stealth) & !player.buff(Shadow Dance) & !player.buff(Vanish) & !player.buff(Subterfuge) & player.spell(Shadow Dance).charges < 1"},
+	{"Backstab", "player.combopoints < 5 & !player.buff(Stealth) & !player.buff(Shadow Dance) & !player.buff(Vanish) & !player.buff(Subterfuge)", "target"}, -- & player.spell(Shadow Dance).charges < 1
+	{"Gloomblade", "talent(1,3) & player.combopoints < 5 & !player.buff(Stealth) & !player.buff(Shadow Dance) & !player.buff(Vanish) & !player.buff(Subterfuge)", "target"}, --& player.spell(Shadow Dance).charges < 1"
 	
 	{"/startattack", "!isattacking & target.inmelee & target.enemy & target.alive"},
 }
