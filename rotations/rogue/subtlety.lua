@@ -37,8 +37,8 @@ local Keybinds = {
 	
 	{"%pause", "keybind(alt) || keybind(control) & target.debuff(Sap)"},
 	{"Sap","keybind(control) & target.range <=10 & !target.debuff(Sap)", "target"},
-	{"Cheap Shot", "keybind(shift) & !target.debuff(Cheap Shot) & player.buff(Stealth) & target.inmelee & target.enemy & target.alive"},
-	{"Kidney Shot", "keybind(shift) & !target.debuff(Cheap Shot) & !player.buff(Stealth) & player.combopoints >= 3 & target.inmelee & target.enemy & target.alive"},
+	{"Cheap Shot", "keybind(shift) & !target.debuff(Cheap Shot) & target.inmelee & target.enemy & target.alive  & {player.buff(Stealth) || player.buff(Shadow Dance) || player.buff(Subterfuge)}", "target"},
+	{"Kidney Shot", "keybind(shift) & !target.debuff(Cheap Shot) & !player.buff(Stealth) & !player.buff(Subterfuge) & !player.buff(Shadow Dance) & player.combopoints >= 3 & target.inmelee & target.enemy & target.alive"},
 	{"Blind", "keybind(shift) & !player.buff(Stealth) & target.range >= 10 & target.range <= 15 & target.enemy & target.alive"},
 	
 }
