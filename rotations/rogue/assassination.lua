@@ -158,8 +158,10 @@ local outCombat = {
 
 NeP.CR:Add(259, {
 	name = '[|cffffff00Kleei|r]|cffffff00 ROGUE - Assassination',
-	  ic = inCombat,
-	 ooc = outCombat,
-	 gui = GUI,
+	ic = inCombat,
+	ooc = outCombat,
+	gui = GUI,
+	wow_ver = '7.1.5 or 7.2.5',
+ 	nep_ver = '1.8',
 	load = exeOnLoad
 })

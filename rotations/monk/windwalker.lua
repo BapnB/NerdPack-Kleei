@@ -91,8 +91,10 @@ local outCombat = {
 
 NeP.CR:Add(269, {
 	name = '[|cffADFF2FKleei|r]|cffADFF2F Monk - Windwalker',
-	  ic = inCombat,
-	 ooc = outCombat,
-	 gui = GUI,
+	ic = inCombat,
+	ooc = outCombat,
+	gui = GUI,
+	wow_ver = '7.1.5 or 7.2.5',
+ 	nep_ver = '1.8',
 	load = exeOnLoad
 })

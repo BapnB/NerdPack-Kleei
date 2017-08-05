@@ -81,7 +81,7 @@ local Combat = {
     {"Goremaw's Bite", "!player.buff(Shadow Dance) & !player.buff(Subterfuge) & player.combopoints <= 2 & player.energy <= 85"},
 	
 	--MASS Shuriken
-	{"Shuriken Storm", "toggle(aoe) & !player.buff(Stealth) & !player.buff(Vanish) & !player.combopoints >= 4 & player.area(10).enemies >= 4"},
+	{"Shuriken Storm", "toggle(aoe) & !player.buff(Stealth) & !player.buff(Vanish) & !player.combopoints >= 4 & player.area(8).enemies >= 4"},
 	
     --Steath Actions
 	{"Symbols of Death", "!player.buff(Shadowmeld) & target.deathin >= 4 & player.buff(Symbols of Death).duration <= player.buff(Symbols of Death).duration*0.3"},
@@ -92,10 +92,10 @@ local Combat = {
 	{"Eviscerate", "!keybind(shift) & player.combopoints == 5"},
 	
 	--Stealth Cooldowns
-    {"Shadow Dance", "!player.buff(Shadow Dance) & !player.buff(Subterfuge) & !player.combopoints >= 4 & player.energy >= 38 & target.range <= 15"},
+    {"Shadow Dance", "!player.buff(Shadow Dance) & !player.buff(Subterfuge) & !player.combopoints > 4 & player.energy >= 38 & target.range <= 15"},
     
 	--Build Combo Point
-	{"Backstab", "player.combopoints < 5 & !player.buff(Stealth) & !player.buff(Shadow Dance) & !player.buff(Vanish) & !player.buff(Subterfuge) & player.spell(Shadow Dance).charges < 1"},
+	{"Backstab", "player.combopoints < 5 & !player.buff(Stealth) & !player.buff(Shadow Dance) & !player.buff(Vanish) & !player.buff(Subterfuge)"}, -- & player.spell(Shadow Dance).charges < 1
 	{"Gloomblade", "talent(1,3) & player.combopoints < 5 & !player.buff(Stealth) & !player.buff(Shadow Dance) & !player.buff(Vanish) & !player.buff(Subterfuge) & player.spell(Shadow Dance).charges < 1"},
 	
 	{"/startattack", "!isattacking & target.inmelee & target.enemy & target.alive"},
@@ -129,8 +129,10 @@ local outCombat = {
 
 NeP.CR:Add(261, {
 	name = '[|cffffff00Kleei|r]|cffffff00 ROGUE - Subtlety',
-	  ic = inCombat,
-	 ooc = outCombat,
-	 gui = GUI,
+	ic = inCombat,
+	ooc = outCombat,
+	gui = GUI,
+	wow_ver = '7.1.5 or 7.2.5',
+ 	nep_ver = '1.8',
 	load = exeOnLoad
 })

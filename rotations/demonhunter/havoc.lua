@@ -114,8 +114,10 @@ local outCombat = {
 
 NeP.CR:Add(577, {
 	name = '[|cffDA70D6Kleei|r]|cffDA70D6 Demon Hunter - Havoc',
-	  ic = inCombat,
-	 ooc = outCombat,
-	 gui = GUI,
+	ic = inCombat,
+	ooc = outCombat,
+	gui = GUI,
+	wow_ver = '7.1.5 or 7.2.5',
+ 	nep_ver = '1.8',
 	load = exeOnLoad
 })
