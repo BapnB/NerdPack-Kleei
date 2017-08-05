@@ -115,7 +115,7 @@ local Combat = {
 	{"Eviscerate", "player.level < 36 & player.combopoints == 5"},
     {"Sinister Strike", "player.combopoints <= 4 & player.level < 40"},
 	
-    {"/startattack", "!isattacking"},
+    {"/startattack", "!isattacking & target.inmelee"},
    
 }
 

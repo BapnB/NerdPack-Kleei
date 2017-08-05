@@ -96,6 +96,7 @@ local Combat = {
     
 	--Build Combo Point
 	{"Backstab", "player.combopoints < 5 & !player.buff(Stealth) & !player.buff(Shadow Dance) & !player.buff(Vanish) & !player.buff(Subterfuge) & player.spell(Shadow Dance).charges < 1"},
+	{"Gloomblade", "talent(1,3) & player.combopoints < 5 & !player.buff(Stealth) & !player.buff(Shadow Dance) & !player.buff(Vanish) & !player.buff(Subterfuge) & player.spell(Shadow Dance).charges < 1"},
 	
 	{"/startattack", "!isattacking & target.inmelee & target.enemy & target.alive"},
 }
