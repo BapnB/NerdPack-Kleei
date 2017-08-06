@@ -11,10 +11,16 @@ local GUI = {
 
 local exeOnLoad = function()
 
-	print('|cffADFF2F ----------------------------------------------------------------------|r')
+	print('|cffADFF2F ------------------------PVE-------------------------------------------|r')
 	print('|cffADFF2F --- |r|c00FF7F00 DRUID - Feral |r')
 	print('|cffADFF2F --- |rRecommended Talents: 1/1 - 2/3 - 3/1 - 4/1 - 5/1 - 6/1 - 7/3')
 	print('|cffADFF2F ----------------------------------------------------------------------|r')
+	
+	print('|cffADFF2F ------------------------PVP-------------------------------------------|r')
+	print('|cffADFF2F --- |r|c00FF7F00 DRUID - Feral |r')
+	print('|cffADFF2F --- |rRecommended Talents: 1/1 - 2/3 - 3/1 - 4/1 - 5/1 - 6/2 - 7/2')
+	print('|cffADFF2F ----------------------------------------------------------------------|r')
+	
 	
 		NeP.Interface:AddToggle({
 		key = 'Dotting',

@@ -91,7 +91,7 @@ local Interrupts = {
 	{"Kick", "target.inmelee"},
 	--{"Cheap Shot", "player.buff(Stealth) & target.inmelee"},
 	--{"Kidney Shot", "cooldown(Kick).duration > gcd & target.inmelee"},
-	--{"Blind", "target.inmelee"},
+	--{"Blind", "!target.inmelee"},
 	--{"Blind", "cooldown(Kidney Shot).duration > gcd"},
 	
 }
@@ -100,8 +100,6 @@ local Combat = {
 
     --Mass
     {"Fan of Knives", "toggle(AoE) & player.combopoints < 5 & count.enemies(Deadly Poison).debuffs < player.area(10).enemies"},
-	
-	--{"Kidney Shot", "player.combopoints >= 4 & !target.debuff(Cheap Shot)"},
 	
 	--Dotting
 	--{"Hemorrhage", "!target.debuff(Hemorrhage)"},
