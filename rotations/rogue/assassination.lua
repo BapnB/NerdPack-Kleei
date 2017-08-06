@@ -53,6 +53,7 @@ local Keybinds = {
 }
 
 local PreCombat = {
+
     --Leveling
     {"Sinister Strike", "!keybind(shift) & target.inmelee & {player.level < 8 || player.level >= 8 & player.level <=11 & !toggle(Stun)}"},
 	--{"Sinister Strike", " & target.range < 6"},
@@ -67,6 +68,7 @@ local PreCombat = {
 	{"Stealth", "!player.buff(Stealth)"},
 	{"Cheap Shot", "toggle(Stun) & player.buff(Stealth) & target.inmelee"},
 	{"Garrote", "!keybind(shift) & !toggle(Stun) & player.buff(Stealth) & target.inmelee"},
+	
 }
 
 local Survival ={
