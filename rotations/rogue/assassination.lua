@@ -105,7 +105,7 @@ local Combat = {
 	--{"Hemorrhage", "!target.debuff(Hemorrhage)"},
 	{"KingsBane", "toggle(Dotting) & target.deathin > 8"},
 	{"Rupture", "toggle(Dotting) & target.deathin > 8 & player.combopoints >= 5 & target.debuff(Rupture).duration <= 8"},
-    {Garrote, "toggle(Dotting) & target.deathin > 8 & target.debuff(Garrote).duration <= 4"},
+    {Garrote, "toggle(Dotting) & target.deathin > 5 & target.debuff(Garrote).duration <= 4"},
 	
 	--{"Exsanguinate", "target.debuff(Rupture).duration > 20 & target.debuff(Garrote).duration > 10"},
 
@@ -121,7 +121,7 @@ local Combat = {
 
 local inCombat = {
 
-    {"%pause", "target.enemy & {target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)}"},
+    {"%pause", "target.enemy & {target.buff(Ice Block) || target.buff(Divine Shield)}"},
 
     {"/stopattack", "player.buff(Vanish) & isattacking"},
     {"Cloak of Shadows", "player.buff(Vanish)"}, -- &  player.state(dot)

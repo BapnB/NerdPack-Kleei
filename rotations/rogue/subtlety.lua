@@ -93,7 +93,7 @@ local Combat = {
 	{"Eviscerate", "!keybind(shift) & player.combopoints == 5", "target"},
 	
 	--Stealth Cooldowns
-    {"Shadow Dance", "!player.buff(Shadow Dance) & !player.buff(Subterfuge) & !player.combopoints > 4 & player.energy >= 38 & target.range <= 15"},
+    {"Shadow Dance", "!player.buff(Shadow Dance) & !player.buff(Subterfuge) & !player.combopoints > 4 & player.energy >= 38 & target.range < 15"},
     
 	--Build Combo Point
 	{"Backstab", "player.combopoints < 5 & !player.buff(Stealth) & !player.buff(Shadow Dance) & !player.buff(Vanish) & !player.buff(Subterfuge)", "target"}, -- & player.spell(Shadow Dance).charges < 1
