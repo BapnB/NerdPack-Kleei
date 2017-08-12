@@ -46,8 +46,8 @@ local Keybinds = {
 	
 	{"%pause", "keybind(alt) || keybind(control) & target.debuff(Sap)"},
 	{"Sap","keybind(control) & target.range <=10 & !target.debuff(Sap) & target.enemy & target.alive", "target"},
-	{"Cheap Shot", "keybind(shift) & !target.debuff(Cheap Shot) & player.buff(Stealth) & target.inmelee & target.enemy & target.alive"},
-	{"Kidney Shot", "keybind(shift) & !target.debuff(Cheap Shot) & !player.buff(Stealth) & player.combopoints >= 3 & target.inmelee & target.enemy & target.alive"},
+	{"Cheap Shot", "keybind(shift) & !target.debuff(Cheap Shot) & target.inmelee & target.enemy & target.alive & {player.buff(Stealth) || player.buff(Vanish)}"},
+	{"Kidney Shot", "keybind(shift) & !target.debuff(Cheap Shot) & !player.buff(Stealth) & !player.buff(Vanish) & player.combopoints >= 3 & target.inmelee & target.enemy & target.alive"},
 	{"Blind", "keybind(shift) & !player.buff(Stealth) & target.range >= 10 & target.range <= 15 & target.enemy & target.alive"},
 	
 }
@@ -81,12 +81,6 @@ local Survival ={
 	
 }
 
-local Cooldowns = {
-
-	{"Vendetta", "target.deathin >= 6 & target.inmelee & {artifact.enabled(Urge to Kill) & player.energy <= 45 || !artifact.enabled(Urge to Kill)}"},
-	
-}
-
 local Interrupts = {
 
 	{"Kick", "target.inmelee"},
@@ -97,10 +91,18 @@ local Interrupts = {
 	
 }
 
+local Cooldowns = {
+
+	{"Vendetta", "target.deathin >= 6 & target.inmelee & {artifact.enabled(Urge to Kill) & player.energy <= 45 || !artifact.enabled(Urge to Kill)}"},
+	
+}
+
 local Combat = {
 
+    {"/startattack", "!isattacking & target.inmelee"},
+
     --Mass
-    {"Fan of Knives", "toggle(AoE) & player.combopoints < 5 & count.enemies(Deadly Poison).debuffs < player.area(10).enemies"},
+    {"Fan of Knives", "toggle(AoE) & player.combopoints < 5 & target.debuff(Deadly Poison) & count.enemies(Deadly Poison).debuffs < player.area(10).enemies"},
 	
 	--Dotting
 	--{"Hemorrhage", "!target.debuff(Hemorrhage)"},
@@ -115,8 +117,6 @@ local Combat = {
 	
 	{"Eviscerate", "player.level < 36 & player.combopoints == 5"},
     {"Sinister Strike", "player.combopoints <= 4 & player.level < 40"},
-	
-    {"/startattack", "!isattacking & target.inmelee"},
    
 }
 
@@ -151,7 +151,7 @@ local outCombat = {
 	{PreCombat, "target.enemy & target.alive"},
 	{"Crimson Vial", "player.health <= 85"},
 	
-	{"Pick Pocket", "!player.moving & !player.lastcast(Pick Pocket) & target.enemy & target.alive & player.level > 12"},
+	{"Pick Pocket", "!player.moving & player.buff(Stealth) & !player.lastcast(Pick Pocket) & target.enemy & target.alive & target.range < 10"},
 	
 	-- Poisons
 	{"Deadly Poison", "!player.moving & player.buff(Deadly Poison).duration <= 600"},

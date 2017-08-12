@@ -60,6 +60,20 @@ local Rake = {
 
 }
 
+local Keybinds = {
+
+	{"%pause", "keybind(alt)"},
+	
+    {"Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & !target.debuff(163505) & keybind(shift) & target.range < 10 & target.enemy & target.alive"},
+	
+	{"Maim", "!player.buff(Prowl) & keybind(shift) & player.combopoints >=3 &player.spell(Mighty Bash).cooldown > gcd & !player.lastcast(Mighty Bash) & target.range < 10 & target.enemy & target.alive"},
+	
+	{"Skull Bash", "keybind(shift) & player.spell(Wild Charge).cooldown > gcd & !player.lastcast(Wild Charge) & target.range > 8 & target.range <= 18 & target.enemy & target.alive"},
+	
+	{"Wild Charge", "keybind(shift) & target.range > 8 & target.range <= 30 & target.enemy & target.alive"},
+	
+}
+
 local PreCombat = {
 
     --{Thrash, 'toggle(auto) & !isattacking & target.range <6 & target.enemy & target.alive', 'target'},   
@@ -68,6 +82,28 @@ local PreCombat = {
 	
  	{"Rake", "player.buff(Prowl) & target.range < 5 & target.infront & target.enemy & target.alive", "target"},
 
+}
+
+local Survival = {
+
+	{"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
+	
+    {"Regrowth", "player.buff(Predatory Swiftness).duration >= 10 & !lastcast(Regrowth) & player.health <= 90", "player"},
+	
+    {"Survival Instincts", "player.health <= 75 & !player.buff(Survival Instincts)"},
+	
+}
+
+local Interrupts = {
+
+	{"Skull Bash",  "target.range <= 18"},
+	
+	{"Typhoon", "talent(4,3) & player.spell(Skull Bash).cooldown > gcd"},
+	
+	--{"Mighty Bash", "talent(4,1) & player.spell(Skull Bash).cooldown > gcd & target.range <= 10"},
+	
+	--{"Maim", "player.spell(Skull Bash).cooldown > gcd & player.spell(Mighty Bash).cooldown > gcd & target.range <= 10"},
+	
 }
 
 local Cooldowns = {
@@ -103,42 +139,6 @@ local Combat = {
 	
 	{"Shred", "talent(7,3) & !player.spell(Brutal Slash).charges >= 1 & player.combopoints < 5 || !talent(7,3) & player.combopoints < 5"},
 
-}
-
-local Keybinds = {
-
-	{"%pause", "keybind(alt)"},
-	
-    {"Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & !target.debuff(163505) & keybind(shift) & target.range < 10 & target.enemy & target.alive"},
-	
-	{"Maim", "!player.buff(Prowl) & keybind(shift) & player.combopoints >=3 &player.spell(Mighty Bash).cooldown > gcd & !player.lastcast(Mighty Bash) & target.range < 10 & target.enemy & target.alive"},
-	
-	{"Skull Bash", "keybind(shift) & player.spell(Wild Charge).cooldown > gcd & !player.lastcast(Wild Charge) & target.range > 8 & target.range <= 18 & target.enemy & target.alive"},
-	
-	{"Wild Charge", "keybind(shift) & target.range > 8 & target.range <= 30 & target.enemy & target.alive"},
-	
-}
-
-local Interrupts = {
-
-	{"Skull Bash",  "target.range <= 18"},
-	
-	{"Typhoon", "talent(4,3) & player.spell(Skull Bash).cooldown > gcd"},
-	
-	--{"Mighty Bash", "talent(4,1) & player.spell(Skull Bash).cooldown > gcd & target.range <= 10"},
-	
-	--{"Maim", "player.spell(Skull Bash).cooldown > gcd & player.spell(Mighty Bash).cooldown > gcd & target.range <= 10"},
-	
-}
-
-local Survival = {
-
-	{"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
-	
-    {"Regrowth", "player.buff(Predatory Swiftness).duration >= 10 & !lastcast(Regrowth) & player.health <= 90", "player"},
-	
-    {"Survival Instincts", "player.health <= 75 & !player.buff(Survival Instincts)"},
-	
 }
 
 local inCombat = {
