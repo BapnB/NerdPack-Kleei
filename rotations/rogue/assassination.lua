@@ -67,6 +67,7 @@ local PreCombat = {
 
 	{"Stealth", "!player.buff(Stealth)"},
 	{"Cheap Shot", "toggle(Stun) & player.buff(Stealth) & target.inmelee"},
+	{"Cheap Shot", "player.buff(Stealth) & target.inmelee & player.spell(Garrote).cooldown > gcd"},
 	{"Garrote", "!keybind(shift) & !toggle(Stun) & player.buff(Stealth) & target.inmelee"},
 	
 }
@@ -149,6 +150,8 @@ local outCombat = {
     {Keybinds},
 	{PreCombat, "target.enemy & target.alive"},
 	{"Crimson Vial", "player.health <= 85"},
+	
+	{"Pick Pocket", "!player.moving & !player.lastcast(Pick Pocket) & target.enemy & target.alive & player.level > 12"},
 	
 	-- Poisons
 	{"Deadly Poison", "!player.moving & player.buff(Deadly Poison).duration <= 600"},
