@@ -3,6 +3,8 @@ local GUI = {
 	{type = 'header', text = 'Keybinds', align = 'center'},
 	{type = 'text', text = 'Shift keybind in meelee will use Mighty Bash or Maim(if Mighty Bash is on CD).'},
 	{type = 'text', text = 'Shift keybind in range > 10 will use Wild Charge or  Skull Bash(if Wild Charge is on CD).'},
+	{type = 'text', text = 'Control keybind = Incarnation: King of the Jungle, after it will cast Prowl and then will stan with Rake.'},
+	{type = 'text', text = 'Control keybind = Rake if Incarnation: King of the Jungle is active.'},
 	{type = 'text', text = 'Alt keybind = Pause.'},
 	{type = 'text', text = 'In combat if your target is friendly and dead will use Rebirth to ress him.'},
 	{type = 'text', text = 'In out of combat if your target is friendly and dead will use Revive to ress him.'},
@@ -18,7 +20,7 @@ local exeOnLoad = function()
 	
 	print('|cffADFF2F ------------------------PVP-------------------------------------------|r')
 	print('|cffADFF2F --- |r|c00FF7F00 DRUID - Feral |r')
-	print('|cffADFF2F --- |rRecommended Talents: 1/1 - 2/3 - 3/1 - 4/1 - 5/1 - 6/2 - 7/2')
+	print('|cffADFF2F --- |rRecommended Talents: 1/1 - 2/3 - 3/1 - 4/1 - 5/2 - 6/2 - 7/2')
 	print('|cffADFF2F ----------------------------------------------------------------------|r')
 	
 	
@@ -62,6 +64,10 @@ local Rake = {
 
 local Keybinds = {
 
+    {"Rake", "target.range < 10 & target.enemy & target.alive & {player.buff(Prowl) || player.buff(Incarnation: King of the Jungle) & keybind(control)}"},
+    {"Prowl", "player.buff(Incarnation: King of the Jungle)"},
+	{"Incarnation: King of the Jungle", "keybind(control)"},
+
 	{"%pause", "keybind(alt)"},
 	
     {"Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & !target.debuff(163505) & keybind(shift) & target.range < 10 & target.enemy & target.alive"},
@@ -76,11 +82,13 @@ local Keybinds = {
 
 local PreCombat = {
 
+    {"Prowl", "player.buff(Incarnation: King of the Jungle)"},
+	
     --{Thrash, 'toggle(auto) & !isattacking & target.range <6 & target.enemy & target.alive', 'target'},   
 
  	{"Prowl", "!player.buff(Prowl) & !toggle(auto) & {target.enemy & target.alive || player.area(20).enemies >= 1}"},
 	
- 	{"Rake", "player.buff(Prowl) & target.range < 5 & target.infront & target.enemy & target.alive", "target"},
+ 	{"Rake", "player.buff(Prowl) & target.range < 10 & target.infront & target.enemy & target.alive", "target"},
 
 }
 
@@ -108,9 +116,7 @@ local Interrupts = {
 
 local Cooldowns = {
 
-	{"Berserk", "player.buff(Tiger's Fury) & target.deathin >= 11.2"},
-
-	{"Incarnation: King of the Jungle", "talent(5,2) & cooldown(Tiger's Fury).duration < gcd"},
+	{"Berserk", "!talent(5,2) & player.buff(Tiger's Fury) & target.deathin >= 11.2"},
 
 }
 
@@ -148,7 +154,7 @@ local inCombat = {
 	
 	{"Cat Form", "!player.buff(Cat Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >= 1}"},
 	
-    {"Rebirth", "!target.enemy & target.dead", "target"},
+    {"Rebirth", "!target.enemy & target.dead"},
 	
 	{Keybinds},
 	{Interrupts, "target.interruptAt(35) & toggle(interrupts)"},
