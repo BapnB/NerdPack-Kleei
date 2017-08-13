@@ -61,6 +61,7 @@ local Keybinds = {
 	{"%pause", "keybind(alt)"},
 	{"Efflorescence", "keybind(shift)", "cursor.ground"},
 	
+	
 }
 
 local Survival = {
@@ -167,9 +168,9 @@ local inCombat = {
 	--{"Typhoon", "enemies.range <=5 & enemies.infront"}
 	
 	{Keybinds},
+	{Interrupts, "target.interruptAt(35) & toggle(interrupts)"},	
 	{Healing},
-	{Interrupts, "target.interruptAt(35) & toggle(interrupts)"},
-	{DPS,  "player.mana >=UI (mana) & target.enemy & target.alive & toggle(DPS)"},
+    {DPS,  "player.mana >=UI (mana) & target.enemy & target.alive & toggle(DPS)"},
 }
 
 local outCombat = {
