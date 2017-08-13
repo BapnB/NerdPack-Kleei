@@ -60,7 +60,7 @@ local Keybinds = {
 
 	{"%pause", "keybind(alt)"},
 	{"Efflorescence", "keybind(shift)", "cursor.ground"},
-    {"Typhoon", "talent(4,3) & keybind(control)"},
+    --{"Typhoon", "talent(4,3) & keybind(control)"},
 	
 }
 
