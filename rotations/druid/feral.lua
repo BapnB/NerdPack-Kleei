@@ -3,7 +3,7 @@ local GUI = {
 	{type = 'header', text = 'Keybinds', align = 'center'},
 	{type = 'text', text = 'Shift keybind in meelee will use Mighty Bash or Maim(if Mighty Bash is on CD).'},
 	{type = 'text', text = 'Shift keybind in range > 10 will use Wild Charge or  Skull Bash(if Wild Charge is on CD).'},
-	{type = 'text', text = 'Control keybind = Incarnation: King of the Jungle, after it will cast Prowl and then will stan with Rake.'},
+	{type = 'text', text = 'Control keybind = Incarnation: King of the Jungle and then  will cast Prowl.'},
 	{type = 'text', text = 'Control keybind = Rake if Incarnation: King of the Jungle is active.'},
 	{type = 'text', text = 'Alt keybind = Pause.'},
 	{type = 'text', text = 'In combat if your target is friendly and dead will use Rebirth to ress him.'},
@@ -64,9 +64,9 @@ local Rake = {
 
 local Keybinds = {
 
-    {"Rake", "target.range < 10 & target.enemy & target.alive & {player.buff(Prowl) || player.buff(Incarnation: King of the Jungle) & keybind(control)}"},
     {"Prowl", "player.buff(Incarnation: King of the Jungle)"},
 	{"Incarnation: King of the Jungle", "keybind(control)"},
+    {"Rake", "target.range < 10 & target.enemy & target.alive & player.buff(Incarnation: King of the Jungle) & keybind(control)"},	
 
 	{"%pause", "keybind(alt)"},
 	
@@ -149,6 +149,8 @@ local Combat = {
 
 local inCombat = {
 
+    {"%dispelself", "!player.buff(Prowl) & player.area(15).enemies < 1"},
+
     {"%pause", "target.enemy & {target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)}"},
 	{"Gladiator's Medallion", "player.state(stun) || player.state(root) & target.range > 4 || player.state(fear) || player.state(disorient) || player.state(charm)", "player"},
 	
@@ -178,7 +180,7 @@ local outCombat = {
     {"%pause", "target.enemy & {target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)}"},	
 	
 	{"Revive", "!target.enemy & target.dead", "target"},
-    {"%dispelall"},
+    {"%dispelself", "!player.buff(Prowl)"},
 	
 	{PreCombat},
 	{Keybinds},
