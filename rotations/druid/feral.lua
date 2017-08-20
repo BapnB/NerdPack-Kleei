@@ -80,7 +80,7 @@ local Keybinds = {
 
     {"Prowl", "player.buff(Incarnation: King of the Jungle) & keybind(control)", "player"},
 	{"Incarnation: King of the Jungle", "keybind(control) & player.combat", "player"},
-    {"Rake", "target.range < 10 & target.enemy & target.alive & player.buff(Incarnation: King of the Jungle) & keybind(control)", "target"},	
+    {"Rake", "target.range < 10 & target.enemy & target.alive & {player.buff(Incarnation: King of the Jungle) & keybind(control) || player.buff(Prowl)}", "target"},	
 
 	{"%pause", "keybind(alt)"},
 	
