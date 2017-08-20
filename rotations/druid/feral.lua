@@ -104,7 +104,7 @@ local PreCombat = {
 
     {"Cat Form", "!player.buff(Cat Form) & {target.enemy & target.alive || player.area(10).enemies >= 1 || indoors}"},
 
- 	{"Prowl", "!player.buff(Prowl) & !toggle(auto) & target.enemy & target.alive", "player"}, -- || player.area(20).enemies >= 1}
+ 	{"Prowl", "!player.buff(Prowl) & player.buff(Cat Form) & !toggle(auto) & target.enemy & target.alive", "player"}, -- || player.area(20).enemies >= 1}
 	
  	{"Rake", "target.range < 10 & target.infront & target.enemy & target.alive & {player.buff(Prowl) || player.spell(Prowl).cooldown > gcd}", "target"},
 
@@ -209,7 +209,7 @@ local outCombat = {
 
 	--Cancel form when not swimming / Travel Form when swimming
 	{"Regrowth", "!player.buff(Prowl) & !player.moving & player.health <= 85", "player"},
-	{"/cancelform", "player.swimming & !player.buff(Prowl) & !indoors & {player.buff(Cat Form) || player.buff(Bear Form)}"},
+	{"/cancelform", "player.swimming & !player.buff(Prowl) & !indoors &  !target.enemy & {player.buff(Cat Form) || player.buff(Bear Form)}"},
 	{"Travel Form", "player.swimming & !player.buff(Cat Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form)"},
 	
 	{xTravel, "toggle(travelform)"},
