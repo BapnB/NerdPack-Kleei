@@ -94,15 +94,9 @@ local Keybinds = {
 	
 }
 
-local xTravel = { 
-
-    {"Travel Form", "!indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive}"},
-
-}
-
 local PreCombat = { 
 
-    {"Cat Form", "!player.buff(Cat Form) & {target.enemy & target.alive || player.area(10).enemies >= 1 || indoors}"},
+    {"Cat Form", "!player.buff(Cat Form) & {target.enemy & target.alive || player.area(10).enemies >= 1 || indoors || !player.swimming & !toggle(travelform)}"},
 
  	{"Prowl", "!player.buff(Prowl) & player.buff(Cat Form) & !toggle(auto) & target.enemy & target.alive", "player"}, -- || player.area(20).enemies >= 1}
 	
@@ -212,7 +206,7 @@ local outCombat = {
 	{"/cancelform", "player.swimming & !player.buff(Prowl) & !indoors &  !target.enemy & {player.buff(Cat Form) || player.buff(Bear Form)}"},
 	{"Travel Form", "player.swimming & !player.buff(Cat Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form)"},
 	
-	{xTravel, "toggle(travelform)"},
+    {"Travel Form", "toggle(travelform) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive}"},
 
 }
 
