@@ -178,7 +178,7 @@ local outCombat = {
 	{Keybinds},
 	
 	--Dispell
-	{"%dispelall", "toggle(dispelall) & !player.spell(Nature's Cure).cooldown"},
+	{"&%dispelall", "toggle(dispelall) & player.spell(Nature's Cure).cooldown < 0.3"},
 	
     --MASS Ress
     {"Revitalize", "!target.enemy & target.dead", "target"},

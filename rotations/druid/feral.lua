@@ -38,26 +38,40 @@ local exeOnLoad = function()
 		name = 'Auto TargetNearestEnemy',
 		text = 'ON/OFF Auto TargetNearestEnemy Botting and no Stealth',
 	})
+	
+	NeP.Interface:AddToggle({
+		key = 'travelform',
+		icon = 'Interface\\Icons\\ability_druid_travelform',
+		name = 'Auto Travel Form',
+		text = 'ON/OFF Auto Travel Form',
+	})
 
 end
 
+local Maim = {
+
+    {"%pause", "player.energy <= 34 & !player.buff(Clearcasting)"},
+	{"Maim", nil, "target"},
+
+}
+
 local Swipe = {
 
-    {"%pause", "player.energy <= 44"},
+    {"%pause", "player.energy <= 44 & !player.buff(Clearcasting)"},
     {"Swipe", nil, "target"},
 	
 }	
 	
 local Thrash = {
 
-    {"%pause", "player.energy <= 49"},
+    {"%pause", "player.energy <= 49 & !player.buff(Clearcasting)"},
 	{"Thrash", nil, "target"},
 	
 }
 
 local Rake = {
 
-    {"%pause", "player.energy <= 34"},
+    {"%pause", "player.energy <= 34 & !player.buff(Clearcasting)"},
     {"Rake", nil, "target"},
 
 }
@@ -65,14 +79,14 @@ local Rake = {
 local Keybinds = {
 
     {"Prowl", "player.buff(Incarnation: King of the Jungle) & keybind(control)", "player"},
-	{"Incarnation: King of the Jungle", "keybind(control)", "player"},
+	{"Incarnation: King of the Jungle", "keybind(control) & player.combat", "player"},
     {"Rake", "target.range < 10 & target.enemy & target.alive & player.buff(Incarnation: King of the Jungle) & keybind(control)", "target"},	
 
 	{"%pause", "keybind(alt)"},
 	
-    {"Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & !target.debuff(163505) & keybind(shift) & target.range < 10 & target.enemy & target.alive", "target"},
+    {"Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & !target.debuff(163505) & keybind(shift) & target.range < 9 & target.enemy & target.alive", "target"},
 	
-	{"Maim", "!player.buff(Prowl) & keybind(shift) & player.combopoints >=3 &player.spell(Mighty Bash).cooldown > gcd & !player.lastcast(Mighty Bash) & target.range < 10 & target.enemy & target.alive", "target"},
+	{Maim, "!player.buff(Prowl) & keybind(shift) & player.combopoints >=3 &player.spell(Mighty Bash).cooldown > gcd & !player.lastcast(Mighty Bash) & target.range < 10 & target.enemy & target.alive", "target"},
 	
 	{"Skull Bash", "keybind(shift) & player.spell(Wild Charge).cooldown > gcd & !player.lastcast(Wild Charge) & target.range > 8 & target.range <= 18 & target.enemy & target.alive", "target"},
 	
@@ -80,15 +94,19 @@ local Keybinds = {
 	
 }
 
-local PreCombat = {
+local xTravel = { 
 
-    {"Prowl", "player.buff(Incarnation: King of the Jungle)", "player"},
-	
-    --{Thrash, 'toggle(auto) & !isattacking & target.range <6 & target.enemy & target.alive', 'target'},   
+    {"Travel Form", "!indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive}"},
+
+}
+
+local PreCombat = { 
+
+    {"Cat Form", "!player.buff(Cat Form) & {target.enemy & target.alive || player.area(10).enemies >= 1 || indoors}"},
 
  	{"Prowl", "!player.buff(Prowl) & !toggle(auto) & target.enemy & target.alive", "player"}, -- || player.area(20).enemies >= 1}
 	
- 	{"Rake", "player.buff(Prowl) & target.range < 10 & target.infront & target.enemy & target.alive", "target"},
+ 	{"Rake", "target.range < 10 & target.infront & target.enemy & target.alive & {player.buff(Prowl) || player.spell(Prowl).cooldown > gcd}", "target"},
 
 }
 
@@ -130,6 +148,8 @@ local Combat = {
     --Mass
 	{Thrash, "toggle(AoE) & target.debuff(Thrash).duration <= 3.5 & {player.area(10).enemies > 4 & !artifact.enabled(Shadow Thrash)|| player.area(10).enemies >= 2 & artifact.enabled(Shadow Thrash)}", "target"},
 	
+	{Swipe, "toggle(AoE) & !talent(7,3) & player.area(10).enemies > 3 & target.debuff(Thrash) & player.combopoints < 5", "target"},	
+	
 	--Dotting
 	{"Rip", "toggle(Dotting) & target.deathin >= 5 & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 4}", "target"},
 	
@@ -143,15 +163,13 @@ local Combat = {
 	
 	{"Brutal Slash", "talent(7,3) & player.combopoints <= 4 & {target.range <= 10 || player.area(8).enemies >= 1}", "target"},
 	
-	{Swipe, "toggle(AoE) & !talent(7,3) & player.area(10).enemies > 4 & target.debuff(Thrash) & player.combopoints < 5", "target"},	
-	
 	{"Shred", "talent(7,3) & !player.spell(Brutal Slash).charges >= 1 & player.combopoints < 5 || !talent(7,3) & player.combopoints < 5", "target"},
 
 }
 
 local inCombat = {
 
-    {"%dispelself", "!player.buff(Prowl) & player.area(15).enemies < 1", "player"},
+    {"%dispelself", "!player.buff(Prowl) & !player.area(10).enemies >= 1", "player"},
 
     {"%pause", "target.enemy & {target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)}", "player"},
 	{"Gladiator's Medallion", "player.state(stun) || player.state(root) & target.range > 4 || player.state(fear) || player.state(disorient) || player.state(charm)", "player"},
@@ -190,10 +208,11 @@ local outCombat = {
 	{"/cleartarget", "toggle(auto) & target.range >= 7"},
 
 	--Cancel form when not swimming / Travel Form when swimming
-	{"Cat Form", "!player.buff(Cat Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >= 1}"},
 	{"Regrowth", "!player.buff(Prowl) & !player.moving & player.health <= 85", "player"},
 	{"/cancelform", "player.swimming & !player.buff(Prowl) & !indoors & {player.buff(Cat Form) || player.buff(Bear Form)}"},
 	{"Travel Form", "player.swimming & !player.buff(Cat Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form)"},
+	
+	{xTravel, "toggle(travelform)"},
 
 }
 
