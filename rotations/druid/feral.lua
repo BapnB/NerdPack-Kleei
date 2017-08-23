@@ -78,11 +78,13 @@ local Rake = {
 
 local Keybinds = {
 
+	{"%pause", "keybind(alt)"},
+	
     {"Prowl", "player.buff(Incarnation: King of the Jungle) & keybind(control)", "player"},
 	{"Incarnation: King of the Jungle", "keybind(control) & player.combat", "player"},
     {"Rake", "target.range < 10 & target.enemy & target.alive & {player.buff(Incarnation: King of the Jungle) & keybind(control) || player.buff(Prowl)}", "target"},	
 
-	{"%pause", "keybind(alt)"},
+	
 	
     {"Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & !target.debuff(163505) & keybind(shift) & target.range < 9 & target.enemy & target.alive", "target"},
 	
@@ -163,17 +165,20 @@ local Combat = {
 
 local inCombat = {
 
-    {"%dispelself", "!player.buff(Prowl) & !player.area(10).enemies >= 1", "player"},
+    
 
     {"%pause", "target.enemy & {target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)}", "player"},
 	{"Gladiator's Medallion", "player.state(stun) || player.state(root) & target.range > 4 || player.state(fear) || player.state(disorient) || player.state(charm)", "player"},
 	
 	{"Cat Form", "!player.buff(Cat Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >= 1}", "player"},
 	
-    {"Rebirth", "!target.enemy & target.dead", "target"},
 	
 	{Keybinds},
-	{Interrupts, "target.interruptAt(35) & toggle(interrupts)"},
+	{"%dispelself", "!player.buff(Prowl) & !player.area(10).enemies >= 1", "player"},
+    {"Rebirth", "!target.enemy & target.dead", "target"},
+	
+	
+	{Interrupts, "target.interruptAt(45) & toggle(interrupts)"},
     {Survival, "player.health < 100"},
 	{Cooldowns, "toggle(cooldowns)"},
 	{Combat, "target.range <= 13 & target.enemy & target.alive"},
@@ -193,12 +198,13 @@ local outCombat = {
 
     {"%pause", "target.enemy & {target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)}", "player"},	
 	
-	{"Revive", "!target.enemy & target.dead", "target"},
-    {"%dispelself", "!player.buff(Prowl)", "player"},
+	{Keybinds},
+    
 	
 	{PreCombat},
-	{Keybinds},
-
+	{"Revive", "!target.enemy & target.dead", "target"},
+	
+        {"%dispelself", "!player.buff(Prowl)", "player"},
 	{"/cleartarget", "toggle(auto) & target.range >= 7"},
 
 	--Cancel form when not swimming / Travel Form when swimming
