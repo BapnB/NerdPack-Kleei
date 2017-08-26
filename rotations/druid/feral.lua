@@ -163,7 +163,7 @@ local Cat_Combat = {
 	
 	{"Ashamane's Frenzy", "toggle(Dotting) & target.range <= 6.5 & target.deathin >= 5 & player.combopoints <= 2", "target"},
 	
-	{"Ferocious Bite", "player.combopoints == 5 & target.range <= 6.5 & {player.level < 90 || talent(6,1) || talent(6,2) & target.debuff(Rip).duration >= 4 || talent(6,2) & target.deathin < 4}", "target"},
+	{"Ferocious Bite", "player.combopoints == 5 & target.range <= 6.5 & {player.level < 90 || !toggle(Dotting) || talent(6,1) || talent(6,2) & target.debuff(Rip).duration >= 4 || talent(6,2) & target.deathin < 4}", "target"},
 	
 	{"Brutal Slash", "talent(7,3) & player.combopoints <= 4 & {target.range <= 6.5 || player.area(7).enemies >= 1}", "target"},
 	
