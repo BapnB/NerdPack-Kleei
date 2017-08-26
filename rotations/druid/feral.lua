@@ -56,7 +56,7 @@ end
 
 local Maim = {
 
-    {"%pause", "player.energy <= 34 & !player.buff(Clearcasting)"},
+    {"%pause", "player.energy <= 34"},
 	{"Maim", nil, "target"},
 
 }
@@ -77,7 +77,7 @@ local Thrash = {
 
 local Rake = {
 
-    {"%pause", "player.energy <= 34 & !player.buff(Clearcasting)"},
+    {"%pause", "player.energy <= 34"},
     {"Rake", nil, "target"},
 
 }
@@ -90,7 +90,7 @@ local Keybinds = {
 	
 	{"Incarnation: King of the Jungle", "keybind(control) & player.combat", "player"},
 	
-    {Rake, "target.range <= 6.5 & target.enemy & target.alive & {player.buff(Incarnation: King of the Jungle) & keybind(shift) & !target.debuff(163505) || player.buff(Prowl)}", "target"},	
+    {Rake, "target.range <= 6.5 & target.enemy & target.alive & {player.buff(Incarnation: King of the Jungle) & keybind(control) & !target.debuff(163505) || player.buff(Prowl)}", "target"},	
 
     {"Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & !target.debuff(163505) & keybind(shift) & target.range <= 6.5 & target.enemy & target.alive", "target"},
 	
@@ -144,15 +144,17 @@ local Cooldowns = {
 
 local Cat_Combat = {
 
+	{"Tiger's Fury", "target.range <= 7 & player.energy < 40 & {talent(1,1) & target.debuff(Rake) || talent(1,1) & target.debuff(Rip) || talent(1,1) & target.debuff(Thrash) || !talent(1,1) & target.deathin >= 7}"},
+
     {Rake, "player.buff(Prowl) & target.range <= 6.5 & target.infront & target.enemy & target.alive", "target"}, --sometimes you enter in combat but you are still in stealth
 
     {"Regrowth", "talent(7,2) & player.buff(Predatory Swiftness).duration >= 10 & !lastcast(Regrowth)", "player"},
 
     {"/startattack", "!toggle(auto) & !isattacking & target.range <= 6.5 & target.enemy & target.alive", "target"},
     --Mass
-	{Thrash, "toggle(AoE) & target.debuff(Thrash).duration <= 3.5 & {player.area(10).enemies > 3 & !artifact.enabled(Shadow Thrash)|| player.area(10).enemies >= 2 & artifact.enabled(Shadow Thrash)}", "target"},
+	{Thrash, "toggle(AoE) & target.debuff(Thrash).duration <= 3.5 & {player.area(10).enemies > 2 & !artifact.enabled(Shadow Thrash)|| player.area(10).enemies >= 2 & artifact.enabled(Shadow Thrash)}", "target"},
 	
-	{Swipe, "toggle(AoE) & !talent(7,3) & player.area(10).enemies > 3 & target.debuff(Thrash) & player.combopoints < 5", "target"},	
+	{Swipe, "toggle(AoE) & !talent(7,3) & player.area(10).enemies > 2 & target.debuff(Thrash) & player.combopoints < 5", "target"},	
 	
 	--Dotting
 	{"Rip", "toggle(Dotting) & target.range <= 6.5 & target.deathin >= 5 & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 4}", "target"},
@@ -163,11 +165,9 @@ local Cat_Combat = {
 	
 	{"Ferocious Bite", "player.combopoints == 5 & target.range <= 6.5 & {player.level < 90 || talent(6,1) || talent(6,2) & target.debuff(Rip).duration >= 4 || talent(6,2) & target.deathin < 4}", "target"},
 	
-	{"Tiger's Fury", "target.range <= 7 & player.energy < 40 & {talent(1,1) & target.debuff(Rake) || talent(1,1) & target.debuff(Rip) || talent(1,1) & target.debuff(Thrash) || !talent(1,1) & target.deathin >= 7}"},
-	
 	{"Brutal Slash", "talent(7,3) & player.combopoints <= 4 & {target.range <= 6.5 || player.area(7).enemies >= 1}", "target"},
 	
-	{"Shred", "talent(7,3) & target.range <= 6.5 & !player.spell(Brutal Slash).charges >= 1 & player.combopoints < 5 || !talent(7,3) & player.combopoints < 5", "target"},
+	{"Shred", "!player.buff(Prowl) & {talent(7,3) & target.range <= 6.5 & !player.spell(Brutal Slash).charges >= 1 & player.combopoints < 5 || !talent(7,3) & player.combopoints < 5}", "target"},
 
 }
 
