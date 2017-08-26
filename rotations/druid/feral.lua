@@ -177,9 +177,9 @@ local Bear_Combat = {
     
     {"Wild Charge", "target.range > 5", "target"},
 
-    {"Frenzied Regeneration", "talent(3,2) & player.incdmg(5) > player.health.max*0.20 & !player.buff(Frenzied Regeneration)", "player"},
+    {"Frenzied Regeneration", "talent(3,2) & player.incdmg(5) > player.health *0.20 & !player.buff(Frenzied Regeneration)", "player"},
 	
-	{"Ironfur", "talent(3,2) & player.rage > 44 & player.incdmg.phys(3.5) > player.health.max*0.20", "player"},
+	{"Ironfur", "talent(3,2) & player.rage > 44 & player.incdmg.phys(3.5) > player.health *0.20", "player"},
 	
 	-- {"Cat Form", "", "player"},
 	
@@ -193,7 +193,8 @@ local inCombat = {
 
     {"%pause", "target.enemy & {target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)}", "player"},
 	
-	{"Gladiator's Medallion", "player.state(stun) || player.state(root) & target.range > 1 || player.state(fear) || player.state(disorient) || player.state(charm)", "player"},
+	{"Gladiator's Medallion", "player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)", "player"},
+	{"Bear Form", "player.state(root) & target.range > 6.5"},
 	
 	{"Cat Form", "!toggle(bear) & !player.buff(Cat Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >= 1}", "player"},
 
