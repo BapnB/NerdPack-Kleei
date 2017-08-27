@@ -92,7 +92,7 @@ local Keybinds = {
 	
     {Rake, "target.range <= 6.5 & target.enemy & target.alive & {player.buff(Incarnation: King of the Jungle) & keybind(control) & !target.debuff(163505) || player.buff(Prowl)}", "target"},	
 
-    {"Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & !target.debuff(163505) & keybind(shift) & target.range <= 6.5 & target.enemy & target.alive", "target"},
+    {"&Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & !target.debuff(163505) & keybind(shift) & target.range <= 6.5 & target.enemy & target.alive", "target"},
 	
 	{Maim, "!player.buff(Prowl) & keybind(shift) & player.combopoints >=3 & player.spell(Mighty Bash).cooldown > gcd & !target.debuff(Mighty Bash) & target.range <= 6.5 & target.enemy & target.alive", "target"},
 	
@@ -126,7 +126,7 @@ local Interrupts = {
 
     {"Bear Form", "player.spell(Skull Bash).cooldown > 0.3 & !player.buff(Bear Form) & {target.range > 2 || target.range > 1 & player.state(root)}", "player"},
 
-	{"Skull Bash", "target.range <= 14.5", "target"},
+	{"&Skull Bash", "target.range <= 14.5", "target"},
 	
 	{"Typhoon", "talent(4,3) & player.spell(Skull Bash).cooldown > gcd"},
 	
@@ -194,7 +194,7 @@ local inCombat = {
     {"%pause", "target.enemy & {target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)}", "player"},
 	
 	{"Gladiator's Medallion", "player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)", "player"},
-	{"Bear Form", "player.state(root) & target.range > 6.5"},
+	{"Bear Form", "player.state(root)"}, -- & target.range > 6.5
 	
 	{"Cat Form", "!toggle(bear) & !player.buff(Cat Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >= 1}", "player"},
 
