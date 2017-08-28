@@ -11,7 +11,7 @@ local GUI = {
 
 local exeOnLoad = function()
 
-	print('|cffADFF2F ----------------------------------------------------------------------|r')
+	print('|cffADFF2F ------------------------PVE-------------------------------------------|r')
  	print('|cffADFF2F --- |r|cffffff00ROGUE - Subtlety |cffff0000 by KLEEI |r')
  	print('|cffADFF2F --- |rRecommended Talents: 1/2 - 2/2 - 3/3 - 4/1 - 5/2 - 6/1 - 7/1')
  	print('|cffADFF2F ----------------------------------------------------------------------|r')

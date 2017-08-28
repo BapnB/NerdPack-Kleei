@@ -10,7 +10,7 @@ local GUI = {
 local exeOnLoad = function()
 
 
-	print('|cffADFF2F ----------------------------------------------------------------------|r')
+	print('|cffADFF2F ------------------------PVE-------------------------------------------|r')
 	print('|cffADFF2F --- |r|cffDA70D6Demon Hunter - Vengeance |r')
 	print('|cffADFF2F --- |rRecommended Talents: 1/2 - 2/3 - 3/2 - 4/3 - 5/3 - 6/1 - 7/3')
 	print('|cffADFF2F ----------------------------------------------------------------------|r')

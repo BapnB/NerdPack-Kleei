@@ -35,7 +35,7 @@ local GUI = {
 
 local exeOnLoad = function()
 	
-	print('|cffADFF2F ----------------------------------------------------------------------|r')
+	print('|cffADFF2F ------------------------PVE-------------------------------------------|r')
 	print('|cffADFF2F --- |r|c00FF7F00 DRUID - Restoration |r')
 	print('|cffADFF2F --- |rRecommended Talents: 1/1 - 2/1 - 3/1 - 4/X - 5/1 - 6/3 - 7/1')
 	print('|cffADFF2F ----------------------------------------------------------------------|r')

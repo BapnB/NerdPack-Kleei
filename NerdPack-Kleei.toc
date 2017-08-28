@@ -7,6 +7,7 @@
 
 rotations\druid\restoration.lua
 rotations\druid\feral.lua
+rotations\druid\guardian.lua
 
 rotations\demonhunter\havoc.lua
 rotations\demonhunter\vengeance.lua

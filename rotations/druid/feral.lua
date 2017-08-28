@@ -124,7 +124,7 @@ local Survival = {
 
 local Interrupts = {
 
-    {"Bear Form", "player.spell(Skull Bash).cooldown > 0.3 & !player.buff(Bear Form) & {target.range > 2 || target.range > 1 & player.state(root)}", "player"},
+    {"Bear Form", "player.spell(Skull Bash).cooldown > 0.5 & !player.buff(Bear Form) & {target.range > 2 || target.range > 1 & player.state(root)}", "player"},
 
 	{"&Skull Bash", "target.range <= 14.5", "target"},
 	
