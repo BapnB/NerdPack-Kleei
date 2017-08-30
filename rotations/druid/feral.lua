@@ -194,7 +194,9 @@ local inCombat = {
     {"%pause", "target.enemy & {target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)}", "player"},
 	
 	{"Gladiator's Medallion", "player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)", "player"},
-	{"Bear Form", "player.state(root)"}, -- & target.range > 6.5
+	
+	{"Bear Form", "!player.buff(Bear Form) & player.state(root)"},
+	{"Cat Form", "!player.buff(Cat Form) & player.state(root)"},
 	
 	{"Cat Form", "!toggle(bear) & !player.buff(Cat Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >= 1}", "player"},
 
