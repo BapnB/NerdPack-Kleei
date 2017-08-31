@@ -13,13 +13,13 @@ end
 
 local Keybinds = {
 
-	{"%pause", "keybind(alt)"},
+	{"Regrowth", "keybind(alt)"},
 	
 	{"Swipe", "keybind(control)"},
 	
 	{"Wild Charge", "keybind(shift) & target.range > 5 & target.range < 22", "target"},
 	
-	{"&Skull Bash", "target.range <= 9.5", "target"},
+	{"&Skull Bash", "keybind(shift) & target.range > 5 & target.range <= 9.5", "target"},
 	
 	{"&Mighty Bash", "keybind(shift) & target.inmelee & target.enemy & target.alive", "target"},
 	
@@ -46,25 +46,23 @@ local Survival = {
     {"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
 	
     {"Survival Instincts", "player.health <= 75 & !player.buff(Survival Instincts)", "player"},
+	
+    --{"Rage of the Sleeper", "player.incdmg(7)"},
 
 	{"Barkskin", "player.health <= 65", "player"},
 	
-	{'Bristling Fur', 'player.buff(Ironfur).duration < 2 & player.rage < 40'},
-	
 	{"Mark of Ursol", "!player.buff(Mark of Ursol) & player.incdmg_magic(5) > 1", "player"},
 	
-	{"Ironfur", "!player.buff(Ironfur) & player.rage > 44 & player.incdmg.phys(5)", "player"},
+	{"Ironfur", "!player.buff(Ironfur) & player.health < 86 & player.rage > 44 & player.incdmg.phys(5)", "player"},
 	
-	{"Frenzied Regeneration", "!player.buff(Frenzied Regeneration) & player.incdmg(5)"},
+	{"Frenzied Regeneration", "!player.buff(Frenzied Regeneration) & player.incdmg(5) > player.health.max * 0.20"},
 	
 }
 
 local Cooldowns = {
 
-	{'Incarnation: Guardian of Ursoc'},
-	{'Bloodfury'},
-	{'Berserking'},
-	
+	{"Incarnation: Guardian of Ursoc", "talent(5,2)"},
+
 }
 
 local Combat = {
@@ -77,9 +75,9 @@ local Combat = {
 
 	{"Pulverize", "talent(7,3) & player.buff(Pulverize).duration < 3.6"},
 
-	{"&Maul"},
+	{"&Maul", nil, "target"},
 
-	{"Swipe"},
+	{"Swipe", "player.area(8)enemies >= 1"},
 
 }
 
@@ -89,8 +87,8 @@ local inCombat = {
 	
 	{Keybinds},
 	{Interrupts, "target.interruptAt(65) & toggle(Interrupts)"},
-	{Survival, 'player.health < 100'},
-	{Cooldowns, 'toggle(Cooldowns)'},
+	{Survival, "player.health < 100"},
+	{Cooldowns, "toggle(Cooldowns)"},
 	{Combat, "target.enemy & target.alive"}
 	
 }

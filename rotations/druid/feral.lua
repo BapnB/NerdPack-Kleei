@@ -84,9 +84,9 @@ local Rake = {
 
 local Keybinds = {
 
-	{"%pause", "keybind(alt)"},
+	{"%pause", "keybind(alt) & !player.buff(Incarnation: King of the Jungle)", "player"},
 	
-    {"Prowl", "player.buff(Incarnation: King of the Jungle) & keybind(control)", "player"},
+    {"Prowl", "player.buff(Incarnation: King of the Jungle) & keybind(alt)", "player"},
 	
 	{"Incarnation: King of the Jungle", "keybind(control) & player.combat", "player"},
 	
@@ -152,9 +152,9 @@ local Cat_Combat = {
 
     {"/startattack", "!toggle(auto) & !isattacking & target.range <= 6.5 & target.enemy & target.alive", "target"},
     --Mass
-	{Thrash, "toggle(AoE) & target.debuff(Thrash).duration <= 3.5 & {player.area(10).enemies > 2 & !artifact.enabled(Shadow Thrash)|| player.area(10).enemies >= 2 & artifact.enabled(Shadow Thrash)}", "target"},
+	{Thrash, "toggle(AoE) & target.debuff(Thrash).duration <= 3.5 & {player.area(10).enemies >= 5 & !artifact.enabled(Shadow Thrash)|| player.area(10).enemies >= 3 & artifact.enabled(Shadow Thrash)}", "target"},
 	
-	{Swipe, "toggle(AoE) & !talent(7,3) & player.area(10).enemies > 2 & target.debuff(Thrash) & player.combopoints < 5", "target"},	
+	{Swipe, "toggle(AoE) & !talent(7,3) & player.area(10).enemies >= 5 & target.debuff(Thrash) & player.combopoints < 5", "target"},	
 	
 	--Dotting
 	{"Rip", "toggle(Dotting) & target.range <= 6.5 & target.deathin >= 5 & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 4}", "target"},
@@ -194,9 +194,10 @@ local inCombat = {
     {"%pause", "target.enemy & {target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)}", "player"},
 	
 	{"Gladiator's Medallion", "player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)", "player"},
-	{"Bear Form", "player.state(root)"}, -- & target.range > 6.5
+
+	{"Bear Form", "!player.buff(Bear Form) & player.state(root)"},
 	
-	{"Cat Form", "!toggle(bear) & !player.buff(Cat Form) & {!player.swimming || target.enemy & target.alive || player.area(10).enemies >= 1}", "player"},
+	{"Cat Form", "!player.buff(Cat Form) & {!player.swimming || player.state(root) || target.enemy & target.alive || player.area(10).enemies >= 1}", "player"},
 
 	{Keybinds},
 	{Interrupts, "target.interruptAt(45) & toggle(interrupts)"},
