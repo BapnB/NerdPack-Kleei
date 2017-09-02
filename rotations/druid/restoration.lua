@@ -108,7 +108,8 @@ local Healing = {
 	--Ironbark
 	{"Ironbark", "tank.health <= UI(ironbark)", "tank"},
 	{"Ironbark", "tank2.health <= UI(ironbark)", "tank2"},
-	{"Ironbark", "player.health <= UI(ironbark)", "player"},
+	{"Barkskin", "player.health <= UI(ironbark)", "player"},
+	{"Ironbark", "player.health <= UI(ironbark) & player.spell(Barkskin).cooldown > 0.2 & !player.buff(Barkskin)", "player"},
 	
 	--Swiftmend
 	{"Swiftmend", "tank.health <= UI(tanksm) & player.health >= tank.health", "tank"},
