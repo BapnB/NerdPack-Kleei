@@ -15,7 +15,7 @@ local exeOnLoad = function()
 
 	print('|cffADFF2F ------------------------PVE-------------------------------------------|r')
 	print('|cffADFF2F --- |r|c00FF7F00 DRUID - Feral |r')
-	print('|cffADFF2F --- |rRecommended Talents: 1/1 - 2/3 - 3/1 - 4/1 - 5/1 - 6/1 - 7/3')
+	print('|cffADFF2F --- |rRecommended Talents: 1/1 - 2/3 - 3/1 - 4/1 - 5/1 - 6/1 - 7/X')
 	print('|cffADFF2F ----------------------------------------------------------------------|r')
 	
 	print('|cffADFF2F ------------------------PVP-------------------------------------------|r')
@@ -53,6 +53,13 @@ local exeOnLoad = function()
 	})
 
 end
+
+local Savage_Roar = {
+
+    {"%pause", "player.energy <= 39"},
+	{"Savage Roar", nil, "player"},
+	
+}
 
 local Maim = {
 
@@ -106,9 +113,9 @@ local PreCombat = {
 
     {"Cat Form", "!toggle(bear) & !player.buff(Cat Form) & {target.enemy & target.alive || player.area(10).enemies >= 1 || indoors || !player.swimming & !toggle(travelform)}"},
 
- 	{"Prowl", "!player.buff(Prowl) & player.buff(Cat Form) & !toggle(auto) & target.enemy & target.alive", "player"}, -- || player.area(20).enemies >= 1}
+ 	{"Prowl", "!player.buff(Prowl) & player.buff(Cat Form) & target.enemy & target.alive", "player"},  --|| player.area(15).enemies >= 1
 	
- 	{Rake, "target.range <= 6.5 & target.infront & target.enemy & target.alive & {player.buff(Prowl) || player.spell(Prowl).cooldown > gcd}", "target"},
+ 	{Rake, "target.range <= 6.5 & target.enemy & target.alive & {player.buff(Prowl) || player.spell(Prowl).cooldown > 0.5}", "target"},
 
 }
 
@@ -124,9 +131,9 @@ local Survival = {
 
 local Interrupts = {
 
-    {"Bear Form", "player.spell(Skull Bash).cooldown > 0.5 & !player.buff(Bear Form) & {target.range > 2 || target.range > 1 & player.state(root)}", "player"},
+    {"Bear Form", "target.interruptAt(90) & player.spell(Skull Bash).cooldown > 0.5 & !player.buff(Bear Form) & target.range > 2", "player"},
 
-	{"&Skull Bash", "target.range <= 14.5", "target"},
+	{"&Skull Bash", "target.interruptAt(45) & target.range <= 14.5", "target"},
 	
 	{"Typhoon", "talent(4,3) & player.spell(Skull Bash).cooldown > gcd"},
 	
@@ -156,14 +163,15 @@ local Cat_Combat = {
 	
 	{Swipe, "toggle(AoE) & !talent(7,3) & player.area(10).enemies >= 5 & target.debuff(Thrash) & player.combopoints < 5", "target"},	
 	
+	{Savage_Roar, "talent(5,3) & target.deathin >= 12 & player.combopoints == 5 & player.buff(Savage Roar).duration <= 10", "player"},	
 	--Dotting
-	{"Rip", "toggle(Dotting) & target.range <= 6.5 & target.deathin >= 5 & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 4}", "target"},
+	{"Rip", "toggle(Dotting) & target.range <= 6.5 & target.deathin >= 7 & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 5}", "target"},
 	
 	{Rake, "toggle(Dotting) & target.range <= 6.5 & player.combopoints <= 4 & target.debuff(Rake).duration <= 3 & {!talent(1,1) & target.deathin >= 5 || talent(1,1)}", "target"},
 	
 	{"Ashamane's Frenzy", "toggle(Dotting) & target.range <= 6.5 & target.deathin >= 5 & player.combopoints <= 2", "target"},
 	
-	{"Ferocious Bite", "player.combopoints == 5 & target.range <= 6.5 & {player.level < 90 || !toggle(Dotting) || talent(6,1) || talent(6,2) & target.debuff(Rip).duration >= 4 || talent(6,2) & target.deathin < 4}", "target"},
+	{"Ferocious Bite", "player.combopoints == 5 & target.range <= 6.5 & {player.level < 90 || !toggle(Dotting) || talent(6,1) & !talent(5,3) || talent(6,2) & target.debuff(Rip).duration >= 4 || talent(6,2) & target.deathin < 5 || talent(5,3) & talent(6,1) & player.buff(Savage Roar).duration > 10}", "target"},
 	
 	{"Brutal Slash", "talent(7,3) & player.combopoints <= 4 & {target.range <= 6.5 || player.area(7).enemies >= 1}", "target"},
 	
@@ -200,7 +208,7 @@ local inCombat = {
 	{"Cat Form", "!player.buff(Cat Form) & {!player.swimming || player.state(root) || target.enemy & target.alive || player.area(10).enemies >= 1}", "player"},
 
 	{Keybinds},
-	{Interrupts, "target.interruptAt(45) & toggle(interrupts)"},
+	{Interrupts, "toggle(interrupts)"},
     {Survival, "player.health < 100"},	
 	
 	{"%dispelself", "!player.buff(Prowl) & !player.area(10).enemies >= 1", "player"},
