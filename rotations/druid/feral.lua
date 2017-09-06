@@ -159,13 +159,13 @@ local Cat_Combat = {
     {"Regrowth", "talent(7,2) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & !player.lastcast(Regrowth) & {talent(5,3) & player.combopoints >= 4 & target.debuff(Rip).duration < player.buff(Savage Roar).duration & !player.buff(Savage Roar).duration <= 10 || !talent(5,3) & player.combopoints == 5 || !talent(5,3) & target.debuff(Rip).duration <= 10 & player.combopoints >= 4}", "player"},
 
     {"/startattack", "!toggle(auto) & !isattacking & target.range <= 6.5 & target.enemy & target.alive", "target"},
-    --Mass
-	{Thrash, "toggle(AoE) & target.debuff(Thrash).duration <= 3.5 & {player.area(10).enemies >= 5 & !artifact.enabled(Shadow Thrash)|| player.area(10).enemies >= 3 & artifact.enabled(Shadow Thrash)}", "target"},
+
+	{Thrash, "toggle(AoE) & {target.debuff(Thrash).duration <= 3.5 & player.area(10).enemies >= 3 & artifact.enabled(Shadow Thrash) || !player.debuff(Scent of Blood) & player.area(10).enemies >= 5}", "target"},
 	
-	{Swipe, "toggle(AoE) & !talent(7,3) & player.area(10).enemies >= 5 & target.debuff(Thrash) & player.combopoints < 5", "target"},	
+	{Swipe, "toggle(AoE) & !talent(7,3) & player.area(10).enemies >= 3 & player.debuff(Scent of Blood) & player.combopoints < 5", "target"},	
 	
 	{Savage_Roar, "talent(5,3) & target.deathin >= 7 & player.combopoints >= 4 & player.buff(Savage Roar).duration <= 11", "player"},
-	--Dotting
+
 	{"Rip", "toggle(Dotting) & target.range <= 6.5 & target.deathin >= 7 & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) & target.health > 25 || !talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 9 & target.health > 25 || player.combopoints >= 4 & !target.debuff(Rip) & target.health < 25}", "target"},
 	
 	{Rake, "toggle(Dotting) & target.range <= 6.5 & player.combopoints <= 4 & target.debuff(Rake).duration <= 7 & {!talent(1,1) & target.deathin >= 5 || talent(1,1)}", "target"},

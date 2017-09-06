@@ -119,8 +119,9 @@ local Healing = {
 	
 	{"Lifebloom", "tank.buff.duration <= 4.5", "tank"},
 	
-	{"Wild Growth", "toggle(aoe) & area(30,75).heal >= 3", "lowest"}, 
-	{"Essence of G'Hanir", "lowest.area(30,75).heal >= 3"}, 
+	{"Wild Growth", "toggle(aoe) & area(30,75).heal >= 3", "lowest"},
+	{"Essence of G'Hanir", "lowest.area(30,75).heal >= 3"},	
+	--Tranquility", "toggle(aoe) & area(30,60.heal >= 3"},
 	{"Flourish", "talent(7,3) & player.lastcast(Wild Growth) & lowest.health <= 50"}, 
 	
     {"Regrowth", "player.buff(Clearcasting) & lowest.health <= 85", "lowestpredicted"},
