@@ -156,7 +156,7 @@ local Cat_Combat = {
 
     {Rake, "player.buff(Prowl) & target.range <= 6.5 & target.infront & target.enemy & target.alive", "target"}, --sometimes you enter in combat but you are still in stealth
 
-    {"Regrowth", "talent(7,2) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & !player.lastcast(Regrowth) & {talent(5,3) & player.combopoints >= 4 & target.debuff(Rip).duration < player.buff(Savage Roar).duration & !player.buff(Savage Roar).duration <= 10 || !talent(5,3) & player.combopoints == 5 || !talent(5,3) & target.debuff(Rip).duration <= 10 & player.combopoints >= 4}", "player"}, --.duration >= 10
+    {"Regrowth", "talent(7,2) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & !player.lastcast(Regrowth) & {talent(5,3) & player.combopoints >= 4 & target.debuff(Rip).duration < player.buff(Savage Roar).duration & !player.buff(Savage Roar).duration <= 10 || !talent(5,3) & player.combopoints == 5 || !talent(5,3) & target.debuff(Rip).duration <= 10 & player.combopoints >= 4}", "player"},
 
     {"/startattack", "!toggle(auto) & !isattacking & target.range <= 6.5 & target.enemy & target.alive", "target"},
     --Mass
