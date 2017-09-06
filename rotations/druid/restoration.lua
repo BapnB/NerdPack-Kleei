@@ -5,7 +5,7 @@ local GUI = {
 	{type = 'spinner', 	text = 'Germination ', 	 key = 'tankgerm', 	 default = 80},
 	{type = 'spinner', 	text = 'Regrowth', 		key = 'tankreg', 	 default = 75},	
 	{type = 'spinner', 	text = 'Swiftmend', 	key = 'tanksm', 	 default = 60},
-	{type = 'spinner', 	text = 'Ironbark - tank or player', key = 'ironbark', default = 65},
+	{type = 'spinner', 	text = 'Ironbark / Barkskin - tank or player', key = 'ironbark', default = 65},
 	{type = 'spinner', 	text = 'Healing touch',   key = 'tankht',	     default = 0},
 	--------------------------------
 	{type = 'ruler'}, {type = 'spacer'},
