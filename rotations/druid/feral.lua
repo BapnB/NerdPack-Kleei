@@ -3,8 +3,9 @@ local GUI = {
 	{type = 'header', text = 'Keybinds', align = 'center'},
 	{type = 'text', text = 'Shift keybind in meelee will use Mighty Bash or Maim(if Mighty Bash is on CD).'},
 	{type = 'text', text = 'Shift keybind in range > 10 will use Wild Charge or  Skull Bash(if Wild Charge is on CD).'},
-	{type = 'text', text = 'Control keybind = Incarnation: King of the Jungle and then  will cast Prowl.'},
-	{type = 'text', text = 'Control keybind = Rake if Incarnation: King of the Jungle is active.'},
+	{type = 'text', text = 'Control keybind = Incarnation: King of the Jungle.'},
+	{type = 'text', text = 'Control keybind = Rake if Incarnation: King of the Jungle is up.'},
+	{type = 'text', text = 'Alt keybind = Prowl when Incarnation: King of the Jungle is up.'},
 	{type = 'text', text = 'Alt keybind = Pause.'},
 	{type = 'text', text = 'In combat if your target is friendly and dead will use Rebirth to ress him.'},
 	{type = 'text', text = 'In out of combat if your target is friendly and dead will use Revive to ress him.'},
@@ -155,7 +156,7 @@ local Cat_Combat = {
 
     {Rake, "player.buff(Prowl) & target.range <= 6.5 & target.infront & target.enemy & target.alive", "target"}, --sometimes you enter in combat but you are still in stealth
 
-    {"Regrowth", "talent(7,2) & player.buff(Predatory Swiftness) & !lastcast(Regrowth) & {talent(5,3) & player.combopoints >= 4 & target.debuff(Rip).duration < player.buff(Savage Roar).duration || !talent(5,3) & player.combopoints == 5 || target.debuff(Rip).duration <= 10 & player.combopoints >= 4}", "player"}, --.duration >= 10
+    {"Regrowth", "talent(7,2) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & !lastcast(Regrowth) & {talent(5,3) & player.combopoints >= 4 & target.debuff(Rip).duration < player.buff(Savage Roar).duration & !player.buff(Savage Roar).duration <= 10 || !talent(5,3) & player.combopoints == 5 || !talent(5,3) & target.debuff(Rip).duration <= 10 & player.combopoints >= 4}", "player"}, --.duration >= 10
 
     {"/startattack", "!toggle(auto) & !isattacking & target.range <= 6.5 & target.enemy & target.alive", "target"},
     --Mass
@@ -175,7 +176,7 @@ local Cat_Combat = {
 	
 	{"Brutal Slash", "talent(7,3) & player.combopoints <= 4 & {target.range <= 6.5 || player.area(7).enemies >= 1}", "target"},
 	
-	{"Shred", "!player.buff(Prowl) & {talent(7,3) & target.range <= 6.5 & !player.spell(Brutal Slash).charges >= 1 & player.combopoints < 5 || !talent(7,3) & player.combopoints < 5}", "target"},
+	{"Shred", "!player.buff(Prowl) & {talent(7,3) & target.range <= 6.5 & !player.spell(Brutal Slash).charges >= 1 & player.combopoints < 5 || talent(7,1) & player.combopoints < 5 || talent(7,2) & !player.combopoints >= 4}", "target"},
 
 }
 
