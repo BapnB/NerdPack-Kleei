@@ -59,6 +59,9 @@ end
 local Keybinds = {
 
 	{"%pause", "keybind(alt)"},
+	
+	{"Mass Entanglement", "talent(4,2) & player.area(5).enemies & keybind(alt)", "target"},
+	
 	{"Efflorescence", "keybind(shift)", "cursor.ground"},
     --{"Typhoon", "talent(4,3) & keybind(control)"},
 	

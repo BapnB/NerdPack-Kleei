@@ -14,11 +14,6 @@ local GUI = {
 
 local exeOnLoad = function()
 
-	print('|cffADFF2F ------------------------PVE-------------------------------------------|r')
-	print('|cffADFF2F --- |r|c00FF7F00 DRUID - Feral |r')
-	print('|cffADFF2F --- |rRecommended Talents: 1/1 - 2/3 - 3/1 - 4/1 - 5/3 - 6/2 - 7/1')
-	print('|cffADFF2F ----------------------------------------------------------------------|r')
-	
 	print('|cffADFF2F ------------------------PVP-------------------------------------------|r')
 	print('|cffADFF2F --- |r|c00FF7F00 DRUID - Feral |r')
 	print('|cffADFF2F --- |rRecommended Talents: 1/1 - 2/3 - 3/2 - 4/1 - 5/2 - 6/2 - 7/2')
@@ -54,6 +49,13 @@ local exeOnLoad = function()
 	})
 
 end
+
+local Rip = {
+
+    {"%pause", "player.energy <= 29"},
+	{"Rip", nil, "target"},
+
+}
 
 local Savage_Roar = {
 
@@ -124,7 +126,7 @@ local Survival = {
 
 	{"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
 	
-    {"Regrowth", "player.buff(Predatory Swiftness).duration >= 10 & !player.lastcast(Regrowth) & player.health <= 75", "player"},
+    {"Regrowth", "player.buff(Predatory Swiftness).duration >= 10 & !player.lastcast(Regrowth) & player.health <= 40", "player"},
 	
     {"Survival Instincts", "player.health <= 70 & !player.buff(Survival Instincts)", "player"},
 	
@@ -156,29 +158,29 @@ local Cat_Combat = {
 
     {Rake, "player.buff(Prowl) & target.range <= 6.5 & target.infront & target.enemy & target.alive", "target"}, --sometimes you enter in combat but you are still in stealth
 
-    {"Regrowth", "talent(7,2) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & !player.lastcast(Regrowth) & {talent(5,3) & player.combopoints >= 4 & target.debuff(Rip).duration < player.buff(Savage Roar).duration & !player.buff(Savage Roar).duration <= 10 || !talent(5,3) & player.combopoints == 5 || !talent(5,3) & target.debuff(Rip).duration <= 10 & player.combopoints >= 4}", "player"},
+    {"Regrowth", "talent(7,2) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & !player.lastcast(Regrowth) & {talent(5,3) & player.combopoints >= 4 & target.debuff(Rip).duration < player.buff(Savage Roar).duration & !player.buff(Savage Roar).duration <= 10 || !talent(5,3) & player.combopoints >= 4}", "player"},
 
     {"/startattack", "!toggle(auto) & !isattacking & target.range <= 6.5 & target.enemy & target.alive", "target"},
 
 	{Thrash, "toggle(AoE) & {target.debuff(Thrash).duration <= 3.5 & player.area(10).enemies >= 3 & artifact.enabled(Shadow Thrash) || !player.debuff(Scent of Blood) & player.area(10).enemies >= 5}", "target"},
 	
-	{Swipe, "toggle(AoE) & !talent(7,3) & player.area(10).enemies >= 3 & player.debuff(Scent of Blood) & player.combopoints < 5", "target"},	
+	{Swipe, "toggle(AoE) & !talent(7,3) & player.debuff(Scent of Blood) & {player.area(10).enemies >= 3 & player.combopoints < 5 || player.area(10).enemies >= 4}", "target"},	
 	
 	{Savage_Roar, "talent(5,3) & target.deathin >= 7 & player.combopoints >= 4 & player.buff(Savage Roar).duration <= 11", "player"},
 
-	{"Rip", "toggle(Dotting) & target.range <= 6.5 & target.deathin >= 7 & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) & target.health > 25 || !talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 9 & target.health > 25 || player.combopoints >= 4 & !target.debuff(Rip) & target.health < 25}", "target"},
+	{Rip, "toggle(Dotting) & target.range <= 6.5 & target.deathin >= 6 & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) & target.health > 25 || !talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 9 & target.health > 25 || player.combopoints >= 4 & !target.debuff(Rip) & target.health < 25}", "target"},
 	
-	{Rake, "toggle(Dotting) & target.range <= 6.5 & player.combopoints <= 4 & target.debuff(Rake).duration <= 7 & {!talent(1,1) & target.deathin >= 5 || talent(1,1)}", "target"},
+	{Rake, "toggle(Dotting) & target.range <= 6.5 & player.combopoints <= 4 & target.debuff(Rake).duration <= 4 & {!talent(1,1) & target.deathin >= 5 || talent(1,1)}", "target"},
 	
 	{"Ashamane's Frenzy", "toggle(Dotting) & target.range <= 6.5 & target.deathin >= 5 & player.combopoints <= 2", "target"},
 	
 	{"Ferocious Bite", "player.combopoints == 5 & target.range <= 6.5 & {player.level < 90 || !toggle(Dotting) || talent(6,1) & target.debuff(Rip) & !talent(5,3) || talent(6,2) & !talent(5,3) & target.debuff(Rip).duration >= 7 || talent(6,2) & target.deathin < 5 || talent(5,3) & player.buff(Savage Roar).duration > 12 & target.debuff(Rip) & target.health < 25}", "target"},
 	
-	{"Ferocious Bite", "target.range <= 6.5 & target.health < 25 & target.debuff(Rip) & !talent(5,3) & {player.combopoints >= 4 & player.buff(Bloodtalons) || player.combopoints == 5 & !player.buff(Bloodtalons}", "target"},
+	{"Ferocious Bite", "target.range <= 6.5 & target.health < 25 & target.debuff(Rip) & player.combopoints >= 4 & player.buff(Bloodtalons)", "target"},
 	
 	{"Brutal Slash", "talent(7,3) & player.combopoints <= 4 & {target.range <= 6.5 || player.area(7).enemies >= 1}", "target"},
 	
-	{"Shred", "!player.buff(Prowl) & !player.lastcast(Regrowth) & {talent(7,3) & target.range <= 6.5 & !player.spell(Brutal Slash).charges >= 1 & player.combopoints < 5 || !talent(7,3) & player.combopoints < 5}", "target"},
+	{"Shred", "!player.buff(Prowl) & target.range <= 6.5 & {talent(7,3) & !player.spell(Brutal Slash).charges >= 1 & player.combopoints < 5 || !talent(7,3) & player.combopoints < 5}", "target"},
 
 }
 
