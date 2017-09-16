@@ -6,7 +6,7 @@ local exeOnLoad = function()
 
 	print('|cffADFF2F ------------------------PVE-------------------------------------------|r')
 	print('|cffADFF2F --- |r|c00FF7F00 DRUID - Guardian |r')
-	print('|cffADFF2F --- |rRecommended Talents: 1/X - 2/X - 3/X - 4/X - 5/X - 6/X - 7/X')
+	print('|cffADFF2F --- |rRecommended Talents: 1/X - 2/X - 3/3 - 4/X - 5/X - 6/X - 7/X')
 	print('|cffADFF2F ----------------------------------------------------------------------|r')
 
 end
@@ -29,7 +29,7 @@ local PreCombat = {
 
     {"Bear Form", "!player.buff(Bear Form)"},
 	
-	{"Swipe", "player.area(8)enemies >= 1", "target"},
+	{"Swipe", "player.area(8)enemies >= 1 || target.enemy & target.alive & target.inmelee", "target"},
     
 }
 
@@ -45,29 +45,29 @@ local Survival = {
 
     {"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
 	
-    {"Survival Instincts", "player.health <= 75 & !player.buff(Survival Instincts)", "player"},
+	{"Rejuvenation", "talent(3,3) & player.health <= 90 & !player.buff(Rejuvenation)", "player"},-- on private servers it cast being in form without quit from it
 	
-    --{"Rage of the Sleeper", "player.incdmg(7)"},
+    {"Survival Instincts", "player.health <= 65 & !player.buff(Survival Instincts)", "player"},
 
 	{"Barkskin", "player.health <= 65", "player"},
 	
-	{"Mark of Ursol", "!player.buff(Mark of Ursol) & player.incdmg_magic(5) > 1", "player"},
+	{"Swiftmend", "talent(3,3) & player.health <= 30", "player"},-- on private servers it cast being in form without quit from it
 	
-	{"Ironfur", "!player.buff(Ironfur) & player.health < 86 & player.rage > 44 & player.incdmg.phys(5)", "player"},
+	{"Ironfur", "!player.buff(Ironfur)", "player"}, -- & player.incdmg.phys(3) > player.health.max * 0.10
 	
-	{"Frenzied Regeneration", "!player.buff(Frenzied Regeneration) & player.incdmg(5) > player.health.max * 0.20"},
+	{"Frenzied Regeneration", "!player.buff(Frenzied Regeneration) & player.incdmg(5) > player.health.max * 0.20", "player"},
 	
 }
 
 local Cooldowns = {
 
-	{"Incarnation: Guardian of Ursoc", "talent(5,2)"},
+	--{"Incarnation: Guardian of Ursoc", "talent(5,2)"},
 
 }
 
 local Combat = {
     
-	{"Thrash", "player.area(8)enemies >= 1", "target"},
+	{"Thrash", "player.area(10).enemies >= 1 || target.range <= 5"},
 	
 	{"Mangle", "target.inmelee", "target"},
 	
@@ -75,9 +75,11 @@ local Combat = {
 
 	{"Pulverize", "talent(7,3) & player.buff(Pulverize).duration < 3.6"},
 
-	{"&Maul", nil, "target"},
+	{"&Maul", "target.inmelee & player.buff(Ironfur)", "target"},
 
-	{"Swipe", "player.area(8)enemies >= 1"},
+	{"Swipe", "player.area(10).enemies >= 1 || target.range <= 5"},
+	
+	{"Rage of the Sleeper", "player.incdmg(4) & player.area(10)enemies >= 4"},
 
 }
 

@@ -94,15 +94,15 @@ local Rake = {
 
 local Keybinds = {
 
-	{"%pause", "keybind(alt) & !player.buff(Incarnation: King of the Jungle)", "player"},
+	{"%pause", "keybind(alt) & player.buff(Prowl)", "player"},
 	
-    {"Prowl", "player.buff(Incarnation: King of the Jungle) & keybind(alt)", "player"},
+    {"Prowl", "!player.buff(Prowl) & player.buff(Cat Form) & player.buff(Incarnation: King of the Jungle) & {keybind(control) || keybind(alt)}", "player"},
 	
-	{"Incarnation: King of the Jungle", "keybind(control) & player.combat", "player"},
+    {Rake, "target.range <= 6.5 & target.enemy & target.alive & player.buff(Prowl) & keybind(control)", "target"},		
 	
-    {Rake, "target.range <= 6.5 & target.enemy & target.alive & {player.buff(Incarnation: King of the Jungle) & keybind(control) & !target.debuff(163505) || player.buff(Prowl)}", "target"},	
+	{"Incarnation: King of the Jungle", "player.combat & {keybind(control) || keybind(alt)}", "player"},
 
-    {"&Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & !target.debuff(163505) & keybind(shift) & target.range <= 6.5 & target.enemy & target.alive", "target"},
+    {"!Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & !target.debuff(163505) & keybind(shift) & target.range <= 6.5 & target.enemy & target.alive", "target"},
 	
 	{Maim, "!player.buff(Prowl) & keybind(shift) & player.combopoints >=3 & player.spell(Mighty Bash).cooldown > gcd & !target.debuff(Mighty Bash) & target.range <= 6.5 & target.enemy & target.alive", "target"},
 	
@@ -156,21 +156,24 @@ local Cat_Combat = {
 
 	{"Tiger's Fury", "target.range <= 7 & player.energy < 40 & {talent(1,1) & target.debuff(Rake) || talent(1,1) & target.debuff(Rip) || talent(1,1) & target.debuff(Thrash) || !talent(1,1) & target.deathin >= 7}"},
 
+    {"Regrowth", "talent(7,2) & !player.buff(Prowl) & !player.debuff(Scent of Blood) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & !player.lastcast(Regrowth) & {talent(5,3) & player.combopoints >= 4 & target.debuff(Rip).duration < player.buff(Savage Roar).duration & !player.buff(Savage Roar).duration <= 10 || !talent(5,3) & player.combopoints >= 4}", "player"},	
+	
     {Rake, "player.buff(Prowl) & target.range <= 6.5 & target.infront & target.enemy & target.alive", "target"}, --sometimes you enter in combat but you are still in stealth
 
-    {"Regrowth", "talent(7,2) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & !player.lastcast(Regrowth) & {talent(5,3) & player.combopoints >= 4 & target.debuff(Rip).duration < player.buff(Savage Roar).duration & !player.buff(Savage Roar).duration <= 10 || !talent(5,3) & player.combopoints >= 4}", "player"},
-
+    --{Rake, "toggle(AoE) & player.area(6).enemies <= 5 & player.area(6).enemies >= 2 & player.combopoints <= 4 & target.debuff(Rake)", "enemyndebuff(Rake)"},	
+	
     {"/startattack", "!toggle(auto) & !isattacking & target.range <= 6.5 & target.enemy & target.alive", "target"},
 
-	{Thrash, "toggle(AoE) & {target.debuff(Thrash).duration <= 3.5 & player.area(10).enemies >= 3 & artifact.enabled(Shadow Thrash) || !player.debuff(Scent of Blood) & player.area(10).enemies >= 5}", "target"},
+	--{Thrash, "toggle(AoE) & {target.debuff(Thrash).duration <= 3.5 & player.area(10).enemies == 3 & player.area(10).enemies == 4 & artifact.enabled(Scent of Blood) || !player.debuff(Scent of Blood) & player.area(10).enemies >= 5}", "target"},
+    {Thrash, "toggle(AoE) & artifact.enabled(Scent of Blood) & !player.debuff(Scent of Blood) & player.area(10).enemies >= 6"},	
 	
-	{Swipe, "toggle(AoE) & !talent(7,3) & player.debuff(Scent of Blood) & {player.area(10).enemies >= 3 & player.combopoints < 5 || player.area(10).enemies >= 4}", "target"},	
+	{Swipe, "toggle(AoE) & !talent(7,3) & player.debuff(Scent of Blood) & player.area(10).enemies >= 6", "target"}, -- & player.combopoints < 5 
 	
 	{Savage_Roar, "talent(5,3) & target.deathin >= 7 & player.combopoints >= 4 & player.buff(Savage Roar).duration <= 11", "player"},
 
 	{Rip, "toggle(Dotting) & target.range <= 6.5 & target.deathin >= 6 & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) & target.health > 25 || !talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 9 & target.health > 25 || player.combopoints >= 4 & !target.debuff(Rip) & target.health < 25}", "target"},
-	
-	{Rake, "toggle(Dotting) & target.range <= 6.5 & player.combopoints <= 4 & target.debuff(Rake).duration <= 4 & {!talent(1,1) & target.deathin >= 5 || talent(1,1)}", "target"},
+
+	{Rake, "toggle(Dotting) & target.range <= 6.5 & player.combopoints <= 4 & target.debuff(Rake).duration <= 4 & {!talent(1,1) & target.deathin >= 5 || talent(1,1)}", "target"},	
 	
 	{"Ashamane's Frenzy", "toggle(Dotting) & target.range <= 6.5 & target.deathin >= 5 & player.combopoints <= 2", "target"},
 	
@@ -214,7 +217,7 @@ local inCombat = {
 
 	{Keybinds},
 	{Interrupts, "toggle(interrupts)"},
-    {Survival, "player.health < 100"},	
+    {Survival, "player.health < 100 & !player.buff(Prowl)"},	
 	
 	{"%dispelself", "!player.buff(Prowl) & !player.area(10).enemies >= 1", "player"},
     {"Rebirth", "!target.enemy & target.dead", "target"},
@@ -246,7 +249,7 @@ local outCombat = {
     {"%dispelself", "!player.buff(Prowl)", "player"},
 	{"/cleartarget", "toggle(auto) & target.range >= 7"},
 	
-	{"Regrowth", "!player.buff(Prowl) & !player.moving & player.health <= 85", "player"},	
+    {"Regrowth", "talent(7,2) & player.buff(Predatory Swiftness) & !player.buff(Prowl) & !player.moving & player.health <= 75", "player"},
 
 	--Cancel form when not swimming / Travel Form when swimming
 	{"/cancelform", "player.swimming & !player.buff(Prowl) & !indoors &  !target.enemy & {player.buff(Cat Form) || player.buff(Bear Form)}"},

@@ -27,7 +27,7 @@ local GUI = {
 	{type = 'header', text = 'Keybinds', align = 'center'},
 	{type = 'text', text = 'Shift keybind = Efflorescence on cursor ground.'},
 	{type = 'text', text = 'Control keybind = Innervate (inCombat only).'},
-	{type = 'text', text = 'Alt keybind = Pause.'},
+	{type = 'text', text = 'Alt keybind = Mass Entanglement on target.'},
 	{type = 'text', text = 'In combat if your target is friendly and dead will use Rebirth to ress him.'},
 	{type = 'text', text = 'In out of combat if your target is friendly and dead will use Revitalize to ress him.'},	
 	
@@ -58,12 +58,11 @@ end
 
 local Keybinds = {
 
-	{"%pause", "keybind(alt)"},
+	{"Mass Entanglement", "talent(4,2) & keybind(alt)", "target"},
 	
-	{"Mass Entanglement", "talent(4,2) & player.area(5).enemies & keybind(alt)", "target"},
+    {"Innervate", "keybind(control) & player.combat", "player"},
 	
 	{"Efflorescence", "keybind(shift)", "cursor.ground"},
-    --{"Typhoon", "talent(4,3) & keybind(control)"},
 	
 }
 
@@ -107,6 +106,12 @@ local DPS = {
 }
 
 local Healing = { 
+
+    --Revive
+	{"Rebirth", "!target.enemy & target.dead", "target"},
+
+	--Dispell
+	{"&%dispelall", "toggle(dispelall) & player.spell(Nature's Cure).cooldown < 0.3"},
 	
 	--Ironbark
 	{"Ironbark", "tank.health <= UI(ironbark)", "tank"},
@@ -159,23 +164,12 @@ local Healing = {
 
 local inCombat = {
 
-    {"Innervate", "keybind(control)", "player"},
-	
     {Survival, "player.health < 100"},
-
-    --Revive
-	{"Rebirth", "!target.enemy & target.dead", "target"},
-	
-	--Dispell
-	{"&%dispelall", "toggle(dispelall) & player.spell(Nature's Cure).cooldown < 0.3"},
-	
-	--Typhoon enemies when they is in front of you
-	--{"Typhoon", "enemies.range <=5 & enemies.infront"}
-	
 	{Keybinds},
 	{Interrupts, "target.interruptAt(35) & toggle(interrupts)"},	
 	{Healing},
     {DPS,  "player.mana >=UI (mana) & target.enemy & target.alive & toggle(DPS)"},
+	
 }
 
 local outCombat = {
