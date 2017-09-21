@@ -164,8 +164,8 @@ local Cat_Combat = {
 	
     {"/startattack", "!toggle(auto) & !isattacking & target.range <= 6.5 & target.enemy & target.alive", "target"},
 
-	--{Thrash, "toggle(AoE) & {target.debuff(Thrash).duration <= 3.5 & player.area(10).enemies == 3 & player.area(10).enemies == 4 & artifact.enabled(Scent of Blood) || !player.debuff(Scent of Blood) & player.area(10).enemies >= 5}", "target"},
-    {Thrash, "toggle(AoE) & artifact.enabled(Scent of Blood) & !player.debuff(Scent of Blood) & player.area(10).enemies >= 6"},	
+	{Thrash, "toggle(AoE) & {target.debuff(Thrash).duration <= 3.5 & player.area(10).enemies >= 3 & player.area(10).enemies <= 4 & artifact.enabled(Shadow Thrash) || !player.debuff(Scent of Blood) & player.area(10).enemies >= 5}", "target"},
+    --{Thrash, "toggle(AoE) & artifact.enabled(Scent of Blood) & !player.debuff(Scent of Blood) & player.area(10).enemies >= 6"},	
 	
 	{Swipe, "toggle(AoE) & !talent(7,3) & player.debuff(Scent of Blood) & player.area(10).enemies >= 6", "target"}, -- & player.combopoints < 5 
 	
@@ -249,7 +249,7 @@ local outCombat = {
     {"%dispelself", "!player.buff(Prowl)", "player"},
 	{"/cleartarget", "toggle(auto) & target.range >= 7"},
 	
-    {"Regrowth", "talent(7,2) & player.buff(Predatory Swiftness) & !player.buff(Prowl) & !player.moving & player.health <= 75", "player"},
+    {"Regrowth", "player.buff(Predatory Swiftness) & !player.buff(Prowl) & !player.moving & player.health <= 75", "player"},
 
 	--Cancel form when not swimming / Travel Form when swimming
 	{"/cancelform", "player.swimming & !player.buff(Prowl) & !indoors &  !target.enemy & {player.buff(Cat Form) || player.buff(Bear Form)}"},

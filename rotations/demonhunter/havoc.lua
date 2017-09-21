@@ -71,13 +71,18 @@ local Melee = {
 
 local inCombat = {
 
+    {"%pause", "target.enemy & {target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)}", "player"},
+	
+	{"Gladiator's Medallion", "player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)", "player"},
+
+    ---------------
 	{Keybinds},
 	{Survival, "player.health < 100"},
 	{Interrupts, "target.interruptAt(40) & toggle(interrupts)"},
 	{Cooldowns, "toggle(cooldowns) & target.enemy & target.alive & target.range <= 2"},
 	---------------
 	
-	{"/startattack", "!isattacking & target.range < 10 & target.enemy & target.alive"},
+	{"/startattack", "!isattacking & target.range < 10 & target.enemy & target.alive", "target"},
 	
 	---Mass
 	{"Fury of the Illidari", "!player.moving & target.deathin > 5 & target.enemy & target.alive & !player.lastcast(Vengeful Retreat) & target.range <= 1"},
