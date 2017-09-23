@@ -5,7 +5,7 @@ local GUI = {
 	{type = 'text', text = 'Shift keybind in range > 10 will use Wild Charge or  Skull Bash(if Wild Charge is on CD).'},
 	{type = 'text', text = 'Control keybind = Incarnation: King of the Jungle.'},
 	{type = 'text', text = 'Control keybind = Rake if Incarnation: King of the Jungle is up.'},
-	{type = 'text', text = 'Alt keybind = Prowl when Incarnation: King of the Jungle is up.'},
+	{type = 'text', text = 'Alt keybind = Shadowmeld.'},
 	{type = 'text', text = 'Alt keybind = Pause.'},
 	{type = 'text', text = 'In combat if your target is friendly and dead will use Rebirth to ress him.'},
 	{type = 'text', text = 'In out of combat if your target is friendly and dead will use Revive to ress him.'},
@@ -96,11 +96,13 @@ local Keybinds = {
 
 	{"%pause", "keybind(alt) & player.buff(Prowl)", "player"},
 	
+	{"Shadowmeld", "keybind(alt) & player.buff(Cat Form) & !player.lastcast(Shadowmeld) & !player.buff(Shadowmeld) & !player.buff(Prowl)"},
+	
     {"Prowl", "!player.buff(Prowl) & player.buff(Cat Form) & player.buff(Incarnation: King of the Jungle) & {keybind(control) || keybind(alt)}", "player"},
 	
     {Rake, "target.range <= 6.5 & target.enemy & target.alive & player.buff(Prowl) & keybind(control)", "target"},		
 	
-	{"Incarnation: King of the Jungle", "player.combat & {keybind(control) || keybind(alt)}", "player"},
+	{"Incarnation: King of the Jungle", "player.combat & keybind(control)", "player"},
 
     {"!Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & !target.debuff(163505) & keybind(shift) & target.range <= 6.5 & target.enemy & target.alive", "target"},
 	
@@ -118,7 +120,7 @@ local PreCombat = {
 
  	{"Prowl", "!player.buff(Prowl) & player.buff(Cat Form) & target.enemy & target.alive", "player"},  --|| player.area(15).enemies >= 1
 	
- 	{Rake, "target.range <= 6.5 & target.enemy & target.alive & {player.buff(Prowl) || player.spell(Prowl).cooldown > 0.5}", "target"},
+ 	{Rake, "target.range <= 6.5 & target.infront & target.enemy & target.alive & {player.buff(Prowl) || player.spell(Prowl).cooldown > 0.5 & !player.buff(Shadowmeld) || player.buff(Shadowmeld)}", "target"},
 
 }
 
@@ -158,7 +160,7 @@ local Cat_Combat = {
 
     {"Regrowth", "talent(7,2) & !player.buff(Prowl) & !player.debuff(Scent of Blood) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & !player.lastcast(Regrowth) & {talent(5,3) & player.combopoints >= 4 & target.debuff(Rip).duration < player.buff(Savage Roar).duration & !player.buff(Savage Roar).duration <= 10 || !talent(5,3) & player.combopoints >= 4}", "player"},	
 	
-    {Rake, "player.buff(Prowl) & target.range <= 6.5 & target.infront & target.enemy & target.alive", "target"}, --sometimes you enter in combat but you are still in stealth
+    {Rake, "target.range <= 6.5 & target.infront & target.enemy & target.alive & {player.buff(Prowl) ||  player.buff(Shadowmeld)}", "target"}, --sometimes you enter in combat but you are still in stealth
 
     --{Rake, "toggle(AoE) & player.area(6).enemies <= 5 & player.area(6).enemies >= 2 & player.combopoints <= 4 & target.debuff(Rake)", "enemyndebuff(Rake)"},	
 	
