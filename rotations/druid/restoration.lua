@@ -93,7 +93,8 @@ local Innervate = {
 local DPS = {
 
 	{"Sunfire",  "target.area(6).enemies >= 2 & !target.debuff(Sunfire).duration > 2", "target"},
-    {"Moonfire", "!target.debuff(Moonfire).duration > 2", "target"}, 
+    {"Moonfire", "toggle(aoe) & !debuff & range <= 40", "enemies"}, 
+    {"Moonfire", "!toggle(aoe) & !debuff & target.range <= 40", "target"},	
 
 	{"Moonkin Form", "!player.buff(Moonkin Form)"},
 	
@@ -127,9 +128,9 @@ local Healing = {
 	
 	{"Lifebloom", "tank.buff.duration <= 4.5", "tank"},
 	
-	{"Wild Growth", "toggle(aoe) & area(30,75).heal >= 3", "lowest"},
+	{"Wild Growth", "area(30,75).heal >= 3", "lowest"},
 	{"Essence of G'Hanir", "lowest.area(30,75).heal >= 3"},	
-	--Tranquility", "toggle(aoe) & area(30,60.heal >= 3"},
+	--Tranquility", "area(30,60.heal >= 3"},
 	{"Flourish", "talent(7,3) & player.lastcast(Wild Growth) & lowest.health <= 50"}, 
 	
     {"Regrowth", "player.buff(Clearcasting) & lowest.health <= 85", "lowestpredicted"},
