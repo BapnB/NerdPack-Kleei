@@ -59,7 +59,8 @@ local Keybinds = {
 local Cooldowns = {
 
 	{"Nemesis", "talent(5,3) & target.deathin >= 15"},
-	{"Chaos Blades", "talent(7,1) & target.deathin >= 15"},
+	{"Chaos Blades", "talent(7,1) & target.deathin >= 10"},
+	
 }
 
 local Melee = {
@@ -67,6 +68,7 @@ local Melee = {
 	{"Chaos Strike", "player.fury >= 40 & {player.area(8).enemies <= 5 || player.spell(Eye Beam).cooldown > gcd}"},
 	{"Annihilation", "player.fury >= 40 & {player.area(8).enemies <= 5 || player.spell(Eye Beam).cooldown > gcd}"},
 	{"Demon's Bite", "!talent(2,2) & player.fury <= 39"},
+	
 }
 
 local inCombat = {

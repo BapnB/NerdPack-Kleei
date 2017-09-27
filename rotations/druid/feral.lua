@@ -19,6 +19,11 @@ local exeOnLoad = function()
 	print('|cffADFF2F --- |rRecommended Talents: 1/1 - 2/3 - 3/2 - 4/1 - 5/2 - 6/2 - 7/2')
 	print('|cffADFF2F ----------------------------------------------------------------------|r')
 	
+	print('|cffADFF2F ------------------------PVE-------------------------------------------|r')
+	print('|cffADFF2F --- |r|c00FF7F00 DRUID - Feral |r')
+	print('|cffADFF2F --- |rRecommended Talents: 1/1 - 2/3 - 3/2 - 4/1 - 5/3 - 6/1 - 7/3')
+	print('|cffADFF2F ----------------------------------------------------------------------|r')
+	
 	
 		NeP.Interface:AddToggle({
 		key = 'Dotting',
@@ -185,7 +190,7 @@ local Cat_Combat = {
 	
 	{Savage_Roar, "talent(5,3) & player.combopoints >= 4 & player.buff(Savage Roar).duration <= 10", "player"},
 
-	{Rip, "toggle(Dotting) & target.range <= 6.2 & target.deathin >= 6 & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 9 & target.health > 25 || player.combopoints >= 4 & !target.debuff(Rip) & target.health < 25}", "target"},
+	{Rip, "toggle(Dotting) & target.range <= 6.2 & target.deathin >= 6 & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 9 & target.health >= 25 || player.combopoints >= 4 & !target.debuff(Rip) & target.health < 25}", "target"},
 
 	{Rake, "toggle(Dotting) & target.range <= 6.2 & player.combopoints <= 4 & target.debuff(Rake).duration <= 4", "target"},	
 	

@@ -99,7 +99,7 @@ local DPS = {
 	{"Moonkin Form", "!player.buff(Moonkin Form)"},
 	
 	{"Starsurge", "player.buff(Moonkin Form)", "target"},
-	{"Lunar Strike", "player.buff(Lunar Empowerment) & target.area(6).enemies >= 2", "target"},
+	{"Lunar Strike", "player.buff(Lunar Empowerment) & target.area(6).enemies >= 4", "target"},
 	{"Solar Wrath", "player.buff(Solar Empowerment)", "target"},
 	
 	{"Solar Wrath", "player.buff(Moonkin Form)", "target"},
