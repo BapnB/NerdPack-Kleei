@@ -172,8 +172,6 @@ local Cat_Combat = {
     {"Regrowth", "talent(7,2) & !player.buff(Prowl) & !player.debuff(Scent of Blood) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & !player.lastcast(Regrowth) & {talent(5,3) & player.combopoints >= 4 & target.debuff(Rip).duration < player.buff(Savage Roar).duration & !player.buff(Savage Roar).duration <= 10 || !talent(5,3) & player.combopoints >= 4}", "player"},
 	
     {Rake, "target.range <= 6.2 & target.infront & target.enemy & target.alive & {player.buff(Prowl) ||  player.buff(Shadowmeld)}", "target"}, --sometimes you enter in combat but you are still in stealth
-
-    --{Rake, "toggle(AoE) & player.area(6).enemies <= 5 & player.area(6).enemies >= 2 & player.combopoints <= 4 & target.debuff(Rake)", "enemyndebuff(Rake)"},	
 	
     {"/startattack", "!toggle(auto) & !isattacking & target.range <= 6.5 & target.enemy & target.alive", "target"},	
 
@@ -181,8 +179,7 @@ local Cat_Combat = {
     --{Thrash, "toggle(AoE) & artifact.enabled(Scent of Blood) & !player.debuff(Scent of Blood) & player.area(10).enemies >= 6"},
 	
 	{"Brutal Slash", "toggle(AoE) & talent(7,3) & player.combopoints <= 4 & player.area(7).enemies >= 3 & {talent(5,3) & player.buff(Savage Roar) || !talent(5,3)}"},
-	
-	{"Brutal Slash", "toggle(BOSS) & talent(7,3) & player.combopoints <= 4 & player.area(7).enemies >= 1 & {talent(5,3) & player.buff(Savage Roar) || !talent(5,3)}"},
+	{"Brutal Slash", "toggle(BOSS) & talent(7,3) & target.debuff(Rip) & player.combopoints <= 4 & player.area(7).enemies >= 1 & {talent(5,3) & player.buff(Savage Roar) || !talent(5,3)}"},
 	
 	{Swipe, "toggle(AoE) & !talent(7,3) & player.debuff(Scent of Blood) & player.area(10).enemies >= 6"}, -- & player.combopoints < 5
 	
@@ -192,13 +189,15 @@ local Cat_Combat = {
 
 	{Rip, "toggle(Dotting) & target.range <= 6.2 & target.deathin >= 6 & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 9 & target.health >= 25 || player.combopoints >= 4 & !target.debuff(Rip) & target.health < 25}", "target"},
 
-	{Rake, "toggle(Dotting) & target.range <= 6.2 & player.combopoints <= 4 & target.debuff(Rake).duration <= 4", "target"},	
+	{Rake, "toggle(Dotting) & target.range <= 6.2 & player.combopoints < 5 & target.debuff(Rake).duration <= 4", "target"},	
+	{Rake, "toggle(Dotting) & target.range <= 6.2 & player.combopoints < 4 & player.buff(Bloodtalons)", "target"},
 	
 	{"Ashamane's Frenzy", "toggle(Dotting) & target.range <= 6.2 & target.deathin >= 5 & player.combopoints <= 2", "target"},
 	
-	{"Ferocious Bite", "target.range <= 6.2 & {player.combopoints == 5 || player.combopoints >= 4 & player.buff(Bloodtalons)}", "target"},
+	{"Ferocious Bite", "target.range <= 6.2 & {player.combopoints == 5 || talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 6 & target.debuff(Rip).duration >= 0.1}", "target"},
+	{"Ferocious Bite", "target.range <= 6.2 & player.combopoints >= 4 & player.buff(Bloodtalons)", "target"},
 	
-	{"Shred", "!player.buff(Prowl) & target.range <= 6.2 & player.combopoints < 5", "target"},
+	{"Shred", "!player.buff(Prowl) & target.range <= 6.2 & player.combopoints < 5 & !player.buff(Bloodtalons)", "target"},
 
 }
 
