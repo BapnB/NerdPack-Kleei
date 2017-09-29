@@ -3,8 +3,8 @@ local GUI = {
 	{type = 'header', text = 'Keybinds', align = 'center'},
 	{type = 'text', text = 'Shift keybind in meelee will use Mighty Bash or Maim(if Mighty Bash is on CD).'},
 	{type = 'text', text = 'Shift keybind in range > 10 will use Wild Charge or  Skull Bash(if Wild Charge is on CD).'},
-	{type = 'text', text = 'Control keybind = Incarnation: King of the Jungle.'},
-	{type = 'text', text = 'Control keybind = Rake if Incarnation: King of the Jungle is up.'},
+	{type = 'text', text = 'Control keybind = Berserk.'},
+	--{type = 'text', text = 'Control keybind = Rake if Incarnation: King of the Jungle is up.'},
 	{type = 'text', text = 'Alt keybind = Shadowmeld.'},
 	{type = 'text', text = 'Alt keybind = Pause.'},
 	{type = 'text', text = 'In combat if your target is friendly and dead will use Rebirth to ress him.'},
@@ -17,7 +17,7 @@ local exeOnLoad = function()
 	print('|cffADFF2F --- |r|c00FF7F00 DRUID - Feral |r')
 	
 	print('|cffADFF2F ------------------------PVP-------------------------------------------|r')
-	print('|cffADFF2F --- |rRecommended Talents: 1/1 - 2/3 - 3/2 - 4/1 - 5/2 - 6/2 - 7/2')
+	print('|cffADFF2F --- |rRecommended Talents: 1/3 - 2/3 - 3/2 - 4/1 - 5/1 - 6/2 - 7/2')
 	print('|cffADFF2F ----------------------------------------------------------------------|r')
 	
 	print('|cffADFF2F ------------------------PVE-------------------------------------------|r')
@@ -60,6 +60,13 @@ local exeOnLoad = function()
 	})
 
 end
+
+local Moonfire = {
+
+    {"%pause", "player.energy <= 29"},
+	{"Moonfire", nil, "target"},
+
+}
 
 local Rip = {
 
@@ -191,6 +198,8 @@ local Cat_Combat = {
 
 	{Rake, "toggle(Dotting) & target.range <= 6.2 & player.combopoints < 5 & target.debuff(Rake).duration <= 4", "target"},	
 	{Rake, "toggle(Dotting) & target.range <= 6.2 & player.combopoints < 4 & player.buff(Bloodtalons)", "target"},
+	
+	{Moonfire, "talent(1,3) & target.range <= 40 & target.infront & !player.buff(Prowl) & !target.debuff(Moonfire) & player.combopoints < 5", "target"},	
 	
 	{"Ashamane's Frenzy", "toggle(Dotting) & target.range <= 6.2 & target.deathin >= 5 & player.combopoints <= 2", "target"},
 	
