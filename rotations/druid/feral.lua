@@ -158,11 +158,11 @@ local Interrupts = {
 
 	{"&Skull Bash", "target.interruptAt(45) & target.range <= 14.2", "target"},
 	
-	{"Typhoon", "talent(4,3) & player.spell(Skull Bash).cooldown > gcd"},
+	{"Typhoon", "talent(4,3) & target.interruptAt(45) & player.spell(Skull Bash).cooldown > gcd"},
 	
-	--{"Mighty Bash", "talent(4,1) & player.spell(Skull Bash).cooldown > gcd & target.inmelee"},
+	--{"Mighty Bash", "talent(4,1) & target.interruptAt(45) & player.spell(Skull Bash).cooldown > gcd & target.inmelee"},
 	
-	--{"Maim", "player.spell(Skull Bash).cooldown > gcd & player.spell(Mighty Bash).cooldown > gcd & target.inmelee"},
+	--{"Maim", "target.interruptAt(45) & player.spell(Skull Bash).cooldown > gcd & player.spell(Mighty Bash).cooldown > gcd & target.inmelee"},
 	
 }
 
@@ -240,7 +240,7 @@ local inCombat = {
 	{"Cat Form", "!player.buff(Cat Form) & {!player.swimming || player.state(root) || target.enemy & target.alive || player.area(10).enemies >= 1}", "player"},
 
 	{Keybinds},
-	{Interrupts, "toggle(interrupts)"},
+	{Interrupts, "toggle(interrupts) & {!target.pvp || target.pvp & player.pvp}"},
     {Survival, "player.health < 100 & !player.buff(Prowl)"},	
 	
 	{"%dispelself", "!player.buff(Prowl) & !player.area(10).enemies >= 1", "player"},
@@ -289,6 +289,6 @@ NeP.CR:Add(103, {
 	ooc = outCombat,
 	gui = GUI,
 	wow_ver = '7.1.5',
- 	nep_ver = '1.8',
+ 	nep_ver = '1.11',
 	load = exeOnLoad
 })
