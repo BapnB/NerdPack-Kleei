@@ -136,9 +136,9 @@ local PreCombat = {
 
     {"Cat Form", "!toggle(bear) & !player.buff(Cat Form) & {target.enemy & target.alive || player.area(10).enemies >= 1 || indoors || !player.swimming & !toggle(travelform)}"},
 
- 	{"Prowl", "!player.buff(Prowl) & player.buff(Cat Form) & {target.enemy & target.alive || player.buff(Shadowmeld)}", "player"},  --|| player.area(15).enemies >= 1
+ 	{"Prowl", "!player.buff(Prowl) & player.buff(Cat Form) & {target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp} || player.buff(Shadowmeld)}", "player"},  --|| player.area(15).enemies >= 1
 	
- 	{Rake, "target.range <= 6.2 & target.infront & target.enemy & target.alive & {player.buff(Prowl) || player.spell(Prowl).cooldown > 0.5 & !player.buff(Shadowmeld) || player.buff(Shadowmeld)}", "target"},
+ 	{Rake, "target.range <= 6.2 & target.infront & target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp & {player.buff(Prowl) || player.spell(Prowl).cooldown > 0.5 & !player.buff(Shadowmeld) || player.buff(Shadowmeld)}}", "target"},
 
 }
 
@@ -177,6 +177,7 @@ local Cat_Combat = {
 	{"Tiger's Fury", "target.range <= 7 & player.energy < 40 & {talent(1,1) & target.debuff(Rake) || talent(1,1) & target.debuff(Rip) || talent(1,1) & target.debuff(Thrash) || !talent(1,1) & target.deathin >= 7}"},
 
     {"Regrowth", "talent(7,2) & !player.buff(Prowl) & !player.debuff(Scent of Blood) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & !player.lastcast(Regrowth) & {talent(5,3) & player.combopoints >= 4 & target.debuff(Rip).duration < player.buff(Savage Roar).duration & !player.buff(Savage Roar).duration <= 10 || !talent(5,3) & player.combopoints >= 4}", "player"},
+	{"Regrowth", "talent(7,2) & talent(1,2) & !player.buff(Prowl) & !player.debuff(Scent of Blood) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & !player.lastcast(Regrowth)"},
 	
     {Rake, "target.range <= 6.2 & target.infront & target.enemy & target.alive & {player.buff(Prowl) ||  player.buff(Shadowmeld)}", "target"}, --sometimes you enter in combat but you are still in stealth
 	
@@ -232,7 +233,7 @@ local inCombat = {
 
     {"%pause", "target.enemy & {target.buff(45438) || target.buff(642) || target.buff(19263)}", "player"},
 	
-	{"Gladiator's Medallion", "player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)", "player"},
+	{"Gladiator's Medallion", "target.pvp & player.pvp & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
 
 	{"Bear Form", "!player.buff(Bear Form) & player.state(root)"},
 	
@@ -243,11 +244,11 @@ local inCombat = {
     {Survival, "player.health < 100 & !player.buff(Prowl)"},	
 	
 	{"%dispelself", "!player.buff(Prowl) & !player.area(10).enemies >= 1", "player"},
-    {"Rebirth", "!target.enemy & target.dead", "target"},
+    {"Rebirth", "!target.enemy & target.dead & player.pvp", "target"},
 	
 	{Cooldowns, "toggle(cooldowns)"},
-	{Cat_Combat, "player.buff(Cat Form) & target.enemy & target.alive"},
-	{Bear_Combat, "player.buff(Bear Form) & target.enemy & target.alive"},
+	{Cat_Combat, "player.buff(Cat Form) & target.alive & target.enemy & {!target.pvp || target.pvp & player.pvp}"},
+	{Bear_Combat, "player.buff(Bear Form) & target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp}"},
 	
 	{"/cleartarget", "toggle(auto) & target.range >= 7"},	
 	{"/run TargetNearestEnemy()", "toggle(auto) & !target.exists"},  --|| !target.alive || target.range >=5}
