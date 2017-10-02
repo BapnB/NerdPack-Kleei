@@ -240,7 +240,7 @@ local inCombat = {
 	{"Cat Form", "!player.buff(Cat Form) & {!player.swimming || player.state(root) || target.enemy & target.alive || player.area(10).enemies >= 1}", "player"},
 
 	{Keybinds},
-	{Interrupts, "toggle(interrupts) & {!target.pvp || target.pvp & player.pvp}"},
+	{Interrupts, "toggle(interrupts) & !player.buff(Prowl) & {!target.pvp || target.pvp & player.pvp}"},
     {Survival, "player.health < 100 & !player.buff(Prowl)"},	
 	
 	{"%dispelself", "!player.buff(Prowl) & !player.area(10).enemies >= 1", "player"},
