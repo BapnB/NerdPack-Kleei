@@ -146,7 +146,8 @@ local Survival = {
 
 	{"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
 	
-    {"Regrowth", "player.buff(Predatory Swiftness).duration >= 10 & !player.lastcast(Regrowth) & player.health <= 40", "player"},
+    {"Regrowth", "!talent(7,2) & player.buff(Predatory Swiftness).duration >= 10 & !player.lastcast(Regrowth) & {player.health <= 90 & target.pvp & player.pvp || !target.pvp & player.health <= 40}", "player"},
+	{"Regrowth", "talent(7,2) & !player.buff(Prowl) & !player.debuff(Scent of Blood) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & !player.lastcast(Regrowth) & {player.health <= 90 & target.pvp & player.pvp || !target.pvp & player.health <= 40}", "player"},	
 	
     {"Survival Instincts", "player.health <= 70 & !player.buff(Survival Instincts)", "player"},
 	
@@ -179,7 +180,6 @@ local Cat_Combat = {
 	{"Tiger's Fury", "target.range <= 7 & player.energy < 40 & {talent(1,1) & target.debuff(Rake) || talent(1,1) & target.debuff(Rip) || talent(1,1) & target.debuff(Thrash) || !talent(1,1) & target.deathin >= 7}", "player"},
 
     {"Regrowth", "talent(7,2) & !player.buff(Prowl) & !player.debuff(Scent of Blood) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & !player.lastcast(Regrowth) & {talent(5,3) & player.combopoints >= 4 & target.debuff(Rip).duration < player.buff(Savage Roar).duration & !player.buff(Savage Roar).duration <= 10 || !talent(5,3) & player.combopoints >= 4}", "player"},
-	{"Regrowth", "talent(7,2) & talent(1,2) & !player.buff(Prowl) & !player.debuff(Scent of Blood) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & !player.lastcast(Regrowth) & target.pvp & player.pvp", "player"},
 	
     {Rake, "target.range <= 6.2 & target.infront & target.enemy & target.alive & {player.buff(Prowl) ||  player.buff(Shadowmeld)}", "target"}, --sometimes you enter in combat but you are still in stealth
 	
@@ -192,14 +192,14 @@ local Cat_Combat = {
 	
 	{Swipe, "toggle(AoE) & !talent(7,3) & player.debuff(Scent of Blood) & player.area(10).enemies >= 6"}, -- & player.combopoints < 5
 	
-	{"Rake", "toggle(AoE) & player.area(10).enemies <= 5 & player.area(10).enemies >= 2 & player.combopoints <= 4 & {infront & !debuff & range <= 4}", "enemies"},
+	{"Rake", "toggle(AoE) & player.area(10).enemies <= 5 & player.area(10).enemies >= 2 & player.combopoints <= 4 & {infront & !pvp & !debuff & range <= 4}", "enemies"},
 	
 	{Savage_Roar, "talent(5,3) & player.combopoints >= 4 & player.buff(Savage Roar).duration <= 10", "player"},
 
 	{Rip, "toggle(Dotting) & target.range <= 6.2 & target.deathin >= 6 & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 9 & target.health >= 25 || player.combopoints >= 4 & !target.debuff(Rip) & target.health < 25}", "target"},
 
 	{Rake, "toggle(Dotting) & target.range <= 6.2 & player.combopoints < 5 & target.debuff(Rake).duration <= 4", "target"},	
-	{Rake, "toggle(Dotting) & target.range <= 6.2 & player.combopoints < 5 & player.buff(Bloodtalons)", "target"},
+	{Rake, "toggle(Dotting) & target.range <= 6.2 & player.combopoints < 5 & player.buff(Bloodtalons) & player.lastcast(Rake)", "target"},
 	
 	{Moonfire, "talent(1,3) & target.range <= 40 & target.infront & !player.buff(Prowl) & !target.debuff(Moonfire) & player.combopoints < 5", "target"},	
 	
