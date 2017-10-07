@@ -20,11 +20,21 @@ local exeOnLoad = function()
 	print('|c0000BFFF --- |rRecommended Talents: Coming Soon')
 	print('|c0000BFFF ----------------------------------------------------------------------|r')
 	
+	NeP.Interface:AddToggle({
+		key = 'tw',
+		name = 'Time Warp',
+		text = 'Automatically use Time Warp.',
+		icon = 'Interface\\Icons\\ability_mage_timewarp',
+	})
+	
+	
 end
 
 local Keybinds = {
 
-   --Coming Soon
+    {"Polymorph", "keybind(control) & !target.debuff(Polymorph) & !player.moving & range < 27", "target"},
+	
+	{"Spellsteal", "target.alive & target.enemy & keybind(shift) & !player.moving & range < 27", "target"},
 
 }
 
@@ -36,9 +46,13 @@ local PreCombat = {
 
 local Survival = {
 
-	{"!Ice Block", "{player.health <= 20 || player.debuff(Cauterize)}", "player"},
+	{"Gladiator's Medallion", "target.pvp & player.pvp & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
+
+	{"!Ice Block", "{player.health <= 20 || player.debuff(Cauterize) || player.state(stun)}", "player"},
 	
-	{"!Frost Nova", "player.area(8).enemies >= 1 & !player.lastcast(Frost Nova) & !target.debuff(Frost Nova)"},
+	{"Frost Nova", "player.area(8).enemies >= 1 & !player.lastcast(Frost Nova) & !target.debuff(Frost Nova) & !target.debuff(Dragon's Breath)"},
+	
+    {"Dragon's Breath",	"player.area(8).enemies.infront >= 1 & !target.debuff(Frost Nova) & !target.debuff(Dragon's Breath)", "target"},
 	
 	--{"!Blink", "player.area(8).enemies >= 1 & !player.lastcast(Blink)"},
 	
@@ -52,17 +66,17 @@ local Interrupts = {
 
 	{"!Counterspell", "interruptAt(55)", "target"},
 	
-	{"!Dragon's Breath", "interruptAt(55) & player.spell(Counterspell).cooldown > gcd & !plastcast.lastcast(Counterspell) & player.area(12).enemies.infront >= 1", "target"},
+	{"!Dragon's Breath", "interruptAt(55) & player.spell(Counterspell).cooldown > gcd & !player.lastcast(Counterspell) & player.area(12).enemies.infront >= 1", "target"},
 	
-	{"!Ring of Frost", "interruptAt(5) & !player.moving & player.spell(Counterspell).cooldown > gcd & !plastcast.lastcast(Counterspell)  &range < 31", "target.ground"},
+	{"!Ring of Frost", "interruptAt(5) & !player.moving & player.spell(Counterspell).cooldown > gcd & !player.lastcast(Counterspell)  &range < 31", "target.ground"},
 
 }
 
 local Cooldowns = {
 
-	{"Time Warp", "target.range <= 35 & target.deathin >= 20"},
+	{"Time Warp", "toggle(tw) & target.range <= 35 & target.deathin >= 25"},
 	
-	{"Combustion", "target.range <= 35 & target.deathin >= 10", "player"},
+	{"Combustion", "player.spell(Phoenix's Flames).charges < 1 & player.spell(Fire Blast).charges < 1 & target.range <= 35 & target.deathin >= 10", "player"},
 	
 	{"Meteor", "target.range <=35 & target.deathin >= 10", "target.ground"},
 
@@ -73,19 +87,19 @@ local Cooldowns = {
 
 local Combat = {
 
-    {"Flamestrike", "toggle(AoE) & player.buff(Hot Streak!) & target.area(10).enemies >= 3", "target.ground"},
+    {"Flamestrike", "toggle(AoE) & !target.debuff(Dragon's Breath) & player.buff(Hot Streak!) & target.area(10).enemies >= 3", "target.ground"},
 	
-	{"Meteor", "toggle(AoE) & target.range <= 35 & target.area(8).enemies >= 3", "target.ground"},	
+	{"Meteor", "target.range <= 35 & {toggle(AoE) & target.area(8).enemies >= 3 || target.debuff(Dragon's Breath)}", "target.ground"},	
 	
-	{"Pyroblast", "target.range <=35 & player.buff(Hot Streak!)", "target"},
+	{"Pyroblast", "target.range <=35 & !target.debuff(Dragon's Breath) & player.buff(Hot Streak!)", "target"},
 	
-	{"Phoenix's Flames",  "!player.buff(Hot Streak!)", "target"},
+	{"Phoenix's Flames",  "!player.buff(Hot Streak!) & !target.debuff(Dragon's Breath)", "target"},
 	
-	{"Fire Blast", "!player.buff(Hot Streak!)", "target"},
+	{"Fire Blast", "!player.buff(Hot Streak!) & !target.debuff(Dragon's Breath)", "target"},
 	
-	{"Fireball", "!player.moving & !player.buff(Hot Streak!)", "target"},
+	{"Fireball", "!player.moving", "target"},
 	
-	{"Scorch", "player.moving", "target"},
+	{"Scorch", "player.moving & !target.debuff(Dragon's Breath)", "target"},
 
 }
 
