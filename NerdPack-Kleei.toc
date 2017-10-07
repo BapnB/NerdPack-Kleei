@@ -21,3 +21,5 @@ rotations\rogue\assassination.lua
 rotations\rogue\subtlety.lua
 
 rotations\deathknight\frost.lua
+
+rotations\mage\fire.lua

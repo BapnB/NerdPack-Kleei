@@ -147,7 +147,7 @@ local Survival = {
 	{"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
 	
     {"Regrowth", "!talent(7,2) & player.buff(Predatory Swiftness).duration >= 10 & !player.lastcast(Regrowth) & {player.health <= 90 & target.pvp & player.pvp || !target.pvp & player.health <= 40}", "player"},
-	{"Regrowth", "talent(7,2) & !player.buff(Prowl) & !player.debuff(Scent of Blood) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & !player.lastcast(Regrowth) & {player.health <= 90 & target.pvp & player.pvp || !target.pvp & player.health <= 40}", "player"},	
+	--{"Regrowth", "talent(7,2) & !player.moving & !player.buff(Prowl) & !player.debuff(Scent of Blood) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & !player.lastcast(Regrowth) & {player.health <= 90 & target.pvp & player.pvp || !target.pvp & player.health <= 40}", "player"},	
 	
     {"Survival Instincts", "player.health <= 70 & !player.buff(Survival Instincts)", "player"},
 	
@@ -181,7 +181,7 @@ local Cat_Combat = {
 
     {"Regrowth", "talent(7,2) & !player.buff(Prowl) & !player.debuff(Scent of Blood) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & !player.lastcast(Regrowth) & {talent(5,3) & player.combopoints >= 4 & target.debuff(Rip).duration < player.buff(Savage Roar).duration & !player.buff(Savage Roar).duration <= 10 || !talent(5,3) & player.combopoints >= 4}", "player"},
 	
-    {Rake, "target.range <= 6.2 & target.infront & target.enemy & target.alive & {player.buff(Prowl) ||  player.buff(Shadowmeld)}", "target"}, --sometimes you enter in combat but you are still in stealth
+    {Rake, "target.range <= 6.2 & target.infront & target.enemy & target.alive & player.buff(Prowl)", "target"}, --sometimes you enter in combat but you are still in stealth
 	
     {"/startattack", "!toggle(auto) & !isattacking & target.range <= 6.5 & target.enemy & target.alive", "target"},	
 
