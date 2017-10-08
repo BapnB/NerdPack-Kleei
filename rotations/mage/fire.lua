@@ -27,6 +27,12 @@ local exeOnLoad = function()
 		icon = 'Interface\\Icons\\ability_mage_timewarp',
 	})
 	
+	NeP.Interface:AddToggle({
+		key = "cr",
+		name = "Auto Control",
+		text = "Automatically use Frost Nova & Dragon's Breath.",
+		icon = "Interface\\Icons\\spell_frost_frostnova",
+	})
 	
 end
 
@@ -50,9 +56,9 @@ local Survival = {
 
 	{"!Ice Block", "{player.health <= 20 || player.debuff(Cauterize) || player.state(stun)}", "player"},
 	
-	{"Frost Nova", "player.area(8).enemies >= 1 & !player.lastcast(Frost Nova) & !target.debuff(Frost Nova) & !target.debuff(Dragon's Breath)"},
+	{"Frost Nova", "toggle(cr) & player.area(8).enemies >= 1 & !player.lastcast(Frost Nova) & !target.debuff(Frost Nova) & !target.debuff(Dragon's Breath)"},
 	
-    {"Dragon's Breath",	"player.area(8).enemies.infront >= 1 & !target.debuff(Frost Nova) & !target.debuff(Dragon's Breath)", "target"},
+    {"Dragon's Breath",	"toggle(cr) & player.area(8).enemies.infront >= 1 & !target.debuff(Frost Nova) & !target.debuff(Dragon's Breath)", "target"},
 	
 	--{"!Blink", "player.area(8).enemies >= 1 & !player.lastcast(Blink)"},
 	
@@ -97,9 +103,9 @@ local Combat = {
 	
 	{"Fire Blast", "!player.buff(Hot Streak!) & !target.debuff(Dragon's Breath)", "target"},
 	
-	{"Fireball", "!player.moving", "target"},
+	{"Fireball", "!player.moving & !player.buff(Hot Streak!)", "target"},
 	
-	{"Scorch", "player.moving & !target.debuff(Dragon's Breath)", "target"},
+	{"Scorch", "player.moving & !player.buff(Hot Streak!) & !target.debuff(Dragon's Breath)", "target"},
 
 }
 
