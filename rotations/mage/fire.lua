@@ -99,9 +99,9 @@ local Combat = {
 	
 	{"Pyroblast", "target.range <=35 & !target.debuff(Dragon's Breath) & player.buff(Hot Streak!)", "target"},
 	
-	{"Phoenix's Flames",  "!player.buff(Hot Streak!) & !target.debuff(Dragon's Breath)", "target"},
+	{"!Phoenix's Flames",  "!player.buff(Hot Streak!) & !target.debuff(Dragon's Breath) & {player.buff(Heating up) || player.spell(Phoenix's Flames).charges >= 2 || player.spell(Fire Blast).charges >= 1}", "target"},
 	
-	{"Fire Blast", "!player.buff(Hot Streak!) & !target.debuff(Dragon's Breath)", "target"},
+	{"!Fire Blast", "!player.buff(Hot Streak!) & !target.debuff(Dragon's Breath) & {player.buff(Heating up) || player.spell(Fire Blast).charges >= 2 || player.spell(Phoenix's Flames).charges >= 1}", "target"},
 	
 	{"Fireball", "!player.moving & {!player.buff(Hot Streak!) || target.debuff(Dragon's Breath) || target.debuff(Polymorph)}", "target"},
 	
