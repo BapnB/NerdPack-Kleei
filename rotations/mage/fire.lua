@@ -103,7 +103,7 @@ local Combat = {
 	
 	{"Fire Blast", "!player.buff(Hot Streak!) & !target.debuff(Dragon's Breath)", "target"},
 	
-	{"Fireball", "!player.moving & !player.buff(Hot Streak!)", "target"},
+	{"Fireball", "!player.moving & {!player.buff(Hot Streak!) || target.debuff(Dragon's Breath) || target.debuff(Polymorph)}", "target"},
 	
 	{"Scorch", "player.moving & !player.buff(Hot Streak!) & !target.debuff(Dragon's Breath)", "target"},
 
