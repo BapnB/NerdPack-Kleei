@@ -40,13 +40,15 @@ local Keybinds = {
 
     {"Polymorph", "keybind(control) & !target.debuff(Polymorph) & !player.moving & range < 27", "target"},
 	
-	{"Spellsteal", "target.alive & target.enemy & keybind(shift) & !player.moving & range < 27", "target"},
+	{"Spellsteal", "target.alive & target.enemy & keybind(alt) & !player.moving & range < 27", "target"},
+	
+	{"Meteor", "player.combat & keybind(shift) & target.range <=35", "target.ground"},	
 
 }
 
 local PreCombat = { 
 
-	{"Blazing Barrier", "!player.buff(Blazing Barrier) & player.area(40).enemies >= 1", "player"},
+	{"Blazing Barrier", "!player.buff(Blazing Barrier) & {player.area(40).enemies >= 1 || target.enemy & target.alive}", "player"},
 
 }
 
@@ -56,9 +58,9 @@ local Survival = {
 
 	{"!Ice Block", "{player.health <= 20 || player.debuff(Cauterize) || player.state(stun)}", "player"},
 	
-	{"Frost Nova", "toggle(cr) & player.area(8).enemies >= 1 & !player.lastcast(Frost Nova) & !target.debuff(Frost Nova) & !target.debuff(Dragon's Breath)"},
+    {"Dragon's Breath",	"toggle(cr) & player.area(8).enemies.infront >= 1 & !target.debuff(Frost Nova) & !target.debuff(Dragon's Breath)", "enemies"},
 	
-    {"Dragon's Breath",	"toggle(cr) & player.area(8).enemies.infront >= 1 & !target.debuff(Frost Nova) & !target.debuff(Dragon's Breath)", "target"},
+	{"Frost Nova", "toggle(cr) & player.area(8).enemies >= 1 & !player.lastcast(Frost Nova) & !target.debuff(Frost Nova) & !target.debuff(Dragon's Breath)"},
 	
 	--{"!Blink", "player.area(8).enemies >= 1 & !player.lastcast(Blink)"},
 	
@@ -72,7 +74,7 @@ local Interrupts = {
 
 	{"!Counterspell", "interruptAt(55)", "target"},
 	
-	{"!Dragon's Breath", "interruptAt(55) & player.spell(Counterspell).cooldown > gcd & !player.lastcast(Counterspell) & player.area(12).enemies.infront >= 1", "target"},
+	{"!Dragon's Breath", "interruptAt(55) & player.spell(Counterspell).cooldown > gcd & !player.lastcast(Counterspell) & player.area(10).enemies.infront >= 1", "enemies"},
 	
 	{"!Ring of Frost", "interruptAt(5) & !player.moving & player.spell(Counterspell).cooldown > gcd & !player.lastcast(Counterspell)  &range < 31", "target.ground"},
 
@@ -84,18 +86,18 @@ local Cooldowns = {
 	
 	{"Combustion", "player.spell(Phoenix's Flames).charges < 1 & player.spell(Fire Blast).charges < 1 & target.range <= 35 & target.deathin >= 10", "player"},
 	
-	{"Meteor", "target.range <=35 & target.deathin >= 10", "target.ground"},
+	{"Meteor", "!player.buff(Heating up) & target.range <=35 & target.deathin >= 5", "target.ground"},
 
-    {"#trinket1", "UI(trk1)"},
-	{"#trinket2", "UI(trk2)"},
+    {"#trinket1", "UI(trk1) & target.range <= 35 & target.deathin >= 10"},
+	{"#trinket2", "UI(trk2) & target.range <= 35 & target.deathin >= 10"},
 
 }
 
 local Combat = {
 
-    {"Flamestrike", "toggle(AoE) & !target.debuff(Dragon's Breath) & player.buff(Hot Streak!) & target.area(10).enemies >= 3", "target.ground"},
+    {"Flamestrike", "toggle(AoE) & !target.debuff(Dragon's Breath) & player.buff(Hot Streak!) & target.area(10).enemies >= 4", "target.ground"},
 	
-	{"Meteor", "target.range <= 35 & {toggle(AoE) & target.area(8).enemies >= 3 || target.debuff(Dragon's Breath)}", "target.ground"},	
+	{"Meteor", "target.range <= 35 & !player.buff(Heating up) & {toggle(AoE) & target.area(8).enemies >= 3 || target.debuff(Dragon's Breath) & target.deathin >= 4 || target.debuff(Frost Nova) & target.deathin >= 3}", "target.ground"},	
 	
 	{"Pyroblast", "target.range <=35 & !target.debuff(Dragon's Breath) & player.buff(Hot Streak!)", "target"},
 	
@@ -103,9 +105,9 @@ local Combat = {
 	
 	{"!Fire Blast", "!player.buff(Hot Streak!) & !target.debuff(Dragon's Breath) & {player.buff(Heating up) || player.spell(Fire Blast).charges >= 2 || player.spell(Phoenix's Flames).charges >= 1}", "target"},
 	
-	{"Fireball", "!player.moving & {!player.buff(Hot Streak!) || target.debuff(Dragon's Breath) || target.debuff(Polymorph)}", "target"},
+	{"Fireball", "target.infront & {!player.buff(Hot Streak!) || target.debuff(Dragon's Breath) || target.debuff(Polymorph)}", "target"}, --!player.moving & 
 	
-	{"Scorch", "player.moving & !player.buff(Hot Streak!) & !target.debuff(Dragon's Breath)", "target"},
+	--{"Scorch", "player.moving & !player.buff(Hot Streak!) & !target.debuff(Dragon's Breath)", "target"},
 
 }
 
