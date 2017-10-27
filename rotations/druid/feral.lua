@@ -39,10 +39,10 @@ local exeOnLoad = function()
 --		name = 'Auto TargetNearestEnemy',
 --		text = 'ON/OFF Auto TargetNearestEnemy Botting and no Stealth',
 --	})
---		NeP.Interface:AddToggle({
---		key = 'bear',
+--	NeP.Interface:AddToggle({
+--		key = 'BEAR',
 --		icon = 'Interface\\Icons\\ability_racial_bearform',
---		name = '+ Bear Form Rotation(PVP MODE)',
+--		name = 'Bear Form Rotation(PVP MODE)',
 --		text = "ON/OFF atm it's not yet finalized",
 --	})
 	
@@ -118,13 +118,13 @@ local Keybinds = {
 	
     {"Prowl", "!player.buff(Prowl) & player.buff(Cat Form) & player.buff(Incarnation: King of the Jungle) & target.pvp & player.pvp & {keybind(control) || keybind(alt)}", "player"},
 	
-    {Rake, "target.range <= 7 & target.enemy & target.alive & player.buff(Prowl) & !target.state(stun) & keybind(control)", "target"},		
+    {Rake, "target.range <= 7 & target.enemy & target.alive & player.buff(Prowl) & !target.state(stun) & keybind(control)", "target"},	
 	
-	{"Incarnation: King of the Jungle", "talent(5,2) & target.range <= 7 & player.combat & keybind(control)", "player"},
+	{"Incarnation: King of the Jungle", "talent(5,2) & player.combat & {keybind(control) & target.range <= 7 || target.range <= 40 & keybind(alt)}", "player"},
 
-    {"!Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & !target.debuff(163505) & keybind(shift) & target.range <= 7 & target.enemy & target.alive", "target"},
+    {"!Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & !target.debuff(163505) & target.range <= 7 & target.enemy & target.alive & {keybind(shift) || !target.state(stun) & target.pvp & player.pvp}", "target"},
 	
-	{Maim, "!player.buff(Prowl) & keybind(shift) & player.combopoints >= 3 & player.spell(Mighty Bash).cooldown > gcd & !target.debuff(Mighty Bash) & target.range <= 7 & target.enemy & target.alive", "target"},
+	{Maim, "!player.buff(Prowl) & player.combopoints >= 3 & player.spell(Mighty Bash).cooldown > gcd & !target.debuff(Mighty Bash) & target.range <= 7 & target.enemy & target.alive & {keybind(shift) || !target.state(stun) & target.pvp & player.pvp}", "target"},
 	
 	{"Skull Bash", "keybind(shift) & player.spell(Wild Charge).cooldown > gcd & player.spell(Wild Charge).cooldown < 14 & !player.buff(Prowl) & target.range > 5 & target.range <= 14.2 & target.enemy & target.alive", "target"},
 	
@@ -134,7 +134,7 @@ local Keybinds = {
 
 local PreCombat = { 
 
-    {"Cat Form", "!toggle(bear) & !player.buff(Cat Form) & {target.enemy & target.alive || player.area(10).enemies >= 1 || indoors || !player.swimming & !toggle(travelform)}", "player"},
+    {"Cat Form", "!player.buff(Cat Form) & {target.enemy & target.alive || player.area(10).enemies >= 1 || indoors || !player.swimming & !toggle(travelform)}", "player"},
 
  	{"Prowl", "!player.buff(Prowl) & player.buff(Cat Form) & {target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp} || player.buff(Shadowmeld)}", "player"},  --|| player.area(15).enemies >= 1
 	
@@ -215,8 +215,8 @@ local Cat_Combat = {
 local Bear_Combat = {
     
 	{"/startattack", "!toggle(auto) & !isattacking & target.inmelee & target.enemy & target.alive", "target"},
-    
-    {"Wild Charge", "target.range > 5", "target"},
+	
+	{"&Maul", "target.range <= 7", "target"},
 
     {"Frenzied Regeneration", "talent(3,2) & player.incdmg(5) > player.health *0.20 & !player.buff(Frenzied Regeneration)", "player"},
 	
@@ -226,7 +226,7 @@ local Bear_Combat = {
 	
 	{"Mangle", "talent(3,2)", "target"},
 	
-	{"Thrash", "target.range <= 10" , "target"},
+	{"Thrash", "player.area(10).enemies >= 1 || target.range <= 5"},
 
 }
 
@@ -235,8 +235,8 @@ local inCombat = {
     {"%pause", "target.enemy & {target.buff(45438) || target.buff(642) || target.buff(19263)}", "player"},
 	
 	{"Gladiator's Medallion", "target.pvp & player.pvp & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
+	{"Bear Form", "!player.buff(Bear Form) & !player.buff(Prowl) & {player.state(root) || toggle(BEAR) & !player.buff(Dash) & !spell(Prowl).usable & target.alive & target.enemy & target.pvp & player.pvp & targettarget.is(player) & target.range > 7}", "player"},
 
-	{"Bear Form", "!player.buff(Bear Form) & player.state(root)", "player"},
 	
 	{"Cat Form", "!player.buff(Cat Form) & {!player.swimming || player.state(root) || target.enemy & target.alive || player.area(10).enemies >= 1}", "player"},
 
