@@ -86,6 +86,8 @@ local Combat = {
 local inCombat = {
 
     {"Bear Form", "!player.buff(Bear Form)"},
+	--{"%taunt(SPELL)"},
+	
 	
 	{Keybinds},
 	{Interrupts, "target.interruptAt(65) & toggle(Interrupts)"},
@@ -109,7 +111,6 @@ NeP.CR:Add(104, {
 	ooc = outCombat,
 	gui = GUI,
 	wow_ver = '7.1.5',
- 	nep_ver = '1.8',
+ 	nep_ver = '1.11',
 	load = exeOnLoad
-	
 })

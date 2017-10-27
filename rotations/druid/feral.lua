@@ -21,7 +21,7 @@ local exeOnLoad = function()
 	print('|cffADFF2F ----------------------------------------------------------------------|r')
 	
 	print('|cffADFF2F ------------------------PVE-------------------------------------------|r')
-	print('|cffADFF2F --- |rRecommended Talents: 1/1 - 2/3 - 3/1 - 4/1 - 5/3 - 6/1 - 7/3')
+	print('|cffADFF2F --- |rRecommended Talents: 1/1 - 2/3 - 3/1 - 4/1 - 5/1 - 6/2 - 7/3')
 	print('|cffADFF2F ----------------------------------------------------------------------|r')
 	
 	
@@ -116,11 +116,11 @@ local Keybinds = {
 	
 	{"Shadowmeld", "keybind(alt) & !player.moving & player.combat & player.buff(Cat Form) & !player.lastcast(Shadowmeld) & !player.buff(Shadowmeld) & !player.buff(Prowl)", "player"},
 	
-    {"Prowl", "!player.buff(Prowl) & player.buff(Cat Form) & player.buff(Incarnation: King of the Jungle) & {keybind(control) || keybind(alt)}", "player"},
+    {"Prowl", "!player.buff(Prowl) & player.buff(Cat Form) & player.buff(Incarnation: King of the Jungle) & target.pvp & player.pvp & {keybind(control) || keybind(alt)}", "player"},
 	
-    {Rake, "target.range <= 7 & target.enemy & target.alive & player.buff(Prowl) & keybind(control)", "target"},		
+    {Rake, "target.range <= 7 & target.enemy & target.alive & player.buff(Prowl) & !target.state(stun) & keybind(control)", "target"},		
 	
-	{"Incarnation: King of the Jungle", "talent(5,2) & player.combat & keybind(control)", "player"},
+	{"Incarnation: King of the Jungle", "talent(5,2) & target.range <= 7 & player.combat & keybind(control)", "player"},
 
     {"!Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & !target.debuff(163505) & keybind(shift) & target.range <= 7 & target.enemy & target.alive", "target"},
 	
@@ -149,7 +149,7 @@ local Survival = {
     {"Regrowth", "!talent(7,2) & player.buff(Predatory Swiftness).duration >= 10 & !player.lastcast(Regrowth) & {player.health <= 85 & target.pvp & player.pvp || !target.pvp & player.health <= 40}", "player"},
 	--{"Regrowth", "talent(7,2) & !player.moving & !player.buff(Prowl) & !player.debuff(Scent of Blood) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & !player.lastcast(Regrowth) & {player.health <= 90 & target.pvp & player.pvp || !target.pvp & player.health <= 40}", "player"},	
 	
-    {"Survival Instincts", "player.health <= 70 & !player.buff(Survival Instincts)", "player"},
+    {"Survival Instincts", "player.health <= 75 & !player.buff(Survival Instincts) & player.incdmg(5) >= player.health.max*0.05", "player"},
 	
 }
 
@@ -169,9 +169,9 @@ local Interrupts = {
 
 local Cooldowns = {
 
-	{"Tiger's Fury", "target.range <= 7 & !talent(5,2) & !player.buff(Prowl) & player.combat & keybind(control)", "player"},
+	{"Tiger's Fury", "target.range <= 7 & !player.buff(Prowl) & player.combat & {player.buff(Berserk) || player.buff(Incarnation: King of the Jungle)}", "player"},
 
-	{"Berserk", "!talent(5,2) & player.buff(Tiger's Fury) & target.range <= 6.2 & target.deathin >= 11.2", "player"},
+	{"Berserk", "!talent(5,2) & target.range <= 6.2 & {target.deathin >= 11.2 || target.deathin >= 11.2 & keybind(control)}", "player"},
 
 }
 
@@ -188,11 +188,11 @@ local Cat_Combat = {
 	{Thrash, "toggle(AoE) & {target.debuff(Thrash).duration <= 3.5 & player.area(10).enemies >= 3 & player.area(10).enemies <= 5 & artifact.enabled(Shadow Thrash) || talent(7,3) & !player.debuff(Scent of Blood) & player.area(10).enemies >= 6 & talent(7,3) & player.spell(Brutal Slash).cooldown >= 1 || !talent(7,3) & !player.debuff(Scent of Blood) & player.area(10).enemies >= 6}"},
     --{Thrash, "toggle(AoE) & artifact.enabled(Scent of Blood) & !player.debuff(Scent of Blood) & player.area(10).enemies >= 6"},
 	
-	{"Brutal Slash", "talent(7,3) & player.combopoints <= 4 & {toggle(AoE) & player.area(7).enemies >= 3 || toggle(BOSS) & player.area(7).enemies >= 1 & {talent(5,3) & player.buff(Savage Roar) || !talent(5,3)}}"},
+	{"Brutal Slash", "talent(7,3) & player.combopoints <= 4 & {toggle(AoE) & player.area(7).enemies >= 3 || toggle(BOSS) & !target.debuff(Rake).duration <= 4 & player.area(7).enemies >= 1 & {talent(5,3) & player.buff(Savage Roar) || !talent(5,3)}}"},
 	
 	{Swipe, "toggle(AoE) & !talent(7,3) & player.debuff(Scent of Blood) & player.area(10).enemies >= 6"}, -- & player.combopoints < 5
 	
-	{"Rake", "toggle(AoE) & player.area(7).enemies.infront <= 5 & player.area(7).enemies.infront >= 2 & range <= 7 & infront & player.combopoints <= 4 & !pvp & !debuff", "enemies"},
+	{"Rake", "toggle(AoE) & player.area(7).enemies.infront <= 5 & player.area(7).enemies.infront >= 2 & player.combopoints <= 4 & {infront & range <= 4.5 & !pvp & !debuff}", "enemies"},
 	
 	{Savage_Roar, "talent(5,3) & player.combopoints >= 4 & player.buff(Savage Roar).duration <= 10", "player"},
 

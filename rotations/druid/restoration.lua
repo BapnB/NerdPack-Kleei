@@ -168,7 +168,7 @@ local inCombat = {
     {Survival, "player.health < 100"},
 	{Keybinds},
 	{Interrupts, "target.interruptAt(35) & toggle(interrupts)"},	
-	{Healing},
+	{Healing, "range <= 42"},
     {DPS,  "player.mana >=UI (mana) & target.enemy & target.alive & toggle(DPS)"},
 	
 }
@@ -223,6 +223,6 @@ NeP.CR:Add(105, {
 	ooc = outCombat,
 	gui = GUI,
 	wow_ver = '7.1.5',
- 	nep_ver = '1.8',
+ 	nep_ver = '1.11',
 	load = exeOnLoad
 })
