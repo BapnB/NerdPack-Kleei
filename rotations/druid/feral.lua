@@ -1,10 +1,10 @@
 local GUI = {
 
 	{type = 'header', text = 'Keybinds', align = 'center'},
-	{type = 'text', text = 'Shift keybind in meelee will use Mighty Bash or Maim(if Mighty Bash is on CD).'},
+	{type = 'text', text = 'Shift keybind in meelee will use Mighty Bash or Maim(if Mighty Bash is on CD). in PVP it will auto use STUN if target is not stuned.'},
 	{type = 'text', text = 'Shift keybind in range > 10 will use Wild Charge or  Skull Bash(if Wild Charge is on CD).'},
+	{type = 'text', text = "Cooldowns(toggle) = 'Berserk' + 'Tiger Fury' if target is about to die in more than 10 sec."},
 	{type = 'text', text = 'Control keybind = Berserk.'},
-	--{type = 'text', text = 'Control keybind = Rake if Incarnation: King of the Jungle is up.'},
 	{type = 'text', text = 'Alt keybind = Shadowmeld.'},
 	{type = 'text', text = 'Alt keybind = Pause.'},
 	{type = 'text', text = 'In combat if your target is friendly and dead will use Rebirth to ress him.'},
@@ -17,7 +17,7 @@ local exeOnLoad = function()
 	print('|cffADFF2F --- |r|c00FF7F00 DRUID - Feral |r')
 	
 	print('|cffADFF2F ------------------------PVP-------------------------------------------|r')
-	print('|cffADFF2F --- |rRecommended Talents: 1/2 - 2/3 - 3/1 - 4/1 - 5/1 - 6/2 - 7/2')
+	print('|cffADFF2F --- |rRecommended Talents: 1/2 - 2/3 - 3/1 - 4/1 - 5/2 - 6/2 - 7/2')
 	print('|cffADFF2F ----------------------------------------------------------------------|r')
 	
 	print('|cffADFF2F ------------------------PVE-------------------------------------------|r')
@@ -55,8 +55,8 @@ local exeOnLoad = function()
 		NeP.Interface:AddToggle({
 		key = 'BOSS',
 		icon = 'Interface\\Icons\\ability_druid_ravage',
-		name = 'Use Brutal Slash on 1 or more enemies, BOSS Rotation',
-		text = 'ON/OFF',
+		name = 'Brutal Slash',
+		text = 'Use Brutal Slash on 1 or more enemies, BOSS Rotation',
 	})
 
 end
@@ -118,9 +118,11 @@ local Keybinds = {
 	
     {"Prowl", "!player.buff(Prowl) & player.buff(Cat Form) & player.buff(Incarnation: King of the Jungle) & target.pvp & player.pvp & {keybind(control) || keybind(alt)}", "player"},
 	
-    {Rake, "target.range <= 7 & target.enemy & target.alive & player.buff(Prowl) & !target.state(stun) & keybind(control)", "target"},	
+    {Rake, "target.range <= 7 & target.enemy & target.alive & player.buff(Prowl) & !target.state(stun)", "target"},
 	
-	{"Incarnation: King of the Jungle", "talent(5,2) & player.combat & {keybind(control) & target.range <= 7 || target.range <= 40 & keybind(alt)}", "player"},
+	{"Berserk", "!talent(5,2) & target.range <= 6.2 & player.combat & keybind(control)", "player"},	
+	
+	{"Incarnation: King of the Jungle", "talent(5,2) & player.combat & {keybind(control) & target.range <= 7 || !spell(Prowl).usable & keybind(alt)}", "player"},
 
     {"!Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & !target.debuff(163505) & target.range <= 7 & target.enemy & target.alive & {keybind(shift) || !target.state(stun) & target.pvp & player.pvp}", "target"},
 	
@@ -146,7 +148,7 @@ local Survival = {
 
 	{"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
 	
-    {"Regrowth", "!talent(7,2) & player.buff(Predatory Swiftness).duration >= 10 & !player.lastcast(Regrowth) & {player.health <= 85 & target.pvp & player.pvp || !target.pvp & player.health <= 40}", "player"},
+    {"Regrowth", "player.buff(Predatory Swiftness).duration >= 10 & !player.lastcast(Regrowth) & {player.health <= 85 & target.pvp & player.pvp || !target.pvp & player.health <= 40}", "player"},
 	--{"Regrowth", "talent(7,2) & !player.moving & !player.buff(Prowl) & !player.debuff(Scent of Blood) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & !player.lastcast(Regrowth) & {player.health <= 90 & target.pvp & player.pvp || !target.pvp & player.health <= 40}", "player"},	
 	
     {"Survival Instincts", "player.health <= 75 & !player.buff(Survival Instincts) & player.incdmg(5) >= player.health.max*0.05", "player"},
@@ -171,7 +173,7 @@ local Cooldowns = {
 
 	{"Tiger's Fury", "target.range <= 7 & !player.buff(Prowl) & player.combat & {player.buff(Berserk) || player.buff(Incarnation: King of the Jungle)}", "player"},
 
-	{"Berserk", "!talent(5,2) & target.range <= 6.2 & {target.deathin >= 11.2 || target.deathin >= 11.2 & keybind(control)}", "player"},
+	{"Berserk", "!talent(5,2) & target.range <= 6.2 & player.combat & target.deathin >= 11.2", "player"},
 
 }
 
