@@ -122,7 +122,7 @@ local Keybinds = {
 	
 	{"Berserk", "!talent(5,2) & target.range <= 6.2 & player.combat & keybind(control)", "player"},	
 	
-	{"Incarnation: King of the Jungle", "talent(5,2) & player.combat & {keybind(control) & target.range <= 7 || !spell(Prowl).usable & keybind(alt)}", "player"},
+	{"Incarnation: King of the Jungle", "talent(5,2) & player.combat & {keybind(control) & target.range <= 7 || player.spell(Prowl).cooldown <= 1 & keybind(alt)}", "player"},
 
     {"!Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & !target.debuff(163505) & target.range <= 7 & target.enemy & target.alive & {keybind(shift) || !target.state(stun) & target.pvp & player.pvp}", "target"},
 	
