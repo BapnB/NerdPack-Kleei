@@ -276,6 +276,7 @@ local outCombat = {
     {"%dispelself", "!player.buff(Prowl)", "player"},
 	{"/cleartarget", "toggle(auto) & target.range >= 7"},
 	
+	{"Regrowth", "player.health <= 66 & !player.buff(Prowl) & !player.moving & player.level < 80", "player"},
     {"Regrowth", "player.buff(Predatory Swiftness) & !player.buff(Prowl) & !player.moving & player.health <= 75", "player"},
 
 	--Cancel form when not swimming / Travel Form when swimming
