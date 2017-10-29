@@ -55,7 +55,7 @@ local Keybinds = {
 local PreCombat = {
 
     --Leveling
-    {"Sinister Strike", "target.inmelee & {player.level < 8 || player.level >= 8 & player.level <=11 & !toggle(Stun) || !keybind(shift) & player.level >= 8 & player.level <=11}"},
+    {"Sinister Strike", "target.inmelee & {player.level < 8 || player.level >= 8 & player.level <= 11 & !toggle(Stun) || !keybind(shift) & player.level >= 8 & player.level <= 11}"},
 	--{"Sinister Strike", " & target.range < 6"},
 	
 	--End Leveling
@@ -116,7 +116,7 @@ local Combat = {
 	{"Mutilate", "!player.combopoints >= 4"},
 	
 	{"Eviscerate", "player.level < 36 & player.combopoints == 5"},
-    {"Sinister Strike", "player.combopoints <= 4 & player.level < 40"},
+    {"Sinister Strike", "player.level < 3 || player.combopoints <= 4 & player.level < 40"},
    
 }
 

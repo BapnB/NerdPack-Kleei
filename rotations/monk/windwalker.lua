@@ -18,6 +18,12 @@ local exeOnLoad = function()
 
 end
 
+local Precombat = { 
+
+    
+	
+}
+
 local Survival = {
 
     {"Gift of the Naaru", "player.health <= 40 & target.enemy & target.alive", "player"},
@@ -78,12 +84,15 @@ local inCombat = {
 	{Interrupts, "target.interruptAt(40) & toggle(interrupts)"},
 	{Cooldowns, "toggle(cooldowns)"},
 	{AoE, "toggle(AoE) & player.area(8).enemies >= 2"},
-	{Actions, "target.range <=5 & target.enemy & target.alive"},
+	{Actions, "target.inmelee & target.enemy & target.alive"},
  
 }
 
 local outCombat = {
+
 	{Keybinds},
+	{Actions, "target.inmelee & target.enemy & target.alive"},
+	
 	{"Resuscitate", "!target.enemy & target.dead", "target"},
 	--{"Effuse", "!player.moving & player.health < 90", "player"},
 	
@@ -95,6 +104,6 @@ NeP.CR:Add(269, {
 	ooc = outCombat,
 	gui = GUI,
 	wow_ver = '7.1.5',
- 	nep_ver = '1.8',
+ 	nep_ver = '1.11',
 	load = exeOnLoad
 })
