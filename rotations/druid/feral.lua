@@ -203,7 +203,7 @@ local Cat_Combat = {
 	{Rake, "toggle(Dotting) & target.range <= 7 & player.combopoints < 5 & target.debuff(Rake).duration <= 4", "target"},	
 	{Rake, "toggle(Dotting) & target.range <= 7 & player.combopoints < 5 & player.buff(Bloodtalons) & !player.lastcast(Rake)", "target"},
 	
-	{Moonfire, "talent(1,3) & target.range <= 40 & target.infront & !player.buff(Prowl) & !target.debuff(Moonfire) & player.combopoints < 5", "target"},	
+	{Moonfire, "talent(1,3) & toggle(Dotting) & target.range <= 40 & target.infront & !player.buff(Prowl) & !target.debuff(Moonfire) & player.combopoints < 5", "target"},	
 	
 	{"Ashamane's Frenzy", "toggle(Dotting) & target.range <= 7 & target.deathin >= 5 & player.combopoints <= 2", "target"},
 	
@@ -282,7 +282,8 @@ local outCombat = {
 	{"/cancelform", "player.swimming & !player.buff(Prowl) & !indoors &  !target.enemy & {player.buff(Cat Form) || player.buff(Bear Form)}"},
 	{"Travel Form", "player.swimming & !player.buff(Cat Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form)"},
 	
-    {"Travel Form", "toggle(travelform) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive}"},
+	{"/cancelform", "toggle(travelform) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.area(15).enemies >= 1 & player.buff(Cat Form) & {!target.enemy || target.enemy & !target.alive}"},
+    {"Travel Form", "toggle(travelform) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.buff(Cat Form) & !player.area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive}"},
 
 }
 
