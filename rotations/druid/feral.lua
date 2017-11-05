@@ -1,10 +1,15 @@
 local GUI = {
 
+    {type = 'header', text = 'Settings', align = 'center'},
+	{type = 'checkbox',	text = 'Auto UN_ROOT by form', align = 'left', 	key = 'root', default = true},
+	{type = 'checkbox',	text = "Remove stun/fear/disorient/charm by Gladiator's Medallion", align = 'left', key = 'medal', default = true},
+
 	{type = 'header', text = 'Keybinds', align = 'center'},
 	{type = 'text', text = 'Shift keybind in meelee will use Mighty Bash or Maim(if Mighty Bash is on CD). in PVP it will auto use STUN if target is not stuned.'},
 	{type = 'text', text = 'Shift keybind in range > 10 will use Wild Charge or  Skull Bash(if Wild Charge is on CD).'},
 	{type = 'text', text = "Cooldowns(toggle) = 'Berserk' + 'Tiger Fury' if target is about to die in more than 10 sec."},
 	{type = 'text', text = 'Control keybind = Berserk.'},
+	{type = 'text', text = "Control keybind = [Incarnation: King of the Jungle] while 5/2 talent is set."},
 	{type = 'text', text = 'Alt keybind = Shadowmeld.'},
 	{type = 'text', text = 'Alt keybind = Pause.'},
 	{type = 'text', text = 'In combat if your target is friendly and dead will use Rebirth to ress him.'},
@@ -122,7 +127,7 @@ local Keybinds = {
 	
 	{"Berserk", "!talent(5,2) & target.range <= 6.2 & player.combat & keybind(control)", "player"},	
 	
-	{"Incarnation: King of the Jungle", "talent(5,2) & !player.buff(Shadowmeld) & !player.buff(Prowl) & player.combat & {keybind(control) & target.range <= 7 || player.spell(Prowl).cooldown <= 1 & keybind(alt)}", "player"},
+	{"Incarnation: King of the Jungle", "talent(5,2) & !player.buff(Shadowmeld) & !player.buff(Prowl) & player.combat & {keybind(control) & target.range <= 7 || player.spell(Prowl).cooldown <= 0.4 & keybind(alt)}", "player"},
 
     {"!Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & !target.debuff(163505) & target.range <= 7 & target.enemy & target.alive & {keybind(shift) || !target.state(stun) & target.pvp & player.pvp}", "target"},
 	
@@ -236,11 +241,11 @@ local inCombat = {
 
     {"%pause", "target.enemy & {target.buff(45438) || target.buff(642) || target.buff(19263)}", "player"},
 	
-	{"Gladiator's Medallion", "target.pvp & player.pvp & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
-	{"Bear Form", "!player.buff(Bear Form) & !player.buff(Prowl) & {player.state(root) || toggle(BEAR) & !player.buff(Dash) & !spell(Prowl).usable & target.alive & target.enemy & target.pvp & player.pvp & targettarget.is(player) & target.range > 7}", "player"},
+	{"Gladiator's Medallion", "target.pvp & player.pvp & UI(medal) & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
+	{"Bear Form", "!player.buff(Bear Form) & !player.buff(Prowl) & {player.state(root) & UI(root) || toggle(BEAR) & !player.buff(Dash) & !spell(Prowl).usable & target.alive & target.enemy & target.pvp & player.pvp & targettarget.is(player) & target.range > 7}", "player"},
 
 	
-	{"Cat Form", "!player.buff(Cat Form) & {!player.swimming || player.state(root) || target.enemy & target.alive || player.area(10).enemies >= 1}", "player"},
+	{"Cat Form", "!player.buff(Cat Form) & {!player.swimming || player.state(root) & UI(root) || target.enemy & target.alive || player.area(10).enemies >= 1}", "player"},
 
 	{Keybinds},
 	{Interrupts, "toggle(interrupts) & !player.buff(Prowl) & {!target.pvp || target.pvp & player.pvp}"},
