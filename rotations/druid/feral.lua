@@ -3,6 +3,7 @@ local GUI = {
     {type = 'header', text = 'Settings', align = 'center'},
 	{type = 'checkbox',	text = 'Auto UN_ROOT by form', align = 'left', 	key = 'root', default = true},
 	{type = 'checkbox',	text = "Remove stun/fear/disorient/charm by Gladiator's Medallion", align = 'left', key = 'medal', default = true},
+	
 
 	{type = 'header', text = 'Keybinds', align = 'center'},
 	{type = 'text', text = 'Shift keybind in meelee will use Mighty Bash or Maim(if Mighty Bash is on CD). in PVP it will auto use STUN if target is not stuned.'},

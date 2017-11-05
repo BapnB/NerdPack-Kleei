@@ -110,6 +110,7 @@ local Healing = {
 
     --Revive
 	{"Rebirth", "!target.enemy & target.dead & player.area(30).enemies >= 1", "target"},
+	{"Rebirth", "player.area(45).dead.tank & player.area(30).enemies >= 1", "tank"},
 
 	--Dispell
 	{"&%dispelall", "toggle(dispelall) & player.spell(Nature's Cure).cooldown < 0.3"},
@@ -181,7 +182,7 @@ local outCombat = {
 	{"&%dispelall", "toggle(dispelall) & player.spell(Nature's Cure).cooldown < 0.3"},
 	
     --MASS Ress
-    {"Revitalize", "!target.enemy & target.dead", "target"},
+    {"Revitalize", "player.area(45).dead.friendly >= 1"},
 	
 	--Clearcasting
 	{"Regrowth", "player.buff(Clearcasting) & lowest.health <= 90", "lowest"},
