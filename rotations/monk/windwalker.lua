@@ -59,8 +59,8 @@ local Actions = {
     {"Disable", "pvp & !debuff", "target"},
 	{"Whirling Dragon Punch"},
     {"Energizing Elixir", "target.deathin > 6 & target.infront & player.energy < 35 & player.chi <= 2"}, -- & player.spell(Fists of Fury).cooldown < gcd
-    {"Rushing Jade Wind", "toggle(AoE) & player.area(8).enemies >= 5"}, -- & player.spell(Fists of Fury).cooldown > gcd
-	{"Spinning Crane Kick", "toggle(AoE) & player.area(8).enemies >= 5 & count(Mark of the Crane).debuffs >= 5 & range <= 7", "enemies"},
+    {"Rushing Jade Wind", "toggle(AoE) & player.area(8).enemies >= 5 & player.spell(Fists of Fury).cooldown > gcd"},
+	{"Spinning Crane Kick", "toggle(AoE) & player.area(8).enemies >= 5 & count(Mark of the Crane).enemies.debuffs >= 5 & range <= 7", "enemies"},
 	{"Blackout Kick", "player.buff(Blackout Kick!) & !player.lastcast(Blackout Kick)"},
     {"Strike of the Windlord"},
     {"Fists of Fury", "infront & range <= 4.5 & {target.deathin > 4 & !player.area(5).enemies.infront >= 2 || toggle(AoE) & player.area(5).enemies.infront >= 2}", "enemies"},

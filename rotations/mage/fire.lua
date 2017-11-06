@@ -5,8 +5,8 @@ local GUI = {
 	{type = 'ruler'}, {type = 'spacer'},
 	{type = 'header', text = 'Use Trinkets if Cooldown Toggle is enable', align = 'center'},		
 	----------------------------------------------------------------------------
-	{type = 'checkbox', text = 'Trinket #1', 	key = 'trk1',	default = true},
-	{type = 'checkbox', text = 'Trinket #2', 	key = 'trk2',   default = true},
+	{type = 'checkbox', text = 'Trinket #1', 	key = 'trk1',	default = false},
+	{type = 'checkbox', text = 'Trinket #2', 	key = 'trk2',   default = false},
 	--------------------------------------------------------------------------
 	{type = 'ruler'}, {type = 'spacer'},
 	
