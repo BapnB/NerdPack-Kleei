@@ -19,8 +19,8 @@ local GUI = {
 	{type = 'text', text = "Cooldowns(toggle) = 'Berserk' + 'Tiger Fury' if target is about to die in more than 10 sec."},
 	{type = 'text', text = 'Control keybind = Berserk.'},
 	{type = 'text', text = "Control keybind = [Incarnation: King of the Jungle] while 5/2 talent is set."},
-	{type = 'text', text = 'Alt keybind = Shadowmeld.'},
-	{type = 'text', text = 'Alt keybind = Pause.'},
+	{type = 'text', text = 'Alt keybind in combat = Shadowmeld then Prowl and then will Pause.'},
+	{type = 'text', text = 'Alt keybind in combat = if Shadowmeld is on CD = [Incarnation: King of the Jungle] then Prowl and then will Pause.'},
 	{type = 'text', text = 'In combat if your target is friendly and dead will use Rebirth to ress him.'},
 	{type = 'text', text = 'In out of combat if your target is friendly and dead will use Revive to ress him.'},
 

@@ -1,5 +1,17 @@
 local GUI = {
 
+    {type = 'header', text = 'Settings', align = 'center'},
+	{type = 'checkbox',	text = "Remove stun/fear/disorient/charm by Gladiator's Medallion", align = 'left', key = 'medal', default = true},
+	{type = 'checkbox',	text = "Auto stun PVP enemy", align = 'left', key = 'stun', default = true},
+	{type = 'ruler'}, {type = 'spacer'},	
+    -----------------------------------------------------------------------------------------------------
+	{type = 'header', text = 'Use Trinkets if Cooldown Toggle is enable', align = 'center'},		
+	-----------------------------------------------------------------------------------------------------
+	{type = 'checkbox', text = 'Trinket #1', 	key = 'trk1',	default = false},
+	{type = 'checkbox', text = 'Trinket #2', 	key = 'trk2',   default = false},
+	-----------------------------------------------------------------------------------------------------
+	{type = 'ruler'}, {type = 'spacer'},
+
 	{type = 'header', text = 'Keybinds', align = 'center'},
 	{type = 'text', text = 'Alt Keybind = Pause.'},
 	{type = 'text', text = 'Shift Keybind will use Leg Sweep if target is in range <= 5.'},
@@ -28,7 +40,7 @@ local Survival = {
 
     {"Gift of the Naaru", "player.health <= 40 & target.enemy & target.alive", "player"},
 	{"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
-	{"Touch of Karma", "target.enemy & target.alive & {player.health <= 60 & target.deathin >= 7 || player.health <= 35}"},
+	{"Touch of Karma", "target.enemy & target.alive & {player.health <= 60 & target.deathin >= 7 || player.health <= 35 & target.deathin < 7}"},
 	{"Healing Elixir", "talent(5,1) & player.health <= 70 & !lastcast(Healing Elixir)", "player"},
 	
 }
@@ -38,6 +50,10 @@ local Cooldowns = {
 	{"Touch of Death", "target.range <= 6.2 & player.combat & target.deathin >= 11.2", "target"},
 	{"Serenity", "target.range <= 6.2 & player.combat & {target.deathin >= 11.2 || keybind(control)}"},
 	--{"Storm, Earth, and Fire", "!player.buff(Storm, Earth, and Fire)"},
+	
+	{"#trinket1", "UI(trk1) & target.inmelee & target.deathin >= 10"},
+	{"#trinket2", "UI(trk2) & target.inmelee & target.deathin >= 10"},
+	
 }
 
 local AoE = {
@@ -74,12 +90,16 @@ local Actions = {
 local Keybinds = {
 	-- Pause
 	{"%pause", "keybind(alt)"},
-	{"Leg Sweep", "target.enemy & target.alive & target.range <= 5 & {keybind(shift) || target.pvp & player.pvp}", "target"},
-	{"Paralysis", "target.range >= 10 & target.enemy & target.alive & {keybind(shift) || target.pvp & player.pvp}", "target"},
+	{"Leg Sweep", "target.enemy & target.alive & target.range <= 5 & {keybind(shift) || target.pvp & player.pvp & UI(stun)}", "target"},
+	{"Paralysis", "target.range >= 10 & target.enemy & target.alive & {keybind(shift) || target.pvp & player.pvp & UI(stun)}", "target"},
 
 }
 
 local inCombat = {
+
+    {"%pause", "target.enemy & {target.state(fear) & target.pvp ||target.debuff(Polymorph) || target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence) || target.buff(Aspect of the Turtle)}", "player"},
+	
+	{"Gladiator's Medallion", "target.pvp & player.pvp & UI(medal) & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
 
 	{Keybinds},
 	{Survival, "player.health < 100"},
