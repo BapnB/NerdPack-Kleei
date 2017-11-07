@@ -7,6 +7,12 @@ local GUI = {
     -----------------------------------------------------------------------------------------------------	
 	{type = 'ruler'}, {type = 'spacer'},	
     -----------------------------------------------------------------------------------------------------
+	{type = 'header', text = 'Use Trinkets if Cooldown Toggle is enable', align = 'center'},		
+	-----------------------------------------------------------------------------------------------------
+	{type = 'checkbox', text = 'Trinket #1', 	key = 'trk1',	default = false},
+	{type = 'checkbox', text = 'Trinket #2', 	key = 'trk2',   default = false},
+	-----------------------------------------------------------------------------------------------------
+	{type = 'ruler'}, {type = 'spacer'},	
 	{type = 'header', text = 'Keybinds', align = 'center'},
 	{type = 'text', text = 'Shift keybind in meelee will use Mighty Bash or Maim(if Mighty Bash is on CD). in PVP it will auto use STUN if target is not stuned.'},
 	{type = 'text', text = 'Shift keybind in range > 10 will use Wild Charge or  Skull Bash(if Wild Charge is on CD).'},
@@ -156,8 +162,9 @@ local Survival = {
 
 	{"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
 	
-    {"Regrowth", "player.buff(Predatory Swiftness).duration >= 10 & !player.lastcast(Regrowth) & {player.health <= 85 & target.pvp & player.pvp || !target.pvp & player.health <= 40}", "player"},
-	--{"Regrowth", "talent(7,2) & !player.moving & !player.buff(Prowl) & !player.debuff(Scent of Blood) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & !player.lastcast(Regrowth) & {player.health <= 90 & target.pvp & player.pvp || !target.pvp & player.health <= 40}", "player"},	
+    {"Regrowth", "player.buff(Predatory Swiftness).duration >= 10 & !player.lastcast(Regrowth) & !target.pvp & player.health <= 40", "player"},
+	{"Regrowth", "player.buff(Predatory Swiftness).duration >= 10 & !player.lastcast(Regrowth) & player.area(40).friendly >= 1 & player.area(40).friendly <= 5 & lowest.health <= 85 & target.pvp & player.pvp", "lowest"},
+	
 	
     {"Survival Instincts", "player.health <= 75 & !player.buff(Survival Instincts) & player.incdmg(5) >= player.health.max*0.05", "player"},
 	
@@ -182,6 +189,9 @@ local Cooldowns = {
 	{"Tiger's Fury", "target.range <= 7 & !player.buff(Prowl) & player.combat & {player.buff(Berserk) || player.buff(Incarnation: King of the Jungle)}", "player"},
 
 	{"Berserk", "!talent(5,2) & target.range <= 6.2 & player.combat & target.deathin >= 11.2", "player"},
+	
+	{"#trinket1", "UI(trk1) & target.inmelee & target.deathin >= 10"},
+	{"#trinket2", "UI(trk2) & target.inmelee & target.deathin >= 10"},
 
 }
 
@@ -242,7 +252,7 @@ local Bear_Combat = {
 
 local inCombat = {
 
-    {"%pause", "target.enemy & {target.buff(45438) || target.buff(642) || target.buff(19263)}", "player"},
+    {"%pause", "target.enemy & {target.state(fear) ||target.debuff(Polymorph) || target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence) || target.buff(Aspect of the Turtle)}", "player"},
 	
 	{"Gladiator's Medallion", "target.pvp & player.pvp & UI(medal) & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
 	{"Bear Form", "!player.buff(Bear Form) & !player.buff(Prowl) & {player.state(root) & UI(root) || toggle(BEAR) & !player.buff(Dash) & !spell(Prowl).usable & target.alive & target.enemy & target.pvp & player.pvp & targettarget.is(player) & target.range > 7}", "player"},
