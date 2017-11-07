@@ -110,7 +110,8 @@ local Healing = {
 
     --Revive
 	{"Rebirth", "!target.enemy & target.dead & player.area(30).enemies >= 1", "target"},
-	{"Rebirth", "player.area(45).dead.tank & player.area(30).enemies >= 1", "tank"},
+	{"Rebirth", "player.area(40).dead.tank & player.area(30).enemies >= 1", "tank"},
+	{"Rebirth", "player.area(40).dead.friendly >= 1 & player.area(30).enemies >= 1 & tank.health >= 40", "friendly"},
 
 	--Dispell
 	{"&%dispelall", "toggle(dispelall) & player.spell(Nature's Cure).cooldown < 0.3"},
