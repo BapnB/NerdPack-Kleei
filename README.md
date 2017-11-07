@@ -14,3 +14,5 @@ Read GUI in every CR to understand how Keybinds are working. You can find it by 
  rogue - assassination / subtlety
 
  death knight - frost
+
+ mage - fire
