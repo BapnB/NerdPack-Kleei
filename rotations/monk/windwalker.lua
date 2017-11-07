@@ -55,7 +55,7 @@ local Interrupts = {
 
 local Actions = {
 
-    {"/startattack", "!isattacking & target.pvp & player.pvp", "target"},
+    {"/startattack", "!isattacking", "target"},
     {"Disable", "pvp & !debuff", "target"},
 	{"Whirling Dragon Punch"},
     {"Energizing Elixir", "target.deathin > 6 & target.infront & player.energy < 35 & player.chi <= 2"}, -- & player.spell(Fists of Fury).cooldown < gcd
@@ -93,7 +93,7 @@ local inCombat = {
 local outCombat = {
 
 	{Keybinds},
-	{Actions, "target.inmelee & target.enemy & target.alive"},
+	{Actions, "target.inmelee & target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp}"},
 
     {"Resuscitate", "player.area(38).dead.friendly >= 1", "friendly"},	
 	--{"Resuscitate", "!target.enemy & target.dead", "target"},
