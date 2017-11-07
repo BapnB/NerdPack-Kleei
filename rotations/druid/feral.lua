@@ -3,8 +3,10 @@ local GUI = {
     {type = 'header', text = 'Settings', align = 'center'},
 	{type = 'checkbox',	text = 'Auto UN_ROOT by form', align = 'left', 	key = 'root', default = true},
 	{type = 'checkbox',	text = "Remove stun/fear/disorient/charm by Gladiator's Medallion", align = 'left', key = 'medal', default = true},
-	
-
+	{type = 'checkbox',	text = "Auto stun PVP enemy", align = 'left', key = 'stun', default = true},
+    -----------------------------------------------------------------------------------------------------	
+	{type = 'ruler'}, {type = 'spacer'},	
+    -----------------------------------------------------------------------------------------------------
 	{type = 'header', text = 'Keybinds', align = 'center'},
 	{type = 'text', text = 'Shift keybind in meelee will use Mighty Bash or Maim(if Mighty Bash is on CD). in PVP it will auto use STUN if target is not stuned.'},
 	{type = 'text', text = 'Shift keybind in range > 10 will use Wild Charge or  Skull Bash(if Wild Charge is on CD).'},
@@ -130,9 +132,9 @@ local Keybinds = {
 	
 	{"Incarnation: King of the Jungle", "talent(5,2) & !player.buff(Shadowmeld) & !player.buff(Prowl) & player.combat & {keybind(control) & target.range <= 7 || player.spell(Prowl).cooldown <= 0.4 & keybind(alt)}", "player"},
 
-    {"!Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & !target.debuff(163505) & target.range <= 7 & target.enemy & target.alive & {keybind(shift) || !target.state(stun) & target.pvp & player.pvp}", "target"},
+    {"!Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & !target.debuff(163505) & target.range <= 7 & target.enemy & target.alive & {keybind(shift) || !target.state(stun) & target.pvp & player.pvp & UI(stun)}", "target"},
 	
-	{Maim, "!player.buff(Prowl) & player.combopoints >= 3 & player.spell(Mighty Bash).cooldown > gcd & !target.debuff(Mighty Bash) & target.range <= 7 & target.enemy & target.alive & {keybind(shift) || !target.state(stun) & target.pvp & player.pvp}", "target"},
+	{Maim, "!player.buff(Prowl) & player.combopoints >= 3 & player.spell(Mighty Bash).cooldown > gcd & !target.debuff(Mighty Bash) & target.range <= 7 & target.enemy & target.alive & {keybind(shift) || !target.state(stun) & target.pvp & player.pvp & UI(stun)}", "target"},
 	
 	{"Skull Bash", "keybind(shift) & player.spell(Wild Charge).cooldown > gcd & player.spell(Wild Charge).cooldown < 14 & !player.buff(Prowl) & target.range > 5 & target.range <= 14.2 & target.enemy & target.alive", "target"},
 	
