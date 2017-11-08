@@ -1,5 +1,6 @@
 local GUI = {  
 	--------------------------------
+	{type = 'header', text = "Healing Settings", align = 'center'},
 	{type = 'header', 	text = 'Tanks', align = 'center'},											
 	{type = 'spinner', 	text = 'Rejuvenation ',   key = 'tankrej',   default = 85},
 	{type = 'spinner', 	text = 'Germination ', 	 key = 'tankgerm', 	 default = 80},
@@ -8,22 +9,25 @@ local GUI = {
 	{type = 'spinner', 	text = 'Ironbark / Barkskin - tank or player', key = 'ironbark', default = 65},
 	{type = 'spinner', 	text = 'Healing touch',   key = 'tankht',	     default = 0},
 	--------------------------------
-	{type = 'ruler'}, {type = 'spacer'},
-	--------------------------------
 	{type = 'header', 	text = 'Lowests (player included)', align = 'center'},
 	{type = 'spinner', 	text = 'Rejuvenation',   key = 'lowestrej',  default = 85},
 	{type = 'spinner', 	text = 'Germination', 	 key = 'lowestgerm', 	default = 80},
 	{type = 'spinner', 	text = 'Regrowth', 		key = 'lowestreg', 	default = 75},	
 	{type = 'spinner', 	text = 'Swiftmend', 	 key = 'lowestsm', 	default = 60},
 	{type = 'spinner', 	text = 'Healing touch',   key = 'lowestht',	    default = 0},
-	--------------------------------
+    -----------------------------------------------------------------------------------------------------
 	{type = 'ruler'}, {type = 'spacer'},
-	--------------------------------
+    -----------------------------------------------------------------------------------------------------
 	{type = 'header', 	text = 'DPS', align = 'center'},
 	{type = 'spinner', 	text = 'Mana >=',  key = 'mana',  default = 60},
-	--------------------------------
-	{type = 'ruler'}, {type = 'spacer'},
-	--------------------------------
+    -----------------------------------------------------------------------------------------------------
+	{type = 'ruler'}, {type = 'spacer'},	
+    -----------------------------------------------------------------------------------------------------
+	{type = 'header', text = 'Use Trinkets if Cooldown Toggle is enable', align = 'center'},		
+	-----------------------------------------------------------------------------------------------------
+	{type = 'checkbox', text = 'Trinket #1', 	key = 'trk1',	default = false},
+	{type = 'checkbox', text = 'Trinket #2', 	key = 'trk2',   default = false},
+	-----------------------------------------------------------------------------------------------------	
 	{type = 'header', text = 'Keybinds', align = 'center'},
 	{type = 'text', text = 'Shift keybind = Efflorescence on cursor ground.'},
 	{type = 'text', text = 'Control keybind = Innervate (inCombat only).'},
@@ -83,6 +87,13 @@ local Interrupts = {
 	
 }
 
+local Cooldowns = {
+
+    {"#trinket1", "UI(trk1) & target.range <= 40 & target.deathin >= 10"},
+	{"#trinket2", "UI(trk2) & target.range <= 40 & target.deathin >= 10"},
+
+}
+
 local Innervate = {
 
 	{"Rejuvenation", "!buff(Rejuvenation", "lowest"},
@@ -93,7 +104,7 @@ local Innervate = {
 local DPS = {
 
 	{"Sunfire",  "target.area(6).enemies >= 2 & !target.debuff(Sunfire).duration > 2", "target"},
-    {"Moonfire", "toggle(aoe) & !debuff & range <= 40", "enemies"}, 
+    {"Moonfire", "toggle(aoe) & !debuff & range <= 40 & target.area(8).enemies", "enemies"}, 
     {"Moonfire", "!toggle(aoe) & !debuff & target.range <= 40", "target"},	
 
 	{"Moonkin Form", "!player.buff(Moonkin Form)"},
@@ -135,13 +146,13 @@ local Healing = {
 	--Tranquility", "area(30,60.heal >= 3"},
 	{"Flourish", "talent(7,3) & player.lastcast(Wild Growth) & lowest.health <= 50"}, 
 	
-    {"Regrowth", "player.buff(Clearcasting) & lowest.health <= 85", "lowestpredicted"},
+    {"Regrowth", "player.buff(Clearcasting) & lowest.health <= 85 & !health >= 90", "lowestpredicted"},
 	
 	--Regrowth
-	{"Regrowth", "tank.health <= UI(tankreg) & player.health >= tank.health", "tank"},
-	--{"Regrowth", "tank2.health <= UI(tankreg) & player.health >= tank2.health", "tank2"},
-	{"Regrowth", "player.health <= UI(lowestreg) & lowest.health >= player.health", "player"},	
-	{"Regrowth", "lowest.health <= UI(lowestreg) & !is(player)", "lowest"},
+	{"Regrowth", "tank.health <= UI(tankreg) & !health > UI(tankreg) & player.health >= tank.health", "tank"},
+	--{"Regrowth", "tank2.health <= UI(tankreg) & !health > UI(tankreg) & player.health >= tank2.health", "tank2"},
+	{"Regrowth", "player.health <= UI(lowestreg) & !health > UI(lowestreg) & lowest.health >= player.health", "player"},	
+	{"Regrowth", "lowest.health <= UI(lowestreg) & !health > UI(lowestreg) & !is(player)", "lowest"},
 
     -- Rejuvenation
 	{"Rejuvenation", "tank.health <= UI(tankrej) & !buff & player.health >= tank.health", "tank"},
@@ -168,8 +179,9 @@ local Healing = {
 local inCombat = {
 
     {Survival, "player.health < 100"},
-	{Keybinds},
-	{Interrupts, "target.interruptAt(35) & toggle(interrupts)"},	
+	{Keybinds, ""},
+	{Interrupts, "target.interruptAt(35) & toggle(interrupts)"},
+	{Cooldowns, "toggle(cooldowns)"},	
 	{Healing, "range <= 42"},
     {DPS,  "player.mana >=UI (mana) & target.enemy & target.alive & toggle(DPS)"},
 	
@@ -189,10 +201,10 @@ local outCombat = {
 	{"Regrowth", "player.buff(Clearcasting) & lowest.health <= 90", "lowest"},
 	
 	--Regrowth
-	{"Regrowth", "tank.health <= UI(tankreg) & player.health >= tank.health", "tank"},
-	--{"Regrowth", "tank2.health <= UI(tankreg) & player.health >= tank2.health", "tank2"},
-	{"Regrowth", "player.health <= UI(lowestreg) & lowest.health >= player.health", "player"},	
-	{"Regrowth", "lowest.health <= UI(lowestreg) & !is(player)", "lowest"},
+	{"Regrowth", "tank.health <= UI(tankreg) & !health > UI(tankreg) & player.health >= tank.health", "tank"},
+	--{"Regrowth", "tank2.health <= UI(tankreg) & !health > UI(tankreg) & player.health >= tank2.health", "tank2"},
+	{"Regrowth", "player.health <= UI(lowestreg) & !health > UI(lowestreg) & lowest.health >= player.health", "player"},	
+	{"Regrowth", "lowest.health <= UI(lowestreg) & !health > UI(lowestreg) & !is(player)", "lowest"},
 
     -- Rejuvenation
 	{"Rejuvenation", "tank.health <= UI(tankrej) & !buff & player.health >= tank.health", "tank"},
