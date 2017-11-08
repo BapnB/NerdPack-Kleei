@@ -53,8 +53,8 @@ local GUI = {
     {type = 'header', size = 16,  text = 'Settings', align = 'center'},
 	-----------------------------------------------------------------------------------------------------	
     {type = 'checkbox',	text = 'Unroot', align = 'left', 	key = 'root', default = true, desc = '|c00FF7F00 Auto unroot by Shapeshifting|r'},
-    {type = 'checkbox',	text = "Freedom", align = 'left', key = 'medal', default = true, desc = "|c00FF7F00 Remove stun/fear/disorient/charm by Gladiator's Medallion|r"},
-    {type = 'checkbox',	text = "Stun PVP", align = 'left', key = 'stun', default = true, desc = "|c00FF7F00 Auto stun PVP enemy by using 'Mighty Bash'|r"},
+    {type = 'checkbox',	text = "Freedom", align = 'left', key = 'medal', default = true, desc = "|c00FF7F00 Remove stun/fear/disorient/charm by Gladiator's Medallion in PVP|r"},
+    {type = 'checkbox',	text = "Stun PVP", align = 'left', key = 'stun', default = true, desc = "|c00FF7F00 Auto stun PVP Target by casting 'Mighty Bash'|r"},
 	
 	-----------------------------------------------------------------------------------------------------	
 
@@ -201,8 +201,8 @@ local Rake = {
 
 local Keybinds = {
 
-    {"/cancelform", "!player.buff(Prowl) & !lowest.health >= 90 lowest.range <= 40 & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Travel Form)} & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp
-	{"Regrowth", "!player.buff(Prowl) & range <= 40 & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}", "lowest"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp   & !lowest.health >= 90
+    {"/cancelform", "!player.buff(Prowl) & !lowest.health >= 90 & lowest.range <= 40 & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Travel Form)} & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp
+	{"Regrowth", "!player.buff(Prowl) & range <= 40   & !lowest.health >= 90 & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}", "lowest"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp
 	
 	--{"%pause", "keybind(alt) & player.buff(Prowl)", "player"},
 	
