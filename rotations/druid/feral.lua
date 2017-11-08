@@ -39,7 +39,7 @@ local keybind_list_4 = {
 
 local Logo_GUI = {
 
-	{type = 'texture', texture = 'Interface\\AddOns\\Nerdpack-Kleei\\logo.blp', width = 128, height = 128, offset = 90, y = -30, align = 'center'},
+	{type = 'texture', texture = 'Interface\\AddOns\\Nerdpack-Kleei\\logo.blp', width = 128, height = 128, offset = 90, y = -50, align = 'center'},
 	{type = 'spacer'}, {type = 'spacer'}, {type = 'spacer'}, {type = 'ruler'},
 
 }
@@ -48,6 +48,8 @@ local GUI = {
     
 	unpack(Logo_GUI),
 
+	{type = 'spacer'},	{type = 'spacer'},
+	
     {type = 'header', size = 16,  text = 'Settings', align = 'center'},
 	-----------------------------------------------------------------------------------------------------	
     {type = 'checkbox',	text = 'Unroot', align = 'left', 	key = 'root', default = true, desc = '|c00FF7F00 Auto unroot by Shapeshifting|r'},
