@@ -1,7 +1,7 @@
 local GUI = {
 
     {type = 'header', text = 'Settings', align = 'center'},
-	{type = 'checkbox',	text = 'Auto UN_ROOT by form', align = 'left', 	key = 'root', default = true},
+	{type = 'checkbox',	text = 'Auto UN_ROOT by Shapeshifting', align = 'left', 	key = 'root', default = true},
 	{type = 'checkbox',	text = "Remove stun/fear/disorient/charm by Gladiator's Medallion", align = 'left', key = 'medal', default = true},
 	{type = 'checkbox',	text = "Auto stun PVP enemy", align = 'left', key = 'stun', default = true},
     -----------------------------------------------------------------------------------------------------	
@@ -141,7 +141,7 @@ local Keybinds = {
 	
 	{"Incarnation: King of the Jungle", "talent(5,2) & !player.buff(Shadowmeld) & !player.buff(Prowl) & player.combat & keybind(control) & target.range <= 7", "player"}, -- || player.spell(Prowl).cooldown <= 0.4 & keybind(alt)}
 
-    {"!Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & !target.debuff(163505) & target.range <= 7 & target.enemy & target.alive & {keybind(shift) || !target.state(stun) & target.pvp & player.pvp & UI(stun)}", "target"},
+    {"!Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & target.range <= 7 & target.enemy & target.alive & {keybind(shift) || !target.state(stun) & target.pvp & player.pvp & UI(stun)}", "target"},
 	
 	{Maim, "!player.buff(Prowl) & player.combopoints >= 3 & player.spell(Mighty Bash).cooldown > gcd & !target.debuff(Mighty Bash) & target.range <= 7 & target.enemy & target.alive & keybind(shift)", "target"}, ----{ || !target.state(stun) & target.pvp & player.pvp & UI(stun)}
 	
@@ -225,7 +225,7 @@ local Cat_Combat = {
 	{Rake, "toggle(Dotting) & target.range <= 7 & player.combopoints < 5 & target.debuff(Rake).duration <= 4", "target"},	
 	{Rake, "toggle(Dotting) & target.range <= 7 & player.combopoints < 5 & player.buff(Bloodtalons) & !player.lastcast(Rake)", "target"},
 	
-	{Moonfire, "talent(1,3) & toggle(Dotting) & target.range <= 40 & target.infront & !player.buff(Prowl) & !target.debuff(Moonfire) & player.combopoints < 5", "target"},	
+	{Moonfire, "talent(1,3) & toggle(Dotting) & target.range <= 40 & target.infront & !player.buff(Prowl) & target.debuff(Moonfire).duration <= 4 & player.combopoints < 5", "target"},	
 	
 	{"Ashamane's Frenzy", "toggle(Dotting) & target.range <= 7 & target.deathin >= 5 & player.combopoints <= 2", "target"},
 	
