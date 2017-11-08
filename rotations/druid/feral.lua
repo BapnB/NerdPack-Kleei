@@ -1,29 +1,102 @@
-local GUI = {
+local unpack = _G.unpack
+local NeP = _G.NeP
 
-    {type = 'header', text = 'Settings', align = 'center'},
-	{type = 'checkbox',	text = 'Auto UN_ROOT by Shapeshifting', align = 'left', 	key = 'root', default = true},
-	{type = 'checkbox',	text = "Remove stun/fear/disorient/charm by Gladiator's Medallion", align = 'left', key = 'medal', default = true},
-	{type = 'checkbox',	text = "Auto stun PVP enemy", align = 'left', key = 'stun', default = true},
-    -----------------------------------------------------------------------------------------------------	
+local keybind_list_1 = {
+
+	{key = '1', text = 'Shift Keybind'},
+	{key = '2', text = 'Control Keybind'},
+	{key = '3', text = 'Alt Keybind'},
+	{key = 'none', text = 'Disable'},	
+	
+}
+
+local keybind_list_2 = {
+
+	{key = '4', text = 'Shift Keybind'},
+	{key = '5', text = 'Control Keybind'},
+	{key = '6', text = 'Alt Keybind'},
+	{key = 'none', text = 'Disable'},	
+
+}
+
+local keybind_list_3 = {
+
+	{key = '7', text = 'Shift Keybind'},
+	{key = '8', text = 'Control Keybind'},
+	{key = '9', text = 'Alt Keybind'},
+	{key = 'none', text = 'Disable'},	
+
+}
+
+local keybind_list_4 = {
+
+	{key = '10', text = 'Shift Keybind'},
+	{key = '11', text = 'Control Keybind'},
+	{key = '12', text = 'Alt Keybind'},
+	{key = 'none', text = 'Disable'},
+	
+}
+
+local Logo_GUI = {
+
+	{type = 'texture', texture = 'Interface\\AddOns\\Nerdpack-Kleei\\logo.blp', width = 128, height = 128, offset = 90, y = -30, align = 'center'},
+	{type = 'spacer'}, {type = 'spacer'}, {type = 'spacer'}, {type = 'ruler'},
+
+}
+	
+local GUI = {
+    
+	unpack(Logo_GUI),
+
+    {type = 'header', size = 16,  text = 'Settings', align = 'center'},
+	-----------------------------------------------------------------------------------------------------	
+    {type = 'checkbox',	text = 'Unroot', align = 'left', 	key = 'root', default = true, desc = '|c00FF7F00 Auto unroot by Shapeshifting|r'},
+    {type = 'checkbox',	text = "Freedom", align = 'left', key = 'medal', default = true, desc = "|c00FF7F00 Remove stun/fear/disorient/charm by Gladiator's Medallion|r"},
+    {type = 'checkbox',	text = "Stun PVP", align = 'left', key = 'stun', default = true, desc = "|c00FF7F00 Auto stun PVP enemy by using 'Mighty Bash'|r"},
+	
+	-----------------------------------------------------------------------------------------------------	
+
 	{type = 'ruler'}, {type = 'spacer'},	
-    -----------------------------------------------------------------------------------------------------
-	{type = 'header', text = 'Use Trinkets if Cooldown Toggle is enable', align = 'center'},		
+ 
+	
+	{type = 'header', size = 16, text = 'Trinkets', align = 'center'},
+	{type = 'text', text = '|c00FF7F00 Use Trinkets if Cooldown Toggle is enable|r'},
 	-----------------------------------------------------------------------------------------------------
 	{type = 'checkbox', text = 'Trinket #1', 	key = 'trk1',	default = false},
-	{type = 'checkbox', text = 'Trinket #2', 	key = 'trk2',   default = false},
+	{type = 'checkbox', text = 'Trinket #2', 	key = 'trk2',   default = false, desc = '|c00FF7F00 Enable only trinkets that are usable, otherwise it will loop the rotation !|r'},
+	
 	-----------------------------------------------------------------------------------------------------
+	
 	{type = 'ruler'}, {type = 'spacer'},	
-	{type = 'header', text = 'Keybinds', align = 'center'},
-	{type = 'text', text = 'Shift keybind in meelee will use Mighty Bash or Maim(if Mighty Bash is on CD). in PVP it will auto use STUN if target is not stuned.'},
-	{type = 'text', text = 'Shift keybind in range > 10 will use Wild Charge or  Skull Bash(if Wild Charge is on CD).'},
-	{type = 'text', text = "Cooldowns(toggle) = 'Berserk' + 'Tiger Fury' if target is about to die in more than 10 sec."},
-	{type = 'text', text = 'Control keybind = Berserk.'},
-	{type = 'text', text = "Control keybind = [Incarnation: King of the Jungle] while 5/2 talent is set."},
-	{type = 'text', text = 'Alt keybind in combat = Shadowmeld then Prowl and then will Pause.'},
-	{type = 'text', text = 'Alt keybind in combat = if Shadowmeld is on CD = [Incarnation: King of the Jungle] then Prowl and then will Pause.'},
-	{type = 'text', text = 'In combat if your target is friendly and dead will use Rebirth to ress him.'},
-	{type = 'text', text = 'In out of combat if your target is friendly and dead will use Revive to ress him.'},
+	{type = 'header', size = 16, text = 'Keybinds', align = 'center'},
+	-----------------------------------------------------------------------------------------------------
+	{type = 'text', text = "Choose Keybind:"},
+	{type = 'text', text = "|c00FF7F00 in melee cast [Mighty Bash] / [Maim]|r"},
+	{type = 'combo',	default = '1',  key = 'list1', 	list = keybind_list_1, 	width = 120},
+   
+	{type = 'spacer'},	{type = 'spacer'},
+	
+    {type = 'text', text = "|c00FF7F00 in range > 10 will use [Wild Charge] / [Skull Bash]|r"},
+	{type = 'combo',	default = '4',  key = 'list2', 	list = keybind_list_2, 	width = 120},	
 
+	{type = 'spacer'},	{type = 'spacer'},
+	
+    {type = 'text', text = "|c00FF7F00 = [Berserk] or [Incarnation: King of the Jungle] while 5/2 talent is set|r"},
+	{type = 'combo',	default = '8',  key = 'list3', 	list = keybind_list_3, 	width = 120},	
+
+	{type = 'spacer'},	{type = 'spacer'},	
+   
+    {type = 'text', text =  '|c00FF7F00 Heal lowest in the party / raid|r'},
+	{type = 'combo',	default = '12',  key = 'list4', 	list = keybind_list_4, 	width = 120},
+
+	{type = 'spacer'},	{type = 'spacer'},		
+	{type = 'ruler'}, {type = 'spacer'},	
+    {type = 'text', text = "Cooldowns Toggle:", desc = "|c00FF7F00 [Berserk] + [Tiger Fury] + Trinkets if target is about to die in more than 10 sec|r"},
+
+	--{type = 'text', text = 'Alt keybind in combat = Shadowmeld then Prowl and then will Pause.'},
+	--{type = 'text', text = 'Alt keybind in combat = if Shadowmeld is on CD = [Incarnation: King of the Jungle] then Prowl and then will Pause.'},
+    {type = 'text', text = "In combat:", desc = "|c00FF7F00 if your target is friendly and dead will use Rebirth to ress|r"},
+    {type = 'text', text = "Out of combat:", desc = "|c00FF7F00 if your target is friendly and dead will use Revive to ress|r"},
 }
 
 local exeOnLoad = function()
@@ -72,7 +145,7 @@ local exeOnLoad = function()
 		name = 'Brutal Slash',
 		text = 'Use Brutal Slash on 1 or more enemies, BOSS Rotation',
 	})
-
+	
 end
 
 local Moonfire = {
@@ -126,34 +199,34 @@ local Rake = {
 
 local Keybinds = {
 
-    {"/cancelform", "keybind(alt) & !player.buff(Prowl) & !lowest.health >= 90 lowest.range <= 40 & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Travel Form)}"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp
-	{"Regrowth", "keybind(alt) & !player.buff(Prowl) & !lowest.health >= 90 & range <= 40", "lowest"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp
+    {"/cancelform", "!player.buff(Prowl) & !lowest.health >= 90 lowest.range <= 40 & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Travel Form)} & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp
+	{"Regrowth", "!player.buff(Prowl) & range <= 40 & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}", "lowest"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp   & !lowest.health >= 90
 	
 	--{"%pause", "keybind(alt) & player.buff(Prowl)", "player"},
 	
 	--{"Shadowmeld", "keybind(alt) & !player.moving & player.combat & player.buff(Cat Form) & !player.lastcast(Shadowmeld) & !player.buff(Shadowmeld) & !player.buff(Prowl)", "player"},
 	
-    {"Prowl", "!player.buff(Prowl) & player.buff(Cat Form) & player.buff(Incarnation: King of the Jungle) & target.pvp & player.pvp & keybind(control)", "player"}, -- || keybind(alt)}
+    {"Prowl", "!player.buff(Prowl) & player.buff(Cat Form) & player.buff(Incarnation: King of the Jungle) & {keybind(alt) & UI(list)==3 || keybind(shift) & UI(list)==1 || keybind(control) & UI(list)==2}", "player"}, -- || keybind(alt)}
 	
     {Rake, "target.range <= 7 & target.enemy & target.alive & player.buff(Prowl) & !target.state(stun)", "target"},
 	
-	{"Berserk", "!talent(5,2) & target.range <= 6.2 & player.combat & keybind(control)", "player"},	
+	{"Berserk", "!talent(5,2) & target.range <= 6.2 & player.combat & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "player"},	
 	
-	{"Incarnation: King of the Jungle", "talent(5,2) & !player.buff(Shadowmeld) & !player.buff(Prowl) & player.combat & keybind(control) & target.range <= 7", "player"}, -- || player.spell(Prowl).cooldown <= 0.4 & keybind(alt)}
+	{"Incarnation: King of the Jungle", "talent(5,2) & !player.buff(Shadowmeld) & !player.buff(Prowl) & player.combat & target.range <= 7 & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "player"}, -- || player.spell(Prowl).cooldown <= 0.4 & keybind(alt)}
 
-    {"!Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & target.range <= 7 & target.enemy & target.alive & {keybind(shift) || !target.state(stun) & target.pvp & player.pvp & UI(stun)}", "target"},
+    {"!Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & target.range <= 7 & target.enemy & target.alive & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || !target.state(stun) & target.pvp & player.pvp & UI(stun)}", "target"},
 	
-	{Maim, "!player.buff(Prowl) & player.combopoints >= 3 & player.spell(Mighty Bash).cooldown > gcd & !target.debuff(Mighty Bash) & target.range <= 7 & target.enemy & target.alive & keybind(shift)", "target"}, ----{ || !target.state(stun) & target.pvp & player.pvp & UI(stun)}
+	{Maim, "!player.buff(Prowl) & player.combopoints >= 3 & player.spell(Mighty Bash).cooldown > gcd & !target.debuff(Mighty Bash) & target.range <= 7 & target.enemy & target.alive & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target"}, ----{ || !target.state(stun) & target.pvp & player.pvp & UI(stun)}
 	
-	{"Skull Bash", "keybind(shift) & player.spell(Wild Charge).cooldown > gcd & player.spell(Wild Charge).cooldown < 14 & !player.buff(Prowl) & target.range > 5 & target.range <= 15 & target.enemy & target.alive", "target"},
+	{"Skull Bash", "player.spell(Wild Charge).cooldown > gcd & player.spell(Wild Charge).cooldown < 14 & !player.buff(Prowl) & target.range > 5 & target.range <= 15 & target.enemy & target.alive & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
 	
-	{"Wild Charge", "keybind(shift) & target.range > 5 & target.range <= 27 & target.enemy & target.alive", "target"},
+	{"Wild Charge", "target.range > 5 & target.range <= 27 & target.enemy & target.alive & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
 	
 }
 
 local PreCombat = { 
 
-    {"Cat Form", "!player.buff(Cat Form) & {target.enemy & target.alive || player.area(10).enemies >= 1 || indoors || !player.swimming & !toggle(travelform)}", "player"},
+    {"Cat Form", "!player.buff(Cat Form) & !keybind(alt) & {target.enemy & target.alive || player.area(10).enemies >= 1 || indoors || !player.swimming & !toggle(travelform)}", "player"},
 
  	{"Prowl", "!player.buff(Prowl) & player.buff(Cat Form) & {target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp} || player.buff(Shadowmeld)}", "player"},  --|| player.area(15).enemies >= 1
 	
@@ -262,7 +335,7 @@ local inCombat = {
 	{"Bear Form", "!player.buff(Bear Form) & !player.buff(Prowl) & {player.state(root) & UI(root) || toggle(BEAR) & !player.buff(Dash) & !spell(Prowl).usable & target.alive & target.enemy & target.pvp & player.pvp & targettarget.is(player) & target.range > 7}", "player"},
 
 	
-	{"Cat Form", "!player.buff(Cat Form) & {!player.swimming || player.state(root) & UI(root) || target.enemy & target.alive || player.area(10).enemies >= 1}", "player"},
+	{"Cat Form", "!player.buff(Cat Form) & !keybind(alt) & {!player.swimming || player.state(root) & UI(root) || target.enemy & target.alive || player.area(10).enemies >= 1}", "player"},
 
 	{Keybinds},
 	{Interrupts, "toggle(interrupts) & !player.buff(Prowl) & {!target.pvp || target.pvp & player.pvp}"},
@@ -306,15 +379,16 @@ local outCombat = {
 	{"Travel Form", "player.swimming & !player.buff(Cat Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form)"},
 	
 	{"/cancelform", "toggle(travelform) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.area(15).enemies >= 1 & player.buff(Cat Form) & {!target.enemy || target.enemy & !target.alive}"},
-    {"Travel Form", "toggle(travelform) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.buff(Cat Form) & !player.area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive}"},
+    {"Travel Form", "toggle(travelform) & !keybind(alt) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.buff(Cat Form) & !player.area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive}"},
 
 }
 
 NeP.CR:Add(103, {
-	name = '[|c00FF7F00Kleei|r]|c00FF7F00 DRUID - Feral',
+	name = "[|c00FF7F00Kleei|r]|c00FF7F00 DRUID - Feral",
 	ic = inCombat,
 	ooc = outCombat,
 	gui = GUI,
+	gui_st = {title="Kleei Combat Routines", width="300", height="760", color="00FFFF"},	
 	wow_ver = '7.1.5',
  	nep_ver = '1.11',
 	load = exeOnLoad
