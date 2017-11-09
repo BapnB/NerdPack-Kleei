@@ -39,7 +39,7 @@ local keybind_list_4 = {
 
 local Logo_GUI = {
 
-	{type = 'texture', texture = 'Interface\\AddOns\\Nerdpack-Kleei\\logo.blp', width = 128, height = 128, offset = 90, y = -50, align = 'center'},
+	{type = 'texture', texture = 'Interface\\AddOns\\Nerdpack-Kleei\\media\\feral.blp', width = 128, height = 128, offset = 90, y = -50, align = 'center'},
 	{type = 'spacer'}, {type = 'spacer'}, {type = 'spacer'}, {type = 'ruler'},
 
 }
@@ -101,6 +101,7 @@ local GUI = {
 	--{type = 'text', text = 'Alt keybind in combat = if Shadowmeld is on CD = [Incarnation: King of the Jungle] then Prowl and then will Pause.'},
     {type = 'text', text = "In combat:", desc = "|c00FF7F00 if your target is friendly and dead will use Rebirth to ress|r"},
     {type = 'text', text = "Out of combat:", desc = "|c00FF7F00 if your target is friendly and dead will use Revive to ress|r"},
+	
 }
 
 local exeOnLoad = function()
