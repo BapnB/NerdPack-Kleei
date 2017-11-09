@@ -110,16 +110,15 @@ local Actions = {
     {"/startattack", "!isattacking", "target"},
     {"Disable", "pvp & !debuff(Disable) & !debuff(Strike of the Windlord)", "target"},
     {"Fists of Fury", "infront & range <= 4.5 & {target.deathin > 4 & !player.area(5).enemies.infront >= 3 || toggle(AoE) & player.area(5).enemies.infront >= 3}", "enemies"},	
-	{"Whirling Dragon Punch"},
-    {"Energizing Elixir", "target.deathin > 6 & target.infront & player.energy < 35 & player.chi <= 2"}, -- & player.spell(Fists of Fury).cooldown < gcd
-    {"Rushing Jade Wind", "toggle(AoE) & player.area(8).enemies >= 5 & player.spell(Fists of Fury).cooldown > gcd"},
+	{"Whirling Dragon Punch", "inmelee", "enemies"},
+    {"Energizing Elixir", "target.deathin > 6 & target.infront & player.energy < 35 & player.chi <= 2", "player"}, -- & player.spell(Fists of Fury).cooldown < gcd
+    {"Rushing Jade Wind", "toggle(AoE) & player.area(8).enemies >= 5 & player.spell(Fists of Fury).cooldown > gcd", "enemies"},
 	{"Spinning Crane Kick", "toggle(AoE) & player.area(8).enemies >= 5 & count(Mark of the Crane).enemies.debuffs >= 5 & range <= 7", "enemies"},
-	{"Blackout Kick", "player.buff(Blackout Kick!) & !player.lastcast(Blackout Kick)"},
-    {"Strike of the Windlord", "target.health.actual >= 400000"},
-    {"Rising Sun Kick", "!player.lastcast(Rising Sun Kick) & {!player.area(5).enemies.infront >= 3 || player.area(5).enemies.infront >= 3 & player.spell(Fists of Fury).cooldown > gcd}"},
-	{"Blackout Kick", "!player.lastcast(Blackout Kick) & {!player.area(5).enemies.infront >= 3 || player.area(5).enemies.infront >= 3 & player.spell(Fists of Fury).cooldown > gcd}"},
-	{"Tiger Palm", "!player.lastcast(Tiger Palm) || player.chi == 0 || player.area(5).enemies.infront >= 3 & !player.spell(Fists of Fury).cooldown > gcd"},
-	{"Chi Wave", "talent(1,3) & player.chi == 0 & player.energy < 47"},
+	{"Blackout Kick", "player.buff(Blackout Kick!) & {!player.lastcast(Blackout Kick) || player.level <= 99}", "target"},
+    {"Strike of the Windlord", "target.health.actual >= 400000", "target"},
+    {"Rising Sun Kick", "player.level <= 99 || !player.lastcast(Rising Sun Kick) & {!player.area(5).enemies.infront >= 3 || player.area(5).enemies.infront >= 3 & player.spell(Fists of Fury).cooldown > gcd}", "target"},
+	{"Blackout Kick", "player.level <= 99 || !player.lastcast(Blackout Kick) & {!player.area(5).enemies.infront >= 3 || player.area(5).enemies.infront >= 3 & player.spell(Fists of Fury).cooldown > gcd}", "target"},
+	{"Tiger Palm", "player.level <= 99 || !player.lastcast(Tiger Palm) || player.chi == 0 || player.area(5).enemies.infront >= 3 & !player.spell(Fists of Fury).cooldown > gcd", "target"},
 
 }
 
