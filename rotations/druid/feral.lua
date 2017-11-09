@@ -74,7 +74,7 @@ local GUI = {
 	{type = 'text', text = "|c00FF7F00 In fight just keep pressing|r", align = 'center'},
 	{type = 'spacer'},	
 	-----------------------------------------------------------------------------------------------------
-	{type = 'text', text = "Choose Keybind:"},
+	{type = 'text', text = "|c0087CEFA Choose Keybind:"},
 	{type = 'text', text = "|c00FF7F00 in melee cast [Mighty Bash] / [Maim]|r"},
 	{type = 'combo',	default = '1',  key = 'list1', 	list = keybind_list_1, 	width = 120},
    
@@ -90,7 +90,7 @@ local GUI = {
 
 	{type = 'spacer'},	{type = 'spacer'},	
    
-    {type = 'text', text =  '|c00FF7F00 Heal lowest in the party / raid|r'},
+    {type = 'text', text =  '|c00FF7F00 Heal lowest in the party / raid if someone have less than 90%|r'},
 	{type = 'combo',	default = '12',  key = 'list4', 	list = keybind_list_4, 	width = 120},
 
 	{type = 'spacer'},	{type = 'spacer'},		
@@ -394,7 +394,7 @@ NeP.CR:Add(103, {
 	ic = inCombat,
 	ooc = outCombat,
 	gui = GUI,
-	gui_st = {title="Kleei Combat Routine Settings", width="300", height="787", color="00FFFF"},	
+	gui_st = {title="Kleei Combat Routine Settings", width="315", height="787", color="00FFFF"},	
 	wow_ver = '7.1.5',
  	nep_ver = '1.11',
 	load = exeOnLoad

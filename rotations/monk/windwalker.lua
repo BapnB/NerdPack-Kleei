@@ -92,12 +92,6 @@ local Cooldowns = {
 	
 }
 
-local AoE = {
-
-    --{"Rushing Jade Wind" ,"player.spell(Fists of Fury).cooldown > 1"},
-    
-}
-
 local Interrupts = {
 
     {"Spear Hand Strike", "target.inmelee", "target"},
@@ -139,7 +133,6 @@ local inCombat = {
 	{Survival, "player.health < 100"},
 	{Interrupts, "target.interruptAt(40) & toggle(interrupts)"},
 	{Cooldowns, "toggle(cooldowns)"},
-	{AoE, "toggle(AoE) & player.area(8).enemies >= 2"},
 	{Actions, "target.inmelee & target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp}"},
  
 }
