@@ -1,32 +1,68 @@
+local unpack = _G.unpack
+
+local keybind_list_1 = {
+
+	{key = '1', text = 'Shift Keybind'},
+	{key = '2', text = 'Control Keybind'},
+	{key = '3', text = 'Alt Keybind'},
+	{key = 'none', text = 'Disable'},	
+	
+}
+
+local Logo_GUI = {
+
+	{type = 'texture', texture = 'Interface\\AddOns\\Nerdpack-Kleei\\media\\monk.blp', width = 128, height = 128, offset = 90, y = -50, align = 'center'},
+	{type = 'spacer'}, {type = 'spacer'}, {type = 'spacer'}, {type = 'ruler'},
+
+}
+
 local GUI = {
 
-    {type = 'header', text = 'Settings', align = 'center'},
-	{type = 'checkbox',	text = "Remove stun/fear/disorient/charm by Gladiator's Medallion", align = 'left', key = 'medal', default = true},
-	{type = 'checkbox',	text = "Auto stun PVP enemy", align = 'left', key = 'stun', default = true},
+	unpack(Logo_GUI),
+
+	{type = 'spacer'},	{type = 'spacer'},
+
+    {type = 'header', size = 16, text = 'Settings', align = 'center'},
+    {type = 'checkbox',	text = "Freedom", align = 'left', key = 'medal', default = true, desc = "|c0000FA9A Remove stun/fear/disorient/charm by Gladiator's Medallion in PVP|r"},
+    {type = 'checkbox',	text = "Stun PVP", align = 'left', key = 'stun', default = true, desc = "|c0000FA9A Auto stun PVP Target ,Leg Sweep in melee or Paralysis if range > 10 yards|r"},
+	
+	-----------------------------------------------------------------------------------------------------	
+
 	{type = 'ruler'}, {type = 'spacer'},	
     -----------------------------------------------------------------------------------------------------
-	{type = 'header', text = 'Use Trinkets if Cooldown Toggle is enable', align = 'center'},		
+
+	
+	{type = 'header', size = 16, text = 'Trinkets', align = 'center'},
+	{type = 'text', text = '|c0000FA9A Use Trinkets if Cooldown Toggle is enable|r'},
 	-----------------------------------------------------------------------------------------------------
 	{type = 'checkbox', text = 'Trinket #1', 	key = 'trk1',	default = false},
-	{type = 'checkbox', text = 'Trinket #2', 	key = 'trk2',   default = false},
+	{type = 'checkbox', text = 'Trinket #2', 	key = 'trk2',   default = false, desc = '|c0000FA9A Enable only trinkets that are usable, otherwise it will loop the rotation !|r'},
+	
 	-----------------------------------------------------------------------------------------------------
-	{type = 'ruler'}, {type = 'spacer'},
+	
+	{type = 'ruler'}, {type = 'spacer'},	
+	{type = 'header', size = 16, text = 'Keybinds', align = 'center'},
+	{type = 'text', text = "|c0000FA9A In fight just keep pressing|r", align = 'center'},
+	{type = 'spacer'},	
+	-----------------------------------------------------------------------------------------------------
+	{type = 'text', text = "|c0087CEFA Choose Keybind:"},
+	{type = 'text', text = "cast Leg Sweep in melee or Paralysis if range > 10 yards|r"},
+	{type = 'combo',	default = '1',  key = 'list1', 	list = keybind_list_1, 	width = 120},
+   
+	{type = 'spacer'},	{type = 'spacer'},		
+	{type = 'ruler'}, {type = 'spacer'},	
+    {type = 'text', text = "Cooldowns Toggle:", desc = "|c0000FA9A [Touch of Death] + [Serenity (if talented)] + Trinkets if target is about to die in more than 10 sec|r"},
 
-	{type = 'header', text = 'Keybinds', align = 'center'},
-	{type = 'text', text = 'Alt Keybind = Pause.'},
-	{type = 'text', text = 'Shift Keybind will use Leg Sweep if target is in range <= 5.'},
-	{type = 'text', text = 'Shift Keybind will use Paralysis if target are in 10 or more yards.'},
-	{type = 'text', text = 'Control  Keybind + Cooldowns toggle will use Touch of Death on target.'},
-	{type = 'text', text = 'In out of combat if your target is friendly and dead will use Resuscitate to ress him.'},
+    {type = 'text', text = "In out of combat:", desc = "|c0000FA9A if your target is friendly and dead will use Resuscitate to ress|r"},
 	
 } 
 
 local exeOnLoad = function()
 	
-	print('|cffADFF2F ------------------------PVE-------------------------------------------|r')
- 	print('|cffADFF2F --- |r|cffADFF2FMonk - WindWalker|r')
- 	print('|cffADFF2F --- |rRecommended Talents: 1/3 - 2/1 - 3/1 - 4/3 - 5/1 - 6/3 - 7/2')
- 	print('|cffADFF2F ----------------------------------------------------------------------|r')
+	print('|c0000FA9A ------------------------PVE-------------------------------------------|r')
+ 	print('|c0000FA9A --- |r|c0000FA9AMonk - WindWalker|r')
+ 	print('|c0000FA9A --- |rRecommended Talents: 1/3 - 2/1 - 3/1 - 4/3 - 5/1 - 6/3 - 7/2')
+ 	print('|c0000FA9A ----------------------------------------------------------------------|r')
 
 end
 
@@ -48,7 +84,7 @@ local Survival = {
 local Cooldowns = {
 
 	{"Touch of Death", "target.range <= 6.2 & player.combat & target.deathin >= 11.2", "target"},
-	{"Serenity", "target.range <= 6.2 & player.combat & {target.deathin >= 11.2 || keybind(control)}"},
+	{"Serenity", "talent(7,3) & target.range <= 6.2 & player.combat & target.deathin >= 11.2", "player"},
 	--{"Storm, Earth, and Fire", "!player.buff(Storm, Earth, and Fire)"},
 	
 	{"#trinket1", "UI(trk1) & target.inmelee & target.deathin >= 10"},
@@ -72,7 +108,7 @@ local Interrupts = {
 local Actions = {
 
     {"/startattack", "!isattacking", "target"},
-    {"Disable", "pvp & !debuff", "target"},
+    {"Disable", "pvp & !debuff(Disable) & !debuff(Strike of the Windlord)", "target"},
 	{"Whirling Dragon Punch"},
     {"Energizing Elixir", "target.deathin > 6 & target.infront & player.energy < 35 & player.chi <= 2"}, -- & player.spell(Fists of Fury).cooldown < gcd
     {"Rushing Jade Wind", "toggle(AoE) & player.area(8).enemies >= 5 & player.spell(Fists of Fury).cooldown > gcd"},
@@ -88,10 +124,9 @@ local Actions = {
 }
 
 local Keybinds = {
-	-- Pause
-	{"%pause", "keybind(alt)"},
-	{"Leg Sweep", "target.enemy & target.alive & target.range <= 5 & {keybind(shift) || target.pvp & player.pvp & UI(stun)}", "target"},
-	{"Paralysis", "target.range >= 10 & target.enemy & target.alive & {keybind(shift) || target.pvp & player.pvp & UI(stun)}", "target"},
+
+	{"Leg Sweep", "target.enemy & target.alive & target.range <= 5 & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || target.pvp & player.pvp & UI(stun)}", "target"},
+	{"Paralysis", "target.range >= 10 & target.enemy & target.alive & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || target.pvp & player.pvp & UI(stun)}", "target"},
 
 }
 
@@ -122,10 +157,11 @@ local outCombat = {
 }
 
 NeP.CR:Add(269, {
-	name = '[|cffADFF2FKleei|r]|cffADFF2F Monk - Windwalker',
+	name = '[|c0000FA9AKleei|r]|c0000FA9A Monk - Windwalker',
 	ic = inCombat,
 	ooc = outCombat,
 	gui = GUI,
+	gui_st = {title="Kleei Combat Routine Settings", width="300", height="750", color="87CEFA"},	
 	wow_ver = '7.1.5',
  	nep_ver = '1.11',
 	load = exeOnLoad
