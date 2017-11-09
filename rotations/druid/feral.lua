@@ -71,6 +71,8 @@ local GUI = {
 	
 	{type = 'ruler'}, {type = 'spacer'},	
 	{type = 'header', size = 16, text = 'Keybinds', align = 'center'},
+	{type = 'text', text = "|c00FF7F00 In fight just keep pressing|r"},
+	{type = 'spacer'},	
 	-----------------------------------------------------------------------------------------------------
 	{type = 'text', text = "Choose Keybind:"},
 	{type = 'text', text = "|c00FF7F00 in melee cast [Mighty Bash] / [Maim]|r"},
@@ -78,12 +80,12 @@ local GUI = {
    
 	{type = 'spacer'},	{type = 'spacer'},
 	
-    {type = 'text', text = "|c00FF7F00 in range > 10 will use [Wild Charge] / [Skull Bash]|r"},
+    {type = 'text', text = "|c00FF7F00 in range > 10 will cast [Wild Charge] / [Skull Bash]|r"},
 	{type = 'combo',	default = '4',  key = 'list2', 	list = keybind_list_2, 	width = 120},	
 
 	{type = 'spacer'},	{type = 'spacer'},
 	
-    {type = 'text', text = "|c00FF7F00 = [Berserk] or [Incarnation: King of the Jungle] while 5/2 talent is set|r"},
+    {type = 'text', text = "|c00FF7F00[Berserk] or [Incarnation: King of the Jungle] while 5/2 talent is set, if you have [Incarnation] buff it cast Stealth and stun the target|r"},
 	{type = 'combo',	default = '8',  key = 'list3', 	list = keybind_list_3, 	width = 120},	
 
 	{type = 'spacer'},	{type = 'spacer'},	
@@ -344,7 +346,8 @@ local inCombat = {
     {Survival, "player.health < 100 & !player.buff(Prowl)"},	
 	
 	{"%dispelself", "!player.buff(Prowl) & !player.area(10).enemies >= 1", "player"},
-    {"Rebirth", "!target.enemy & target.dead & player.pvp", "target"},
+    {"Rebirth", "!target.enemy & target.dead & player.ingroup(target)", "target"},
+	{"Rebirth", "player.area(40).dead.tank & player.area(30).enemies >= 1", "tank"},	
 	
 	{Cooldowns, "toggle(cooldowns)"},
 	{Cat_Combat, "player.buff(Cat Form) & target.alive & target.enemy & {!target.pvp || target.pvp & player.pvp}"},
@@ -390,7 +393,7 @@ NeP.CR:Add(103, {
 	ic = inCombat,
 	ooc = outCombat,
 	gui = GUI,
-	gui_st = {title="Kleei Combat Routines", width="300", height="760", color="00FFFF"},	
+	gui_st = {title="Kleei Combat Routine Settings", width="300", height="787", color="00FFFF"},	
 	wow_ver = '7.1.5',
  	nep_ver = '1.11',
 	load = exeOnLoad
