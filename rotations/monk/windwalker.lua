@@ -33,7 +33,7 @@ local GUI = {
 
 	
 	{type = 'header', size = 16, text = 'Trinkets', align = 'center'},
-	{type = 'text', text = '|c0000FA9A Use Trinkets if Cooldown Toggle is enable|r'},
+	{type = 'text', text = '|c0000FA9A Use Trinkets if Cooldown Toggle is enable|r', align = 'center'},
 	-----------------------------------------------------------------------------------------------------
 	{type = 'checkbox', text = 'Trinket #1', 	key = 'trk1',	default = false},
 	{type = 'checkbox', text = 'Trinket #2', 	key = 'trk2',   default = false, desc = '|c0000FA9A Enable only trinkets that are usable, otherwise it will loop the rotation !|r'},
