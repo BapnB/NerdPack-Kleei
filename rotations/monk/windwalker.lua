@@ -46,7 +46,7 @@ local GUI = {
 	{type = 'spacer'},	
 	-----------------------------------------------------------------------------------------------------
 	{type = 'text', text = "|c0087CEFA Choose Keybind:"},
-	{type = 'text', text = "Cast Leg Sweep in melee or Paralysis if range > 10 yards|r"},
+	{type = 'text', text = "|c0000FA9A Cast Leg Sweep in melee or Paralysis if range > 10 yards:|r"},
 	{type = 'combo',	default = '1',  key = 'list1', 	list = keybind_list_1, 	width = 120},
    
 	{type = 'spacer'},	{type = 'spacer'},		

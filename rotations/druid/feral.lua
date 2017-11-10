@@ -75,22 +75,22 @@ local GUI = {
 	{type = 'spacer'},	
 	-----------------------------------------------------------------------------------------------------
 	{type = 'text', text = "|c0087CEFA Choose Keybind:"},
-	{type = 'text', text = "|c00FF7F00 in melee cast [Mighty Bash] / [Maim]|r"},
+	{type = 'text', text = "|c00FF7F00 in melee cast [Mighty Bash] / [Maim]:|r"},
 	{type = 'combo',	default = '1',  key = 'list1', 	list = keybind_list_1, 	width = 120},
    
 	{type = 'spacer'},	{type = 'spacer'},
 	
-    {type = 'text', text = "|c00FF7F00 in range > 10 will cast [Wild Charge] / [Skull Bash]|r"},
+    {type = 'text', text = "|c00FF7F00 in range > 10 will cast [Wild Charge] / [Skull Bash]:|r"},
 	{type = 'combo',	default = '4',  key = 'list2', 	list = keybind_list_2, 	width = 120},	
 
 	{type = 'spacer'},	{type = 'spacer'},
 	
-    {type = 'text', text = "|c00FF7F00[Berserk] or [Incarnation: King of the Jungle] while 5/2 talent is set, if you have [Incarnation] buff it cast Stealth and stun the target|r"},
+    {type = 'text', text = "|c00FF7F00[Berserk] or [Incarnation: King of the Jungle] while 5/2 talent is set, if you have [Incarnation] buff it cast Stealth and stun the target:|r"},
 	{type = 'combo',	default = '8',  key = 'list3', 	list = keybind_list_3, 	width = 120},	
 
 	{type = 'spacer'},	{type = 'spacer'},	
    
-    {type = 'text', text =  '|c00FF7F00 Heal lowest in the party / raid if someone have less than 90%|r'},
+    {type = 'text', text =  '|c00FF7F00 Heal lowest in the party / raid if someone have less than 90%:|r'},
 	{type = 'combo',	default = '12',  key = 'list4', 	list = keybind_list_4, 	width = 120},
 
 	{type = 'spacer'},	{type = 'spacer'},		
