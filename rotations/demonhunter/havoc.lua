@@ -18,9 +18,16 @@ local keybind_list_2 = {
 
 }
 
+local target_list = {
+
+    {key = 'cursor', text = 'Cursor Ground'},
+	{key = 'target', text = 'Target Ground'},
+
+}
+
 local Logo_GUI = {
 
-	{type = 'texture', texture = 'Interface\\AddOns\\Nerdpack-Kleei\\media\\dh.blp', width = 160, height = 160, offset = 90, y = -40, align = 'center'},
+	{type = 'texture', texture = 'Interface\\AddOns\\Nerdpack-Kleei\\media\\dh.blp', width = 200, height = 200, offset = 90, y = -60, align = 'center'},
 	{type = 'spacer'}, {type = 'spacer'}, {type = 'spacer'}, {type = 'ruler'},
 
 }
@@ -28,44 +35,47 @@ local Logo_GUI = {
 local GUI = {
 
 	unpack(Logo_GUI),
-
+	
+    {type = 'spacer'}, {type = 'spacer'}, {type = 'spacer'},
 	{type = 'header', size = 16, text = 'Keybinds', align = 'center'},
-	{type = 'text', text = "|c0000FA9A In fight just hold the Key|r", align = 'center'},
+	{type = 'text', text = "|c0000FA9A Just hold the Key|r", align = 'center'},
+	{type = 'text', text = "|c0087CEFA Choose Keybind:", align = 'center'},
 	{type = 'spacer'},
-	{type = 'text', text = "|c0087CEFA Choose Keybind:"},
-	{type = 'text', text = "|c0000FA9A Metamorphosis on target ground if Cooldowns Toggle is ON:|r"},
-	{type = 'combo', default = '2',  key = 'list1',  list = keybind_list_1,  width = 120},
-	{type = 'spacer'},	{type = 'spacer'},	
-    {type = 'text', text = "|c0000FA9A [Chaos Nova] if in melee is more than 1 enemies or cast [Imprison] if target are in > 10 yards:|r"},
-	{type = 'combo',	default = '1',  key = 'list2', 	list = keybind_list_2, 	width = 120},	
-	{type = 'spacer'},	{type = 'spacer'},		
-	{type = 'ruler'}, {type = 'spacer'},	
+	{type = 'combo', default = 'target',  key = 'list3',  list = target_list,  width = 100},	
+	{type = 'text', text = "Use Metamorphosis:"},
+	{type = 'combo', default = '2',  key = 'list1',  list = keybind_list_1,  width = 100},	
+	{type = 'text', text = "|c0000FA9A if Cooldowns Toggle is ON|r"},
+	
+	{type = 'spacer'},	{type = 'spacer'},
+    {type = 'text', text = "Use Chaos Nova:|c0000FA9A in melee >= 1 enemies:|r"},
+	{type = 'combo', default = '4',  key = 'list2',  list = keybind_list_2, 	width = 100},		
+    {type = 'text', text = "Use Imprison:|c0000FA9A ranged > 10 yards:|r"},
+	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},
 	
     {type = 'header', size = 16, text = 'PVP', align = 'center'},
-    {type = 'checkbox',	text = "Stun: |c0000FA9A Auto stun PVP Target [Chaos Nova] if in melee is more than 1 enemies or cast [Imprison] if target are in > 10 yards.|r", align = 'left', key = 'stun', default = true},	
-    {type = 'checkbox',	text = "Freedom: |c0000FA9A Remove stun/fear/disorient/charm by [Gladiator's Medallion in PVP].|r", align = 'left', key = 'medal', default = true},	
-	{type = 'spacer'},	{type = 'spacer'},	
-	{type = 'ruler'}, {type = 'spacer'},	
+    {type = 'checkbox',	text = "Stun:|c0000FA9A Auto stun PVP Target [Chaos Nova] or [Imprison].|r", align = 'left', key = 'stun', default = true},	
+    {type = 'checkbox',	text = "Gladiator's Medallion:|c0000FA9A Remove stun/fear/disorient/charm.|r", align = 'left', key = 'medal', default = true},	
+	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},	
 
 	{type = 'header', size = 16, text = 'Trinkets', align = 'center'},
 	{type = 'text', text = '|c0000FA9A Use Trinkets if Cooldown Toggle is enable|r', align = 'center'},
-
 	{type = 'checkbox', text = 'Trinket #1', 	key = 'trk1',	default = false},
-	{type = 'checkbox', text = 'Trinket #2', 	key = 'trk2',   default = false, desc = '|c0000FA9A Enable only trinkets that are usable, otherwise it will loop the rotation !|r'},
-
-	{type = 'ruler'}, {type = 'spacer'},
+	{type = 'checkbox', text = 'Trinket #2', 	key = 'trk2',   default = false},
+	{type = 'text', text = '|c0000FA9A Enable only trinkets that are usable, otherwise it will loop the rotation !|r'},
+	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},
 	
 	{type = 'header', size = 16, text = 'Survival', align = 'center'},
-	{type = 'spacer'},
 	{type = 'checkspin', text = 'Use Blur:', key = 'blur', check = true, spin = 70, width = 150, step = 5, max = 95, min = 1},
 	{type = 'checkspin', text = 'Use Netherwalk:', key = 'nw', check = true, spin = 25, width = 150, step = 5, max = 95, min = 1},
 	{type = 'checkspin', text = 'Use Health Stone:', key = 'hs', check = true, spin = 60, width = 150, step = 5, max = 95, min = 1},
-	{type = 'spacer'},	{type = 'spacer'},		
-	{type = 'ruler'}, {type = 'spacer'},	
+	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},	
 
     {type = 'text', text = "Cooldowns Toggle:"},
+	{type = 'text', text = "|c0087CEFA All if target will die in more than 10 sec|r", align = 'center'},	
 	{type = 'spacer'},
-    {type = 'text', text = "|c0000FA9A [Nemesis] if talented(5,3) [Chaos Blades] if talented(7,1) & [Metamorphosis if you hold keybind] on target ground, all if target will die in > 10 sec|r"},
+    {type = 'text', text = "Nemesis:|c0000FA9A if talented(5,3)"},
+    {type = 'text', text = "Chaos Blades:|c0000FA9A if talented(7,1)"},
+    {type = 'text', text = "Metamorphosis:|c0000FA9A if you hold keybind"},
 
 } 
 
@@ -80,18 +90,20 @@ local exeOnLoad = function()
 		NeP.Interface:AddToggle({
 		key = 'charge',
 		name = 'Charge',
-		text = 'ON/OFF using Felblade in Rotation',
+		text = 'ON/OFF using Felblade and Fel Rush in Rotation',
 		icon = 'Interface\\Icons\\ability_demonhunter_felblade',
 	})
 
 	
 end
 
-local FelRush = {
+local Precombat = {
 
-    --{"%SendKey(SPACE)"},
-	--{"Fel Rush"},
 
+    {"Fel Rush", "toggle(charge) & infront & range >= 6 & range <= 15", "target"},	
+	{"Felblade", "toggle(charge) & talent(1,2) & target.range <= 10 & infront & player.fury <= 100", "target"},
+	{"Chaos Strike", "target.inmelee & player.fury >= 40", "target"},
+	
 }
 
 local Survival = {
@@ -107,15 +119,15 @@ local Survival = {
 
 local Interrupts = {
 
-	{"Consume Magic"},
-	
-	--{"Chaos Nova", "player.spell(Consume Magic).cooldown > gcd & target.range <= 5"}
+	{"Consume Magic", "!inmelee", "target"},
+	{"Consume Magic", "inmelee", "enemies"},
 	
 }
 
 local Keybinds = {
 
-    {"Metamorphosis", "toggle(cooldowns) & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target.ground"},
+    {"Metamorphosis", "toggle(cooldowns) & 	UI(list3)==target & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target.ground"},
+	{"Metamorphosis", "toggle(cooldowns) & 	UI(list3)==ground & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "cursor.ground"},
 
 	{"Chaos Nova", "player.area(5).enemies >= 1 & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5 || target.pvp & player.pvp & UI(stun)}"},
 
@@ -136,7 +148,7 @@ local Combat = {
 	
 	---Mass
 	{"Fury of the Illidari", "!player.moving & target.deathin > 5 & !player.lastcast(Vengeful Retreat) & target.range <= 1"},
-	{"Eye Beam", "toggle(AoE) & !player.moving & !player.lastcast(Vengeful Retreat) & target.range <= 15 & target.infront & player.area(8).enemies >= 5"},
+	{"Eye Beam", "toggle(AoE) & !player.moving & !player.lastcast(Vengeful Retreat) & player.area(8).enemies.infront >= 5 & range <= 15", "enemies"},
 	
 	{"Blade Dance", "talent(3,1) & toggle(AoE) & !player.lastcast(Vengeful Retreat) & {player.area(5).enemies == 4 || player.spell(Eye Beam).cooldown > gcd & player.area(5).enemies >= 5}"},
 	{"Death Sweep", "talent(3,1) & toggle(AoE) & !player.lastcast(Vengeful Retreat) & {player.area(5).enemies == 4 || player.spell(Eye Beam).cooldown > gcd & player.area(5).enemies >= 5}"},
@@ -145,18 +157,15 @@ local Combat = {
 	{"Death Sweep", "talent(3,2) & toggle(AoE) & !player.lastcast(Vengeful Retreat) & {player.area(5).enemies == 1 & player.fury <= 39 || player.area(5).enemies >= 2 & player.area(5).enemies <= 4 || player.spell(Eye Beam).cooldown > gcd & player.area(5).enemies >= 5}"},
 	
 	---Charge
-	{"Felblade", "toggle(charge) & talent(1,2) & target.range <= 15 & {player.fury <= 39 || target.range >= 8 & player.fury <= 100}"},
-	--{FelRush, "player.spell(Fel Rush).charges >= 1 & target.range <= 5 & player.fury <= 39"},
-	--{"Fel Rush", "toggle(charge) & player.spell(Felblade).cooldown < gcd & target.range <= 5 & player.energy <= 39"},
+	{"Felblade", "toggle(charge) & talent(1,2) & infront & target.range <= 15 & {player.fury <= 39 || target.range >= 8 & player.fury <= 100}"},
 	
 	---Out of melee range
 	{"Fel Eruption", "talent(5,2) & target.range <= 20 & player.fury >= 10"},
 	{"Fel Barrage", "talent(7,2) & !target.debuff(Imprison) & target.range <= 30 & player.spell(Fel Barrage).charges >= 5 & {player.buff(Metamorphosis) & player.fury <= 39 & player.spell(Death Sweep).cooldown >= gcd || player.buff(Metamorphosis) & player.fury <= 15 || !player.buff(Metamorphosis)}"},
 	{"Throw Glaive", "player.spell(Fel Rush).charges < 1 & player.spell(Felblade).cooldown > gcd & !target.debuff(Imprison) & target.range >= 8 & target.range <= 30"},
-	{"Fel Rush", "toggle(charge) & target.infront & target.range > 5"},
-	{"Throw Glaive", "player.fury <= 38", "target"},
-	
-	---Acrobat (old thing, for now is dissabled) 
+	{"Fel Rush", "toggle(charge) & infront & range >= 6", "target"},
+	{"Throw Glaive", "player.fury <= 38 || target.debuff(Master of the Glaive) & target.range > 7", "target"},
+
 	{"Vengeful Retreat", "toggle(charge) & talent(2,1) & !player.buff(Metamorphosis) & player.spell(Fel Rush).charges >= 1 & target.range <= 3 & player.energy <= 39"},
 
 	{"Chaos Strike", "target.inmelee & player.fury >= 40 & {player.area(8).enemies <= 5 || player.spell(Eye Beam).cooldown > gcd}", "target"},
@@ -169,12 +178,12 @@ local inCombat = {
 
     {"%pause", "target.enemy & {target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)}", "player"},
 	
-	{"Gladiator's Medallion", "target.pvp & player.pvp & {player.state(stun) || player.state(root) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
+	{"Gladiator's Medallion", "target.pvp & player.pvp & UI(medal) & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
 
     ---------------
 	{Keybinds},
 	{Survival, "player.health < 100"},
-	{Interrupts, "target.interruptAt(40) & toggle(interrupts) & {!target.pvp || target.pvp & player.pvp}"},
+	{Interrupts, "interruptAt(85) & toggle(interrupts) & {!target.pvp || target.pvp & player.pvp}"},
 	{Cooldowns, "toggle(cooldowns) & target.enemy & target.alive & target.range <= 2"},
 	---------------
 	{Combat, "target.alive & target.enemy & {!target.pvp || target.pvp & player.pvp}"},
@@ -182,8 +191,11 @@ local inCombat = {
 }
 
 local outCombat = {
+
+    {"%SendKey(SPACE)"},
 	{Keybinds},
-	{FelRush},
+	{Precombat, "target.alive & target.enemy & {!target.pvp || target.pvp & player.pvp}"},
+	
 }
 
 NeP.CR:Add(577, {
@@ -191,7 +203,7 @@ NeP.CR:Add(577, {
 	ic = inCombat,
 	ooc = outCombat,
 	gui = GUI,
-	gui_st = {title="Kleei Combat Routine Settings", width="315", height="694", color="87CEFA"},
+	gui_st = {title="Kleei Combat Routine Settings", width="315", height="705", color="87CEFA"},
 	wow_ver = '7.1.5',
  	nep_ver = '1.11',
 	load = exeOnLoad
