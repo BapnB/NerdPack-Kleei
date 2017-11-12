@@ -12,7 +12,6 @@ local keybind_list_1 = {
 local Logo_GUI = {
 
 	{type = 'texture', texture = 'Interface\\AddOns\\Nerdpack-Kleei\\media\\monk.blp', width = 128, height = 128, offset = 90, y = -50, align = 'center'},
-	{type = 'spacer'}, {type = 'spacer'}, {type = 'spacer'}, {type = 'ruler'},
 
 }
 
@@ -20,35 +19,37 @@ local GUI = {
 
 	unpack(Logo_GUI),
 
-	{type = 'spacer'},	{type = 'spacer'},
-
-    {type = 'header', size = 16, text = 'Settings', align = 'center'},
-    {type = 'checkbox',	text = "Freedom", align = 'left', key = 'medal', default = true, desc = "|c0000FA9A Remove stun/fear/disorient/charm by Gladiator's Medallion in PVP|r"},
-    {type = 'checkbox',	text = "Stun PVP", align = 'left', key = 'stun', default = true, desc = "|c0000FA9A Auto stun PVP Target ,Leg Sweep in melee or Paralysis if range > 10 yards|r"},
+    {type = 'spacer'},
+	{type = 'header', size = 16, text = 'Keybinds', align = 'center'},
+	{type = 'text', text = "|c0000FA9A Just hold the Key|r", align = 'center'},
+	{type = 'text', text = "|c0087CEFA Choose Keybind:", align = 'center'},
+	{type = 'spacer'},
+	{type = 'combo', default = '1', key = 'list1', list = keybind_list_1, width = 100},	
+	{type = 'text', text = "Use Leg Sweep:|c0000FA9A in melee :|r"},
+	{type = 'text', text = "Use Paralysis:|c0000FA9A range > 10 yards:|r"},
+	{type = 'spacer'}, {type = 'ruler'},
 	
-	-----------------------------------------------------------------------------------------------------	
+    {type = 'header', size = 16, text = 'PVP', align = 'center'},
+    {type = 'checkbox',	text = "Stun:|c0000FA9A Auto stun PVP Target [Leg Sweep] or [Paralysis]:|r", align = 'left', key = 'stun', default = true},
+    {type = 'checkbox',	text = "Gladiator's Medallion:|c0000FA9A Remove stun/fear/disorient/charm.|r", align = 'left', key = 'medal', default = true},	
+	{type = 'spacer'}, {type = 'ruler'},
 
-	{type = 'ruler'}, {type = 'spacer'},	
-    -----------------------------------------------------------------------------------------------------
-
-	
 	{type = 'header', size = 16, text = 'Trinkets', align = 'center'},
 	{type = 'text', text = '|c0000FA9A Use Trinkets if Cooldown Toggle is enable|r', align = 'center'},
-	-----------------------------------------------------------------------------------------------------
 	{type = 'checkbox', text = 'Trinket #1', 	key = 'trk1',	default = false},
-	{type = 'checkbox', text = 'Trinket #2', 	key = 'trk2',   default = false, desc = '|c0000FA9A Enable only trinkets that are usable, otherwise it will loop the rotation !|r'},
+	{type = 'checkbox', text = 'Trinket #2', 	key = 'trk2',   default = false},
+	{type = 'text', text = '|c0000FA9A Enable only trinkets that are usable, otherwise it will loop the rotation !|r'},
+	{type = 'spacer'}, {type = 'ruler'},
 	
-	-----------------------------------------------------------------------------------------------------
+	{type = 'header', size = 16, text = 'To Do:', align = 'center'},
+	{type = 'text', text = 'Survival:'},
 	
-	{type = 'ruler'}, {type = 'spacer'},	
-	{type = 'header', size = 16, text = 'Keybinds', align = 'center'},
-	{type = 'text', text = "|c0000FA9A In fight just keep pressing|r", align = 'center'},
-	{type = 'spacer'},	
-	-----------------------------------------------------------------------------------------------------
-	{type = 'text', text = "|c0087CEFA Choose Keybind:"},
-	{type = 'text', text = "|c0000FA9A Cast Leg Sweep in melee or Paralysis if range > 10 yards:|r"},
-	{type = 'combo',	default = '1',  key = 'list1', 	list = keybind_list_1, 	width = 120},
-   
+	--{type = 'header', size = 16, text = 'Survival', align = 'center'},
+	--{type = 'checkspin', text = 'Use Blur:', key = 'blur', check = true, spin = 70, width = 150, step = 5, max = 95, min = 1},
+	--{type = 'checkspin', text = 'Use Netherwalk:', key = 'nw', check = true, spin = 25, width = 150, step = 5, max = 95, min = 1},
+	--{type = 'checkspin', text = 'Use Health Stone:', key = 'hs', check = true, spin = 60, width = 150, step = 5, max = 95, min = 1},
+	--{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},	
+	
 	{type = 'spacer'},	{type = 'spacer'},		
 	{type = 'ruler'}, {type = 'spacer'},	
     {type = 'text', text = "Cooldowns Toggle:", desc = "|c0000FA9A [Touch of Death] + [Serenity (if talented)] + Trinkets if target is about to die in more than 10 sec|r"},
@@ -109,7 +110,7 @@ local Actions = {
     {"Rushing Jade Wind", "toggle(AoE) & player.area(8).enemies >= 5 & player.spell(Fists of Fury).cooldown > gcd", "enemies"},
 	{"Spinning Crane Kick", "toggle(AoE) & player.area(8).enemies >= 5 & count(Mark of the Crane).enemies.debuffs >= 5 & range <= 7", "enemies"},
 	{"Blackout Kick", "player.buff(Blackout Kick!) & {!player.lastcast(Blackout Kick) || player.level <= 99}", "target"},
-    {"Strike of the Windlord", "target.health.actual >= 400000", "target"},
+    {"Strike of the Windlord", "deathin >= 12", "target"},
     {"Rising Sun Kick", "player.level <= 99 || !player.lastcast(Rising Sun Kick) & {!player.area(5).enemies.infront >= 3 || player.area(5).enemies.infront >= 3 & player.spell(Fists of Fury).cooldown > gcd}", "target"},
 	{"Blackout Kick", "player.level <= 99 || !player.lastcast(Blackout Kick) & {!player.area(5).enemies.infront >= 3 || player.area(5).enemies.infront >= 3 & player.spell(Fists of Fury).cooldown > gcd}", "target"},
 	{"Tiger Palm", "player.level <= 99 || !player.lastcast(Tiger Palm) || player.chi == 0 || player.area(5).enemies.infront >= 3 & !player.spell(Fists of Fury).cooldown > gcd", "target"},

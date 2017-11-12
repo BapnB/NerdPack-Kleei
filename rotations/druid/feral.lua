@@ -222,11 +222,11 @@ local Keybinds = {
 
 local PreCombat = { 
 
-    {"Cat Form", "!player.buff(Cat Form) & !keybind(alt) & {target.enemy & target.alive || player.area(10).enemies >= 1 || indoors || !player.swimming & !toggle(travelform)}", "player"},
+    {"Cat Form", "!buff(Cat Form) & !keybind(alt) & {target.enemy & target.alive || player.area(10).enemies >= 1 || indoors || !player.swimming & !toggle(travelform)}", "player"},
 
- 	{"Prowl", "!player.buff(Prowl) & player.buff(Cat Form) & {target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp} || player.buff(Shadowmeld)}", "player"},  --|| player.area(15).enemies >= 1
+ 	{"Prowl", "!buff(Prowl) & buff(Cat Form) & {target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp} || player.buff(Shadowmeld)}", "player"},  --|| player.area(15).enemies >= 1
 	
- 	{Rake, "target.range <= 7 & target.infront & target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp} & {player.buff(Prowl) || player.spell(Prowl).cooldown > 0.5 & !player.buff(Shadowmeld) || player.buff(Shadowmeld)}", "target"},
+ 	{Rake, "range <= 7 & infront & target.enemy & target.alive & {!pvp || pvp & player.pvp} & {player.buff(Prowl) || player.spell(Prowl).cooldown > 0.5 & !player.buff(Shadowmeld) || player.buff(Shadowmeld)}", "target"},
 
 }
 

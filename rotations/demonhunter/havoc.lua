@@ -137,8 +137,8 @@ local Keybinds = {
 
 local Cooldowns = {
 
-	{"Nemesis", "talent(5,3) & target.deathin >= 15", "target"},
-	{"Chaos Blades", "talent(7,1) & target.deathin >= 10"},
+	{"Nemesis", "talent(5,3) & {target.deathin >= 15 || player.lastcast(Metamorphosis)}", "target"},
+	{"Chaos Blades", "talent(7,1) & {target.deathin >= 15 || player.lastcast(Metamorphosis)}"},
 	
 }
 
@@ -156,7 +156,7 @@ local Combat = {
 	{"Death Sweep", "talent(3,2) & toggle(AoE) & !player.lastcast(Vengeful Retreat) & {player.area(7).enemies == 1 & player.fury <= 39 || player.area(5).enemies >= 2 & player.area(5).enemies <= 4 & toggle(AoE) || player.spell(Eye Beam).cooldown > gcd & player.area(5).enemies >= 5 & toggle(AoE)}"},
 	
 	---Charge
-	{"Felblade", "toggle(charge) & talent(1,2) & target.infront & {player.furydiff >= 30 & !player.buff(Metamorphosis) & target.range <= 15 || player.fury <= 39 & player.buff(Metamorphosis) & target.inmelee || player.furydiff >= 60 & player.buff(Metamorphosis) & target.range <= 15}", "target"},
+	{"Felblade", "toggle(charge) & talent(1,2) & target.infront & {player.furydiff >= 30 & !player.buff(Metamorphosis) & target.range <= 15 || player.fury <= 39 & player.buff(Metamorphosis) & target.inmelee || player.furydiff >= 60 & player.buff(Metamorphosis) & !target.inmelee & target.range <= 15}", "target"},
 	
 	---Out of melee range
 	{"Fel Eruption", "talent(5,2) & target.range <= 20 & player.fury >= 10"},
