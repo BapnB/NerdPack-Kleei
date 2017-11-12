@@ -161,17 +161,17 @@ local Innervate = {
 
 local DPS = {
 
-	{"Sunfire",  "target.area(6).enemies >= 2 & !debuff(Sunfire).duration > 2", "target"},
+	{"Sunfire",  "target.area(6).enemies >= 2 & !debuff(Sunfire).duration > 2 & player.los(target)", "target"},
     {"Moonfire", "toggle(aoe) & !debuff & range <= 40 & target.area(8).enemies", "enemies"}, 
-    {"Moonfire", "!toggle(aoe) & !debuff & target.range <= 40", "target"},	
+    {"Moonfire", "!toggle(aoe) & !debuff & target.range <= 40 & player.los(target)", "target"},	
 
 	{"Moonkin Form", "!player.buff(Moonkin Form)"},
 	
-	{"Starsurge", "player.buff(Moonkin Form)", "target"},
-	{"Lunar Strike", "player.buff(Lunar Empowerment) & target.area(6).enemies >= 4", "target"},
-	{"Solar Wrath", "player.buff(Solar Empowerment)", "target"},
+	{"Starsurge", "player.buff(Moonkin Form) & player.los(target)", "target"},
+	{"Lunar Strike", "player.buff(Lunar Empowerment) & target.area(6).enemies >= 4 & player.los(target)", "target"},
+	{"Solar Wrath", "player.buff(Solar Empowerment) & player.los(target)", "target"},
 	
-	{"Solar Wrath", "player.buff(Moonkin Form)", "target"},
+	{"Solar Wrath", "player.buff(Moonkin Form) & player.los(target)", "target"},
 	
 }
 

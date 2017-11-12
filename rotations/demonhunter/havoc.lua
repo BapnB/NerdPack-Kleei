@@ -99,9 +99,9 @@ end
 
 local Precombat = {
 
-
-    {"Fel Rush", "toggle(charge) & infront & range >= 6 & range <= 15", "target"},	
-	{"Felblade", "toggle(charge) & talent(1,2) & target.range <= 15	 & infront & player.fury <= 100", "target"},
+	{"Throw Glaive", "player.fury <= 38 & target.inmelee || target.pvp & player.pvp & target.range >= 6 & target.range <= 15 & !target.debuff(Master of the Glaive)", "target"},	
+    {"Fel Rush", "toggle(charge) & target.infront & target.range >= 6 & target.range <= 15", "target"},	
+	{"Felblade", "toggle(charge) & talent(1,2) & target.range <= 15 & target.infront & player.fury <= 100", "target"},
 	{"Chaos Strike", "target.inmelee & player.fury >= 40", "target"},
 	
 }
@@ -157,14 +157,14 @@ local Combat = {
 	{"Death Sweep", "talent(3,2) & toggle(AoE) & !player.lastcast(Vengeful Retreat) & {player.area(7).enemies == 1 & player.fury <= 39 || player.area(5).enemies >= 2 & player.area(5).enemies <= 4 & toggle(AoE) || player.spell(Eye Beam).cooldown > gcd & player.area(5).enemies >= 5 & toggle(AoE)}"},
 	
 	---Charge
-	{"Felblade", "toggle(charge) & talent(1,2) & infront & target.range <= 15 & {player.fury <= 39 || target.range >= 8 & player.fury <= 100}"},
+	{"Felblade", "toggle(charge) & talent(1,2) & infront & target.range <= 15 & player.furydiff >= 30"},--{player.fury <= 39 || target.range >= 8 & player.fury <= 100}
 	
 	---Out of melee range
 	{"Fel Eruption", "talent(5,2) & target.range <= 20 & player.fury >= 10"},
 	{"Fel Barrage", "talent(7,2) & !target.debuff(Imprison) & target.range <= 30 & player.spell(Fel Barrage).charges >= 5 & {player.buff(Metamorphosis) & player.fury <= 39 & player.spell(Death Sweep).cooldown >= gcd || player.buff(Metamorphosis) & player.fury <= 15 || !player.buff(Metamorphosis)}"},
 	{"Throw Glaive", "player.spell(Fel Rush).charges < 1 & player.spell(Felblade).cooldown > gcd & !target.debuff(Imprison) & target.range >= 8 & target.range <= 30"},
 	{"Fel Rush", "toggle(charge) & infront & range >= 6", "target"},
-	{"Throw Glaive", "player.fury <= 38 || target.debuff(Master of the Glaive) & target.range > 7", "target"},
+	{"Throw Glaive", "player.fury <= 38 || !target.debuff(Master of the Glaive) & target.range > 7", "target"},
 
 	{"Vengeful Retreat", "toggle(charge) & talent(2,1) & !player.buff(Metamorphosis) & player.spell(Fel Rush).charges >= 1 & target.range <= 3 & player.energy <= 39"},
 
