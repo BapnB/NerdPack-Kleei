@@ -153,8 +153,8 @@ local Combat = {
 	{"Blade Dance", "talent(3,1) & toggle(AoE) & !player.lastcast(Vengeful Retreat) & {player.area(5).enemies == 4 || player.spell(Eye Beam).cooldown > gcd & player.area(5).enemies >= 5}"},
 	{"Death Sweep", "talent(3,1) & toggle(AoE) & !player.lastcast(Vengeful Retreat) & {player.area(5).enemies == 4 || player.spell(Eye Beam).cooldown > gcd & player.area(5).enemies >= 5}"},
 	
-	{"Blade Dance", "talent(3,2) & toggle(AoE) & !player.lastcast(Vengeful Retreat) & {player.area(5).enemies >= 1 & player.area(5).enemies <= 4 || player.spell(Eye Beam).cooldown > gcd & player.area(5).enemies >= 5}"},
-	{"Death Sweep", "talent(3,2) & toggle(AoE) & !player.lastcast(Vengeful Retreat) & {player.area(5).enemies == 1 & player.fury <= 39 || player.area(5).enemies >= 2 & player.area(5).enemies <= 4 || player.spell(Eye Beam).cooldown > gcd & player.area(5).enemies >= 5}"},
+	{"Blade Dance", "talent(3,2) & !player.lastcast(Vengeful Retreat) & {player.area(7).enemies == 1 & !toggle(AoE) || player.area(5).enemies >= 1 & player.area(5).enemies <= 4 & toggle(AoE) || player.spell(Eye Beam).cooldown > gcd & player.area(5).enemies >= 5 & toggle(AoE)}"},
+	{"Death Sweep", "talent(3,2) & toggle(AoE) & !player.lastcast(Vengeful Retreat) & {player.area(7).enemies == 1 & player.fury <= 39 || player.area(5).enemies >= 2 & player.area(5).enemies <= 4 & toggle(AoE) || player.spell(Eye Beam).cooldown > gcd & player.area(5).enemies >= 5 & toggle(AoE)}"},
 	
 	---Charge
 	{"Felblade", "toggle(charge) & talent(1,2) & infront & target.range <= 15 & {player.fury <= 39 || target.range >= 8 & player.fury <= 100}"},
