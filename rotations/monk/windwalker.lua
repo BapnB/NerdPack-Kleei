@@ -107,18 +107,18 @@ local Interrupts = {
 
 local Actions = {
 
-    {"/startattack", "!isattacking", "target"},
+    {"/startattack", "inmelee & !isattacking", "target"},
     {"Disable", "pvp & !debuff(Disable) & !debuff(Strike of the Windlord)", "target"},
-    {"Fists of Fury", "infront & range <= 4.5 & {target.deathin > 4 & !player.area(5).enemies.infront >= 3 || toggle(AoE) & player.area(5).enemies.infront >= 3}", "enemies"},	
-	{"Whirling Dragon Punch", "inmelee", "enemies"},
-    {"Energizing Elixir", "target.deathin > 6 & target.infront & player.energy < 35 & player.chi <= 2", "player"}, -- & player.spell(Fists of Fury).cooldown < gcd
-    {"Rushing Jade Wind", "toggle(AoE) & player.area(8).enemies >= 5 & player.spell(Fists of Fury).cooldown > gcd", "enemies"},
-	{"Spinning Crane Kick", "toggle(AoE) & player.area(8).enemies >= 5 & count(Mark of the Crane).enemies.debuffs >= 5 & range <= 7", "enemies"},
-	{"Blackout Kick", "player.buff(Blackout Kick!) & {!player.lastcast(Blackout Kick) || player.level <= 99}", "target"},
-    {"Strike of the Windlord", "deathin >= 12", "target"},
-    {"Rising Sun Kick", "player.level <= 99 || !player.lastcast(Rising Sun Kick) & {!player.area(5).enemies.infront >= 3 || player.area(5).enemies.infront >= 3 & player.spell(Fists of Fury).cooldown > gcd}", "target"},
-	{"Blackout Kick", "player.level <= 99 || !player.lastcast(Blackout Kick) & {!player.area(5).enemies.infront >= 3 || player.area(5).enemies.infront >= 3 & player.spell(Fists of Fury).cooldown > gcd}", "target"},
-	{"Tiger Palm", "player.level <= 99 || !player.lastcast(Tiger Palm) || player.chi == 0 || player.area(5).enemies.infront >= 3 & !player.spell(Fists of Fury).cooldown > gcd", "target"},
+    {"Fists of Fury", "infront & inmelee & {target.deathin > 4 & !player.area(5).enemies.infront >= 3 || toggle(AoE) & player.area(5).enemies.infront >= 3}", "target"},	
+	{"Whirling Dragon Punch", "inmelee", "target"},
+    {"Energizing Elixir", "target.deathin > 6 & target.inmelee & player.energy < 35 & player.chi <= 2", "player"}, -- & player.spell(Fists of Fury).cooldown < gcd
+    {"Rushing Jade Wind", "toggle(AoE) & player.area(8).enemies >= 5 & player.spell(Fists of Fury).cooldown > gcd"},
+	{"Spinning Crane Kick", "toggle(AoE) & player.area(8).enemies >= 5 & count(Mark of the Crane).enemies.debuffs >= 5 & range <= 7"},
+	{"Blackout Kick", "inmelee & player.buff(Blackout Kick!) & {!player.lastcast(Blackout Kick) || player.level <= 99}", "target"},
+    {"Strike of the Windlord", "infront & {inmelee & deathin >= 12 || player.area(7).enemies.infront >= 3}", "target"},
+    {"Rising Sun Kick", "inmelee & {player.level <= 99 || !player.lastcast(Rising Sun Kick)} & {!player.area(5).enemies.infront >= 3 || player.area(5).enemies.infront >= 3 & player.spell(Fists of Fury).cooldown > gcd}", "target"},
+	{"Blackout Kick", "inmelee & {player.level <= 99 || !player.lastcast(Blackout Kick)} & {!player.area(5).enemies.infront >= 3 || player.area(5).enemies.infront >= 3 & player.spell(Fists of Fury).cooldown > gcd}", "target"},
+	{"Tiger Palm", "inmelee & {player.level <= 99 || !player.lastcast(Tiger Palm) || player.chi == 0 || player.area(5).enemies.infront >= 3 & !player.spell(Fists of Fury).cooldown > gcd}", "target"},
 
 }
 
@@ -146,7 +146,9 @@ local inCombat = {
 local outCombat = {
 
 	{Keybinds},
-	{Actions, "target.inmelee & target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp}"},
+	{Actions, "target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp}"},
+
+    {"%dispelself", nil, "player"},
 
     {"Resuscitate", "player.area(38).dead.friendly >= 1", "friendly"},	
 	--{"Resuscitate", "!target.enemy & target.dead", "target"},
