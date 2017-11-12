@@ -41,20 +41,25 @@ local GUI = {
 	{type = 'text', text = '|c0000FA9A Enable only trinkets that are usable, otherwise it will loop the rotation !|r'},
 	{type = 'spacer'}, {type = 'ruler'},
 	
-	{type = 'header', size = 16, text = 'To Do:', align = 'center'},
-	{type = 'text', text = 'Survival:'},
-	
-	--{type = 'header', size = 16, text = 'Survival', align = 'center'},
-	--{type = 'checkspin', text = 'Use Blur:', key = 'blur', check = true, spin = 70, width = 150, step = 5, max = 95, min = 1},
-	--{type = 'checkspin', text = 'Use Netherwalk:', key = 'nw', check = true, spin = 25, width = 150, step = 5, max = 95, min = 1},
-	--{type = 'checkspin', text = 'Use Health Stone:', key = 'hs', check = true, spin = 60, width = 150, step = 5, max = 95, min = 1},
-	--{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},	
-	
-	{type = 'spacer'},	{type = 'spacer'},		
-	{type = 'ruler'}, {type = 'spacer'},	
-    {type = 'text', text = "Cooldowns Toggle:", desc = "|c0000FA9A [Touch of Death] + [Serenity (if talented)] + Trinkets if target is about to die in more than 10 sec|r"},
+	{type = 'header', size = 16, text = 'Survival', align = 'center'},
+	{type = 'checkspin', text = 'Use Touch of Karma:', key = 'tok', check = true, spin = 60, width = 150, step = 5, max = 95, min = 1},
+	{type = 'checkspin', text = 'Use Healing Elixir:', key = 'he', check = true, spin = 70, width = 150, step = 5, max = 95, min = 1},
+	{type = 'checkspin', text = 'Use Health Stone:', key = 'hs', check = true, spin = 60, width = 150, step = 5, max = 95, min = 1},
+	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},	
 
-    {type = 'text', text = "In out of combat:", desc = "|c0000FA9A if your target is friendly and dead will use Resuscitate to ress|r"},
+    {type = 'text', text = "Cooldowns Toggle:"},
+	{type = 'text', text = "|c0087CEFA All if target will die in more than 15 sec|r", align = 'center'},	
+	{type = 'spacer'},
+	{type = 'text', text = "Touch of Death:"},
+	{type = 'text', text = "Serenity:|c0000FA9A if talented"},
+	{type = 'text', text = "Trinkets:"},
+    {type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},
+	
+    {type = 'text', text = "In out of combat:|c0000FA9A if your target is friendly and dead will use Resuscitate to ress|r"},
+    {type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},
+	
+	{type = 'header', size = 16, text = 'TO DO:', align = 'center'},
+	{type = 'text', text = "Touch of Karma: when we are target of target and he activate the CD's to you"},
 	
 } 
 
@@ -76,9 +81,9 @@ local Precombat = {
 local Survival = {
 
     {"Gift of the Naaru", "player.health <= 40 & target.enemy & target.alive", "player"},
-	{"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
-	{"Touch of Karma", "target.enemy & target.alive & {player.health <= 60 & target.deathin >= 7 || player.health <= 35 & target.deathin < 7}"},
-	{"Healing Elixir", "talent(5,1) & player.health <= 70 & !lastcast(Healing Elixir)", "player"},
+	{"#5512", "item(5512).count >= 1 & player.health <= UI(hs_spin) & UI(hs_check) & player.combat", "player"}, --Health Stone
+	{"Touch of Karma", "target.enemy & target.alive & player.health <= UI(tok_spin) & UI(tok_check)"}, --TO DO: {player.health <= UI(tok_spin) & UI(tok_check) || CD's.target}
+	{"Healing Elixir", "talent(5,1) & player.health <= UI(he_spin) & UI(he_check) & !lastcast(Healing Elixir)", "player"},
 	
 }
 
@@ -154,7 +159,7 @@ NeP.CR:Add(269, {
 	ic = inCombat,
 	ooc = outCombat,
 	gui = GUI,
-	gui_st = {title="Kleei Combat Routine Settings", width="315", height="620", color="87CEFA"},	
+	gui_st = {title="Kleei Combat Routine Settings", width="315", height="707", color="87CEFA"},
 	wow_ver = '7.1.5',
  	nep_ver = '1.11',
 	load = exeOnLoad

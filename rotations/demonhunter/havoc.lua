@@ -71,11 +71,12 @@ local GUI = {
 	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},	
 
     {type = 'text', text = "Cooldowns Toggle:"},
-	{type = 'text', text = "|c0087CEFA All if target will die in more than 10 sec|r", align = 'center'},	
+	{type = 'text', text = "|c0087CEFA All if target will die in more than 15 sec|r", align = 'center'},	
 	{type = 'spacer'},
     {type = 'text', text = "Nemesis:|c0000FA9A if talented(5,3)"},
     {type = 'text', text = "Chaos Blades:|c0000FA9A if talented(7,1)"},
     {type = 'text', text = "Metamorphosis:|c0000FA9A if you hold keybind"},
+    {type = 'text', text = "Trinkets:"},
 
 } 
 
@@ -111,10 +112,7 @@ local Survival = {
 	{"#5512", "item(5512).count >= 1 & player.health <= UI(hs_spin) & UI(hs_check) & player.combat", "player"}, --Health Stone
 	{"Blur", "player.health <= UI(blur_spin) & UI(blur_check) & player.combat"},
 	{"Netherwalk", "talent(4,1) & player.health <= UI(nw_spin) & UI(nw_check) & player.combat"},
-	
-	{"#trinket1", "UI(trk1) & target.inmelee & target.deathin >= 10"},
-	{"#trinket2", "UI(trk2) & target.inmelee & target.deathin >= 10"},
-	
+
 }
 
 local Interrupts = {
@@ -139,6 +137,9 @@ local Cooldowns = {
 
 	{"Nemesis", "talent(5,3) & {target.deathin >= 15 || player.lastcast(Metamorphosis)}", "target"},
 	{"Chaos Blades", "talent(7,1) & {target.deathin >= 15 || player.lastcast(Metamorphosis)}"},
+	
+	{"#trinket1", "UI(trk1) & target.inmelee & target.deathin >= 10"},
+	{"#trinket2", "UI(trk2) & target.inmelee & target.deathin >= 10"},
 	
 }
 
