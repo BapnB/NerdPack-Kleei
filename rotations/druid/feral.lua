@@ -116,10 +116,10 @@ local exeOnLoad = function()
 	
 	
 		NeP.Interface:AddToggle({
-		key = 'Dotting',
-		icon = 'Interface\\Icons\\ability_druid_disembowel',
-		name = 'Auto Dotting',
-		text = 'ON/OFF Dotting rotation',
+		key = 'dot',
+		icon = 'Interface\\Icons\\ability_ghoulfrenzy',
+		name = 'Rip',
+		text = 'Include Rip in rotation',
 	})
 	
 	-- Next Toggle is for botting , don't use it if you don't use bot for farm mobs.
@@ -226,7 +226,7 @@ local PreCombat = {
 
  	{"Prowl", "!player.buff(Prowl) & player.buff(Cat Form) & {target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp} || player.buff(Shadowmeld)}", "player"},  --|| player.area(15).enemies >= 1
 	
- 	{Rake, "target.range <= 7 & target.infront & target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp & {player.buff(Prowl) || player.spell(Prowl).cooldown > 0.5 & !player.buff(Shadowmeld) || player.buff(Shadowmeld)}}", "target"},
+ 	{Rake, "target.range <= 7 & target.infront & target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp} & {player.buff(Prowl) || player.spell(Prowl).cooldown > 0.5 & !player.buff(Shadowmeld) || player.buff(Shadowmeld)}", "target"},
 
 }
 
@@ -246,8 +246,8 @@ local Interrupts = {
 
     {"Bear Form", "target.interruptAt(90) & player.spell(Skull Bash).cooldown > 0.5 & !player.buff(Bear Form) & target.range > 2"},
 
-	{"&Skull Bash", "target.interruptAt(85)& !inmelee", "target"},
-	{"&Skull Bash", "interruptAt(85)& inmelee", "enemies"},
+	{"&Skull Bash", "target.interruptAt(80)& range > 7", "target"},
+	{"&Skull Bash", "interruptAt(80)& range <= 7", "enemies"},
 	
 	{"Typhoon", "talent(4,3) & target.interruptAt(45) & player.spell(Skull Bash).cooldown > gcd"},
 	
@@ -289,14 +289,15 @@ local Cat_Combat = {
 	
 	{Savage_Roar, "talent(5,3) & player.combopoints >= 4 & player.buff(Savage Roar).duration <= 10", "player"},
 
-	{Rip, "toggle(Dotting) & target.range <= 7 & target.deathin >= 6 & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 9 & target.health >= 25 || player.combopoints >= 4 & !target.debuff(Rip) & target.health < 25}", "target"},
+	{Rip, "toggle(dot) & target.range <= 7 & target.deathin >= 12 & !target.pvp & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 9 & target.health >= 25 || player.combopoints >= 4 & !target.debuff(Rip) & target.health < 25}", "target"},
+	{Rip, "toggle(dot) & target.range <= 7 & target.pvp & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 9 & target.health >= 25 || player.combopoints >= 4 & !target.debuff(Rip) & target.health < 25}", "target"},
 
-	{Rake, "toggle(Dotting) & target.range <= 7 & player.combopoints < 5 & target.debuff(Rake).duration <= 4", "target"},	
-	{Rake, "toggle(Dotting) & target.range <= 7 & player.combopoints < 5 & player.buff(Bloodtalons) & !player.lastcast(Rake)", "target"},
+	{Rake, "target.range <= 7 & player.combopoints < 5 & target.debuff(Rake).duration <= 4", "target"},	
+	{Rake, "target.range <= 7 & player.combopoints < 5 & player.buff(Bloodtalons) & !player.lastcast(Rake)", "target"},
 	
-	{Moonfire, "talent(1,3) & toggle(Dotting) & target.range <= 40 & target.infront & !player.buff(Prowl) & target.debuff(Moonfire).duration <= 4 & player.combopoints < 5", "target"},	
+	{Moonfire, "talent(1,3) & target.range <= 40 & target.infront & !player.buff(Prowl) & target.debuff(Moonfire).duration <= 4 & player.combopoints < 5", "target"},	
 	
-	{"Ashamane's Frenzy", "toggle(Dotting) & target.range <= 7 & target.deathin >= 5 & player.combopoints <= 2", "target"},
+	{"Ashamane's Frenzy", "target.range <= 7 & target.deathin >= 5 & player.combopoints <= 2", "target"},
 	
 	{"Ferocious Bite", "target.range <= 7 & {player.combopoints == 5 || talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 6 & target.debuff(Rip).duration >= 0.1}", "target"},
 	{"Ferocious Bite", "target.range <= 7 & player.combopoints >= 4 & player.buff(Bloodtalons)", "target"},
