@@ -5,7 +5,7 @@ Use with Advance Unlocker like EWT.
 
 Read GUI in every CR to understand how Keybinds are working. You can find it by right clicking on MasterToggle --> Combat Routines Settings.
 
- druid - restoration / feral
+ druid - restoration / feral / guardian
 
  demon hunter - havoc / vengeance
 
