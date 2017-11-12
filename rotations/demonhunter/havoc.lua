@@ -20,8 +20,8 @@ local keybind_list_2 = {
 
 local target_list = {
 
-    {key = 'cursor', text = 'Cursor Ground'},
-	{key = 'target', text = 'Target Ground'},
+    {key = 'cur', text = 'Cursor Ground'},
+	{key = 'tar', text = 'Target Ground'},
 
 }
 
@@ -41,7 +41,7 @@ local GUI = {
 	{type = 'text', text = "|c0000FA9A Just hold the Key|r", align = 'center'},
 	{type = 'text', text = "|c0087CEFA Choose Keybind:", align = 'center'},
 	{type = 'spacer'},
-	{type = 'combo', default = 'target',  key = 'list3',  list = target_list,  width = 100},	
+	{type = 'combo', default = 'tar',  key = 'list3',  list = target_list,  width = 100},	
 	{type = 'text', text = "Use Metamorphosis:"},
 	{type = 'combo', default = '2',  key = 'list1',  list = keybind_list_1,  width = 100},	
 	{type = 'text', text = "|c0000FA9A if Cooldowns Toggle is ON|r"},
@@ -101,7 +101,7 @@ local Precombat = {
 
 
     {"Fel Rush", "toggle(charge) & infront & range >= 6 & range <= 15", "target"},	
-	{"Felblade", "toggle(charge) & talent(1,2) & target.range <= 10 & infront & player.fury <= 100", "target"},
+	{"Felblade", "toggle(charge) & talent(1,2) & target.range <= 15	 & infront & player.fury <= 100", "target"},
 	{"Chaos Strike", "target.inmelee & player.fury >= 40", "target"},
 	
 }
@@ -126,8 +126,8 @@ local Interrupts = {
 
 local Keybinds = {
 
-    {"Metamorphosis", "toggle(cooldowns) & 	UI(list3)==target & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target.ground"},
-	{"Metamorphosis", "toggle(cooldowns) & 	UI(list3)==ground & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "cursor.ground"},
+    {"Metamorphosis", "toggle(cooldowns) & 	UI(list3)==tar & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target.ground"},
+	{"Metamorphosis", "toggle(cooldowns) & 	UI(list3)==cur & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "cursor.ground"},
 
 	{"Chaos Nova", "player.area(5).enemies >= 1 & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5 || target.pvp & player.pvp & UI(stun)}"},
 
