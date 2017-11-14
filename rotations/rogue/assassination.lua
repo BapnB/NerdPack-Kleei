@@ -18,15 +18,6 @@ local keybind_list_2 = {
 
 }
 
-local keybind_list_3 = {
-
-	{key = '7', text = 'Shift Keybind'},
-	{key = '8', text = 'Control Keybind'},
-	{key = '9', text = 'Alt Keybind'},
-	{key = 'none', text = 'Disable'},	
-
-}
-
 local Logo_GUI = {
 
 	{type = 'texture', texture = 'Interface\\AddOns\\Nerdpack-Kleei\\media\\assassin.blp', width = 128, height = 128, offset = 90, y = -50, align = 'center'},
@@ -43,7 +34,7 @@ local GUI = {
 	{type = 'text', text = "|c0087CEFA Choose Keybind:", align = 'center'},
 	{type = 'spacer'},
 	{type = 'combo', default = '2', key = 'list1', list = keybind_list_1, width = 100},	
-	{type = 'text', text = "Use Sap:|c0000FA9A <= 10 yards, Pause if Sapped:|r"},
+	{type = 'text', text = "Use Sap:|c0000FA9A <= 10 yards, pause if Sapped:|r"},
 	{type = 'text', text = "Use Blind:|c0000FA9A in combat:"},
 	{type = 'spacer'},
 	{type = 'combo', default = '4', key = 'list2', list = keybind_list_2, width = 100},	
@@ -77,7 +68,7 @@ local GUI = {
 	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},	
 	
     {type = 'text', text = "Cooldowns Toggle:"},
-	{type = 'text', text = "|c0087CEFA All if target will die in more than 15 sec|r", align = 'center'},	
+	{type = 'text', text = "|c0087CEFA All if target will die in more than 10 sec|r", align = 'center'},	
     {type = 'text', text = "Vendetta:"},
 	{type = 'spacer'},
 	
@@ -109,10 +100,9 @@ local Garrote = {
 }
 
 local Keybinds = {
-    --Pause
 
 	{"Sap","range <= 10 & infront & !debuff(Sap) & !target.state(stun) & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target"},
-	{"Cheap Shot", "inmelee & infront & player.buff(Stealth) & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}}", "target"},
+	{"Cheap Shot", "inmelee & infront & player.buff(Stealth) & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
 	{"Kidney Shot", "inmelee & infront & !player.buff(Stealth) & !player.buff(Vanish) & player.combopoints >= 3 & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5 || target.pvp & player.pvp & UI(stun) & !target.state(stun)}", "target"},
 	{"Blind", "!player.buff(Stealth) & !player.buff(Vanish) & player.combat & range <= 15 & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target"},
 	
@@ -125,8 +115,8 @@ local PreCombat = {
 	--{"Sinister Strike", " & target.range < 6"},
 	--End Leveling
 
-	{"Pick Pocket", "UI(pp) & !player.movingfor >= 1 & player.buff(Stealth) & !player.lastcast(Pick Pocket) & !pvp & enemy & alive & range < 10 & !isdummy", "target"},	
-	{"%pause", "target.debuff(Sap) & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target"},
+	{"Pick Pocket", "UI(pp) & !player.moving & player.buff(Stealth) & !player.lastcast(Pick Pocket) & !pvp & enemy & alive & range < 10 & !isdummy", "target"},	
+	{"%pause", "target.debuff(Sap) & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}"},	
 	
     {"/stopattack", "player.buff(Vanish) & isattacking"},
     {"Cloak of Shadows", "player.state(dot) & {player.buff(Vanish) || player.buff(Stealth)}"},
@@ -160,7 +150,7 @@ local Interrupts = {
 
 local Cooldowns = {
 
-	{"Vendetta", "target.deathin >= 6 & target.inmelee & {artifact.enabled(Urge to Kill) & player.energy <= 45 || !artifact.enabled(Urge to Kill)}"},
+	{"Vendetta", "target.deathin >= 10 & target.inmelee & {artifact.enabled(Urge to Kill) & player.energy <= 45 || !artifact.enabled(Urge to Kill)}"},
 
 	{"#trinket1", "UI(trk1) & target.inmelee & target.deathin >= 10"},
 	{"#trinket2", "UI(trk2) & target.inmelee & target.deathin >= 10"},
@@ -170,9 +160,9 @@ local Cooldowns = {
 local Combat = {
 
     {"/startattack", "!isattacking & target.inmelee"},
-
+    {"Tricks of the Trade", "player.aggro & {group.type == 3 || group.type == 2}", "tank"},
     --Mass
-    {"Fan of Knives", "toggle(AoE) & player.combopoints < 5 & player.area(8).enemies >= 4 & count.enemies(Deadly Poison).debuffs < player.area(10).enemies"},
+    {"Fan of Knives", "toggle(AoE) & player.combopoints < 5 & player.area(8).enemies >= 2 & count.enemies(Deadly Poison).debuffs < player.area(10).enemies"},
 	
 	--Dotting
 	{"Hemorrhage", "talent(1,3) & player.combopoints < 5 & !target.debuff(Hemorrhage)", "target"},
@@ -193,7 +183,6 @@ local Combat = {
 local inCombat = {
 
     {"%pause", "target.enemy & {target.state(disorient) & !player.buff(Stealth) || target.state(fear) & target.pvp & !player.buff(Stealth) || target.debuff(Polymorph) & target.pvp & !player.buff(Stealth) || target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence) || target.buff(Aspect of the Turtle)}", "player"},
-
     {"/stopattack", "player.buff(Vanish)"},
     {"Cloak of Shadows", "player.state(dot) & {player.buff(Vanish) || player.buff(Stealth)}"},
 	
@@ -210,13 +199,10 @@ local inCombat = {
 
 local outCombat = {
 
-    
-    {"%pause", "target.enemy & {player.buff(Vanish) || target.state(disorient) & !player.buff(Stealth)|| target.state(fear) & target.pvp & !player.buff(Stealth) || target.debuff(Polymorph) & target.pvp & !player.buff(Stealth) || target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence) || target.buff(Aspect of the Turtle)}", "player"},
+   {"%pause", "target.enemy & {player.buff(Vanish) || target.state(disorient) & !player.buff(Stealth)|| target.state(fear) & target.pvp & !player.buff(Stealth) || target.debuff(Polymorph) & target.pvp & !player.buff(Stealth) || target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence) || target.buff(Aspect of the Turtle)}", "player"},
 
     {Keybinds, "target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp}"},
 	{PreCombat, "target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp}"},
-	
-	{"Crimson Vial", "player.health <= 85"},
 	
 	-- Poisons
 	{"Deadly Poison", "UI(pos) & !player.moving & player.buff(Deadly Poison).duration <= 600"},
