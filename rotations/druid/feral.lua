@@ -326,7 +326,7 @@ local Bear_Combat = {
 
 local inCombat = {
 
-    {"%pause", "target.enemy & {target.state(fear) & target.pvp ||target.debuff(Polymorph) || target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence) || target.buff(Aspect of the Turtle)}", "player"},
+    {"%pause", "target.enemy & {target.state(fear) & target.pvp || target.debuff(Polymorph) || target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence) || target.buff(Aspect of the Turtle)}", "player"},
 	
 	{"Gladiator's Medallion", "target.pvp & player.pvp & UI(medal) & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
 	{"Bear Form", "!player.buff(Bear Form) & !player.buff(Prowl) & {player.state(root) & UI(root) || toggle(BEAR) & !player.buff(Dash) & !spell(Prowl).usable & target.alive & target.enemy & target.pvp & player.pvp & targettarget.is(player) & target.range > 7}", "player"},

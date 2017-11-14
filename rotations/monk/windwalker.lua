@@ -30,8 +30,9 @@ local GUI = {
 	{type = 'spacer'}, {type = 'ruler'},
 	
     {type = 'header', size = 16, text = 'PVP', align = 'center'},
-    {type = 'checkbox',	text = "Stun:|c0000FA9A Auto stun PVP Target [Leg Sweep] or [Paralysis]:|r", align = 'left', key = 'stun', default = true},
-    {type = 'checkbox',	text = "Gladiator's Medallion:|c0000FA9A Remove stun/fear/disorient/charm.|r", align = 'left', key = 'medal', default = true},	
+    {type = 'checkbox',	text = "Stun:|c0000FA9A Auto stun PVP Target [Cheap Shot] or [Kidney Shot].|r", align = 'left', key = 'stun', default = true},
+    {type = 'checkbox',	text = "Gladiator's Medallion , Every Man for Himself:", align = 'left', key = 'medal', default = true},
+	{type = 'text', text = "|c0000FA9A      Remove stun/fear/disorient/charm.|r"},
 	{type = 'spacer'}, {type = 'ruler'},
 
 	{type = 'header', size = 16, text = 'Trinkets', align = 'center'},
@@ -132,7 +133,8 @@ local Keybinds = {
 local inCombat = {
 
     {"%pause", "target.enemy & {target.state(fear) & target.pvp ||target.debuff(Polymorph) || target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence) || target.buff(Aspect of the Turtle)}", "player"},
-	
+
+	{"Every Man for Himself", "target.pvp & player.pvp & UI(medal) & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},	
 	{"Gladiator's Medallion", "target.pvp & player.pvp & UI(medal) & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
 
 	{Keybinds},

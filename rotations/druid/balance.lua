@@ -1,6 +1,6 @@
 local GUI = {
 
-	{type = 'header', text = 'Coming Soon', align = 'center'},
+	{type = 'header', size = 16, text = 'Coming Soon', align = 'center'},
 
 }
 
