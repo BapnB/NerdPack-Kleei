@@ -63,7 +63,7 @@ local GUI = {
 	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},	
 
 	{type = 'header', size = 16, text = 'Other', align = 'center'},
-	{type = 'checkbox', text = "Pick Pocket:|c0000FA9A < 10 yards and you don't moving", 	key = 'pp',   default = true},
+	{type = 'checkbox', text = "Pick Pocket:|c0000FA9A < 10 yards when you stand and don't move", 	key = 'pp',   default = true},
 	{type = 'checkbox', text = "Poisons:|c0000FA9A <= 10 min.", 	key = 'pos',   default = true},
 	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},	
 	
