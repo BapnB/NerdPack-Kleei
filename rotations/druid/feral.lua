@@ -1,3 +1,4 @@
+local _, Kleei = ...
 local unpack = _G.unpack
 
 local keybind_list_1 = {
@@ -70,17 +71,17 @@ local GUI = {
     {type = 'ruler'},
 	
     {type = 'header', size = 16,  text = 'PVP', align = 'center'},
-    {type = 'checkbox',	text = "Unroot: |c0000FA9A Auto unroot Shapeshifting (working on PVE).|r", align = 'left', key = 'root', default = true},
-    {type = 'checkbox',	text = "Stun:|c0000FA9A Auto stun PVP Target [Chaos Nova] or [Imprison].|r", align = 'left', key = 'stun', default = true},		
-    {type = 'checkbox',	text = "Gladiator's Medallion:|c0000FA9A Remove stun/fear/disorient/charm.|r", align = 'left', key = 'medal', default = true},
-	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},
+    {type = 'checkbox',	text = "Unroot: |c0000FA9A auto unroot Shapeshifting (working on PVE).|r", align = 'left', key = 'root', default = true},
+    {type = 'checkbox',	text = "Stun:|c0000FA9A auto stun PVP Target [Mighty Bash] or [Maim].|r", align = 'left', key = 'stun', default = true},		
+    {type = 'checkbox',	text = "Gladiator's Medallion:|c0000FA9A remove stun/fear/disorient/charm.|r", align = 'left', key = 'medal', default = true},
+	{type = 'spacer'}, {type = 'ruler'},
  
 	{type = 'header', size = 16, text = 'Trinkets', align = 'center'},
 	{type = 'text', text = '|c0000FA9A Use Trinkets if Cooldown Toggle is enable|r', align = 'center'},
 	{type = 'checkbox', text = 'Trinket #1', 	key = 'trk1',	default = false},
 	{type = 'checkbox', text = 'Trinket #2', 	key = 'trk2',   default = false},
 	{type = 'text', text = '|c0000FA9A Enable only trinkets that are usable, otherwise it will loop the rotation !|r'},
-	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},
+	{type = 'spacer'}, {type = 'ruler'},
 	
 	{type = 'header', size = 16, text = 'Survival', align = 'center'},
 	{type = 'checkspin', text = 'Use Survival Instincts:', key = 'suin', check = true, spin = 75, width = 100, step = 5, max = 95, min = 1},
@@ -91,14 +92,12 @@ local GUI = {
     {type = 'text', text = "Cooldowns Toggle:"},
 	{type = 'text', text = "|c0087CEFA All if target will die in more than 10 sec|r", align = 'center'}, 
     {type = 'text', text = "Berserk|c0000FA9A if not talented(5,2)|r"},
-    {type = 'text', text = "Tiger Fury|c0000FA9A if Berserk buff is on|r"},
-    {type = 'text', text = "Brutal Slash"},
-    {type = 'text', text = "Trinkets"},	
+    {type = 'text', text = "Tiger Fury|c0000FA9A if [Berserk], [Incarnation] buff is on|r"},
+    {type = 'text', text = "Brutal Slash|c0000FA9A if talented(7,3)"},	
     {type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},
     {type = 'text', text = "In combat:|c0000FA9A if your target is friendly and dead will use Rebirth to ress|r"},
     {type = 'text', text = "Out of combat:|c0000FA9A if your target is friendly and dead will use Revive to ress|r"},
-	--{type = 'text', text = 'Alt keybind in combat = Shadowmeld then Prowl and then will Pause.'},
-	--{type = 'text', text = 'Alt keybind in combat = if Shadowmeld is on CD = [Incarnation: King of the Jungle] then Prowl and then will Pause.'},
+	--{type = "text", text = "To Do , PRO PVP CR"},
 
 }
 
@@ -203,19 +202,15 @@ local Keybinds = {
 	--{"Shadowmeld", "keybind(alt) & !player.moving & player.combat & player.buff(Cat Form) & !player.lastcast(Shadowmeld) & !player.buff(Shadowmeld) & !player.buff(Prowl)", "player"},
 	
     {"Prowl", "!player.buff(Prowl) & player.buff(Cat Form) & player.buff(Incarnation: King of the Jungle) & {keybind(alt) & UI(list)==3 || keybind(shift) & UI(list)==1 || keybind(control) & UI(list)==2}", "player"},
-	
     {Rake, "target.range <= 7 & target.enemy & target.alive & player.buff(Prowl) & !target.state(stun)", "target"},
 	
 	{"Berserk", "!talent(5,2) & target.range <= 6.2 & player.combat & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "player"},	
-	
 	{"Incarnation: King of the Jungle", "talent(5,2) & !player.buff(Shadowmeld) & !player.buff(Prowl) & player.combat & target.range <= 7 & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "player"}, -- || player.spell(Prowl).cooldown <= 0.4 & keybind(alt)}
 
-    {"!Mighty Bash", "!player.buff(Prowl) & !player.lastcast(Rake) & target.range <= 7 & target.enemy & target.alive & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || !target.state(stun) & target.pvp & player.pvp & UI(stun)}", "target"},
+    {"&Mighty Bash", "!player.buff(Prowl) & player.combat & !player.lastcast(Rake) & !target.state(stun) & target.range <= 7 & target.enemy & target.alive & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || target.pvp & player.pvp & UI(stun)}", "target"},
+	{Maim, "!player.buff(Prowl) & player.combopoints >= 3 & !player.lastcast(Mighty Bash) & target.debuff(Mighty Bash).duration <= 0.6 & target.range <= 7 & target.enemy & target.alive & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target"}, ----{ || !target.state(stun) & target.pvp & player.pvp & UI(stun)}
 	
-	{Maim, "!player.buff(Prowl) & player.combopoints >= 3 & player.spell(Mighty Bash).cooldown > gcd & !target.debuff(Mighty Bash) & target.range <= 7 & target.enemy & target.alive & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target"}, ----{ || !target.state(stun) & target.pvp & player.pvp & UI(stun)}
-	
-	{"Skull Bash", "player.spell(Wild Charge).cooldown > gcd & player.spell(Wild Charge).cooldown < 14 & !player.buff(Prowl) & target.range > 5 & target.range <= 15 & target.enemy & target.alive & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
-	
+	{"Skull Bash", "player.spell(Wild Charge).cooldown < 13.5 & !player.buff(Prowl) & target.range > 5 & target.range <= 15 & target.enemy & target.alive & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
 	{"Wild Charge", "target.range > 5 & target.range <= 27 & target.enemy & target.alive & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
 	
 }
@@ -386,7 +381,8 @@ NeP.CR:Add(103, {
 	ic = inCombat,
 	ooc = outCombat,
 	gui = GUI,
-	gui_st = {title="Kleei Combat Routine Settings", width="315", height="787", color="87CEFA"},	
+	gui_st = {title="Kleei Combat Routine Settings", width="315", height="770", color="87CEFA"},
+	debuffIDs = Kleei.f_debuffID,
 	wow_ver = '7.1.5',
  	nep_ver = '1.11',
 	load = exeOnLoad

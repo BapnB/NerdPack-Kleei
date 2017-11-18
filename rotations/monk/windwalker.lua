@@ -46,6 +46,8 @@ local GUI = {
 	{type = 'checkspin', text = 'Use Touch of Karma:', key = 'tok', check = true, spin = 60, width = 150, step = 5, max = 95, min = 1},
 	{type = 'checkspin', text = 'Use Healing Elixir:', key = 'he', check = true, spin = 70, width = 150, step = 5, max = 95, min = 1},
 	{type = 'checkspin', text = 'Use Health Stone:', key = 'hs', check = true, spin = 60, width = 150, step = 5, max = 95, min = 1},
+	{type = 'checkspin', text = 'Use Paralysis: when target health > yours', key = 'par', check = true, spin = 20, width = 150, step = 5, max = 95, min = 1},	
+
 	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},	
 
     {type = 'text', text = "Cooldowns Toggle:"},
@@ -81,6 +83,9 @@ local Precombat = {
 
 local Survival = {
 
+    {"Paralysis", "target.enemy & player.health <= UI(par_spin) & UI(par_check) & targettarget.is(player) & target.health > player.health & !target.state(disorient) & !target.state(fear) & !debuff(Paralysis) & !debuff(Sap & !debuff(Polymorph)", "target"}, 
+    {"/stopattack", "player.health <= UI(par_spin) & UI(par_check) & target.health > player.health & !target.state(disorient) & !target.state(fear) & !debuff(Paralysis) & !debuff(Sap & !debuff(Polymorph)", "target"},
+	
     {"Gift of the Naaru", "player.health <= 40 & target.enemy & target.alive", "player"},
 	{"#5512", "item(5512).count >= 1 & player.health <= UI(hs_spin) & UI(hs_check) & player.combat", "player"}, --Health Stone
 	{"Touch of Karma", "target.enemy & target.alive & player.health <= UI(tok_spin) & UI(tok_check)"}, --TO DO: {player.health <= UI(tok_spin) & UI(tok_check) || CD's.target}

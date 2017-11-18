@@ -2,8 +2,10 @@
 ## Notes: Combat Routines for NerdPack
 ## Interface: 70100
 ## Author: Kleei
-## Dependencies: NerdPack
+## Dependencies: NerdPack, NerdPack-Protected
+## OptionalDeps: NerdPack-CombatHelper
 
+condition.lua
 
 rotations\druid\restoration.lua
 rotations\druid\feral.lua
