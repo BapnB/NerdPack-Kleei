@@ -1,4 +1,3 @@
-local _, Kleei = ...
 local unpack = _G.unpack
 
 local keybind_list_1 = {
@@ -121,13 +120,6 @@ local exeOnLoad = function()
 		text = 'Include Rip in rotation',
 	})
 	
-	-- Next Toggle is for botting , don't use it if you don't use bot for farm mobs.
---	NeP.Interface:AddToggle({
---		key = 'auto',
---		icon = 'Interface\\Icons\\ability_siege_engineer_automatic_repair_beam',
---		name = 'Auto TargetNearestEnemy',
---		text = 'ON/OFF Auto TargetNearestEnemy Botting and no Stealth',
---	})
 --	NeP.Interface:AddToggle({
 --		key = 'BEAR',
 --		icon = 'Interface\\Icons\\ability_racial_bearform',
@@ -193,13 +185,28 @@ local Rake = {
 
 }
 
+local Shapeshift = {
+
+    {"Cat Form", "!player.buff(Cat Form) & !keybind(alt) & !player.falling & {!player.swimming || player.state(root) & UI(root) || target.enemy & target.alive || player.area(10).enemies >= 1}", "player"},
+	{"Bear Form", "!player.buff(Bear Form) & !player.buff(Prowl) & {player.state(root) & UI(root) || toggle(BEAR) & !player.buff(Dash) & !spell(Prowl).usable & target.alive & target.enemy & player.pvp & target.player & targettarget.is(player) & target.range > 7}", "player"},
+
+}
+
+local pvp_ = {
+
+    {"%pause", "target.state(fear) & !player.buff(Prowl) || target.debuff(Polymorph) & !player.buff(Prowl) || target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence) || target.buff(Aspect of the Turtle)", "player"},
+	{"Gladiator's Medallion", "UI(medal) & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
+    
+	{"Incarnation: King of the Jungle", "toggle(cooldowns) & talent(5,2) & !player.buff(Shadowmeld) & !player.buff(Prowl) & player.combat & target.range <= 7 & ", "player"},
+    {"Prowl", "!player.buff(Prowl) & player.buff(Cat Form) & player.buff(Incarnation: King of the Jungle).duration <= 15"},
+    {Rake, "target.range <= 7 & target.enemy & target.alive & player.buff(Prowl) & !target.state(stun)", "target"},
+
+}
+
 local Keybinds = {
 
     {"/cancelform", "!player.buff(Prowl) & lowest.health <= 90 & lowest.range <= 40 & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Travel Form)} & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp
 	{"Regrowth", "!player.buff(Prowl) & range <= 40  & lowest.health <= 90 & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}", "lowest"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp
-	
-	--{"%pause", "keybind(alt) & player.buff(Prowl)", "player"},
-	--{"Shadowmeld", "keybind(alt) & !player.moving & player.combat & player.buff(Cat Form) & !player.lastcast(Shadowmeld) & !player.buff(Shadowmeld) & !player.buff(Prowl)", "player"},
 	
     {"Prowl", "!player.buff(Prowl) & player.buff(Cat Form) & player.buff(Incarnation: King of the Jungle) & {keybind(alt) & UI(list)==3 || keybind(shift) & UI(list)==1 || keybind(control) & UI(list)==2}", "player"},
     {Rake, "target.range <= 7 & target.enemy & target.alive & player.buff(Prowl) & !target.state(stun)", "target"},
@@ -207,8 +214,8 @@ local Keybinds = {
 	{"Berserk", "!talent(5,2) & target.range <= 6.2 & player.combat & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "player"},	
 	{"Incarnation: King of the Jungle", "talent(5,2) & !player.buff(Shadowmeld) & !player.buff(Prowl) & player.combat & target.range <= 7 & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "player"}, -- || player.spell(Prowl).cooldown <= 0.4 & keybind(alt)}
 
-    {"&Mighty Bash", "!player.buff(Prowl) & player.combat & !player.lastcast(Rake) & !target.state(stun) & target.range <= 7 & target.enemy & target.alive & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || target.pvp & player.pvp & UI(stun)}", "target"},
-	{Maim, "!player.buff(Prowl) & player.combopoints >= 3 & !player.lastcast(Mighty Bash) & target.debuff(Mighty Bash).duration <= 0.6 & target.range <= 7 & target.enemy & target.alive & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target"}, ----{ || !target.state(stun) & target.pvp & player.pvp & UI(stun)}
+    {"&Mighty Bash", "!player.buff(Prowl) & player.combat & !target.rake.stun & !target.state(stun) & target.range <= 7 & target.enemy & target.alive & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || target.player & player.pvp & UI(stun)}", "target"},
+	{Maim, "!player.buff(Prowl) & player.combopoints >= 3 & !target.rake.stun & !player.lastcast(Mighty Bash) & player.spell(Mighty Bash).cooldown >= gcd & target.debuff(Mighty Bash).duration <= 0.6 & target.range <= 7 & target.enemy & target.alive & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target"}, -- || target.player & player.pvp & UI(stun) & !target.state(stun)
 	
 	{"Skull Bash", "player.spell(Wild Charge).cooldown < 13.5 & !player.buff(Prowl) & target.range > 5 & target.range <= 15 & target.enemy & target.alive & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
 	{"Wild Charge", "target.range > 5 & target.range <= 27 & target.enemy & target.alive & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
@@ -217,12 +224,23 @@ local Keybinds = {
 
 local PreCombat = { 
 
+    {"/targetenemyplayer", "!target.exists & keybind(control)"},
+	{Rake, "range <= 7 & infront & target.enemy & target.alive & {!target.player || target.player & player.pvp} & {player.buff(Prowl) || player.spell(Prowl).cooldown > 0.5 & !player.buff(Shadowmeld) || player.buff(Shadowmeld)}", "target"},
+
     {"Cat Form", "!buff(Cat Form) & !keybind(alt) & {target.enemy & target.alive || player.area(10).enemies >= 1 || indoors || !player.swimming & !toggle(travelform)}", "player"},
+ 	{"Prowl", "!buff(Prowl) & buff(Cat Form) & {target.enemy & target.alive & {!target.player || target.player & player.pvp} || player.buff(Shadowmeld)}", "player"},  --|| player.area(15).enemies >= 1
 
- 	{"Prowl", "!buff(Prowl) & buff(Cat Form) & {target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp} || player.buff(Shadowmeld)}", "player"},  --|| player.area(15).enemies >= 1
+	{"Revive", "!target.enemy & target.dead & target.player", "target"},
+    {"%dispelself", "!player.buff(Prowl)", "player"},
+	{"/cleartarget", "toggle(auto) & target.range >= 7"},
+	{"Regrowth", "player.health <= 66 & !player.buff(Prowl) & !player.moving & player.level < 80", "player"},
+    {"Regrowth", "player.buff(Predatory Swiftness) & !player.buff(Prowl) & !player.moving & player.health <= 75", "player"},
+	--Cancel form when not swimming / Travel Form when swimming
+	{"/cancelform", "!player.buff(Prowl) & !indoors &  !target.enemy & player.swimming & {player.buff(Cat Form) || player.buff(Bear Form)}"},
+	{"Travel Form", "!player.buff(Cat Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & player.swimming"},
+	{"/cancelform", "toggle(travelform) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.area(15).enemies >= 1 & player.buff(Cat Form) & {!target.enemy || target.enemy & !target.alive}"},
+    {"Travel Form", "toggle(travelform) & !keybind(alt) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.buff(Cat Form) & !player.area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive}"},
 	
- 	{Rake, "range <= 7 & infront & target.enemy & target.alive & {!pvp || pvp & player.pvp} & {player.buff(Prowl) || player.spell(Prowl).cooldown > 0.5 & !player.buff(Shadowmeld) || player.buff(Shadowmeld)}", "target"},
-
 }
 
 local Survival = {
@@ -230,11 +248,14 @@ local Survival = {
 	{"#5512", "item(5512).count >= 1 & player.health <= UI(hs_spin) & UI(hs_check) & player.combat", "player"}, --Health Stone
 	
     {"Regrowth", " player.health <= UI(rps_spin) & UI(rps_check) & player.buff(Predatory Swiftness).duration >= 10 & !player.lastcast(Regrowth) & !target.pvp", "player"},
-	{"Regrowth", "player.buff(Predatory Swiftness).duration >= 10 & !player.lastcast(Regrowth) & range <= 40 & target.pvp & player.pvp & health <= 85", "lowest"},	
-	{"!Entangling Roots", "player.buff(Predatory Swiftness) & !player.lastcast(Entangling Roots) & target.pvp & player.pvp & target.range <= 37 & {target.range >= 12 || target.buff(Incarnation: King of the Jungle) || target.buff(Berserk)", "target"},
+	{"Regrowth", "player.buff(Predatory Swiftness).duration >= 10 & !player.lastcast(Regrowth) & range <= 40 & target.player & player.pvp & target.enemy & target.alive & health <= 85", "lowest"},	
+	{"!Entangling Roots", "player.buff(Predatory Swiftness) & !player.lastcast(Entangling Roots) & target.player & player.pvp & target.enemy & target.alive & target.range <= 37 & {target.range >= 12 || target.buff(Incarnation: King of the Jungle) || target.buff(Berserk)", "target"},
 
-    {"Survival Instincts", 	"player.health <= UI(suin_spin) & UI(suin_check) &  !player.buff(Survival Instincts) & player.incdmg(5) >= player.health.max*0.05", "player"},
-	
+    {"Survival Instincts", 	"player.health <= UI(suin_spin) & UI(suin_check) & !player.buff(Survival Instincts) & player.incdmg(5) >= player.health.max*0.05", "player"},
+
+	{"%dispelself", "!player.buff(Prowl) & !player.area(10).enemies >= 1", "player"},
+    {"Rebirth", "!target.enemy & target.dead & target.player & player.ingroup(target)", "target"},
+
 }
 
 local Interrupts = {
@@ -321,31 +342,14 @@ local Bear_Combat = {
 
 local inCombat = {
 
-    {"%pause", "target.enemy & {target.state(fear) & target.pvp || target.debuff(Polymorph) || target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence) || target.buff(Aspect of the Turtle)}", "player"},
-	
-	{"Gladiator's Medallion", "target.pvp & player.pvp & UI(medal) & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
-	{"Bear Form", "!player.buff(Bear Form) & !player.buff(Prowl) & {player.state(root) & UI(root) || toggle(BEAR) & !player.buff(Dash) & !spell(Prowl).usable & target.alive & target.enemy & target.pvp & player.pvp & targettarget.is(player) & target.range > 7}", "player"},
-
-	
-	{"Cat Form", "!player.buff(Cat Form) & !keybind(alt) & {!player.swimming || player.state(root) & UI(root) || target.enemy & target.alive || player.area(10).enemies >= 1}", "player"},
-
+    {Shapeshift},
+	{pvp_, "player.pvp & target.player & target.enemy & target.alive"},
 	{Keybinds},
-	{Interrupts, "toggle(interrupts) & !player.buff(Prowl) & {!target.pvp || target.pvp & player.pvp}"},
-    {Survival, "player.health < 100 & !player.buff(Prowl)"},	
-	
-	{"%dispelself", "!player.buff(Prowl) & !player.area(10).enemies >= 1", "player"},
-    {"Rebirth", "!target.enemy & target.dead & player.ingroup(target)", "target"},
-	{"Rebirth", "player.area(40).dead.tank & player.area(30).enemies >= 1", "tank"},	
-	
+	{Interrupts, "toggle(interrupts) & !player.buff(Prowl) & target.enemy & {!target.player || player.pvp & target.player}"},
+    {Survival, "player.health < 100 & !player.buff(Prowl)"},		
 	{Cooldowns, "toggle(cooldowns)"},
-	{Cat_Combat, "player.buff(Cat Form) & target.alive & target.enemy & {!target.pvp || target.pvp & player.pvp}"},
-	{Bear_Combat, "player.buff(Bear Form) & target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp}"},
-	
-	{"/cleartarget", "toggle(auto) & target.range >= 7"},	
-	{"/run TargetNearestEnemy()", "toggle(auto) & !target.exists"},  --|| !target.alive || target.range >=5}
-
-	--working on some private servers
-	--{"Moonfire", "!toggle(auto) & !talent(1,3) & target.alive & target.enemy & target.range > 8 & target.range <= 40 & target.infront & !player.buff(Prowl) & !target.debuff(Moonfire)"},
+	{Cat_Combat, "player.buff(Cat Form) & target.alive & target.enemy & {!target.player || player.pvp & target.player}"},
+	{Bear_Combat, "player.buff(Bear Form) & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
 
  	{"/cancelform", "player.swimming & !player.area(10).enemies >= 1 & !player.buff(Prowl) & !indoors & {player.buff(Cat Form) || player.buff(Bear Form)}"},
 	{"Travel Form", "player.swimming & !player.area(10).enemies >= 1 & !player.buff(Cat Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form)"},
@@ -358,21 +362,6 @@ local outCombat = {
 	
 	{Keybinds},
 	{PreCombat},
-	
-	{"Revive", "!target.enemy & target.dead", "target"},
-	
-    {"%dispelself", "!player.buff(Prowl)", "player"},
-	{"/cleartarget", "toggle(auto) & target.range >= 7"},
-	
-	{"Regrowth", "player.health <= 66 & !player.buff(Prowl) & !player.moving & player.level < 80", "player"},
-    {"Regrowth", "player.buff(Predatory Swiftness) & !player.buff(Prowl) & !player.moving & player.health <= 75", "player"},
-
-	--Cancel form when not swimming / Travel Form when swimming
-	{"/cancelform", "player.swimming & !player.buff(Prowl) & !indoors &  !target.enemy & {player.buff(Cat Form) || player.buff(Bear Form)}"},
-	{"Travel Form", "player.swimming & !player.buff(Cat Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form)"},
-	
-	{"/cancelform", "toggle(travelform) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.area(15).enemies >= 1 & player.buff(Cat Form) & {!target.enemy || target.enemy & !target.alive}"},
-    {"Travel Form", "toggle(travelform) & !keybind(alt) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.buff(Cat Form) & !player.area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive}"},
 
 }
 
@@ -382,7 +371,6 @@ NeP.CR:Add(103, {
 	ooc = outCombat,
 	gui = GUI,
 	gui_st = {title="Kleei Combat Routine Settings", width="315", height="770", color="87CEFA"},
-	debuffIDs = Kleei.f_debuffID,
 	wow_ver = '7.1.5',
  	nep_ver = '1.11',
 	load = exeOnLoad

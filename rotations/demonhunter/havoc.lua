@@ -184,10 +184,10 @@ local inCombat = {
     ---------------
 	{Keybinds},
 	{Survival, "player.health < 100"},
-	{Interrupts, "interruptAt(85) & toggle(interrupts) & {!target.pvp || target.pvp & player.pvp}"},
+	{Interrupts, "interruptAt(85) & toggle(interrupts) & {!target.player || player.pvp & target.player}"},
 	{Cooldowns, "toggle(cooldowns) & target.enemy & target.alive & target.range <= 2"},
 	---------------
-	{Combat, "target.alive & target.enemy & {!target.pvp || target.pvp & player.pvp}"},
+	{Combat, "target.alive & target.enemy & {!target.player || player.pvp & target.player}"},
 
 }
 
@@ -195,7 +195,7 @@ local outCombat = {
 
     {"%SendKey(SPACE)"},
 	{Keybinds},
-	{Precombat, "target.alive & target.enemy & {!target.pvp || target.pvp & player.pvp}"},
+	{Precombat, "target.alive & target.enemy & {!target.player || player.pvp & target.player}"},
 	
 }
 
