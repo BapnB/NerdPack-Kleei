@@ -178,7 +178,7 @@ local DPS = {
 local Moving = {
 
     --Revive
-	{"Rebirth", "!target.enemy & target.dead & player.area(30).enemies >= 1 & combat", "target"},
+	{"Rebirth", "!target.enemy & target.dead & target.player & player.area(30).enemies >= 1 & combat", "target"},
 	{"Rebirth", "player.area(40).dead.tank & player.area(30).enemies >= 1 & combat", "tank"},
 	{"Rebirth", "player.area(40).dead.friendly >= 1 & player.area(30).enemies >= 1 & tank.health >= 40 & combat", "friendly"},
 
@@ -224,7 +224,7 @@ local oocHealing = {
 	
     --MASS Ress
     {"Revitalize", "player.area(45).dead.friendly >= 1"},
-    {"Revitalize", "!target.enemy & target.dead", "target"},
+    {"Revitalize", "!target.enemy & target.player & target.dead", "target"},
 	
 	--Clearcasting
 	{"Regrowth", "player.buff(Clearcasting) & lowest.health <= 90", "lowest"},
@@ -258,7 +258,7 @@ local oocHealing = {
 local Healing = { 
 
     --Revive
-	{"Rebirth", "!target.enemy & target.dead & player.area(30).enemies >= 1", "target"},
+	{"Rebirth", "!target.enemy & target.dead & target.player & player.area(30).enemies >= 1", "target"},
 	{"Rebirth", "player.area(40).dead.tank & player.area(30).enemies >= 1", "tank"},
 	{"Rebirth", "player.area(40).dead.friendly >= 1 & player.area(30).enemies >= 1 & tank.health >= 40", "friendly"},
 
