@@ -125,7 +125,7 @@ local Keybinds = {
     {"/stopattack", "target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence) || target.buff(Aspect of the Turtle)", "player"},
 
 	{"Sap", "range <= 10 & !target.state(stun) & !target.state(disorient) & !debuff(Sap) & !combat & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target"},
-	{"/stopattack", "target.enemy & {target.state(disorient) & !player.buff(Stealth)|| player.buff(Vanish)}"},
+	{"/stopattack", "target.enemy & {target.state(disorient) & !player.buff(Stealth) || target.debuff(Blind) & !player.buff(Stealth) || player.buff(Vanish)}"},
 	
 	{"Kidney Shot", "inmelee & !player.buff(Stealth) & !player.buff(Vanish) & player.combopoints >= 3 & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
 	{"Blind", "!player.buff(Stealth) & !player.buff(Vanish) & player.combat & range <= 15 & {target.buff(Touch of Karma) || keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target"},
@@ -217,11 +217,11 @@ local Poisons = {
 local inCombat = {
 
     {pvp_1v1, "player.pvp & target.player & target.enemy & target.alive"},	
-    {Keybinds, "target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp}"},
-    {Interrupts, "toggle(interrupts) & infront & target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp}"},
+    {Keybinds, "target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
+    {Interrupts, "toggle(interrupts) & infront & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
 	{Survival, "player.health < 100"},
-	{Cooldowns, "toggle(cooldowns) & target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp}"},
-	{Combat, "target.inmelee & target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp}"},
+	{Cooldowns, "toggle(cooldowns) & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
+	{Combat, "target.inmelee & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
 
 }
 
@@ -230,7 +230,7 @@ local outCombat = {
     {"/targetenemyplayer", "!target.exists & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}"},
 	{"Stealth", "!player.buff(Stealth) & !player.buff(Vanish) & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
     --{"Sap", "range <= 10 & !melee & !target.state(stun) & !target.state(disorient) & !target.immune(disorient) & !player.lastcast(Sap) & !debuff(Sap) & !combat", "target"},
-	{"/stopattack", "player.pvp & target.player & target.enemy & target.alive & {target.state(disorient) & !player.buff(Stealth)|| target.state(fear) & !player.buff(Stealth) || target.debuff(Polymorph) & !player.buff(Stealth) || target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence) || target.buff(Aspect of the Turtle)}", "player"},
+	{"/stopattack", "player.pvp & target.player & target.enemy & target.alive & {target.debuff(Blind) & !player.buff(Stealth) || target.state(disorient) & !player.buff(Stealth)|| target.state(fear) & !player.buff(Stealth) || target.debuff(Polymorph) & !player.buff(Stealth) || target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence) || target.buff(Aspect of the Turtle)}", "player"},
 	{"Crimson Vial", "player.health <= UI(cv_spin) & UI(cv_check) & target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp}"},
     {Keybinds, "target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
 	{PreCombat, "target.enemy & target.alive"},
