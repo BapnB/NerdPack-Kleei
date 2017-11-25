@@ -46,8 +46,9 @@ local GUI = {
 	{type = 'checkspin', text = 'Use Touch of Karma:', key = 'tok', check = true, spin = 60, width = 150, step = 5, max = 95, min = 1},
 	{type = 'checkspin', text = 'Use Healing Elixir:', key = 'he', check = true, spin = 70, width = 150, step = 5, max = 95, min = 1},
 	{type = 'checkspin', text = 'Use Health Stone:', key = 'hs', check = true, spin = 60, width = 150, step = 5, max = 95, min = 1},
-	{type = 'checkspin', text = 'Use Paralysis: when target health > yours', key = 'par', check = true, spin = 20, width = 150, step = 5, max = 95, min = 1},	
-
+	{type = 'checkspin', text = 'Use Paralysis:', key = 'par', check = true, spin = 20, width = 150, step = 5, max = 95, min = 1},	
+	{type = 'checkspin', text = "|c0000FA9A When target health > yours"},
+	
 	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},	
 
     {type = 'text', text = "Cooldowns Toggle:"},

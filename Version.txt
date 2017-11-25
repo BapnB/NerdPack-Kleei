@@ -1,8 +1,5 @@
-25-Nov-17 03:06:42 PM +02:00
+25-Nov-17 18:41:42 PM +02:00
 
 Update Assassination Rogue
 
-- Run Macro on Keybind , Spam /TargetEnemyPlayer when have no target to detect and Sap the target from Stealth (Rogue, Feral).
-- Pause when target PVP are all immune.
-- Fixed casting same Poison 2-3 times.
-- To Do: AoE Rotation.
+- Added AoE Rotation

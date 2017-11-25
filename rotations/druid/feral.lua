@@ -260,16 +260,12 @@ local Survival = {
 
 local Interrupts = {
 
-    {"Bear Form", "target.interruptAt(90) & player.spell(Skull Bash).cooldown > 0.5 & !player.buff(Bear Form) & target.range > 2"},
+    {"Bear Form", "target.interruptAt(90) & targettarget.is(player) & target.player & player.spell(Skull Bash).cooldown > 0.5 & !player.buff(Bear Form) & target.range > 2"},
 
 	{"&Skull Bash", "target.interruptAt(80)& range > 7", "target"},
 	{"&Skull Bash", "interruptAt(80)& range <= 7", "enemies"},
 	
 	{"Typhoon", "talent(4,3) & target.interruptAt(45) & player.spell(Skull Bash).cooldown > gcd"},
-	
-	--{"Mighty Bash", "talent(4,1) & target.interruptAt(45) & player.spell(Skull Bash).cooldown > gcd & target.inmelee"},
-	
-	--{"Maim", "target.interruptAt(45) & player.spell(Skull Bash).cooldown > gcd & player.spell(Mighty Bash).cooldown > gcd & target.inmelee"},
 	
 }
 
