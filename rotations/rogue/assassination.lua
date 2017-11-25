@@ -186,7 +186,7 @@ local Cooldowns = {
 local Combat = {
 
     {"/stopattack", "target.debuff(Blind) & target.pvp & !player.buff(Stealth) || target.buff(Touch of Karma) || player.buff(Vanish) || target.immune_all", "player"},
-    --{"/startattack", "!isattacking & target.inmelee"},
+    {"/startattack", "!isattacking & target.inmelee"},
     {"Tricks of the Trade", "player.aggro & {group.type == 3 || group.type == 2}", "tank"},
     --Mass
     {"Fan of Knives", "toggle(AoE) & player.combopoints < 5 & player.area(8).enemies >= 4 & count.enemies(Deadly Poison).debuffs < player.area(10).enemies"},
