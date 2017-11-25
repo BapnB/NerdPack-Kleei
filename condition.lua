@@ -22,12 +22,17 @@ NeP.DSL:Register("player", function(target)
 end)
 
 --/dump NeP.DSL.Parse("rake.stun", "", "")
-NeP.DSL:Register('rake.stun', function()
+NeP.DSL:Register("rake.stun", function()
     if NeP.DSL:Get("debuff.many")("target", "Rake") == 2 then
     return true
 end
     return false
 end)
 
---To Do
---NeP.DSL:Register('falling.time', function()
+--/dump NeP.DSL.Parse("target.immune_all", "", "")
+NeP.DSL:Register("immune_all", function(target)
+    if UnitBuff("target", GetSpellInfo(45438)) or UnitBuff("target", GetSpellInfo(642)) or UnitBuff("target", GetSpellInfo(19263)) or UnitBuff("target", GetSpellInfo(186265)) then
+    return true
+end
+    return false
+end)
