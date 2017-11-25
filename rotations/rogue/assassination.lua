@@ -93,13 +93,13 @@ local exeOnLoad = function()
  	print('|cffADFF2F ----------------------------------------------------------------------|r')
 
 
---		NeP.Interface:AddToggle({
---		key = 'Dotting',
---		icon = 'Interface\\Icons\\trade_brewpoison',
---		name = 'Auto Dotting',
---		text = 'ON/OFF Dotting rotation',
+	NeP.Interface:AddToggle({
+	key = 'Rupt',
+	icon = 'Interface\\Icons\\ability_rogue_rupture',
+	name = 'Rupture',
+	text = 'Include Rupture  in rotation',
 
---})
+})
 
 end
 
@@ -194,11 +194,11 @@ local Combat = {
 	--Dotting
 	{"Hemorrhage", "talent(1,3) & player.combopoints < 5 & target.debuff(Hemorrhage).duration <= 4", "target"},
 	{"KingsBane", "target.deathin > 8 & target.debuff(Deadly Poison)", "target"},
-	{"Rupture", "target.deathin > 12 & player.combopoints >= 5 & {talent(6,3) & target.debuff(Rupture).duration <= 8 & player.spell(Exsanguinate).cooldown <= 33 || !target.debuff(Rupture) || !talent(6,3) & target.debuff(Rupture).duration <= 8}", "target"},
+	{"Rupture", "toggle(Rupt) & target.deathin > 12 & player.combopoints >= 5 & {talent(6,3) & target.debuff(Rupture).duration <= 8 & player.spell(Exsanguinate).cooldown <= 33 || !target.debuff(Rupture) || !talent(6,3) & target.debuff(Rupture).duration <= 8}", "target"},
     {Garrote, "target.deathin > 5 & player.combopoints <= 4 & target.debuff(Garrote).duration <= 5", "target"},
 
-    {"Envenom", "player.combopoints >= 4 & {talent(6,3) & player.spell(Exsanguinate).cooldown > 33 || !talent(6,3) & target.player}", "target"},
-	{"Envenom", "player.combopoints >= 4 & {target.debuff(Rupture).duration > 9 || target.deathin < 12}", "target"},
+    {"Envenom", "talent(6,3) & player.combopoints >= 4 & player.spell(Exsanguinate).cooldown > 33", "target"},
+	{"Envenom", "player.combopoints >= 4 & {target.debuff(Rupture).duration > 9 || target.deathin < 12 || !toggle(Rupt)}", "target"},
 	{"Mutilate", "!player.combopoints > 4"},
 	
 	{"Eviscerate", "player.level < 36 & player.combopoints == 5"},

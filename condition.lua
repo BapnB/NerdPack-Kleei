@@ -36,3 +36,11 @@ NeP.DSL:Register("immune_all", function(target)
 end
     return false
 end)
+
+--/dump NeP.DSL.Parse("target.Garrote_Silence", "", "")
+NeP.DSL:Register("Garrote_Silence", function()
+    if UnitDebuff("target", GetSpellInfo(1330)) then
+    return true
+end
+    return false
+end)
