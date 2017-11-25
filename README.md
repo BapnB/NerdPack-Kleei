@@ -3,16 +3,16 @@
 
 Use with Advance Unlocker like EWT.
 
-Read GUI in every CR to understand how Keybinds are working. You can find it by right clicking on MasterToggle --> Combat Routines Settings.
+ Read GUI in every CR to understand how Keybinds are working. You can find it by right clicking on MasterToggle --> Combat Routines Settings.
 
- druid - restoration / feral / guardian
+- druid - restoration / feral / guardian
 
- demon hunter - havoc / vengeance
+- demon hunter - havoc / vengeance
 
- monk - brewmaster / windwalker
+- monk - brewmaster / windwalker
 
- rogue - assassination / subtlety
+- rogue - assassination / subtlety
 
- death knight - frost
+- death knight - frost
 
- mage - fire
+- mage - fire
