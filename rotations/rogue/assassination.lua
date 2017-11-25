@@ -118,7 +118,7 @@ local pvp_1v1 = {
     {"Kidney Shot", "inmelee & !player.buff(Stealth) & !player.buff(Vanish) & player.combopoints >= 3 & UI(stun) & target.debuff(Cheap Shot).duration <= 0.5}", "target"},
 
     {"Vanish", "!player.buff(Stealth) & !player.buff(Cloak of Shadows) & !target.debuff(Sap) & UI(van_no_stun) & !target.state(stun) & !target.state(disorient) & !player.lastcast(Kidney Shot) & player.spell(Kidney Shot).cooldown >= gcd & !player.buff(Evasion)  & {target.class(Rogue) & player.spell(Blind).cooldown >= gcd || !target.class(Rogue)}"}, --test  & targettarget.is(player)
-    {"Blind", "!player.buff(Stealth) & !player.buff(Vanish) & !player.buff(Cloak of Shadows) & !target.debuff(Sap) & UI(blind_no_van) & !target.state(stun) & !target.state(disorient) & !player.lastcast(Kidney Shot) & !player.lastcast(Vanish) & player.spell(Kidney Shot).cooldown >= gcd & !target.immune(disorient) & !player.buff(Evasion)", "target"},-- & targettarget.is(player)
+    {"Blind", "!player.buff(Stealth) & !player.buff(Vanish) & !player.buff(Cloak of Shadows) & !target.debuff(Sap) & !target.debuff(Blind) & UI(blind_no_van) & !target.state(stun) & !target.state(disorient) & !player.lastcast(Kidney Shot) & !player.lastcast(Vanish) & player.spell(Kidney Shot).cooldown >= gcd & !target.immune(disorient) & !player.buff(Evasion)", "target"},-- & targettarget.is(player)
 
 }
 
@@ -186,7 +186,7 @@ local Cooldowns = {
 local Combat = {
 
     {"/stopattack", "target.debuff(Blind) & target.pvp & !player.buff(Stealth) || target.buff(Touch of Karma) || player.buff(Vanish) || target.immune_all", "player"},
-    {"/startattack", "!isattacking & target.inmelee"},
+    --{"/startattack", "!isattacking & target.inmelee"},
     {"Tricks of the Trade", "player.aggro & {group.type == 3 || group.type == 2}", "tank"},
     --Mass
     {"Fan of Knives", "toggle(AoE) & player.combopoints < 5 & player.area(8).enemies >= 4 & count.enemies(Deadly Poison).debuffs < player.area(10).enemies"},
