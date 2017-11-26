@@ -120,14 +120,12 @@ local pvp_1v1 = {
 
 local Keybinds = {
 
-    {"/stopattack", "target.immune_all", "player"},
-
 	{"Sap", "target.enemy & range <= 10 & !target.state(stun) & !target.state(disorient) & !debuff(Sap) & !combat & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target"},
-	{"/stopattack", "target.enemy & {target.state(disorient) & !player.buff(Stealth) || target.debuff(Blind) & !player.buff(Stealth) || target.player & player.buff(Vanish)}"},
+	{"/stopattack", "target.enemy & {target.state(disorient) & !player.buff(Stealth) || target.debuff(Blind) & !player.buff(Stealth) || target.player & player.buff(Vanish) || target.immune_all}"},
 	
 	{"Kidney Shot", "inmelee & !player.buff(Stealth) & !player.buff(Vanish) & player.combopoints >= 3 & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
 	{"Blind", "!player.buff(Stealth) & !player.buff(Vanish) & player.combat & range <= 15 & {target.buff(Touch of Karma) || keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target"},
-	
+
 }
 
 local PreCombat = {
@@ -204,11 +202,11 @@ local Combat = {
 
 local Poisons = {
 
-    {"/stopcast", "player.casting(Deadly Poison) & player.buff(Deadly Poison).duration > 600"},
+    {"/stopcasting", "player.casting(Deadly Poison) & player.buff(Deadly Poison).duration > 600"},
 	{"Deadly Poison", "UI(pos) & !player.casting(Deadly Poison) & !player.moving & player.buff(Deadly Poison).duration <= 600"},
-	{"/stopcast", "player.casting(Leeching Poison) & player.buff(Leeching Poison).duration > 600"},
+	{"/stopcasting", "player.casting(Leeching Poison) & player.buff(Leeching Poison).duration > 600"},
 	{"Leeching Poison", "talent(4,1) & UI(pos) & !player.casting(Leeching Poison) & !player.moving & player.buff(Leeching Poison).duration <= 600"},
-	{"/stopcast", "player.casting(Crippling Poison) & player.buff(Crippling Poison).duration > 600"},
+	{"/stopcasting", "player.casting(Crippling Poison) & player.buff(Crippling Poison).duration > 600"},
 	{"Crippling Poison", "!talent(4,1) & UI(pos) & !player.casting(Crippling Poison) & !player.moving & player.buff(Crippling Poison).duration <= 600"},
 	
 }

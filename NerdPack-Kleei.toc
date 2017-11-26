@@ -21,6 +21,7 @@ rotations\monk\windwalker.lua
 
 rotations\rogue\assassination.lua
 rotations\rogue\subtlety.lua
+rotations\rogue\outlaw.lua
 
 rotations\deathknight\frost.lua
 
