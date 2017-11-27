@@ -20,11 +20,14 @@ local keybind_list_2 = {
 
 local Logo_GUI = {
 
+	{type = 'texture', texture = 'Interface\\AddOns\\Nerdpack-Kleei\\media\\outlaw.blp', width = 200, height = 200, offset = 90, y = -45, align = 'center'},
+
 }
 
 local GUI = {
 
-    {type = 'spacer'},
+	unpack(Logo_GUI),
+
 	{type = 'header', size = 16, text = 'Keybinds', align = 'center'},
 	{type = 'text', text = "|c0000FA9A Just hold the Key|r", align = 'center'},
 	{type = 'text', text = "|c0087CEFA Choose Keybind:", align = 'center'},
@@ -36,14 +39,14 @@ local GUI = {
 	{type = 'spacer'},
 	{type = 'combo', default = '4', key = 'list2', list = keybind_list_2, width = 100},	
 	{type = 'text', text = "Use Cheap Shot:|c0000FA9A Stealth:"},
-	{type = 'text', text = "Use Between the Eyes:|c0000FA9A "},
+	{type = 'text', text = "Use Between the Eyes:|c0000FA9A < 20 yards:"},
 	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},
 	
     {type = 'header', size = 16, text = 'PVP', align = 'center'},
     --{type = 'checkbox',	text = "Sap:|c0000FA9A auto Sap PVP Target.|r", align = 'left', key = 'sapp', default = true},
-    {type = 'checkbox',	text = "Stun:|c0000FA9A auto stun PVP Target [Kidney Shot].|r", align = 'left', key = 'stun', default = true},
-    {type = 'checkbox',	text = "Vanish:|c0000FA9A target PVP not stuned and [Kidney Shot] is on CD", align = 'left', key = 'van_no_stun', default = true},
-	{type = 'checkbox',	text = "Blind:|c0000FA9A target PVP not stuned and [Vanish] is on CD", align = 'left', key = 'blind_no_van', default = true},
+    {type = 'checkbox',	text = "Stun:|c0000FA9A auto stun PVP Target [Between the Eyes].|r", align = 'left', key = 'stun', default = true},
+    {type = 'checkbox',	text = "Vanish:|c0000FA9A target not stuned and [Between the Eyes] is on CD", align = 'left', key = 'van_no_stun', default = true},
+	{type = 'checkbox',	text = "Blind:|c0000FA9A target not stuned and [Vanish] is on CD", align = 'left', key = 'blind_no_van', default = true},
     {type = 'checkbox',	text = "Gladiator's Medallion , Every Man for Himself:", align = 'left', key = 'medal', default = true},
 	{type = 'text', text = "|c0000FA9A      Remove stun/fear/disorient/charm.|r"},
 	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},
@@ -58,7 +61,7 @@ local GUI = {
 	{type = 'header', size = 16, text = 'Survival', align = 'center'},
 	{type = 'checkspin', text = 'Use Vanish:', key = 'van', check = true, spin = 15, width = 150, step = 5, max = 95, min = 1},
 	{type = 'checkspin', text = 'Use Crimson Vial:', key = 'cv', check = true, spin = 75, width = 150, step = 5, max = 95, min = 1},
-	{type = 'checkspin', text = 'Use Evasion:', key = 'eva', check = true, spin = 80, width = 150, step = 5, max = 95, min = 1},
+	{type = 'checkspin', text = 'Use Riposte:', key = 'eva', check = true, spin = 45, width = 150, step = 5, max = 95, min = 1},
 	{type = 'checkspin', text = 'Use Health Stone:', key = 'hs', check = true, spin = 60, width = 150, step = 5, max = 95, min = 1},
 	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},	
 
@@ -67,8 +70,9 @@ local GUI = {
 	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},	
 	
     {type = 'text', text = "Cooldowns Toggle:"},
-	{type = 'text', text = "|c0087CEFA All if target will die in more than 10 sec|r", align = 'center'},	
-    {type = 'text', text = "Vendetta:"},
+	{type = 'text', text = "|c0087CEFA All if target will die in more than 10 sec|r", align = 'center'},
+    {type = 'text', text = "Adrenaline Rush:"},
+    {type = 'text', text = "Curse of the Dreadblades:"},
 	
 }
 	
