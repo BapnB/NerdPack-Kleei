@@ -177,7 +177,7 @@ local Combat = {
 
 local inCombat = {
 
-    {"%pause", "target.enemy & {target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence)}", "player"},
+    {"%pause", "target.enemy & target.immune_all", "player"},
 	
 	{"Gladiator's Medallion", "target.pvp & player.pvp & UI(medal) & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
 
@@ -193,6 +193,7 @@ local inCombat = {
 
 local outCombat = {
 
+    {"%pause", "target.enemy & target.immune_all", "player"},
     {"%SendKey(SPACE)"},
 	{Keybinds},
 	{Precombat, "target.alive & target.enemy & {!target.player || player.pvp & target.player}"},
