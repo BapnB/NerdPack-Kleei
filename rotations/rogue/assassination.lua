@@ -33,7 +33,7 @@ local GUI = {
 	{type = 'text', text = "|c0000FA9A Just hold the Key|r", align = 'center'},
 	{type = 'text', text = "|c0087CEFA Choose Keybind:", align = 'center'},
 	{type = 'spacer'},
-	{type = 'text', text = "Run /TargetEnemyPlayer:|c0000FA9A target Stealthed:|r"},
+	{type = 'text', text = "Run /TargetEnemyPlayer:|c0000FA9A target Stealthed if have no target:|r"},
 	{type = 'combo', default = '2', key = 'list1', list = keybind_list_1, width = 100},
 	{type = 'text', text = "Use Sap:|c0000FA9A <= 10 yards, pause if already:|r"},
 	{type = 'text', text = "Use Blind:|c0000FA9A in combat:"},
@@ -181,7 +181,7 @@ local Combat = {
 
     {"/startattack", "!isattacking & target.inmelee"},
     {"Tricks of the Trade", "player.aggro & {group.type == 3 || group.type == 2}", "tank"},
-	
+
 	--Dotting
 	{"Hemorrhage", "talent(1,3) & player.combopoints < 5 & target.debuff(Hemorrhage).duration <= 4", "target"},
 	{"KingsBane", "deathin > 10 & debuff(Deadly Poison)", "target"},
@@ -194,7 +194,7 @@ local Combat = {
 
     {"Fan of Knives", "toggle(AoE) & player.combopoints < 5 & player.area(10).enemies >= 3"},
 	{"Mutilate", "!player.combopoints > 4 & {player.area(10).enemies <= 3 || !toggle(AoE)}"},
-	
+
 	{"Eviscerate", "player.level < 36 & player.combopoints == 5"},
     {"Sinister Strike", "player.level < 3 || player.combopoints <= 4 & player.level < 40"},
    
@@ -202,11 +202,11 @@ local Combat = {
 
 local Poisons = {
 
-    {"/stopcasting", "player.casting(Deadly Poison) & player.buff(Deadly Poison).duration > 600"},
+    {"!/stopcasting", "player.casting(Deadly Poison) & player.buff(Deadly Poison).duration > 600"},
 	{"Deadly Poison", "UI(pos) & !player.casting(Deadly Poison) & !player.moving & player.buff(Deadly Poison).duration <= 600"},
-	{"/stopcasting", "player.casting(Leeching Poison) & player.buff(Leeching Poison).duration > 600"},
+	{"!/stopcasting", "player.casting(Leeching Poison) & player.buff(Leeching Poison).duration > 600"},
 	{"Leeching Poison", "talent(4,1) & UI(pos) & !player.casting(Leeching Poison) & !player.moving & player.buff(Leeching Poison).duration <= 600"},
-	{"/stopcasting", "player.casting(Crippling Poison) & player.buff(Crippling Poison).duration > 600"},
+	{"!/stopcasting", "player.casting(Crippling Poison) & player.buff(Crippling Poison).duration > 600"},
 	{"Crippling Poison", "!talent(4,1) & UI(pos) & !player.casting(Crippling Poison) & !player.moving & player.buff(Crippling Poison).duration <= 600"},
 	
 }
