@@ -205,7 +205,7 @@ local pvp_ = {
 local Keybinds = {
 
     {"%pause", "target.enemy & target.immune_all", "player"},
-    {"/cancelform", "!player.buff(Prowl) & lowest.health <= 90 & lowest.range <= 40 & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Travel Form)} & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp
+    {"/cancelform", "!player.buff(Prowl) &  !player.buff(Predatory Swiftness) & lowest.health <= 90 & lowest.range <= 40 & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Travel Form)} & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp
 	{"Regrowth", "!player.buff(Prowl) & range <= 40  & lowest.health <= 90 & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}", "lowest"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp
 	
     {"Prowl", "!player.buff(Prowl) & player.buff(Cat Form) & player.buff(Incarnation: King of the Jungle) & {keybind(alt) & UI(list)==3 || keybind(shift) & UI(list)==1 || keybind(control) & UI(list)==2}", "player"},
@@ -237,8 +237,8 @@ local PreCombat = {
     {"Regrowth", "player.buff(Predatory Swiftness) & !player.buff(Prowl) & !player.moving & player.health <= 75", "player"},
 
 	--Cancel form when not swimming / Travel Form when swimming
-	{"/cancelform", "!player.buff(Prowl) & !indoors &  !target.enemy & player.swimming & {player.buff(Cat Form) || player.buff(Bear Form)}"},
-	{"Travel Form", "!player.buff(Cat Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & player.swimming"},
+	{"/cancelform", "!player.buff(Prowl) & !indoors &  !target.enemy & player.swimming & !player.buff(Travel Form) & !player.area(15).enemies >= 1 & {player.buff(Cat Form) || player.buff(Bear Form)}"},
+	{"Travel Form", "!player.buff(Cat Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.area(15).enemies >= 1 & player.swimming"},
 	{"/cancelform", "toggle(travelform) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.area(15).enemies >= 1 & player.buff(Cat Form) & {!target.enemy || target.enemy & !target.alive}"},
     {"Travel Form", "toggle(travelform) & !keybind(alt) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.buff(Cat Form) & !player.area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive}"},
 	

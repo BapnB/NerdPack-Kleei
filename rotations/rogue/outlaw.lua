@@ -192,10 +192,10 @@ local Combat = {
     {"Ghostly Strike", "inmelee & talent(1,1) & debuff(Ghostly Strike).duration < 2 & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
 	{"Pistol Shot", "range < 20 & player.buff(Opportunity) & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
 	{"Saber Slash", "inmelee &  & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
-
+	
 	{"Death from Above", "talent(7,3) & area(8).enemies > 4 & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
+    {"Roll the Bones", "!talent(7,1) & target.deathin > 10 & player.combopoints > 4 & !roll_the_bones", "player"},
 	{"Slice and Dice", "talent(7,1) & target.deathin > 10 & player.combopoints > 4 & buff(Slice and Dice).duration < 3", "player"},
-	--{"Between the Eyes", "range < 20 & player.buff(Shark Infested Waters) & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
 	{"Run Through", "inmelee & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
 
 }
