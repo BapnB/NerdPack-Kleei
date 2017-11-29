@@ -44,3 +44,6 @@ NeP.DSL:Register("Garrote_Silence", function()
 end
     return false
 end)
+
+--/dump NeP.DSL.Parse("roll_the_bones", "", "")
+--NeP.DSL:Register('roll_the_bones', function()
