@@ -187,15 +187,15 @@ local Combat = {
     {"/startattack", "!isattacking & target.inmelee"},
     {"Tricks of the Trade", "player.aggro & {group.type == 3 || group.type == 2}", "tank"},
 
-	{"Blade Flurry", "toggle(AoE) & area(8).enemies >= 3 & !buff(Blade Flurry) || !toggle(AoE) & buff(Blade Flurry)", "player"},
+	{"Blade Flurry", "toggle(AoE) & area(5).enemies >= 3 & !buff(Blade Flurry) || !toggle(AoE) & buff(Blade Flurry) || area(5).enemies <= 2 & buff(Blade Flurry)", "player"},
 
     {"Ghostly Strike", "inmelee & talent(1,1) & debuff(Ghostly Strike).duration < 2 & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
 	{"Pistol Shot", "range < 20 & player.buff(Opportunity) & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
 	{"Saber Slash", "inmelee &  & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
-	
-	{"Slice and Dice", "talent(7,1) & target.deathin > 8 & player.combopoints > 4 & buff(Slice and Dice).duration < 3", "player"},
+
 	{"Death from Above", "talent(7,3) & area(8).enemies > 4 & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
-	{"Between the Eyes", "range < 20 & player.buff(Shark Infested Waters) & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
+	{"Slice and Dice", "talent(7,1) & target.deathin > 10 & player.combopoints > 4 & buff(Slice and Dice).duration < 3", "player"},
+	--{"Between the Eyes", "range < 20 & player.buff(Shark Infested Waters) & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
 	{"Run Through", "inmelee & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
 
 }
@@ -217,6 +217,7 @@ local inCombat = {
 local outCombat = {
 
     {Grappling_Hook},
+	{"Blade Flurry", "area(5).enemies <= 2 & buff(Blade Flurry)", "player"},
     {"/targetenemyplayer", "!target.exists & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}"},
 	{"Stealth", "!player.buff(Stealth) & !player.buff(Vanish) & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
 	{"Crimson Vial", "player.health <= UI(cv_spin) & UI(cv_check)"},
