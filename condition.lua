@@ -45,29 +45,28 @@ end
     return false
 end)
 
---/dump NeP.DSL.Parse("!roll_the_bones", "", "")
+--/dump NeP.DSL.Parse("roll_the_bones", "", "")
 NeP.DSL:Register("roll_the_bones", function()
-    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193357)) > 3 then -- Shark Infested Waters
-    return true
+  local roll = 0
+    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193357)) > 3 then  roll = roll + 1 -- Shark Infested Waters
 end
 
-    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193359)) > 3 then  -- True Bearing
-    return true
+    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193359)) > 3 then  roll = roll + 1  -- True Bearing
 end
 
-    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(199603)) > 3 then  -- Jolly Roger
-    return true
+    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(199603)) > 3 then  roll = roll + 1  -- Jolly Roger
 end
 
-    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193358)) > 3 then  -- Grand Melee
-    return true
+    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193358)) > 3 then  roll = roll + 1  -- Grand Melee
 end
 
-    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(199600)) > 3 then  -- Buried Treasure
-    return true
+    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(199600)) > 3 then  roll = roll + 1  -- Buried Treasure
 end
 
-    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193356)) > 3 then  -- Broadsides
+    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193356)) > 3 then  roll = roll + 2  -- Broadsides
+end
+
+    if roll > 1 then
     return true
 end
     return false
