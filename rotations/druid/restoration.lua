@@ -162,7 +162,7 @@ local Innervate = {
 local DPS = {
 
 	{"Sunfire",  "target.area(6).enemies >= 2 & !debuff(Sunfire).duration > 2 & player.los(target)", "target"},
-    {"Moonfire", "toggle(aoe) & !debuff & range <= 40 & target.area(8).enemies", "enemies"}, 
+    {"Moonfire", "toggle(aoe) & !debuff & combat & range <= 40 & target.area(8).enemies", "enemies"}, 
     {"Moonfire", "!toggle(aoe) & !debuff & target.range <= 40 & player.los(target)", "target"},	
 
 	{"Moonkin Form", "!player.buff(Moonkin Form)"},
