@@ -161,17 +161,17 @@ local Innervate = {
 
 local DPS = {
 
-	{"Sunfire",  "target.area(6).enemies >= 2 & !debuff(Sunfire).duration > 2 & player.los(target)", "target"},
+	{"Sunfire",  "target.area(6).enemies >= 2 & !debuff(Sunfire).duration > 2 & player.los(target) & {UI(mc) || !UI(mc) & !player.moving}", "target"},
     {"Moonfire", "toggle(aoe) & !debuff & combat & range <= 40 & target.area(8).enemies", "enemies"}, 
     {"Moonfire", "!toggle(aoe) & !debuff & target.range <= 40 & player.los(target)", "target"},	
 
-	{"Moonkin Form", "!player.buff(Moonkin Form)"},
+	{"Moonkin Form", "!player.buff(Moonkin Form) & {UI(mc) || !UI(mc) & !player.moving}"},
 	
-	{"Starsurge", "player.buff(Moonkin Form) & player.los(target)", "target"},
-	{"Lunar Strike", "player.buff(Lunar Empowerment) & target.area(6).enemies >= 4 & player.los(target)", "target"},
-	{"Solar Wrath", "player.buff(Solar Empowerment) & player.los(target)", "target"},
+	{"Starsurge", "player.buff(Moonkin Form) & player.los(target) & {UI(mc) || !UI(mc) & !player.moving}", "target"},
+	{"Lunar Strike", "player.buff(Lunar Empowerment) & target.area(6).enemies >= 4 & player.los(target) & {UI(mc) || !UI(mc) & !player.moving}", "target"},
+	{"Solar Wrath", "player.buff(Solar Empowerment) & player.los(target) & {UI(mc) || !UI(mc) & !player.moving}", "target"},
 	
-	{"Solar Wrath", "player.buff(Moonkin Form) & player.los(target)", "target"},
+	{"Solar Wrath", "player.buff(Moonkin Form) & player.los(target) & {UI(mc) || !UI(mc) & !player.moving}", "target"},
 	
 }
 
@@ -232,7 +232,7 @@ local oocHealing = {
 	--Regrowth
 	{"Regrowth", "tank.health <= UI(tankreg) & !health > UI(tankreg) & player.health >= tank.health", "tank"},
 	{"Regrowth", "tank2.health <= UI(tankreg) & !health > UI(tankreg) & player.health >= tank2.health & group.type == 3", "tank2"},
-	{"Regrowth", "player.health <= UI(lowestreg) & !health > UI(lowestreg) & lowest.health >= player.health", "player"},	
+	{"Regrowth", "player.health <= UI(lowestreg) & !health > UI(lowestreg) & lowest.health >= player.health", "player"},
 	{"Regrowth", "lowest.health <= UI(lowestreg) & !health > UI(lowestreg) & !is(player)", "lowest"},
 
     -- Rejuvenation
@@ -289,7 +289,7 @@ local Healing = {
 	--Regrowth
 	{"Regrowth", "tank.health <= UI(tankreg) & !health > UI(tankreg) & player.health >= tank.health", "tank"},
 	{"Regrowth", "tank2.health <= UI(tankreg) & !health > UI(tankreg) & player.health >= tank2.health & group.type == 3", "tank2"},
-	{"Regrowth", "player.health <= UI(lowestreg) & !health > UI(lowestreg) & lowest.health >= player.health", "player"},	
+	{"Regrowth", "player.health <= UI(lowestreg) & !health > UI(lowestreg) & lowest.health >= player.health", "player"},
 	{"Regrowth", "lowest.health <= UI(lowestreg) & !health > UI(lowestreg) & !is(player)", "lowest"},
 
     -- Rejuvenation
