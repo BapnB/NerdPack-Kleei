@@ -184,7 +184,7 @@ local Combat = {
 
 	--Dotting
 	{"Hemorrhage", "talent(1,3) & player.combopoints < 5 & target.debuff(Hemorrhage).duration <= 4", "target"},
-	{"KingsBane", "deathin > 10 & debuff(Deadly Poison)", "target"},
+	{"KingsBane", "player.combopoints < 5 & {target.debuff(Vendetta) & target.deathin > 5 || spell(Vendetta).cooldown > 5 & target.deathin > 10}", "target"},
 	{"Rupture", "toggle(AoE) & toggle(Rupt) & deathin > 12 & player.combopoints >= 3 & player.area(10).enemies <= 3 & player.area(10).enemies >= 2 & {infront & range <= 4.5 & !pvp & !debuff}", "enemies"},
 	{"Rupture", "toggle(Rupt) & target.deathin > 12 & player.combopoints >= 5 & {talent(6,3) & target.debuff(Rupture).duration <= 8 & player.spell(Exsanguinate).cooldown <= 33 || !target.debuff(Rupture) || !talent(6,3) & target.debuff(Rupture).duration <= 8}", "target"},
     {Garrote, "target.deathin > 10 & player.combopoints <= 4 & target.debuff(Garrote).duration <= 5 & {player.area(10).enemies <= 3 || !toggle(AoE)}", "target"}, --player.area(10).enemies <= 3
