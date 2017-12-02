@@ -161,17 +161,17 @@ local Innervate = {
 
 local DPS = {
 
-	{"Sunfire",  "target.area(6).enemies >= 2 & !debuff(Sunfire).duration > 2 & player.los(target) & {UI(mc) || !UI(mc) & !player.moving}", "target"},
-    {"Moonfire", "toggle(aoe) & !debuff & combat & range <= 40 & target.area(8).enemies", "enemies"}, 
-    {"Moonfire", "!toggle(aoe) & !debuff & target.range <= 40 & player.los(target)", "target"},	
+	{"Moonkin Form", "!player.buff(Moonkin Form)"},
 
-	{"Moonkin Form", "!player.buff(Moonkin Form) & {UI(mc) || !UI(mc) & !player.moving}"},
+	{"Sunfire",  "target.area(5).enemies >= 2 & !debuff(Sunfire).duration > 2 & player.los(target) & enemy & alive", "target"},
+    {"Moonfire", "!debuff & range <= 40 & player.los(target) & enemy & alive", "target"},
+	{"Moonfire", "toggle(aoe) & !debuff & combat & range <= 40 & enemy & alive", "enemies"},
 	
-	{"Starsurge", "player.buff(Moonkin Form) & player.los(target) & {UI(mc) || !UI(mc) & !player.moving}", "target"},
-	{"Lunar Strike", "player.buff(Lunar Empowerment) & target.area(6).enemies >= 4 & player.los(target) & {UI(mc) || !UI(mc) & !player.moving}", "target"},
-	{"Solar Wrath", "player.buff(Solar Empowerment) & player.los(target) & {UI(mc) || !UI(mc) & !player.moving}", "target"},
+	{"Starsurge", "player.buff(Moonkin Form) & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
+	{"Lunar Strike", "player.buff(Lunar Empowerment) & area(5).enemies >= 4 & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "enemies"},
+	{"Solar Wrath", "player.buff(Solar Empowerment) & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
 	
-	{"Solar Wrath", "player.buff(Moonkin Form) & player.los(target) & {UI(mc) || !UI(mc) & !player.moving}", "target"},
+	{"Solar Wrath", "player.buff(Moonkin Form) & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
 	
 }
 
@@ -325,7 +325,7 @@ local inCombat = {
 	{Cooldowns, "toggle(cooldowns)"},
 	{Moving, "range <= 40 & !UI(mc) & player.moving"},
 	{Healing, "range <= 40 & {UI(mc) || !UI(mc) & !player.moving}"},
-    {DPS,  "player.mana >=UI (mana) & target.enemy & target.alive & toggle(DPS)"},
+    {DPS,  "player.mana >=UI (mana) & toggle(DPS)"},
 	
 }
 
