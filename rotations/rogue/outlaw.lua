@@ -140,8 +140,9 @@ local PreCombat = {
     {"/stopattack", "{player.buff(Vanish) || player.buff(Stealth)} & target.buff(Touch of Karma)"},
 
     {"/startattack", "!isattacking & target.inmelee & !target.player & player.energy < 45"},
-	{"Cheap Shot", "player.buff(Stealth) & inmelee & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5 || target.player & player.pvp & !target.immune(stun) || !target.player & !UI(amb)}", "target"},
+	{"Cheap Shot", "player.buff(Stealth) & !debuff(Cheap Shot) & inmelee & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5 || target.player & player.pvp & !target.immune(stun) || !target.player & !UI(amb)}", "target"},
 	{"Ambush", "player.buff(Stealth) & inmelee & UI(amb)", "target"},
+	{"Saber Slash", "inmelee & debuff(Cheap Shot) & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
 
 }
 
@@ -183,12 +184,13 @@ local Combat = {
 
 	{"Blade Flurry", "toggle(AoE) & area(4).enemies >= 3 & !buff(Blade Flurry) || !toggle(AoE) & buff(Blade Flurry) || area(5).enemies <= 2 & buff(Blade Flurry)", "player"},
 	{"Pistol Shot", "toggle(AoE) & area(5).enemies == 2 & inmelee & player.energy < 49 & !is(target) & !pvp & player.buff(Opportunity) & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "enemies"},
-
+	
 	{"Death from Above", "talent(7,3) & area(8).enemies > 4 & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
     {"Roll the Bones", "!talent(7,1) & target.deathin > 10 & player.combopoints > 4 & !roll_the_bones", "player"},
 	{"Slice and Dice", "talent(7,1) & buff(Slice and Dice).duration < 3 & {target.deathin > 10 & player.combopoints > 4 || target.deathin <= 10 & player.combopoints > 1}", "player"},
 	{"Run Through", "inmelee & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
 
+    --{"Blunderbuss", "range < 20 & player.spell(Blunderbuss) & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
     {"Ghostly Strike", "inmelee & talent(1,1) & buff(Ghostly Strike).duration < 2 & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
 	{"Pistol Shot", "range < 20 & player.energy < 49 & player.buff(Opportunity) & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
 	{"Saber Slash", "inmelee & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
