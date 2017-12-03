@@ -27,13 +27,6 @@ local keybind_list_3 = {
 
 }
 
-local target_list = {
-
-    {key = 'cur', text = 'Cursor Ground'},
-	{key = 'tar', text = 'Target Ground'},
-
-}
-
 local Logo_GUI = {
 
 	{type = 'texture', texture = 'Interface\\AddOns\\Nerdpack-Kleei\\media\\outlaw.blp', width = 200, height = 200, offset = 90, y = -45, align = 'center'},
@@ -104,7 +97,7 @@ local exeOnLoad = function()
  	print('|c0000FA9A --- |rRecommended Talents: x/x - x/x - x/x - x/x - x/x - x/x - x/x')
     print('|c0000FA9A')
 	print('|c0000FA9A ------------------------PVE-------------------------------------------|r')
- 	print('|c0000FA9A --- |rRecommended Talents: 1/x - 2/1 - 3/1 - 4/x - 5/x - 6/2 - 7/1')
+ 	print('|c0000FA9A --- |rRecommended Talents: 1/2 - 2/1 - 3/3 - 4/x - 5/x - 6/2 - 7/1')
  	print('|c0000FA9A ----------------------------------------------------------------------|r')
 
 end
@@ -167,15 +160,15 @@ local Interrupts = {
     {"Sap", "target.interruptAt(75) & range <= 10 & !debuff(Sap) & !immune(disorient) & !player.lastcast(Sap) & !combat & pvp & player.pvp & !state(stun) & {player.buff(Stealth) || player.buff(Vanish)}", "target"},
     {"/stopattack", "player.buff(Vanish)", "player"},
 	{"Kick", "target.interruptAt(75) & target.inmelee", "target"},
-
+	{"Kick", "interruptAt(75)& inmelee", "enemies"},
 }
 
 local Cooldowns = {
 
 	{"Cannonball Barrage", "talent(6,1) & range <= 35 & target.deathin >= 10", "target.ground"},
-	{"Adrenaline Rush", "target.inmelee & target.deathin >= 10", "player"},
-	{"Marked for Death", "inmelee & talent(7,2) & {player.combopoints < 2 || target.deathin >= 10}", "target"},
+	{"Marked for Death", "inmelee & talent(7,2) & player.combopoints < 2", "target"},
 	{"Curse of the Dreadblades", "target.inmelee & player.combopoints <= 3 & target.deathin >= 10 & !player.buff(Broadsides) & {target.debuff(Ghostly Strike) || !talent(1,1)}", "player"},
+	{"Adrenaline Rush", "target.inmelee & target.deathin >= 10 & !player.lastcast(Curse of the Dreadblades) & player.spell(Curse of the Dreadblades).cooldown >= gcd & !debuff(Curse of the Dreadblades)", "player"},
 	{"Killing Spree", "talent(6,3) & range <= 10 & target.deathin >= 5 & player.energy < 15", "target"},
 
 	{"#trinket1", "UI(trk1) & target.inmelee & target.deathin >= 10"},
@@ -196,7 +189,7 @@ local Combat = {
 	{"Slice and Dice", "talent(7,1) & buff(Slice and Dice).duration < 3 & {target.deathin > 10 & player.combopoints > 4 || target.deathin <= 10 & player.combopoints > 1}", "player"},
 	{"Run Through", "inmelee & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
 
-    {"Ghostly Strike", "inmelee & talent(1,1) & debuff(Ghostly Strike).duration < 2 & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
+    {"Ghostly Strike", "inmelee & talent(1,1) & buff(Ghostly Strike).duration < 2 & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
 	{"Pistol Shot", "range < 20 & player.energy < 49 & player.buff(Opportunity) & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
 	{"Saber Slash", "inmelee & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
 

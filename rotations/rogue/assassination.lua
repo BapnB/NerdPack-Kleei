@@ -214,7 +214,7 @@ local Poisons = {
 local inCombat = {
 
 	{"/stopattack", "player.pvp & target.player & target.enemy & target.alive & target.debuff(Blind) & !player.buff(Stealth)"},
-    {pvp_1v1, "player.pvp & target.player & target.enemy & target.alive"},	
+    {pvp_1v1, "player.pvp & target.player & target.enemy & target.alive"},
     {Keybinds, "target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
     {Interrupts, "toggle(interrupts) & infront & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
 	{Survival, "player.health < 100"},
