@@ -101,7 +101,7 @@ end
 local Precombat = {
 
 	{"Throw Glaive", "player.fury <= 38 & target.inmelee || target.pvp & player.pvp & target.range >= 6 & target.range <= 15 & !target.debuff(Master of the Glaive)", "target"},	
-    {"Fel Rush", "toggle(charge) & target.infront & target.range >= 6 & target.range <= 15", "target"},	
+    --{"Fel Rush", "toggle(charge) & target.infront & target.range >= 6 & target.range <= 15", "target"},	
 	{"Felblade", "toggle(charge) & talent(1,2) & target.range <= 15 & target.infront & player.fury <= 100", "target"},
 	{"Chaos Strike", "target.inmelee & player.fury >= 40", "target"},
 	
@@ -163,9 +163,10 @@ local Combat = {
 	{"Fel Eruption", "talent(5,2) & target.range <= 20 & player.fury >= 10"},
 	{"Fel Barrage", "talent(7,2) & !target.debuff(Imprison) & target.range <= 30 & player.spell(Fel Barrage).charges >= 5 & {player.buff(Metamorphosis) & player.fury <= 39 & player.spell(Death Sweep).cooldown >= gcd || player.buff(Metamorphosis) & player.fury <= 15 || !player.buff(Metamorphosis)}"},
 	{"Throw Glaive", "player.spell(Fel Rush).charges < 1 & player.spell(Felblade).cooldown > gcd & !target.debuff(Imprison) & target.range >= 8 & target.range <= 30"},
-	{"Fel Rush", "toggle(charge) & target.infront & target.range >= 6", "target"},
+	{"!Fel Rush", "toggle(charge) & target.infront & {target.range >= 6 || player.falling & target.inmelee & !player.lastcast(Fel Barrage) & !player.casting(Fel Barrage)}", "target"},
+	--{"/run JumpOrAscendStart()", "toggle(charge) & target.inmelee & target.infront & player.spell(Fel Rush).charges >= 1 & player.spell(Felblade).cooldown >= gcd & !player.falling & !player.lastcast(Blade Dance) & !player.casting(Fel Barrage) & {talent(3,2) & player.spell(Blade Dance).cooldown >= gcd & player.fury <= 38 || talent(3,2) & player.fury <= 14 || !talent(3,2) & player.fury <= 38}"},
 	
-	{"Throw Glaive", "player.fury <= 38 & target.inmelee || !target.debuff(Master of the Glaive) & target.range > 7", "target"},
+	{"Throw Glaive", "!player.falling & {player.fury <= 38 & target.inmelee || !target.debuff(Master of the Glaive) & target.range > 7}", "target"},
 
 	{"Vengeful Retreat", "toggle(charge) & talent(2,1) & !player.buff(Metamorphosis) & player.spell(Fel Rush).charges >= 1 & target.range <= 3 & player.energy <= 39"},
 
@@ -184,7 +185,7 @@ local inCombat = {
     ---------------
 	{Keybinds},
 	{Survival, "player.health < 100"},
-	{Interrupts, "interruptAt(85) & toggle(interrupts) & {!target.player || player.pvp & target.player}"},
+	{Interrupts, "{interruptAt(85) || channeling.percent >= 15} & toggle(interrupts) & {!target.player || player.pvp & target.player}"},
 	{Cooldowns, "toggle(cooldowns) & target.enemy & target.alive & target.range <= 2"},
 	---------------
 	{Combat, "target.alive & target.enemy & {!target.player || player.pvp & target.player}"},
