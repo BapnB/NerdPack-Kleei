@@ -1,3 +1,5 @@
+local _G = _G
+
 --/dump NeP.DSL.Parse("player.mana.actual", "", "")
 NeP.DSL:Register("mana.actual", function(target)
 	return _G.UnitMana(target)
