@@ -58,7 +58,6 @@ local GUI = {
 	{type = "checkspin", text = "Use Intimidating Shout:", key = "is", check = true, spin = 25, width = 150, step = 5, max = 95, min = 1},
 	{type = "checkspin", text = "Use Health Stone:", key = "hs", check = true, spin = 60, width = 150, step = 5, max = 95, min = 1},
 	{type = "checkspin", text = "Use Enraged Regeneration:", key = "enr_regen", check = true, spin = 40, width = 150, step = 5, max = 95, min = 1},
-    {type = "text", text = "|c0000FA9A   in melee|r:"},
 	{type = "spacer"}, {type = "ruler"}, {type = "spacer"},
 
     {type = 'text', text = "Cooldowns Toggle:"},
@@ -97,9 +96,9 @@ local Keybinds = {
 local PreCombat = {
 
 	{"Rampage", "inmelee & {talent(5,2) & player.buff(Frothing Berserker) || player.buff(Battle Cry) || !talent(5,2) & player.rage >= 85}", "target"}, -- & !player.buff(Enrage)
+	{"Raging Blow", "inmelee & player.area(8).enemies < 3 & {talent(6,3) || !talent(6,3) & player.buff(Enraged)}", "target"},
 	{"Bloodthirst", "inmelee", "target"},
 	{"Whirlwind", "player.buff(Wrecking Ball) & player.area(8).enemies >= 1", "target"},
-	{"Raging Blow", "inmelee & player.area(8).enemies < 3 & {talent(6,3) || !talent(6,3) & player.buff(Enraged)}", "target"},
     {"Furious Slash", "inmelee", "target"},
     {"Whirlwind", "toggle(AoE) & player.area(8).enemies >= 3"},
     {"/startattack", "!isattacking & inmelee", "target"},
@@ -141,9 +140,9 @@ local Combat = {
 
     {"Odyn's Fury", "player.buff(Battle Cry)", "target"},
 	{"Rampage", "inmelee & {talent(5,2) & player.buff(Frothing Berserker) || player.buff(Battle Cry) || !talent(5,2) & player.rage >= 85}", "target"}, -- & !player.buff(Enrage)
+	{"Raging Blow", "inmelee & player.area(8).enemies < 3 & {talent(6,3) || !talent(6,3) & player.buff(Enraged)}", "target"},
 	{"Bloodthirst", "inmelee", "target"},
 	{"Whirlwind", "player.buff(Wrecking Ball) & player.area(8).enemies >= 1", "target"},
-	{"Raging Blow", "inmelee & player.area(8).enemies < 3 & {talent(6,3) || !talent(6,3) & player.buff(Enraged)}", "target"},
     {"Furious Slash", "inmelee", "target"},
     {"Whirlwind", "toggle(AoE) & player.area(8).enemies >= 3"},
 
