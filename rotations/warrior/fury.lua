@@ -122,7 +122,7 @@ local Interrupts = {
 
 local Cooldowns = {
  
-    {"Battle Cry", "target.inmelee & target.deathin >= 4"},
+    {"Battle Cry", "target.inmelee & target.deathin >= 4 & !player.rage >= 85"},
     {"Blood Fury", "target.inmelee & target.deathin >= 5"},
 
 	{"#trinket1", "UI(trk1) & target.inmelee & target.deathin >= 5"},
