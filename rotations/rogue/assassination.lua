@@ -67,7 +67,8 @@ local GUI = {
 	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},	
 
 	{type = 'header', size = 16, text = 'Other', align = 'center'},
-	{type = 'checkbox', text = "Pick Pocket:|c0000FA9A < 10 yards when you stand and don't move", 	key = 'pp',   default = false},
+	{type = 'checkbox', text = "Use Tricks of the Trade:|c0000FA9A in party on tank", key = "tott", default = true},
+	{type = 'checkbox', text = "Pick Pocket:|c0000FA9A < 10 yards when you stand and don't move", key = 'pp',   default = false},
 	{type = 'checkbox', text = "Poisons:|c0000FA9A <= 10 min.", 	key = 'pos',   default = true},
 	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},	
 	
@@ -180,7 +181,7 @@ local Cooldowns = {
 local Combat = {
 
     {"/startattack", "!isattacking & target.inmelee"},
-    {"Tricks of the Trade", "player.aggro & {group.type == 3 || group.type == 2}", "tank"},
+    {"Tricks of the Trade", "player.aggro & UI(tott) & player.los(tank) & {group.type == 3 || group.type == 2}", "tank"},
 
 	--Dotting
 	{"Hemorrhage", "talent(1,3) & player.combopoints < 5 & target.debuff(Hemorrhage).duration <= 4", "target"},

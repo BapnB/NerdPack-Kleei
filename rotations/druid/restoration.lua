@@ -57,7 +57,7 @@ local GUI = {
 	{type = 'spinner', 	text = 'Healing touch',   key = 'lowestht',	    default = 0, step = 5, width = 100},
 	{type = 'ruler'},
     {type = 'header', size = 16,  text = 'PVP', align = 'center'},
-    {type = 'checkbox',	text = "Unroot: |c0000FA9A Auto unroot Shapeshifting (working in PVE).|r", align = 'left', key = 'unroot', default = true},	
+    {type = 'checkbox',	text = "Unroot: |c0000FA9A Auto unroot Shapeshifting.|r", align = 'left', key = 'unroot', default = true},	
     {type = 'checkbox',	text = "Gladiator's Medallion:|c0000FA9A Remove stun/fear/disorient/charm.|r", align = 'left', key = 'medal', default = true},
 	{type = 'spacer'}, {type = 'ruler'},
  
@@ -114,7 +114,27 @@ local exeOnLoad = function()
 		text = 'ON/OFF DMG when > xx% on LOWEST Health',
 	})
 	
+	NeP.Interface:AddToggle({
+		key = 'travelform',
+		icon = 'Interface\\Icons\\ability_druid_travelform',
+		name = 'Auto Travel Form',
+		text = 'ON/OFF Auto Travel Form',
+	})
+
 end
+
+
+local Shapeshift = {
+
+    {"Moonkin Form", "!buff(Moonkin Form) & {!swimming & !toggle(travelform) || indoors || state(root) & UI(root) || target.enemy & target.alive || player.area(10).enemies >= 1}", "player"},
+	{"Bear Form", "!buff(Bear Form) & !buff(Prowl) & {state(root) & UI(root) || toggle(BEAR) & !buff(Dash) & !spell(Prowl).usable & target.alive & target.enemy & player.pvp & target.player & targettarget.is(player) & target.range > 7}", "player"},
+
+	{"/cancelform", "!player.buff(Prowl) & !indoors & player.swimming & !player.buff(Travel Form) & !player.area(20).enemies >= 1 & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}"},
+	{"Travel Form", "!player.buff(Moonkin Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.area(20).enemies >= 1 & player.swimming"},
+	{"/cancelform", "toggle(travelform) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.area(15).enemies >= 1 & buff(Moonkin Form) & {!target.enemy || target.enemy & !target.alive}", "player"},
+    {"Travel Form", "toggle(travelform) & !keybind(alt) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.buff(Moonkin Form) & !player.area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive}"},
+
+}
 
 local Keybinds = {
 
@@ -168,7 +188,7 @@ local DPS = {
 	{"Moonfire", "toggle(aoe) & !debuff & combat & range <= 40 & enemy & alive", "enemies"},
 	
 	{"Starsurge", "player.buff(Moonkin Form) & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
-	{"Lunar Strike", "player.buff(Lunar Empowerment) & area(5).enemies >= 4 & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "enemies"},
+	{"Lunar Strike", "player.buff(Lunar Empowerment) & target.area(5).enemies >= 4 & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
 	{"Solar Wrath", "player.buff(Solar Empowerment) & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
 	
 	{"Solar Wrath", "player.buff(Moonkin Form) & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
@@ -316,9 +336,7 @@ local Healing = {
 
 local inCombat = {
 
-    {"/cancelform", "player.buff(Bear Form) & player.lastcast(Bear Form) & !player.state(root)"},
-    {"Bear Form", "!player.buff(Bear Form) & !player.buff(Prowl) & player.state(root) & UI(unroot)"},
-
+    {Shapeshift},
     {Survival, "player.health < 100"},
 	{Keybinds, "range <= 40"},
 	{Interrupts, "target.interruptAt(35) & toggle(interrupts)"},
@@ -331,14 +349,10 @@ local inCombat = {
 
 local outCombat = {
 
+    {Shapeshift},
 	{Keybinds},
 	{Moving, "range <= 40 & !UI(mc) & player.moving"},
 	{oocHealing, "range <= 40 & {UI(mc) || !UI(mc) & !player.moving}"},	
-	
-	--Cancel form when not swimming / Travel Form when swimming
-	{"/cancelform", "!player.swimming & player.buff(Travel Form)"},
-	{"/cancelform", "player.swimming & !player.buff(Prowl) & !indoors & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}"},
-	{"Travel Form", "player.swimming & !player.buff(Cat Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form)"},
 
 }
 

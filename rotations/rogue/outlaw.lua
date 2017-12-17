@@ -78,6 +78,7 @@ local GUI = {
 	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},	
 
 	{type = 'header', size = 16, text = 'Other', align = 'center'},
+	{type = 'checkbox', text = "Use Tricks of the Trade:|c0000FA9A in party on tank", key = "tott", default = true},
 	{type = 'checkbox', text = "Pick Pocket:|c0000FA9A < 10 yards when you stand and don't move", 	key = 'pp',   default = false},
 	{type = 'checkbox', text = "Use Ambush:|c0000FA9A as opener instead [Cheap Shot]", 	key = 'amb',   default = false},
 	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},
@@ -158,9 +159,9 @@ local Survival ={
 
 local Interrupts = {
 
-    {"Sap", "target.interruptAt(75) & range <= 10 & !debuff(Sap) & !immune(disorient) & !player.lastcast(Sap) & !combat & pvp & player.pvp & !state(stun) & {player.buff(Stealth) || player.buff(Vanish)}", "target"},
-    {"/stopattack", "player.buff(Vanish)", "player"},
-	{"Kick", "target.interruptAt(75) & target.inmelee", "target"},
+    {"Sap", "interruptAt(75) & range <= 10 & !debuff(Sap) & !immune(disorient) & !player.lastcast(Sap) & !combat & pvp & player.pvp & !state(stun) & {player.buff(Stealth) || player.buff(Vanish)}", "target"},
+    {"/stopattack", "buff(Vanish)", "player"},
+	{"Kick", "interruptAt(75) & inmelee", "target"},
 	{"Kick", "interruptAt(75)& inmelee", "enemies"},
 }
 
@@ -180,7 +181,7 @@ local Cooldowns = {
 local Combat = {
 
     {"/startattack", "!isattacking & target.inmelee"},
-    {"Tricks of the Trade", "player.aggro & player.los(tank) & {group.type == 3 || group.type == 2}", "tank"},
+    {"Tricks of the Trade", "player.aggro & UI(tott) & player.los(tank) & {group.type == 3 || group.type == 2}", "tank"},
 
 	{"Blade Flurry", "toggle(AoE) & area(4).enemies >= 3 & !buff(Blade Flurry) || !toggle(AoE) & buff(Blade Flurry) || area(5).enemies <= 2 & buff(Blade Flurry)", "player"},
 	{"Pistol Shot", "toggle(AoE) & area(5).enemies == 2 & inmelee & player.energy < 49 & !is(target) & !pvp & player.buff(Opportunity) & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "enemies"},
@@ -190,7 +191,6 @@ local Combat = {
 	{"Slice and Dice", "talent(7,1) & buff(Slice and Dice).duration < 3 & {target.deathin > 10 & player.combopoints > 4 || target.deathin <= 10 & player.combopoints > 1}", "player"},
 	{"Run Through", "inmelee & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
 
-    --{"Blunderbuss", "range < 20 & player.spell(Blunderbuss) & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
     {"Ghostly Strike", "inmelee & talent(1,1) & buff(Ghostly Strike).duration < 2 & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
 	{"Pistol Shot", "range < 20 & player.energy < 49 & player.buff(Opportunity) & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
 	{"Saber Slash", "inmelee & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},

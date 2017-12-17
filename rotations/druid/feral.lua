@@ -186,14 +186,18 @@ local Rake = {
 
 local Shapeshift = {
 
-    {"Cat Form", "!player.buff(Cat Form) & !keybind(alt) & !player.falling & {!player.swimming || player.state(root) & UI(root) || target.enemy & target.alive || player.area(10).enemies >= 1}", "player"},
-	{"Bear Form", "!player.buff(Bear Form) & !player.buff(Prowl) & {player.state(root) & UI(root) || toggle(BEAR) & !player.buff(Dash) & !spell(Prowl).usable & target.alive & target.enemy & player.pvp & target.player & targettarget.is(player) & target.range > 7}", "player"},
+    {"Cat Form", "!buff(Cat Form) & !keybind(alt) & {!swimming & !toggle(travelform) || indoors || state(root) & UI(root) || target.enemy & target.alive || player.area(10).enemies >= 1}", "player"},
+	{"Bear Form", "!buff(Bear Form) & !buff(Prowl) & {state(root) & UI(root) || toggle(BEAR) & !buff(Dash) & !spell(Prowl).usable & target.alive & target.enemy & player.pvp & target.player & targettarget.is(player) & target.range > 7}", "player"},
+
+	{"/cancelform", "!buff(Prowl) & !indoors & swimming & !buff(Travel Form) & !area(20).enemies >= 1 & {buff(Cat Form) || buff(Bear Form) || buff(Moonkin Form)}", "player"},
+	{"Travel Form", "!buff(Cat Form) & !indoors & !buff(Prowl) & !buff(Travel Form) & !area(20).enemies >= 1 & swimming", "player"},
+	{"/cancelform", "toggle(travelform) & !indoors & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & buff(Cat Form) & {!target.enemy || target.enemy & !target.alive}", "player"},
+    {"Travel Form", "toggle(travelform) & !keybind(alt) & !indoors & !buff(Prowl) & !buff(Travel Form) & !buff(Cat Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive}", "player"},
 
 }
 
-local pvp_ = {
+local pvp = {
 
-    {"%pause", "target.state(fear) & !player.buff(Prowl) || target.debuff(Polymorph) & !player.buff(Prowl) || target.buff(Ice Block) || target.buff(Divine Shield) || target.buff(Deterrence) || target.buff(Aspect of the Turtle)", "player"},
 	{"Gladiator's Medallion", "UI(medal) & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
     
 	--{"Incarnation: King of the Jungle", "toggle(cooldowns) & talent(5,2) & !player.buff(Shadowmeld) & !player.buff(Prowl) & player.combat & target.range <= 7 & ", "player"},
@@ -217,8 +221,8 @@ local Keybinds = {
     {"&Mighty Bash", "!player.buff(Prowl) & player.combat & !target.rake.stun & !target.state(stun) & target.range <= 7 & target.enemy & target.alive & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || target.player & player.pvp & UI(stun)}", "target"},
 	{Maim, "!player.buff(Prowl) & player.combopoints >= 3 & !target.rake.stun & !player.lastcast(Mighty Bash) & player.spell(Mighty Bash).cooldown >= gcd & target.debuff(Mighty Bash).duration <= 0.6 & target.range <= 7 & target.enemy & target.alive & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target"}, -- || target.player & player.pvp & UI(stun) & !target.state(stun)
 	
-	{"Skull Bash", "player.spell(Wild Charge).cooldown < 13.5 & !player.buff(Prowl) & target.range > 5 & target.range <= 15 & target.enemy & target.alive & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
-	{"Wild Charge", "target.range > 5 & target.range <= 27 & target.enemy & target.alive & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
+	{"Skull Bash", "player.spell(Wild Charge).cooldown < 13.5 & !player.buff(Prowl) & target.range > 5 & target.range <= 18 & target.enemy & target.alive & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
+	{"Wild Charge", "target.range > 5 & target.range <= 30 & target.enemy & target.alive & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
 	
 }
 
@@ -227,8 +231,8 @@ local PreCombat = {
     {"/targetenemyplayer", "!target.exists & keybind(control)"},
 	{Rake, "range <= 7 & infront & target.enemy & target.alive & !target.immune_all & {!target.player || target.player & player.pvp} & {player.buff(Prowl) || player.spell(Prowl).cooldown > 0.5 & !player.buff(Shadowmeld) || player.buff(Shadowmeld)}", "target"},
 
-    {"Cat Form", "!buff(Cat Form) & !keybind(alt) & {target.enemy & target.alive || player.area(10).enemies >= 1 || indoors || !player.swimming & !toggle(travelform)}", "player"},
  	{"Prowl", "!buff(Prowl) & buff(Cat Form) & {target.enemy & target.alive & {!target.player || target.player & player.pvp} || player.buff(Shadowmeld)}", "player"},  --|| player.area(15).enemies >= 1
+    {"%pause", "target.state(fear) & !player.buff(Prowl) || target.debuff(Polymorph) & !player.buff(Prowl) || target.immune_all", "player"},
 
 	{"Revive", "!target.enemy & target.dead & target.player", "target"},
     {"%dispelself", "!player.buff(Prowl)", "player"},
@@ -236,12 +240,6 @@ local PreCombat = {
 	{"Regrowth", "player.health <= 66 & !player.buff(Prowl) & !player.moving & player.level < 80", "player"},
     {"Regrowth", "player.buff(Predatory Swiftness) & !player.buff(Prowl) & !player.moving & player.health <= 75", "player"},
 
-	--Cancel form when not swimming / Travel Form when swimming
-	{"/cancelform", "!player.buff(Prowl) & !indoors &  !target.enemy & player.swimming & !player.buff(Travel Form) & !player.area(15).enemies >= 1 & {player.buff(Cat Form) || player.buff(Bear Form)}"},
-	{"Travel Form", "!player.buff(Cat Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.area(15).enemies >= 1 & player.swimming"},
-	{"/cancelform", "toggle(travelform) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.area(15).enemies >= 1 & player.buff(Cat Form) & {!target.enemy || target.enemy & !target.alive}"},
-    {"Travel Form", "toggle(travelform) & !keybind(alt) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.buff(Cat Form) & !player.area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive}"},
-	
 }
 
 local Survival = {
@@ -261,10 +259,10 @@ local Survival = {
 
 local Interrupts = {
 
-    {"Bear Form", "target.interruptAt(90) & targettarget.is(player) & target.player & player.spell(Skull Bash).cooldown > 0.5 & !player.buff(Bear Form) & target.range > 2"},
+    --{"Bear Form", "target.interruptAt(90) & targettarget.is(player) & target.player & player.spell(Skull Bash).cooldown > 0.5 & !player.buff(Bear Form) & target.range > 2"},
 
-	{"&Skull Bash", "target.interruptAt(80)& range > 7", "target"},
-	{"&Skull Bash", "interruptAt(80)& range <= 7", "enemies"},
+	{"&Skull Bash", "target.interruptAt(77) & range > 7", "target"},
+	{"&Skull Bash", "interruptAt(77) & range <= 7", "enemies"},
 	
 	{"Typhoon", "talent(4,3) & target.interruptAt(45) & player.spell(Skull Bash).cooldown > gcd"},
 	
@@ -287,7 +285,7 @@ local Cat_Combat = {
     {"Regrowth", "talent(7,2) & !player.buff(Prowl) & !player.debuff(Scent of Blood) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & !player.lastcast(Regrowth) & {talent(5,3) & player.combopoints >= 4 & target.debuff(Rip).duration < player.buff(Savage Roar).duration & !player.buff(Savage Roar).duration <= 10 || !talent(5,3) & player.combopoints >= 4}", "lowest"},
     {Rake, "target.range <= 7 & target.infront & target.enemy & target.alive & player.buff(Prowl)", "target"}, --sometimes you enter in combat but you are still in stealth
 	
-    {"/startattack", "!toggle(auto) & !isattacking & target.range <= 6.5 & target.enemy & target.alive", "target"},	
+    {"/startattack", "!isattacking & target.range <= 6.5 & target.enemy & target.alive", "target"},	
 
 	{Thrash, "toggle(AoE) & {!artifact.enabled(Scent of Blood) & target.debuff(Thrash).duration <= 3.5 & player.area(10).enemies >= 3 || target.debuff(Thrash).duration <= 3.5 & player.area(10).enemies >= 3 & player.area(10).enemies <= 5 & artifact.enabled(Shadow Thrash) || talent(7,3) & !player.debuff(Scent of Blood) & artifact.enabled(Scent of Blood) & player.area(10).enemies >= 6 & talent(7,3) & player.spell(Brutal Slash).cooldown >= 1 || !talent(7,3) & !player.debuff(Scent of Blood) & artifact.enabled(Scent of Blood) & player.area(10).enemies >= 6}"},
 	{"Brutal Slash", "talent(7,3) & player.combopoints <= 4 & {toggle(AoE) & player.area(7).enemies >= 3 || toggle(BOSS) & !target.debuff(Rake).duration <= 4 & player.area(7).enemies >= 1 || toggle(cooldowns) & !target.debuff(Rake).duration <= 4 & player.area(7).enemies >= 1 & {talent(5,3) & player.buff(Savage Roar) || !talent(5,3)}}"},
@@ -309,7 +307,7 @@ local Cat_Combat = {
 
 local Bear_Combat = {
     
-	{"/startattack", "!toggle(auto) & !isattacking & target.inmelee & target.enemy & target.alive", "target"},
+	{"/startattack", "!isattacking & target.inmelee & target.enemy & target.alive", "target"},
 	
 	{"&Maul", "target.range <= 7", "target"},
     {"Frenzied Regeneration", "talent(3,2) & player.incdmg(5) > player.health *0.20 & !player.buff(Frenzied Regeneration)", "player"},
@@ -322,21 +320,19 @@ local Bear_Combat = {
 local inCombat = {
 
     {Shapeshift},
-	{pvp_, "player.pvp & target.player & target.enemy & target.alive"},
+	{pvp, "player.pvp & target.player & target.enemy & target.alive"},
 	{Keybinds},
 	{Interrupts, "toggle(interrupts) & !player.buff(Prowl) & target.enemy & {!target.player || player.pvp & target.player}"},
     {Survival, "player.health < 100 & !player.buff(Prowl)"},		
 	{Cooldowns, "toggle(cooldowns)"},
 	{Cat_Combat, "player.buff(Cat Form) & target.alive & target.enemy & {!target.player || player.pvp & target.player}"},
 	{Bear_Combat, "player.buff(Bear Form) & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
-
- 	{"/cancelform", "player.swimming & !player.area(10).enemies >= 1 & !player.buff(Prowl) & !indoors & {player.buff(Cat Form) || player.buff(Bear Form)}"},
-	{"Travel Form", "player.swimming & !player.area(10).enemies >= 1 & !player.buff(Cat Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form)"},
 	
 }
 
 local outCombat = {	
-	
+
+    {Shapeshift},
 	{Keybinds},
 	{PreCombat},
 

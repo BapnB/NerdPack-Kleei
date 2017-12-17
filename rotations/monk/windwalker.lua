@@ -112,7 +112,7 @@ local Interrupts = {
 	
 }
 
-local Actions = {
+local Combat = {
 
     {"/startattack", "inmelee & !isattacking", "target"},
     {"Disable", "pvp & !debuff(Disable) & !debuff(Strike of the Windlord)", "target"},
@@ -120,7 +120,7 @@ local Actions = {
 	{"Whirling Dragon Punch", "inmelee", "target"},
     {"Energizing Elixir", "target.deathin > 6 & target.inmelee & player.energy < 35 & player.chi <= 2", "player"}, -- & player.spell(Fists of Fury).cooldown < gcd
     {"Rushing Jade Wind", "toggle(AoE) & player.area(8).enemies >= 5 & player.spell(Fists of Fury).cooldown > gcd"},
-	{"Spinning Crane Kick", "toggle(AoE) & player.area(8).enemies >= 5 & count(Mark of the Crane).enemies.debuffs >= 5 & range <= 7"},
+	{"Spinning Crane Kick", "toggle(AoE) & player.area(8).enemies >= 5 & count.enemies.debuffs(Mark of the Crane) >= 5 & range <= 7"},
 	{"Blackout Kick", "inmelee & player.buff(Blackout Kick!) & {!player.lastcast(Blackout Kick) || player.level <= 99}", "target"},
     {"Strike of the Windlord", "infront & {inmelee & deathin >= 12 || player.area(7).enemies.infront >= 3}", "target"},
     {"Rising Sun Kick", "inmelee & {player.level <= 99 || !player.lastcast(Rising Sun Kick)} & {!player.area(5).enemies.infront >= 3 || player.area(5).enemies.infront >= 3 & player.spell(Fists of Fury).cooldown > gcd}", "target"},
@@ -147,7 +147,7 @@ local inCombat = {
 	{Survival, "player.health < 100"},
 	{Interrupts, "target.interruptAt(40) & toggle(interrupts)"},
 	{Cooldowns, "toggle(cooldowns)"},
-	{Actions, "target.inmelee & target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp}"},
+	{Combat, "target.inmelee & target.enemy & target.alive & {!target.pvp || target.pvp & player.pvp}"},
  
 }
 
