@@ -24,23 +24,24 @@ NeP.DSL:Register("player", function(target)
 end)
 
 --/dump NeP.DSL.Parse("rake.stun", "", "")
-NeP.DSL:Register("rake.stun", function()
+NeP.DSL:Register("rake.stun", function(target, spell)
     if NeP.DSL:Get("debuff.many")("target", "Rake") == 2 then
     return true
 end
     return false
 end)
 
+--/dump NeP.DSL.Parse("player.immune_all", "", "")
 --/dump NeP.DSL.Parse("target.immune_all", "", "")
-NeP.DSL:Register("immune_all", function(target)
-    if UnitBuff("target", GetSpellInfo(45438)) or UnitBuff("target", GetSpellInfo(642)) or UnitBuff("target", GetSpellInfo(19263)) or UnitBuff("target", GetSpellInfo(186265)) then
+NeP.DSL:Register("immune_all", function(target, spell)
+    if UnitBuff(target, GetSpellInfo(45438)) or UnitBuff(target, GetSpellInfo(642)) or UnitBuff(target, GetSpellInfo(19263)) or UnitBuff(target, GetSpellInfo(186265)) then
     return true
 end
     return false
 end)
 
 --/dump NeP.DSL.Parse("target.Garrote_Silence", "", "")
-NeP.DSL:Register("Garrote_Silence", function()
+NeP.DSL:Register("Garrote_Silence", function(target, spell)
     if UnitDebuff("target", GetSpellInfo(1330)) then
     return true
 end
@@ -48,9 +49,9 @@ end
 end)
 
 --/dump NeP.DSL.Parse("roll_the_bones", "", "")
-NeP.DSL:Register("roll_the_bones", function()
+NeP.DSL:Register("roll_the_bones", function(target, spell)
   local roll = 0
-    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193357)) > 3 then  roll = roll + 1 -- Shark Infested Waters
+    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193357)) > 3 then  roll = roll + 2 -- Shark Infested Waters
 end
 
     if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193359)) > 3 then  roll = roll + 1  -- True Bearing
@@ -68,7 +69,19 @@ end
     if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193356)) > 3 then  roll = roll + 2  -- Broadsides
 end
 
+    if UnitDebuff("player", GetSpellInfo(202665)) then roll = roll + 2
+end
+
     if roll > 1 then
+    return true
+end
+    return false
+end)
+
+--/dump NeP.DSL.Parse("steal_buff", "", "")
+NeP.DSL:Register("steal_buff", function(target, spell)
+---------------------------Prismatic Barrier-------------------------------Innervate------------------------------Ice Barrier---------------------Blessing of Freedom------------------------Shield of Vengeance---------------------------------Rapture---------------------Power Word: Shield---------------------------Clarity of Will-------------------------------Combustion--------------------------------Icy Veins---------------------------Temporal Shield-----------------------------Arcane Power------------------------------Nether Ward-------------------------------Soul Harvest--
+    if UnitBuff(target, GetSpellInfo(235450)) or UnitBuff(target, GetSpellInfo(29166)) or UnitBuff(target, GetSpellInfo(11426)) or UnitBuff(target, GetSpellInfo(1044)) or UnitBuff(target, GetSpellInfo(184662)) or UnitBuff(target, GetSpellInfo(47536)) or UnitBuff(target, GetSpellInfo(17)) or UnitBuff(target, GetSpellInfo(152118)) or UnitBuff(target, GetSpellInfo(190319)) or UnitBuff(target, GetSpellInfo(12472)) or UnitBuff(target, GetSpellInfo(198111)) or UnitBuff(target, GetSpellInfo(12042)) or UnitBuff(target, GetSpellInfo(212295)) or UnitBuff(target, GetSpellInfo(196098)) then
     return true
 end
     return false
