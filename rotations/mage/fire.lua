@@ -55,7 +55,6 @@ local GUI = {
     {type = "header", size = 16,  text = "PVP", align = "center"},
     --{type = "checkbox",	text = "Polymorph: |c0000FA9A when player area enemies up to 3 (test)|r", align = "left", key = "poly", default = false},
     --{type = "checkbox",	text = "Spellsteal: |c0000FA9A Spellsteal good buffs enemies around (test)|r", align = "left", key = "st_buff", default = false},
-    {type = "checkbox",	text = "Unstun: |c0000FA9A use Blink|r", align = "left", key = "unstun", default = true},
     {type = "checkbox",	text = "Gladiator's Medallion , Every Man for Himself:", align = "left", key = "medal", default = true},
 	{type = "text", text = "|c0000FA9A      Remove stun/fear/disorient/charm.|r"},
 	{type = "spacer"}, {type = "ruler"},
@@ -71,6 +70,7 @@ local GUI = {
 	{type = "checkbox", text = "Use Ice Block:|c0000FA9A then you are stuned and all in CD", key = "ice_stun", default = true},
 	{type = "checkbox", text = "Use Ice Block:|c0000FA9A debuff Cauterize is up", key = "cool_down", default = true},
 	{type = "checkspin", text = "Use Ice Block:", key = "ice_health", check = true, spin = 20, width = 100, step = 5, max = 95, min = 1},
+	{type = "checkspin", text = "Use Temporal Shield:", key = "temp_shield", check = true, spin = 50, width = 100, step = 5, max = 95, min = 1},
 	{type = "checkspin", text = "Use Health Stone:", key = "hs", check = true, spin = 60, width = 100, step = 5, max = 95, min = 1},
 	{type = "spacer"}, {type = "ruler"},
 
@@ -144,11 +144,11 @@ local PreCombat = {
 
 local Survival = {
 
-    {"!Blink", "player.state(stun) & UI(unstun)"},
-    {"Every Man for Himself", "UI(medal) & state(stun) & !lastcast(Blink)", "player"},  
-	{"Gladiator's Medallion", "UI(medal) & target.pvp & player.pvp & {state(stun) & !lastcast(Blink) || state(fear) || state(disorient) || state(charm)}", "player"},
+    {"!Every Man for Himself", "UI(medal) & state(stun)", "player"},
+	{"!Gladiator's Medallion", "UI(medal) & target.pvp & player.pvp & {state(stun) & spell(Every Man for Himself).cooldown >= gcd || state(fear) || state(disorient) || state(charm)}", "player"},
 	{"!Ice Block", "player.health <= UI(ice_health_spin) & UI(ice_health_check) || debuff(Cauterize) & UI(cool_down) || state(stun) & !lastcast(Blink) & !lastcast(Gladiator's Medallion) & UI(ice_stun)", "player"},
-    {"Dragon's Breath",	"toggle(cr) & range <= 8 & infront & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm)", "enemies"},
+    {"!Temporal Shield", "player.health <= UI(temp_shield_spin) & UI(temp_shield_check) & combat & area(40).enemies >= 1", "player"},
+	{"Dragon's Breath",	"toggle(cr) & range <= 8 & infront & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm)", "enemies"},
 	{"Frost Nova", "toggle(cr) & range <= 8 & !player.lastcast(Frost Nova) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm)", "enemies"},
 	{"Blazing Barrier", "buff(Blazing Barrier).duration < gcd", "player"},
 	{"#5512", "item(5512).count >= 1 & health <= UI(hs_spin) & UI(hs_check) & combat", "player"}, --Health Stone
