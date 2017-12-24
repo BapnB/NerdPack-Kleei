@@ -80,19 +80,22 @@ local GUI = {
 	{type = "spacer"}, {type = "ruler"},
 
     {type = "text", text = "Cooldowns Toggle:", align = "center"},
-    {type = "text", text = "Time Warp|c0000FA9A |r"},
-    {type = "text", text = "Combustion|c0000FA9A |r"},
-    {type = "text", text = "Meteor|c0000FA9A |r"},	
+	{type = "text", text = "Use Time Warp|c0000FA9A if toggle is on|r"},
+	{type = "checkbox", text = "Use Combustion|c0000FA9A you can disable|r", key = "fire_man", default = true},
+	{type = "checkbox", text = "Use Meteor|c0000FA9A you can disable|r", key = "mete", default = true},
     {type = "spacer"}, {type = "ruler"},
 
 }
 
 local exeOnLoad = function()
 
+ 	print('|c0000FA9A ----------------------------------------------------------------------|r')
 	print('|c0000BFFF --- |r|c0000BFFF Mage - Fire |r')
-
+	print('|c0000FA9A ------------------------PVP-------------------------------------------|r')
+	print('|c0000FA9A --- |rRecommended Talents: 1/1 - 2/1 - 3/3 - 4/2 - 5/3 - 6/1 - 7/3')
+    print('|c0000FA9A')
 	print('|c0000BFFF ------------------------PVE-------------------------------------------|r')
-	print('|c0000BFFF --- |rRecommended Talents: Coming Soon')
+	print('|c0000BFFF --- |rRecommended Talents: 1/1 - 2/1 - 3/3 - 4/2 - 5/3 - 6/2 - 7/3')
 	print('|c0000BFFF ----------------------------------------------------------------------|r')
 	
 	NeP.Interface:AddToggle({
@@ -137,7 +140,7 @@ local Keybinds = {
 local PreCombat = { 
 
 	{"Blazing Barrier", "!buff(Blazing Barrier)", "player"},
-	{"Fireball", "range <= 38.5 & alive & enemy & !immune_all & {!target.pvp || target.pvp & player.pvp} & {UI(allfacing) || !UI(allfacing) & infront} & {UI(mc) || !UI(mc) & !player.moving}", "target"},
+	{"Fireball", "range <= 38.5 & alive & enemy & !immune_all & !buff(Touch of Karma) & !buff(Dispersion) & {!target.pvp || target.pvp & player.pvp} & {UI(allfacing) || !UI(allfacing) & infront} & {UI(mc) || !UI(mc) & !player.moving}", "target"},
 
 }
 
@@ -147,8 +150,8 @@ local Survival = {
 	{"!Gladiator's Medallion", "UI(medal) & target.pvp & player.pvp & {state(stun) & spell(Every Man for Himself).cooldown >= gcd || state(fear) || state(disorient) || state(charm)}", "player"},
 	{"!Ice Block", "player.health <= UI(ice_health_spin) & UI(ice_health_check) || debuff(Cauterize) & UI(cool_down) || state(stun) & spell(Every Man for Himself).cooldown >= gcd & !lastcast(Gladiator's Medallion) & UI(ice_stun)", "player"},
     {"!Temporal Shield", "player.health <= UI(temp_shield_spin) & UI(temp_shield_check) & combat & area(40).enemies >= 1", "player"},
-	{"Dragon's Breath",	"toggle(cr) & !enemy_totem & range <= 8 & infront & !immune_all & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm)", "enemies"},
-	{"Frost Nova", "toggle(cr) & !enemy_totem & range <= 8 & !immune_all & !player.lastcast(Frost Nova) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm)", "enemies"},
+	{"Dragon's Breath",	"toggle(cr) & !enemy_totem & range <= 8 & infront & !immune_all & !buff(Dispersion) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm)", "enemies"},
+	{"Frost Nova", "toggle(cr) & !enemy_totem & range <= 8 & !immune_all & !buff(Dispersion) & !player.lastcast(Frost Nova) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm)", "enemies"},
 	{"Blazing Barrier", "buff(Blazing Barrier).duration < gcd", "player"},
 	{"#5512", "item(5512).count >= 1 & health <= UI(hs_spin) & UI(hs_check) & combat", "player"}, --Health Stone
 
@@ -165,8 +168,8 @@ local Interrupts = {
 local Cooldowns = {
 
 	{"Time Warp", "toggle(tw) & target.range <= 38 & !target.immune_all & target.alive & target.enemy"},
-	{"Combustion", "spell(Phoenix's Flames).charges < 1 & spell(Fire Blast).charges < 1 & target.range <= 35 & !target.immune_all & target.alive & target.enemy", "player"},
-	{"Meteor", "target.range <= 38 & !target.immune_all & target.alive & target.enemy", "target.ground"},
+	{"Combustion", "spell(Phoenix's Flames).charges < 1 & spell(Fire Blast).charges < 1 & target.range <= 35 & !target.immune_all & target.alive & target.enemy & UI(fire_man)", "player"},
+	{"Meteor", "target.range <= 38 & !target.immune_all & target.alive & target.enemy & UI(mete)", "target.ground"},
     {"#trinket1", "UI(trk1) & target.range <= 38 & !target.immune_all & target.alive & target.enemy"},
 	{"#trinket2", "UI(trk2) & target.range <= 38 & !target.immune_all & target.alive & target.enemy"},
 
@@ -192,7 +195,7 @@ local inCombat = {
 	{Interrupts, "toggle(interrupts) & !immune_all & !player.buff(Invisibility) & !debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
     {Survival, "player.health <= 100 & !player.buff(Invisibility)"},
 	{Cooldowns, "toggle(cooldowns) & !player.buff(Invisibility) & !debuff(Polymorph)"},
-    {Combat, "target.alive & !immune_all & target.enemy & !player.buff(Invisibility) & !debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
+    {Combat, "target.alive & !immune_all & target.enemy & !target.buff(Touch of Karma) & !target.buff(Dispersion) & !player.buff(Invisibility) & !debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
 
 }
 
