@@ -54,7 +54,7 @@ local GUI = {
 	
     {type = "header", size = 16,  text = "PVP", align = "center"},
     --{type = "checkbox",	text = "Polymorph: |c0000FA9A when player area enemies up to 3 (test)|r", align = "left", key = "poly", default = false},
-    --{type = "checkbox",	text = "Spellsteal: |c0000FA9A Spellsteal good buffs enemies around (test)|r", align = "left", key = "st_buff", default = false},
+    {type = "checkbox",	text = "Spellsteal: |c0000FA9A steal good buffs enemies around|r", align = "left", key = "st_buff", default = true},
     {type = "checkbox",	text = "Gladiator's Medallion , Every Man for Himself:", align = "left", key = "medal", default = true},
 	{type = "text", text = "|c0000FA9A      Remove stun/fear/disorient/charm.|r"},
 	{type = "spacer"}, {type = "ruler"},
@@ -67,10 +67,10 @@ local GUI = {
 	{type = "spacer"}, {type = "ruler"},
 	
 	{type = "header", size = 16, text = "Survival", align = "center"},
-	{type = "checkbox", text = "Use Ice Block:|c0000FA9A then you are stuned and all in CD", key = "ice_stun", default = true},
+	{type = "checkbox", text = "Use Ice Block:|c0000FA9A then you are stuned and all in CD", key = "ice_stun", default = false},
 	{type = "checkbox", text = "Use Ice Block:|c0000FA9A debuff Cauterize is up", key = "cool_down", default = true},
 	{type = "checkspin", text = "Use Ice Block:", key = "ice_health", check = true, spin = 20, width = 100, step = 5, max = 95, min = 1},
-	{type = "checkspin", text = "Use Temporal Shield:", key = "temp_shield", check = true, spin = 50, width = 100, step = 5, max = 95, min = 1},
+	{type = "checkspin", text = "Use Temporal Shield:", key = "temp_shield", check = true, spin = 70, width = 100, step = 5, max = 95, min = 1},
 	{type = "checkspin", text = "Use Health Stone:", key = "hs", check = true, spin = 60, width = 100, step = 5, max = 95, min = 1},
 	{type = "spacer"}, {type = "ruler"},
 
@@ -112,19 +112,19 @@ local exeOnLoad = function()
 		icon = "Interface\\Icons\\spell_frost_frostnova",
 	})
 	
-	NeP.Interface:AddToggle({
+	--[[NeP.Interface:AddToggle({
 		key = "steal_tog",
 		name = "Auto Spellsteal",
 		text = "Auto use Spellsteal when Must Have buffs comes up on enemies around.",
 		icon = "Interface\\Icons\\spell_arcane_arcane02",
-	})
+	})]]
 
 end
 
 local pvp = {
 
 	--{"Polymorph", "!immune_all & alive & enemy & combat & !count.enemies.debuffs(Polymorph) >= 1 & !player.lastcast(Polymorph) & pvp & !is(target) & player.area(28).enemies <= 3 & player.area(28).enemies >= 1 & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & UI(poly) & {UI(mc) || !UI(mc) & !player.moving}", "enemies"},
-	{"Spellsteal", "!immune_all & alive & enemy & range <= 38 & steal_buff & toggle(steal_tog) & {player.mana >= 25 || player.buff(Innervate)} & {!pvp || pvp & player.pvp}", "enemies"},  --& !player.the_steal & UI(st_buff) 
+	{"Spellsteal", "!immune_all & alive & enemy & range <= 38 & steal_buff & {toggle(steal_tog) || UI(st_buff)} & {player.mana >= 25 || player.buff(Innervate)} & {!pvp || pvp & player.pvp}", "enemies"},  --& !player.the_steal
 
 }
 
@@ -140,7 +140,7 @@ local Keybinds = {
 local PreCombat = { 
 
 	{"Blazing Barrier", "!buff(Blazing Barrier)", "player"},
-	{"Fireball", "range <= 38.5 & alive & enemy & !immune_all & !buff(Touch of Karma) & !buff(Dispersion) & {!target.pvp || target.pvp & player.pvp} & {UI(allfacing) || !UI(allfacing) & infront} & {UI(mc) || !UI(mc) & !player.moving}", "target"},
+	{"Fireball", "range <= 38.5 & alive & enemy & !immune_all & !buff(Touch of Karma) & !buff(Dispersion) & !buff(Cloak of Shadows) & {!target.pvp || target.pvp & player.pvp} & {UI(allfacing) || !UI(allfacing) & infront} & {UI(mc) || !UI(mc) & !player.moving}", "target"},
 
 }
 
@@ -150,8 +150,8 @@ local Survival = {
 	{"!Gladiator's Medallion", "UI(medal) & target.pvp & player.pvp & {state(stun) & spell(Every Man for Himself).cooldown >= gcd || state(fear) || state(disorient) || state(charm)}", "player"},
 	{"!Ice Block", "player.health <= UI(ice_health_spin) & UI(ice_health_check) || debuff(Cauterize) & UI(cool_down) || state(stun) & spell(Every Man for Himself).cooldown >= gcd & !lastcast(Gladiator's Medallion) & UI(ice_stun)", "player"},
     {"!Temporal Shield", "player.health <= UI(temp_shield_spin) & UI(temp_shield_check) & combat & area(40).enemies >= 1", "player"},
-	{"Dragon's Breath",	"toggle(cr) & !enemy_totem & range <= 8 & infront & !immune_all & !buff(Dispersion) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm)", "enemies"},
-	{"Frost Nova", "toggle(cr) & !enemy_totem & range <= 8 & !immune_all & !buff(Dispersion) & !player.lastcast(Frost Nova) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm)", "enemies"},
+	{"Dragon's Breath",	"toggle(cr) & !enemy_totem & range <= 8 & infront & !immune_all & !buff(Cloak of Shadows) & !buff(Dispersion) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm)", "enemies"},
+	{"Frost Nova", "toggle(cr) & !enemy_totem & range <= 8 & !immune_all & !buff(Cloak of Shadows) & !buff(Dispersion) & !player.lastcast(Frost Nova) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm)", "enemies"},
 	{"Blazing Barrier", "buff(Blazing Barrier).duration < gcd", "player"},
 	{"#5512", "item(5512).count >= 1 & health <= UI(hs_spin) & UI(hs_check) & combat", "player"}, --Health Stone
 
@@ -194,8 +194,8 @@ local inCombat = {
 	{Keybinds},
 	{Interrupts, "toggle(interrupts) & !immune_all & !player.buff(Invisibility) & !debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
     {Survival, "player.health <= 100 & !player.buff(Invisibility)"},
-	{Cooldowns, "toggle(cooldowns) & !player.buff(Invisibility) & !debuff(Polymorph) & !buff(Touch of Karma) & !buff(Dispersion)"},
-    {Combat, "target.alive & !immune_all & target.enemy & !target.buff(Touch of Karma) & !target.buff(Anti-Magic Shell) & !target.buff(Dispersion) & !player.buff(Invisibility) & !debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
+	{Cooldowns, "toggle(cooldowns) & !player.buff(Invisibility) & !debuff(Polymorph) & !target.buff(Cloak of Shadows) & !buff(Touch of Karma) & !buff(Dispersion)"},
+    {Combat, "target.alive & !immune_all & target.enemy & !target.buff(Touch of Karma) & !target.buff(Cloak of Shadows) & !target.buff(Dispersion) & !player.buff(Invisibility) & !debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
 
 }
 
