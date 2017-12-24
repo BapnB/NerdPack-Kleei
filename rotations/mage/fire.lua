@@ -195,7 +195,7 @@ local inCombat = {
 	{Interrupts, "toggle(interrupts) & !immune_all & !player.buff(Invisibility) & !debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
     {Survival, "player.health <= 100 & !player.buff(Invisibility)"},
 	{Cooldowns, "toggle(cooldowns) & !player.buff(Invisibility) & !debuff(Polymorph) & !buff(Touch of Karma) & !buff(Dispersion)"},
-    {Combat, "target.alive & !immune_all & target.enemy & !target.buff(Touch of Karma) & !target.buff(Dispersion) & !player.buff(Invisibility) & !debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
+    {Combat, "target.alive & !immune_all & target.enemy & !target.buff(Touch of Karma) & !target.buff(Anti-Magic Shell) & !target.buff(Dispersion) & !player.buff(Invisibility) & !debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
 
 }
 
