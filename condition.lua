@@ -86,3 +86,11 @@ NeP.DSL:Register("steal_buff", function(target, spell)
 end
     return false
 end)
+
+--/dump NeP.DSL.Parse("enemy_totem", "", "")
+NeP.DSL:Register("enemy_totem", function(target)
+    if NeP.DSL.Parse("is(2630)", "", "") or NeP.DSL.Parse("is(113845)", "", "") or NeP.DSL.Parse("is(102392)", "", "") or NeP.DSL.Parse("is(106317)", "", "") or NeP.DSL.Parse("is(106319)", "", "") or NeP.DSL.Parse("is(106321)", "", "") or NeP.DSL.Parse("is(3527)", "", "") or NeP.DSL.Parse("is(59764)", "", "") or NeP.DSL.Parse("is(53006)", "", "") then
+    return true
+end
+    return false
+end)

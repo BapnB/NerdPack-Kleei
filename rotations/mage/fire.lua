@@ -79,8 +79,7 @@ local GUI = {
     {type = 'checkbox',	text = "Moving-Cast:|c0000FA9A if you use it check the box and it will cast when moving|r", align = 'left', key = 'mc', default = false},
 	{type = "spacer"}, {type = "ruler"},
 
-    {type = "text", text = "Cooldowns Toggle:"},
-	{type = "text", text = "|c0087CEFA All if target will die in more than 10 sec|r", align = "center"}, 
+    {type = "text", text = "Cooldowns Toggle:", align = "center"},
     {type = "text", text = "Time Warp|c0000FA9A |r"},
     {type = "text", text = "Combustion|c0000FA9A |r"},
     {type = "text", text = "Meteor|c0000FA9A |r"},	
@@ -122,7 +121,7 @@ end
 local pvp = {
 
 	--{"Polymorph", "!immune_all & alive & enemy & combat & !count.enemies.debuffs(Polymorph) >= 1 & !player.lastcast(Polymorph) & pvp & !is(target) & player.area(28).enemies <= 3 & player.area(28).enemies >= 1 & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & UI(poly) & {UI(mc) || !UI(mc) & !player.moving}", "enemies"},
-	{"Spellsteal", "!immune_all & alive & enemy & range <= 38 & steal_buff & toggle(steal_tog) & {player.mana >= 25 || player.buff(Innervate)}", "enemies"},  --& !player.the_steal & UI(st_buff) 
+	{"Spellsteal", "!immune_all & alive & enemy & range <= 38 & steal_buff & toggle(steal_tog) & {player.mana >= 25 || player.buff(Innervate)} & {!pvp || pvp & player.pvp}", "enemies"},  --& !player.the_steal & UI(st_buff) 
 
 }
 
@@ -146,10 +145,10 @@ local Survival = {
 
     {"!Every Man for Himself", "UI(medal) & state(stun)", "player"},
 	{"!Gladiator's Medallion", "UI(medal) & target.pvp & player.pvp & {state(stun) & spell(Every Man for Himself).cooldown >= gcd || state(fear) || state(disorient) || state(charm)}", "player"},
-	{"!Ice Block", "player.health <= UI(ice_health_spin) & UI(ice_health_check) || debuff(Cauterize) & UI(cool_down) || state(stun) & !lastcast(Blink) & !lastcast(Gladiator's Medallion) & UI(ice_stun)", "player"},
+	{"!Ice Block", "player.health <= UI(ice_health_spin) & UI(ice_health_check) || debuff(Cauterize) & UI(cool_down) || state(stun) & spell(Every Man for Himself).cooldown >= gcd & !lastcast(Gladiator's Medallion) & UI(ice_stun)", "player"},
     {"!Temporal Shield", "player.health <= UI(temp_shield_spin) & UI(temp_shield_check) & combat & area(40).enemies >= 1", "player"},
-	{"Dragon's Breath",	"toggle(cr) & range <= 8 & infront & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm)", "enemies"},
-	{"Frost Nova", "toggle(cr) & range <= 8 & !player.lastcast(Frost Nova) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm)", "enemies"},
+	{"Dragon's Breath",	"toggle(cr) & !enemy_totem & range <= 8 & infront & !immune_all & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm)", "enemies"},
+	{"Frost Nova", "toggle(cr) & !enemy_totem & range <= 8 & !immune_all & !player.lastcast(Frost Nova) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm)", "enemies"},
 	{"Blazing Barrier", "buff(Blazing Barrier).duration < gcd", "player"},
 	{"#5512", "item(5512).count >= 1 & health <= UI(hs_spin) & UI(hs_check) & combat", "player"}, --Health Stone
 
@@ -165,11 +164,11 @@ local Interrupts = {
 
 local Cooldowns = {
 
-	{"Time Warp", "toggle(tw) & target.range <= 38 & target.deathin >= 10"},
-	{"Combustion", "spell(Phoenix's Flames).charges < 1 & spell(Fire Blast).charges < 1 & target.range <= 35 & target.deathin >= 10", "player"},
-	{"Meteor", "!player.buff(Heating up) & target.range <= 38 & target.deathin >= 10", "target.ground"},
-    {"#trinket1", "UI(trk1) & target.range <= 38 & target.deathin >= 10"},
-	{"#trinket2", "UI(trk2) & target.range <= 38 & target.deathin >= 10"},
+	{"Time Warp", "toggle(tw) & target.range <= 38 & !target.immune_all & target.alive & target.enemy"},
+	{"Combustion", "spell(Phoenix's Flames).charges < 1 & spell(Fire Blast).charges < 1 & target.range <= 35 & !target.immune_all & target.alive & target.enemy", "player"},
+	{"Meteor", "target.range <= 38 & !target.immune_all & target.alive & target.enemy", "target.ground"},
+    {"#trinket1", "UI(trk1) & target.range <= 38 & !target.immune_all & target.alive & target.enemy"},
+	{"#trinket2", "UI(trk2) & target.range <= 38 & !target.immune_all & target.alive & target.enemy"},
 
 }
 
@@ -181,8 +180,8 @@ local Combat = {
 	{"!Phoenix's Flames", "range <= 38 & !player.buff(Hot Streak!) & !debuff(Dragon's Breath) & !player.casting(Polymorph) & {player.buff(Heating up) || player.spell(Phoenix's Flames).charges >= 2 || player.spell(Fire Blast).charges >= 1} & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
 	{"!Fire Blast", "range <= 38 & !player.buff(Hot Streak!) & !debuff(Dragon's Breath) & !player.casting(Polymorph) & {player.buff(Heating up) || player.spell(Fire Blast).charges >= 2 || player.spell(Phoenix's Flames).charges >= 1} & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
 	{"Living Bomb", "range <= 38 & talent(6,1)", "target"},
-	{"Fireball", "range <= 38 & {!player.buff(Hot Streak!) || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {UI(mc) || !UI(mc) & !player.moving} & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
-	{"Scorch", "player.moving & !player.buff(Hot Streak!)", "target"},
+	{"Fireball", "range <= 38 & !player.buff(Combustion) & {!player.buff(Hot Streak!) || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {UI(mc) || !UI(mc) & !player.moving} & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
+	{"Scorch", "!player.buff(Hot Streak!) & {player.moving || player.buff(Combustion)}", "target"},
 
 }
 
@@ -190,10 +189,10 @@ local inCombat = {
 
 	{pvp, "!player.buff(Invisibility)"},
 	{Keybinds},
-	{Interrupts, "toggle(interrupts) & !immune_all & !player.buff(Invisibility) & {!target.pvp || target.pvp & player.pvp}"},
+	{Interrupts, "toggle(interrupts) & !immune_all & !player.buff(Invisibility) & !debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
     {Survival, "player.health <= 100 & !player.buff(Invisibility)"},
-	{Cooldowns, "toggle(cooldowns) & !immune_all & !player.buff(Invisibility)"},
-    {Combat, "target.alive & !immune_all & target.enemy & !player.buff(Invisibility) & {!target.pvp || target.pvp & player.pvp}"},
+	{Cooldowns, "toggle(cooldowns) & !player.buff(Invisibility) & !debuff(Polymorph)"},
+    {Combat, "target.alive & !immune_all & target.enemy & !player.buff(Invisibility) & !debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
 
 }
 
