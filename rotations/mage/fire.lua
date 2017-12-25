@@ -125,7 +125,7 @@ end
 local pvp = {
 
 	--{"Polymorph", "!immune_all & alive & enemy & combat & !count.enemies.debuffs(Polymorph) >= 1 & !player.lastcast(Polymorph) & pvp & !is(target) & player.area(28).enemies <= 3 & player.area(28).enemies >= 1 & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & UI(poly) & {UI(mc) || !UI(mc) & !player.moving}", "enemies"},
-	{"Spellsteal", "!immune_all & alive & enemy & range <= 38 & steal_buff & {toggle(steal_tog) || UI(st_buff)} & {player.mana >= 25 || player.buff(Innervate)} & {!pvp || pvp & player.pvp}", "enemies"},  --& !player.the_steal
+	{"Spellsteal", "!immune_all & alive & enemy & range <= 38.5 & steal_buff & {toggle(steal_tog) || UI(st_buff)} & {player.mana >= 25 || player.buff(Innervate)} & {!pvp || pvp & player.pvp}", "enemies"},  --& !player.the_steal
 
 }
 
@@ -133,8 +133,8 @@ local Keybinds = {
 
     {"Polymorph", "!immune_all & alive & enemy & debuff(Polymorph).duration <= 2 & !player.lastcast & range <= 27 & !focus.exists & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2} & {UI(mc) || !UI(mc) & !player.moving}", "target"},
     {"Polymorph", "!immune_all & alive & enemy & debuff(Polymorph).duration <= 2 & !player.lastcast & range <= 27 & focus.exists & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2} & {UI(mc) || !UI(mc) & !player.moving}", "focus"},
-	{"Spellsteal", "!immune_all & alive & enemy & range <= 38 & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
-	{"Meteor", "target.alive & target.enemy & player.combat & target.range <= 35 & !target.immune_all & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "target.ground"},	
+	{"Spellsteal", "!immune_all & alive & enemy & range <= 38.5 & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
+	{"Meteor", "target.alive & target.enemy & player.combat & target.range <= 38.5 & !target.immune_all & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "target.ground"},	
 
 }
 
@@ -168,9 +168,9 @@ local Interrupts = {
 
 local Cooldowns = {
 
-	{"Time Warp", "toggle(tw) & target.range <= 38 & !target.immune_all & target.alive & target.enemy"},
-	{"Combustion", "!player.buff(Hot Streak!) & target.range <= 35 & !target.immune_all & target.alive & target.enemy & UI(fire_man)", "player"},
-	{"Meteor", "target.range <= 38 & !target.immune_all & target.alive & target.enemy & UI(mete)", "target.ground"},
+	{"Time Warp", "toggle(tw) & target.range <= 38.5 & !target.immune_all & target.alive & target.enemy"},
+	{"Combustion", "!player.buff(Hot Streak!) & target.range <= 38.5 & !target.immune_all & target.alive & target.enemy & UI(fire_man)", "player"},
+	{"Meteor", "target.range <= 38.5 & !target.immune_all & target.alive & target.enemy & UI(mete)", "target.ground"},
     {"#trinket1", "UI(trk1) & target.range <= 38 & !target.immune_all & target.alive & target.enemy"},
 	{"#trinket2", "UI(trk2) & target.range <= 38 & !target.immune_all & target.alive & target.enemy"},
 
@@ -178,14 +178,15 @@ local Cooldowns = {
 
 local Combat = {
 
-	{"Meteor", "target.range <= 38 & !player.buff(Heating up) & {toggle(AoE) & target.area(8).enemies >= 3 || {target.state(root) & target.state(stun) & target.state(fear) & target.state(disorient) & target.state(incapacitate)}}", "target.ground"},
+	{"!Pyroblast", "range <= 38.5 & player.buff(Hot Streak!) & player.buff(Combustion) & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
+	{"Meteor", "target.range <= 38.5 & !player.buff(Heating up) & {toggle(AoE) & target.area(8).enemies >= 3 || {target.state(root) & target.state(stun) & target.state(fear) & target.state(disorient) & target.state(incapacitate)}}", "target.ground"},
     {"Flamestrike", "toggle(AoE) & !target.debuff(Dragon's Breath) & player.buff(Hot Streak!) & target.area(10).enemies >= 5 & {UI(mc) || !UI(mc) & !player.moving}", "target.ground"},
-	{"Pyroblast", "range <= 38 & !debuff(Dragon's Breath) & player.buff(Hot Streak!) & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
-	{"!Phoenix's Flames", "range <= 38 & !player.buff(Hot Streak!) & !debuff(Dragon's Breath) & !player.casting(Polymorph) & {player.buff(Heating up) || player.spell(Phoenix's Flames).charges >= 2 || player.spell(Fire Blast).charges >= 1} & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
-	{"!Fire Blast", "range <= 38 & !player.buff(Hot Streak!) & !debuff(Dragon's Breath) & !player.casting(Polymorph) & {player.buff(Heating up) || player.spell(Fire Blast).charges >= 2 || player.spell(Phoenix's Flames).charges >= 1} & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
-	{"Living Bomb", "range <= 38 & talent(6,1)", "target"},
-	{"Fireball", "range <= 38 & !player.buff(Combustion) & {!player.buff(Hot Streak!) || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {UI(mc) || !UI(mc) & !player.moving} & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
-	{"Scorch", "range <= 38 & {!player.buff(Hot Streak!) || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {player.moving || player.buff(Combustion)}", "target"},
+	{"Pyroblast", "range <= 38.5 & !debuff(Dragon's Breath) & player.buff(Hot Streak!) & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
+	{"!Phoenix's Flames", "range <= 38.5 & !player.buff(Hot Streak!) & !debuff(Dragon's Breath) & !player.casting(Polymorph) & {player.buff(Heating up) || player.spell(Phoenix's Flames).charges >= 2 || player.spell(Fire Blast).charges >= 1} & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
+	{"!Fire Blast", "range <= 38.5 & !player.buff(Hot Streak!) & !debuff(Dragon's Breath) & !player.casting(Polymorph) & {player.buff(Heating up) || player.spell(Fire Blast).charges >= 2 || player.spell(Phoenix's Flames).charges >= 1} & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
+	{"Living Bomb", "range <= 38.5 & talent(6,1)", "target"},
+	{"Fireball", "range <= 38.5 & !player.buff(Combustion) & {!player.buff(Hot Streak!) || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {UI(mc) || !UI(mc) & !player.moving} & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
+	{"Scorch", "range <= 38.5 & {!player.buff(Hot Streak!) || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {player.moving || player.buff(Combustion)}", "target"},
 
 }
 
