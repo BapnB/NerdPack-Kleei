@@ -82,7 +82,7 @@ local GUI = {
     {type = "text", text = "Cooldowns Toggle:", align = "center"},
 	{type = "text", text = "Use Time Warp|c0000FA9A if toggle is on|r"},
 	{type = "checkbox", text = "Use Combustion|c0000FA9A you can disable|r", key = "fire_man", default = true},
-	{type = "checkbox", text = "Use Meteor|c0000FA9A you can disable|r", key = "mete", default = true},
+	{type = "checkbox", text = "Use Meteor|c0000FA9A you can disable|r", key = "mete", default = false},
     {type = "spacer"}, {type = "ruler"},
 
 }
