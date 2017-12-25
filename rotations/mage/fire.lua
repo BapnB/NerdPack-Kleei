@@ -69,9 +69,9 @@ local GUI = {
 	{type = "header", size = 16, text = "Survival", align = "center"},
 	{type = "checkbox", text = "Use Ice Block:|c0000FA9A then you are stuned and all in CD", key = "ice_stun", default = false},
 	{type = "checkbox", text = "Use Ice Block:|c0000FA9A debuff Cauterize is up", key = "cool_down", default = true},
-	{type = "checkspin", text = "Use Ice Block:", key = "ice_health", check = true, spin = 20, width = 100, step = 5, max = 95, min = 1},
+	{type = "checkspin", text = "Use Ice Block:", key = "ice_health", check = true, spin = 10, width = 100, step = 5, max = 95, min = 1},
 	{type = "checkspin", text = "Use Temporal Shield:", key = "temp_shield", check = true, spin = 70, width = 100, step = 5, max = 95, min = 1},
-	{type = "checkspin", text = "Use Health Stone:", key = "hs", check = true, spin = 60, width = 100, step = 5, max = 95, min = 1},
+	{type = "checkspin", text = "Use Health Stone:", key = "hs", check = true, spin = 30, width = 100, step = 5, max = 95, min = 1},
 	{type = "spacer"}, {type = "ruler"},
 
 	{type = 'header', size = 16, text = 'EWT cheat', align = 'center'},
@@ -168,7 +168,7 @@ local Interrupts = {
 local Cooldowns = {
 
 	{"Time Warp", "toggle(tw) & target.range <= 38 & !target.immune_all & target.alive & target.enemy"},
-	{"Combustion", "spell(Phoenix's Flames).charges < 1 & spell(Fire Blast).charges < 1 & target.range <= 35 & !target.immune_all & target.alive & target.enemy & UI(fire_man)", "player"},
+	{"Combustion", "!player.buff(Hot Streak!) & target.range <= 35 & !target.immune_all & target.alive & target.enemy & UI(fire_man)", "player"},
 	{"Meteor", "target.range <= 38 & !target.immune_all & target.alive & target.enemy & UI(mete)", "target.ground"},
     {"#trinket1", "UI(trk1) & target.range <= 38 & !target.immune_all & target.alive & target.enemy"},
 	{"#trinket2", "UI(trk2) & target.range <= 38 & !target.immune_all & target.alive & target.enemy"},
@@ -184,7 +184,7 @@ local Combat = {
 	{"!Fire Blast", "range <= 38 & !player.buff(Hot Streak!) & !debuff(Dragon's Breath) & !player.casting(Polymorph) & {player.buff(Heating up) || player.spell(Fire Blast).charges >= 2 || player.spell(Phoenix's Flames).charges >= 1} & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
 	{"Living Bomb", "range <= 38 & talent(6,1)", "target"},
 	{"Fireball", "range <= 38 & !player.buff(Combustion) & {!player.buff(Hot Streak!) || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {UI(mc) || !UI(mc) & !player.moving} & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
-	{"Scorch", "!player.buff(Hot Streak!) & {player.moving || player.buff(Combustion)}", "target"},
+	{"Scorch", "range <= 38 & {!player.buff(Hot Streak!) || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {player.moving || player.buff(Combustion)}", "target"},
 
 }
 
