@@ -89,20 +89,21 @@ local GUI = {
 
 local exeOnLoad = function()
 
- 	print('|c0000FA9A ----------------------------------------------------------------------|r')
-	print('|c0000BFFF --- |r|c0000BFFF Mage - Fire |r')
-	print('|c0000FA9A ------------------------PVP-------------------------------------------|r')
-	print('|c0000FA9A --- |rRecommended Talents: 1/1 - 2/1 - 3/3 - 4/2 - 5/3 - 6/1 - 7/3')
-    print('|c0000FA9A')
-	print('|c0000BFFF ------------------------PVE-------------------------------------------|r')
-	print('|c0000BFFF --- |rRecommended Talents: 1/1 - 2/1 - 3/3 - 4/2 - 5/3 - 6/2 - 7/3')
-	print('|c0000BFFF ----------------------------------------------------------------------|r')
+ 	print("|c0000FA9A ----------------------------------------------------------------------|r")
+	print("|c0000FA9A --- |r|c0000BFFF Mage - Fire |r")
+	print("|c0000FA9A ------------------------PVP-------------------------------------------|r")
+	print("|c0000FA9A --- |rRecommended Talents: 1/1 - 2/1 - 3/3 - 4/2 - 5/3 - 6/1 - 7/3")
+	print("|c0000FA9A --- |rHonor Talents: 1/1 - 2/1 - 3/1 - 4/1 - 5/3 - 6/2")
+    print("|c0000FA9A")
+	print("|c0000FA9A ------------------------PVE-------------------------------------------|r")
+	print("|c0000FA9A --- |rRecommended Talents: 1/1 - 2/1 - 3/3 - 4/2 - 5/3 - 6/2 - 7/3")
+	print("|c0000FA9A ----------------------------------------------------------------------|r")
 	
 	NeP.Interface:AddToggle({
-		key = 'tw',
-		name = 'Time Warp',
-		text = 'Automatically use Time Warp.',
-		icon = 'Interface\\Icons\\ability_mage_timewarp',
+		key = "tw",
+		name = "Time Warp",
+		text = "Automatically use Time Warp",
+		icon = "Interface\\Icons\\ability_mage_timewarp",
 	})
 	
 	NeP.Interface:AddToggle({
@@ -208,12 +209,12 @@ local outCombat = {
 }
 
 NeP.CR:Add(63, {
-	name = '[|c0000BFFFKleei|r]|c0000BFFF Mage - Fire',
+	name = "[|c0000BFFFKleei|r]|c0000BFFF Mage - Fire",
 	ic = inCombat,
 	ooc = outCombat,
 	gui = GUI,
 	gui_st = {title="Kleei Combat Routine Settings", width="315", height="770", color="87CEFA"},
-	wow_ver = '7.1.5',
- 	nep_ver = '1.11',
+	wow_ver = "7.1.5",
+ 	nep_ver = "1.11",
 	load = exeOnLoad
 })
