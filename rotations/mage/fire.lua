@@ -179,8 +179,8 @@ local Cooldowns = {
 local Combat = {
 
 	{"!Pyroblast", "range <= 38.5 & player.buff(Hot Streak!) & player.buff(Combustion) & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
-	{"Meteor", "target.range <= 38.5 & !player.buff(Heating up) & {toggle(AoE) & target.area(8).enemies >= 3 || {target.state(root) & target.state(stun) & target.state(fear) & target.state(disorient) & target.state(incapacitate)}}", "target.ground"},
-    {"Flamestrike", "toggle(AoE) & !target.debuff(Dragon's Breath) & player.buff(Hot Streak!) & target.area(10).enemies >= 5 & {UI(mc) || !UI(mc) & !player.moving}", "target.ground"},
+	{"Meteor", "target.range <= 38.5 & !player.buff(Heating up) & {toggle(AoE) & target.area(8).enemies >= 3 || {target.state(root) & target.state(stun) & target.state(disorient) & target.state(incapacitate)}}", "target.ground"},
+    {"Flamestrike", "toggle(AoE) & !target.debuff(Dragon's Breath) & player.buff(Hot Streak!) & target.area(10).enemies >= 4 & {UI(mc) || !UI(mc) & !player.moving}", "target.ground"},
 	{"Pyroblast", "range <= 38.5 & !debuff(Dragon's Breath) & player.buff(Hot Streak!) & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
 	{"!Phoenix's Flames", "range <= 38.5 & !player.buff(Hot Streak!) & !debuff(Dragon's Breath) & !player.casting(Polymorph) & {player.buff(Heating up) || player.spell(Phoenix's Flames).charges >= 2 || player.spell(Fire Blast).charges >= 1} & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
 	{"!Fire Blast", "range <= 38.5 & !player.buff(Hot Streak!) & !debuff(Dragon's Breath) & !player.casting(Polymorph) & {player.buff(Heating up) || player.spell(Fire Blast).charges >= 2 || player.spell(Phoenix's Flames).charges >= 1} & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
