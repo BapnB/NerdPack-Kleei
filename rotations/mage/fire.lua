@@ -196,7 +196,7 @@ local Combat = {
 	{"!Fire Blast", "{!toggle(hig_en) || target.boss} & range <= 38.5 & !player.buff(Hot Streak!) & !debuff(Dragon's Breath) & !player.casting(Polymorph) & {player.buff(Heating up) || player.spell(Fire Blast).charges >= 2 || player.spell(Phoenix's Flames).charges >= 1} & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
 	{"!Fire Blast", "toggle(hig_en) & !target.boss & combat & range <= 38.5 & !player.buff(Hot Streak!) & !debuff(Dragon's Breath) & !player.casting(Polymorph) & {player.buff(Heating up) || player.spell(Fire Blast).charges >= 2 || player.spell(Phoenix's Flames).charges >= 1} & {UI(allfacing) || !UI(allfacing) & infront}", "highestenemy"},
 	{"Living Bomb", "range <= 38.5 & talent(6,1)", "target"},
-	{"Living Bomb", "range <= 38.5 & talent(6,1) & toggle(AoE) & target.area(8).enemies >= 3", "lowestenemy"},
+	{"Living Bomb", "range <= 38.5 & talent(6,1) & toggle(AoE) & target.area(8).enemies >= 2", "lowestenemy"},
 	{"Fireball", "{!toggle(hig_en) || target.boss} & range <= 38.5 & !player.buff(Combustion) & {!player.buff(Hot Streak!) || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {UI(mc) || !UI(mc) & !player.moving} & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
     {"Fireball", "toggle(hig_en) & !target.boss & combat & range <= 38.5 & !player.buff(Combustion) & {!player.buff(Hot Streak!) || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {UI(mc) || !UI(mc) & !player.moving} & {UI(allfacing) || !UI(allfacing) & infront}", "highestenemy"},
 	{"Scorch", "{!toggle(hig_en) || target.boss} & range <= 38.5 & {!player.buff(Hot Streak!) || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {player.moving || player.buff(Combustion)}", "target"},

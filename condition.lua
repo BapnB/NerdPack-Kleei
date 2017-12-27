@@ -96,10 +96,10 @@ end
 end)
 
 --- Highest Health Enemy
-NeP.FakeUnits:Add({'highestenemy', 'higheste', 'he'}, function(num)
+NeP.FakeUnits:Add("highestenemy", function(num)
 	local tempTable = {}
-	for _, Obj in pairs(NeP.OM:Get('Enemy')) do
-		if _G.UnitExists(Obj.key) and _G.UnitIsVisible(Obj.key) and NeP.DSL:Get('combat')(Obj.key) and NeP.DSL:Get('alive')(Obj.key) then
+	for _, Obj in pairs(NeP.OM:Get("Enemy")) do
+		if _G.UnitExists(Obj.key) and _G.UnitIsVisible(Obj.key) and NeP.DSL:Get("combat")(Obj.key) and NeP.DSL:Get("alive")(Obj.key) and NeP.DSL.Parse("!pvp", "", "") then
 			tempTable[#tempTable+1] = {
 				key = Obj.key,
 				health = NeP.DSL:Get("health")(Obj.key)
