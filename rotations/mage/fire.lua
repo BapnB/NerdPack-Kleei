@@ -29,7 +29,7 @@ local keybind_list_3 = {
 
 local Logo_GUI = {
 
-	{type = 'texture', texture = 'Interface\\AddOns\\Nerdpack-Kleei\\media\\fire.blp', width = 256, height = 256, offset = 90, y = -75, align = 'center'},
+	{type = 'texture', texture = 'Interface\\AddOns\\Nerdpack-Kleei\\media\\fire.blp', width = 256, height = 256, offset = 90, y = -80, align = 'center'},
 	{type = 'spacer'}, {type = 'spacer'}, {type = 'spacer'}, {type = 'ruler'},
 
 }
@@ -38,7 +38,7 @@ local GUI = {
     
 	unpack(Logo_GUI),
 	
-	{type = "spacer"},{type = "spacer"},{type = "spacer"},{type = "spacer"},{type = "spacer"},{type = "spacer"},{type = "spacer"},
+	{type = "spacer"},{type = "spacer"},{type = "spacer"},{type = "spacer"},{type = "spacer"},
 	{type = "header", size = 16, text = "Keybinds", align = "center"},
 	{type = "text", text = "|c0000FA9A Just hold the Key|r", align = "center"},
 	{type = "text", text = "|c0087CEFA Choose Keybind:", align = "center"},
@@ -78,6 +78,9 @@ local GUI = {
     {type = 'checkbox',	text = "Always-Facing:|c0000FA9A if you use it check the box|r", align = 'left', key = 'allfacing', default = false},
     {type = 'checkbox',	text = "Moving-Cast:|c0000FA9A if you use it check the box and it will cast when moving|r", align = 'left', key = 'mc', default = false},
 	{type = "spacer"}, {type = "ruler"},
+
+	{type = 'header', size = 16, text = 'Other', align = 'center'},
+	{type = "checkspin", text = "Use Meteor:|c0000FA9A when enemies nearby <=", key = "mete_aoe", check = true, spin = 4, width = 100, step = 1, max = 10, min = 1},
 
     {type = "text", text = "Cooldowns Toggle:", align = "center"},
 	{type = "text", text = "Use Time Warp|c0000FA9A if toggle is on|r"},
@@ -149,12 +152,12 @@ local Survival = {
 
     {"!Every Man for Himself", "UI(medal) & state(stun)", "player"},
 	{"!Gladiator's Medallion", "UI(medal) & target.pvp & player.pvp & {state(stun) & spell(Every Man for Himself).cooldown >= gcd || state(fear) || state(disorient) || state(charm)}", "player"},
-	{"!Ice Block", "player.health <= UI(ice_health_spin) & UI(ice_health_check) || debuff(Cauterize) & UI(cool_down) || state(stun) & spell(Every Man for Himself).cooldown >= gcd & !lastcast(Gladiator's Medallion) & UI(ice_stun)", "player"},
-    {"!Temporal Shield", "player.health <= UI(temp_shield_spin) & UI(temp_shield_check) & combat & area(40).enemies >= 1", "player"},
+	{"!Ice Block", "area(40).enemies >= 1 & {player.health <= UI(ice_health_spin) & UI(ice_health_check) || debuff(Cauterize) & UI(cool_down) || state(stun) & spell(Every Man for Himself).cooldown >= gcd & spell(Gladiator's Medallion).cooldown >= gcd & !lastcast(Gladiator's Medallion) & UI(ice_stun)}", "player"},
+    {"!Temporal Shield", "player.health <= UI(temp_shield_spin) & UI(temp_shield_check) & area(40).enemies >= 1", "player"},
 	{"Dragon's Breath",	"toggle(cr) & !enemy_totem & range <= 8 & infront & !immune_all & !buff(Cloak of Shadows) & !buff(Dispersion) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm)", "enemies"},
 	{"Frost Nova", "toggle(cr) & !enemy_totem & range <= 8 & !immune_all & !buff(Cloak of Shadows) & !buff(Dispersion) & !player.lastcast(Frost Nova) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm)", "enemies"},
 	{"Blazing Barrier", "buff(Blazing Barrier).duration < gcd", "player"},
-	{"#5512", "item(5512).count >= 1 & health <= UI(hs_spin) & UI(hs_check) & combat", "player"}, --Health Stone
+	{"#5512", "item(5512).count >= 1 & health <= UI(hs_spin) & UI(hs_check) & area(40).enemies >= 1", "player"}, --Health Stone
 
 }
 
@@ -180,7 +183,7 @@ local Combat = {
 
 	{"!Pyroblast", "{!toggle(hig_en) || target.boss || pvp & player.pvp} & range <= 38.5 & player.buff(Hot Streak!) & player.buff(Combustion) & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
 	{"!Pyroblast", "toggle(hig_en) & !target.boss & !pvp & range <= 38.5 & player.buff(Hot Streak!) & player.buff(Combustion) & {UI(allfacing) || !UI(allfacing) & infront}", "highestenemy"},
-	{"Meteor", "target.range <= 38.5 & !player.buff(Heating up) & {toggle(AoE) & target.area(8).enemies >= 3 || {target.state(root) & target.state(stun) & target.state(disorient) & target.state(incapacitate)}}", "target.ground"},
+	{"Meteor", "target.range <= 38.5 & !player.buff(Heating up) & {toggle(AoE) & target.area(8).enemies >= UI(mete_aoe_spin) & UI(mete_aoe_check) || {target.pvp & {target.state(root) || target.state(stun) || target.state(disorient) || target.state(incapacitate)}}}", "target.ground"},
     {"Flamestrike", "toggle(AoE) & !target.debuff(Dragon's Breath) & player.buff(Hot Streak!) & target.area(10).enemies >= 4 & {UI(mc) || !UI(mc) & !player.moving}", "target.ground"},
 	{"Pyroblast", "{!toggle(hig_en) || target.boss || pvp & player.pvp} & range <= 38.5 & !debuff(Dragon's Breath) & player.buff(Hot Streak!) & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
 	{"Pyroblast", "toggle(hig_en) & !target.boss & !pvp & range <= 38.5 & !debuff(Dragon's Breath) & player.buff(Hot Streak!) & {UI(allfacing) || !UI(allfacing) & infront}", "highestenemy"},
@@ -203,7 +206,7 @@ local inCombat = {
 	{Keybinds},
 	{Interrupts, "toggle(interrupts) & !immune_all & !player.buff(Invisibility) & !debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
     {Survival, "player.health <= 100 & !player.buff(Invisibility)"},
-	{Cooldowns, "toggle(cooldowns) & !player.buff(Invisibility) & !debuff(Polymorph) & !target.buff(Cloak of Shadows) & !buff(Touch of Karma) & !buff(Dispersion)"},
+	{Cooldowns, "toggle(cooldowns) & !player.buff(Invisibility) & !debuff(Polymorph) & !target.buff(Cloak of Shadows) & !buff(Touch of Karma) & !buff(Dispersion) & !player.buff(Invisibility)"},
     {Combat, "target.alive & !immune_all & target.enemy & !target.buff(Touch of Karma) & !target.buff(Cloak of Shadows) & !target.buff(Dispersion) & !player.buff(Invisibility) & !debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
 
 }
