@@ -49,7 +49,7 @@ end
 end)
 
 --/dump NeP.DSL.Parse("roll_the_bones", "", "")
-NeP.DSL:Register("roll_the_bones", function(target, spell)
+NeP.DSL:Register("buff_of_the_bones", function(target, spell)
   local roll = 0
     if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193357)) > 3 then  roll = roll + 2 -- Shark Infested Waters
 end

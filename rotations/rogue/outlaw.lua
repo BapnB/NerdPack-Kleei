@@ -27,6 +27,13 @@ local keybind_list_3 = {
 
 }
 
+local target_list = {
+
+    {key = 'cur', text = 'Cursor Ground'},
+	{key = 'tar', text = 'Target Ground'},
+
+}
+
 local Logo_GUI = {
 
 	{type = 'texture', texture = 'Interface\\AddOns\\Nerdpack-Kleei\\media\\outlaw.blp', width = 200, height = 200, offset = 90, y = -45, align = 'center'},
@@ -47,11 +54,12 @@ local GUI = {
 	{type = 'text', text = "Use Blind:|c0000FA9A in combat:"},
 	{type = 'spacer'},
 	{type = 'combo', default = '4', key = 'list2', list = keybind_list_2, width = 100},	
-	{type = 'text', text = "Use Cheap Shot:|c0000FA9A Stealth:"},
+	{type = 'text', text = "Use Gouge:|c0000FA9A"},
 	{type = 'text', text = "Use Between the Eyes:|c0000FA9A < 20 yd:"},
 	{type = 'spacer'},
 	{type = 'combo', default = '9', key = 'list3', list = keybind_list_3, width = 100},		
     {type = 'text', text = "Use Grappling Hook:"},
+	{type = 'combo', default = 'tar', key = 'list4', list = target_list,  width = 100},
 	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},
 	
     {type = 'header', size = 16, text = 'PVP', align = 'center'},
@@ -71,6 +79,7 @@ local GUI = {
 	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},
 	
 	{type = 'header', size = 16, text = 'Survival', align = 'center'},
+	{type = 'checkbox', text = "Use Faint:|c0000FA9A Sprint is up and Deception is active", key = "fnt", default = true},
 	{type = 'checkspin', text = 'Use Vanish:', key = 'van', check = true, spin = 15, width = 150, step = 5, max = 95, min = 1},
 	{type = 'checkspin', text = 'Use Crimson Vial:', key = 'cv', check = true, spin = 75, width = 150, step = 5, max = 95, min = 1},
 	{type = 'checkspin', text = 'Use Riposte:', key = 'ripo', check = true, spin = 65, width = 150, step = 5, max = 95, min = 1},
@@ -95,7 +104,7 @@ local exeOnLoad = function()
  	print('|c0000FA9A ----------------------------------------------------------------------|r')
  	print('|c0000FA9A --- |r|cffffff00ROGUE - Outlaw|r')	
 	print('|c0000FA9A ------------------------PVP-------------------------------------------|r')
- 	print('|c0000FA9A --- |rRecommended Talents: x/x - x/x - x/x - x/x - x/x - x/x - x/x')
+ 	print('|c0000FA9A --- |rRecommended Talents: x/x - x/x - x/x - 4/2 - x/x - x/x - x/x')
     print('|c0000FA9A')
 	print('|c0000FA9A ------------------------PVE-------------------------------------------|r')
  	print('|c0000FA9A --- |rRecommended Talents: 1/2 - 2/1 - 3/3 - 4/x - 5/x - 6/2 - 7/1')
@@ -105,7 +114,8 @@ end
 
 local Grappling_Hook = {
 
-    {"Grappling Hook", "talent(2,1) & UI(list4)==cur & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "cursor.ground"},
+    {"Grappling Hook", "talent(2,1) & UI(list4)==tar & range < 40 & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "target.ground"},
+    {"Grappling Hook", "talent(2,1) & UI(list4)==cur & {!UI(list4)==tar || !target.exists} & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "cursor.ground"},
 
 }
 
@@ -125,7 +135,8 @@ local pvp = {
 local Keybinds = {
 
 	{"Sap", "target.enemy & range <= 10 & !target.state(stun) & !target.state(disorient) & !debuff(Sap) & !combat & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target"},
-	{"Between the Eyes", "range < 20 & !player.buff(Stealth) & !player.buff(Vanish) & player.combopoints >= 3 & target.debuff(Cheap Shot).duration <= 0.5 & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
+	{"Between the Eyes", "range < 20 & !player.buff(Stealth) & !player.buff(Vanish) & player.combopoints >= 3 & debuff(Cheap Shot).duration <= 0.5 & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
+	{"Gouge", "inmelee & !player.buff(Stealth) & !player.buff(Vanish) & !debuff(Cheap Shot) & !debuff(Between the Eyes) & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
 	{"Blind", "range <= 15 & !player.buff(Stealth) & !player.buff(Vanish) & player.combat & {target.buff(Touch of Karma) || keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target"},
 
 }
@@ -138,17 +149,18 @@ local PreCombat = {
 
 	{"Pick Pocket", "UI(pp) & !player.moving & player.buff(Stealth) & !player.lastcast(Pick Pocket) & creatureType(Humanoid) & !target.player & range < 7 & !isdummy", "target"},	
 	{"%pause", "target.debuff(Sap) & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2} & {!target.player || target.player & player.pvp}"},	
-    {"/stopattack", "{player.buff(Vanish) || player.buff(Stealth)} & target.buff(Touch of Karma)"},
+    {"/stopattack", "{player.buff(Vanish) || player.buff(Stealth)} & target.buff(Touch of Karma) || target.immune_all"},
 
-    {"/startattack", "!isattacking & target.inmelee & !target.player & player.energy < 45"},
-	{"Cheap Shot", "player.buff(Stealth) & !debuff(Cheap Shot) & inmelee & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5 || target.player & player.pvp & !target.immune(stun) || !target.player & !UI(amb)}", "target"},
+    {"/startattack", "!isattacking & !immune_all & target.inmelee & !target.player & player.energy < 45"},
+	{"Cheap Shot", "inmelee & player.buff(Stealth) & !debuff(Cheap Shot) & !immune_all & !UI(amb)}", "target"},
 	{"Ambush", "player.buff(Stealth) & inmelee & UI(amb)", "target"},
-	{"Saber Slash", "inmelee & debuff(Cheap Shot) & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
+	{"Saber Slash", "inmelee & !immune_all & debuff(Cheap Shot) & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
 
 }
 
 local Survival ={
 
+    {"Faint", "player.buff(Sprint) & !buff & !lastcast & artifact.enabled(Deception) & UI(fnt)", "player"},
     {"Blind", "target.buff(Touch of Karma) & !player.buff(Stealth) & !player.buff(Vanish)", "target"}, -- || many more target CD's
     {"Vanish", "player.combat & !player.buff(Stealth) & player.health < target.health & player.health <= UI(van_spin) & UI(van_check)"},
 	{"Crimson Vial", "player.health <= UI(cv_spin) & UI(cv_check)"},
@@ -184,10 +196,12 @@ local Combat = {
     {"Tricks of the Trade", "player.aggro & UI(tott) & player.los(tank) & {group.type == 3 || group.type == 2}", "tank"},
 
 	{"Blade Flurry", "toggle(AoE) & area(4).enemies >= 3 & !buff(Blade Flurry) || !toggle(AoE) & buff(Blade Flurry) || area(5).enemies <= 2 & buff(Blade Flurry)", "player"},
-	{"Pistol Shot", "toggle(AoE) & area(5).enemies == 2 & inmelee & player.energy < 49 & !is(target) & !pvp & player.buff(Opportunity) & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "enemies"},
+	{"Pistol Shot", "toggle(AoE) & area(20).enemies == 2 & inmelee & player.energy < 49 & !is(target) & !immune_all & combat & !pvp & player.buff(Opportunity) & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "enemies"},
 	
 	{"Death from Above", "talent(7,3) & area(8).enemies > 4 & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
-    {"Roll the Bones", "!talent(7,1) & target.deathin > 10 & player.combopoints > 4 & !roll_the_bones", "player"},
+	{"Death from Above", "talent(7,3) & pvp & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
+
+    {"Roll the Bones", "!talent(7,1) & target.deathin > 10 & player.combopoints > 4 & !buff_of_the_bones", "player"},
 	{"Slice and Dice", "talent(7,1) & buff(Slice and Dice).duration < 3 & {target.deathin > 10 & player.combopoints > 4 || target.deathin <= 10 & player.combopoints > 1}", "player"},
 	{"Run Through", "inmelee & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
 
@@ -205,9 +219,9 @@ local inCombat = {
     {Keybinds, "target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
     {Interrupts, "toggle(interrupts) & infront & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
 	{Survival, "player.health < 100"},
-	{Cooldowns, "toggle(cooldowns) & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
+	{Cooldowns, "toggle(cooldowns) & !target.immune_all & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
     {"/stopattack", "target.debuff(Blind) & target.player & !player.buff(Stealth) || target.buff(Touch of Karma) || player.buff(Vanish) & target.player || target.immune_all", "player"},
-	{Combat, "target.inmelee & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
+	{Combat, "!target.immune_all & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
 
 }
 
@@ -229,7 +243,7 @@ NeP.CR:Add(260, {
 	ic = inCombat,
 	ooc = outCombat,
 	gui = GUI,
-	gui_st = {title="Kleei Combat Routine Settings", width="315", height="750", color="87CEFA"},
+	gui_st = {title="Kleei Combat Routine Settings", width="315", height="770", color="87CEFA"},
 	wow_ver = '7.1.5',
  	nep_ver = '1.11',
 	load = exeOnLoad

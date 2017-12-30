@@ -15,6 +15,12 @@ local exeOnLoad = function()
 
 end
 
+local PreCombat = {
+
+	{"Remorseless Winter", "toggle(aoe) & player.area(8).enemies >= 3 || target.inmelee & talent(6,3)"},
+
+}
+
 local Survival = {
 
   	{"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
@@ -94,6 +100,7 @@ local inCombat = {
 local outCombat = {
 
 	{Keybinds},
+	{PreCombat, "target.enemy & target.alive"},
 	{"Path of Frost", "player.swimming & !buff"},
 
 }
