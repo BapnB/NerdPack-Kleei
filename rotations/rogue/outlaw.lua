@@ -152,7 +152,7 @@ local PreCombat = {
     {"/stopattack", "{player.buff(Vanish) || player.buff(Stealth)} & target.buff(Touch of Karma) || target.immune_all"},
 
     {"/startattack", "!isattacking & !immune_all & target.inmelee & !target.player & player.energy < 45"},
-	{"Cheap Shot", "inmelee & player.buff(Stealth) & !debuff(Cheap Shot) & !immune_all & !UI(amb)}", "target"},
+	{"Cheap Shot", "inmelee & !lastcast & player.buff(Stealth) & !debuff(Cheap Shot) & !immune_all & !UI(amb)}", "target"},
 	{"Ambush", "player.buff(Stealth) & inmelee & UI(amb)", "target"},
 	{"Saber Slash", "inmelee & !immune_all & debuff(Cheap Shot) & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
 
@@ -179,14 +179,15 @@ local Interrupts = {
 
 local Cooldowns = {
 
-	{"Cannonball Barrage", "talent(6,1) & range <= 35 & target.deathin >= 10", "target.ground"},
+    {"#7676", "item(7676).count >= 1 & player.energy <= 10 & target.deathin >= 5 & {target.boss || target.pvp}"},
+	{"Cannonball Barrage", "talent(6,1) & range <= 35", "target.ground"},
 	{"Marked for Death", "inmelee & talent(7,2) & player.combopoints < 2", "target"},
-	{"Curse of the Dreadblades", "target.inmelee & player.combopoints <= 3 & target.deathin >= 10 & !player.buff(Broadsides) & {target.debuff(Ghostly Strike) || !talent(1,1)}", "player"},
-	{"Adrenaline Rush", "target.inmelee & target.deathin >= 10 & !player.lastcast(Curse of the Dreadblades) & player.spell(Curse of the Dreadblades).cooldown >= gcd & !debuff(Curse of the Dreadblades)", "player"},
-	{"Killing Spree", "talent(6,3) & range <= 10 & target.deathin >= 5 & player.energy < 15", "target"},
+	{"Curse of the Dreadblades", "target.inmelee & player.combopoints <= 3 & !player.buff(Broadsides) & {target.debuff(Ghostly Strike) || !talent(1,1)}", "player"},
+	{"Adrenaline Rush", "target.inmelee & !player.lastcast(Curse of the Dreadblades) & player.spell(Curse of the Dreadblades).cooldown >= gcd & !debuff(Curse of the Dreadblades)", "player"},
+	{"Killing Spree", "talent(6,3) & range <= 10 & player.energy < 15", "target"},
 
-	{"#trinket1", "UI(trk1) & target.inmelee & target.deathin >= 10"},
-	{"#trinket2", "UI(trk2) & target.inmelee & target.deathin >= 10"},
+	{"#trinket1", "UI(trk1) & target.inmelee"},
+	{"#trinket2", "UI(trk2) & target.inmelee"},
 
 }
 
@@ -198,8 +199,8 @@ local Combat = {
 	{"Blade Flurry", "toggle(AoE) & area(4).enemies >= 3 & !buff(Blade Flurry) || !toggle(AoE) & buff(Blade Flurry) || area(5).enemies <= 2 & buff(Blade Flurry)", "player"},
 	{"Pistol Shot", "toggle(AoE) & area(20).enemies == 2 & inmelee & player.energy < 49 & !is(target) & !immune_all & combat & !pvp & player.buff(Opportunity) & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "enemies"},
 	
-	{"Death from Above", "talent(7,3) & area(8).enemies > 4 & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
-	{"Death from Above", "talent(7,3) & pvp & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
+	{"Death from Above", "talent(7,3) & area(8).enemies > 2 & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
+	{"Death from Above", "talent(7,3) & {pvp || boss} & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
 
     {"Roll the Bones", "!talent(7,1) & target.deathin > 10 & player.combopoints > 4 & !buff_of_the_bones", "player"},
 	{"Slice and Dice", "talent(7,1) & buff(Slice and Dice).duration < 3 & {target.deathin > 10 & player.combopoints > 4 || target.deathin <= 10 & player.combopoints > 1}", "player"},
