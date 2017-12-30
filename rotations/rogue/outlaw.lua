@@ -64,7 +64,7 @@ local GUI = {
 	
     {type = 'header', size = 16, text = 'PVP', align = 'center'},
     {type = 'checkbox',	text = "Gouge:|c0000FA9A auto Gouge PVP Target.|r", align = 'left', key = 'gog', default = true},
-    {type = 'checkbox',	text = "Stun:|c0000FA9A auto stun PVP Target [Between the Eyes].|r", align = 'left', key = 'stun', default = true},
+    {type = 'checkbox',	text = "Between the Eyes:|c0000FA9A auto stun PVP Target.|r", align = 'left', key = 'stun', default = true},
     --{type = 'checkbox',	text = "Vanish:|c0000FA9A target not stuned and [Between the Eyes] is on CD", align = 'left', key = 'van_no_stun', default = false},
 	--{type = 'checkbox',	text = "Blind:|c0000FA9A target not stuned and [Vanish] is on CD", align = 'left', key = 'blind_no_van', default = false},
     {type = 'checkbox',	text = "Gladiator's Medallion , Every Man for Himself:", align = 'left', key = 'medal', default = true},
@@ -125,7 +125,7 @@ local pvp = {
     {"Gladiator's Medallion", "UI(medal) & !player.buff(Vanish) & !player.buff(Stealth) & {player.state(stun) & player.spell(Every Man for Himself)cooldown >= gcd || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},        
 	{"/stopattack", "target.state(disorient) & !player.buff(Stealth) || target.debuff(Blind) & !player.buff(Stealth) || player.buff(Vanish) || target.immune_all"},
 	{"Between the Eyes", "range < 20 & !player.buff(Stealth) & !player.buff(Vanish) & player.combopoints >= 3 & target.debuff(Cheap Shot).duration <= 0.5 & UI(stun)", "target"},
-    {"Gouge", "inmelee & !player.buff(Stealth) & !player.buff(Vanish) & !debuff(Cheap Shot) & !debuff(Between the Eyes) & UI(gog)", "target"},
+    {"Gouge", "inmelee & infront.of.target & !player.buff(Stealth) & !player.buff(Vanish) & !debuff(Cheap Shot) & !debuff(Between the Eyes) & UI(gog)", "target"},
     --{"Vanish", "!player.buff(Stealth) & !player.buff(Cloak of Shadows) & !target.debuff(Sap) & UI(van_no_stun) & !target.state(stun) & !target.state(disorient) & !player.lastcast(Kidney Shot) & player.spell(Kidney Shot).cooldown >= gcd & !player.buff(Evasion)  & {target.class(Rogue) & player.spell(Blind).cooldown >= gcd || !target.class(Rogue)}"}, --test  & targettarget.is(player)
     --{"Blind", "!player.buff(Stealth) & !player.buff(Vanish) & !player.buff(Cloak of Shadows) & !target.debuff(Sap) & !target.debuff(Blind) & UI(blind_no_van) & !target.state(stun) & !target.state(disorient) & !player.lastcast(Kidney Shot) & !player.lastcast(Vanish) & player.spell(Kidney Shot).cooldown >= gcd & !target.immune(disorient) & !player.buff(Evasion)", "target"},-- & targettarget.is(player)
 
@@ -136,7 +136,7 @@ local Keybinds = {
 
 	{"Sap", "target.enemy & range <= 10 & !target.state(stun) & !target.state(disorient) & !debuff(Sap) & !combat & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target"},
 	{"Between the Eyes", "range < 20 & !player.buff(Stealth) & !player.buff(Vanish) & player.combopoints >= 3 & debuff(Cheap Shot).duration <= 0.5 & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
-	{"Gouge", "inmelee & !player.buff(Stealth) & !player.buff(Vanish) & !debuff(Cheap Shot) & !debuff(Between the Eyes) & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
+	{"Gouge", "inmelee & infront.of.target & !player.buff(Stealth) & !player.buff(Vanish) & !debuff(Cheap Shot) & !debuff(Between the Eyes) & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
 	{"Blind", "range <= 15 & !player.buff(Stealth) & !player.buff(Vanish) & player.combat & {target.buff(Touch of Karma) || keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target"},
 
 }
@@ -221,7 +221,7 @@ local inCombat = {
     {Interrupts, "toggle(interrupts) & infront & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
 	{Survival, "player.health < 100"},
 	{Cooldowns, "toggle(cooldowns) & !target.immune_all & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
-    {"/stopattack", "target.debuff(Blind) & target.player & !player.buff(Stealth) || target.buff(Touch of Karma) || player.buff(Vanish) & target.player || target.immune_all", "player"},
+    {"/stopattack", "target.debuff(Blind) & target.player & !player.buff(Stealth) || player.buff(Stealth) & target.player || target.buff(Touch of Karma) || player.buff(Vanish) & target.player || target.immune_all", "player"},
 	{Combat, "!target.immune_all & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
 
 }

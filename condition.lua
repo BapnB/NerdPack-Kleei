@@ -69,7 +69,7 @@ end
     if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193356)) > 3 then  roll = roll + 2  -- Broadsides
 end
 
-    if UnitDebuff("player", GetSpellInfo(202665)) then roll = roll + 2
+    if UnitDebuff("player", GetSpellInfo(202665)) then roll = roll + 1
 end
 
     if roll > 1 then
@@ -108,4 +108,9 @@ NeP.FakeUnits:Add("highestenemy", function(num)
 	end
 	table.sort( tempTable, function(a,b) return a.health > b.health end )
 	return tempTable[num] and tempTable[num].key
+end)
+
+--/dump NeP.DSL.Parse("infront_of_target", "", "")
+NeP.DSL:Register("infront.of.target", function(target)
+  return NeP.Protected.Infront("target", "player")
 end)
