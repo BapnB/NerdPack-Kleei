@@ -63,10 +63,10 @@ local GUI = {
 	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},
 	
     {type = 'header', size = 16, text = 'PVP', align = 'center'},
-    --{type = 'checkbox',	text = "Sap:|c0000FA9A auto Sap PVP Target.|r", align = 'left', key = 'sapp', default = true},
+    {type = 'checkbox',	text = "Gouge:|c0000FA9A auto Gouge PVP Target.|r", align = 'left', key = 'gog', default = true},
     {type = 'checkbox',	text = "Stun:|c0000FA9A auto stun PVP Target [Between the Eyes].|r", align = 'left', key = 'stun', default = true},
-    {type = 'checkbox',	text = "Vanish:|c0000FA9A target not stuned and [Between the Eyes] is on CD", align = 'left', key = 'van_no_stun', default = false},
-	{type = 'checkbox',	text = "Blind:|c0000FA9A target not stuned and [Vanish] is on CD", align = 'left', key = 'blind_no_van', default = false},
+    --{type = 'checkbox',	text = "Vanish:|c0000FA9A target not stuned and [Between the Eyes] is on CD", align = 'left', key = 'van_no_stun', default = false},
+	--{type = 'checkbox',	text = "Blind:|c0000FA9A target not stuned and [Vanish] is on CD", align = 'left', key = 'blind_no_van', default = false},
     {type = 'checkbox',	text = "Gladiator's Medallion , Every Man for Himself:", align = 'left', key = 'medal', default = true},
 	{type = 'text', text = "|c0000FA9A      Remove stun/fear/disorient/charm.|r"},
 	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},
@@ -104,7 +104,7 @@ local exeOnLoad = function()
  	print('|c0000FA9A ----------------------------------------------------------------------|r')
  	print('|c0000FA9A --- |r|cffffff00ROGUE - Outlaw|r')	
 	print('|c0000FA9A ------------------------PVP-------------------------------------------|r')
- 	print('|c0000FA9A --- |rRecommended Talents: x/x - x/x - x/x - 4/2 - x/x - x/x - x/x')
+ 	print('|c0000FA9A --- |rRecommended Talents: 1/2 - 2/1 - 3/3 - 4/2 - 5/3 - 6/2 - 7/3')
     print('|c0000FA9A')
 	print('|c0000FA9A ------------------------PVE-------------------------------------------|r')
  	print('|c0000FA9A --- |rRecommended Talents: 1/2 - 2/1 - 3/3 - 4/x - 5/x - 6/2 - 7/1')
@@ -125,7 +125,7 @@ local pvp = {
     {"Gladiator's Medallion", "UI(medal) & !player.buff(Vanish) & !player.buff(Stealth) & {player.state(stun) & player.spell(Every Man for Himself)cooldown >= gcd || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},        
 	{"/stopattack", "target.state(disorient) & !player.buff(Stealth) || target.debuff(Blind) & !player.buff(Stealth) || player.buff(Vanish) || target.immune_all"},
 	{"Between the Eyes", "range < 20 & !player.buff(Stealth) & !player.buff(Vanish) & player.combopoints >= 3 & target.debuff(Cheap Shot).duration <= 0.5 & UI(stun)", "target"},
-
+    {"Gouge", "inmelee & !player.buff(Stealth) & !player.buff(Vanish) & !debuff(Cheap Shot) & !debuff(Between the Eyes) & UI(gog)", "target"},
     --{"Vanish", "!player.buff(Stealth) & !player.buff(Cloak of Shadows) & !target.debuff(Sap) & UI(van_no_stun) & !target.state(stun) & !target.state(disorient) & !player.lastcast(Kidney Shot) & player.spell(Kidney Shot).cooldown >= gcd & !player.buff(Evasion)  & {target.class(Rogue) & player.spell(Blind).cooldown >= gcd || !target.class(Rogue)}"}, --test  & targettarget.is(player)
     --{"Blind", "!player.buff(Stealth) & !player.buff(Vanish) & !player.buff(Cloak of Shadows) & !target.debuff(Sap) & !target.debuff(Blind) & UI(blind_no_van) & !target.state(stun) & !target.state(disorient) & !player.lastcast(Kidney Shot) & !player.lastcast(Vanish) & player.spell(Kidney Shot).cooldown >= gcd & !target.immune(disorient) & !player.buff(Evasion)", "target"},-- & targettarget.is(player)
 
@@ -197,7 +197,7 @@ local Combat = {
     {"Tricks of the Trade", "player.aggro & UI(tott) & player.los(tank) & {group.type == 3 || group.type == 2}", "tank"},
 
 	{"Blade Flurry", "toggle(AoE) & area(4).enemies >= 3 & !buff(Blade Flurry) || !toggle(AoE) & buff(Blade Flurry) || area(5).enemies <= 2 & buff(Blade Flurry)", "player"},
-	{"Pistol Shot", "toggle(AoE) & area(20).enemies == 2 & inmelee & player.energy < 49 & !is(target) & !immune_all & combat & !pvp & player.buff(Opportunity) & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "enemies"},
+	{"Pistol Shot", "toggle(AoE) & area(20).enemies == 2 & inmelee & {!talent(1,3) & player.energy < 49 || talent(1,3)} & !is(target) & !immune_all & combat & !pvp & player.buff(Opportunity) & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "enemies"},
 	
 	{"Death from Above", "talent(7,3) & area(8).enemies > 2 & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
 	{"Death from Above", "talent(7,3) & {pvp || boss} & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
@@ -207,7 +207,7 @@ local Combat = {
 	{"Run Through", "inmelee & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
 
     {"Ghostly Strike", "inmelee & talent(1,1) & buff(Ghostly Strike).duration < 2 & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
-	{"Pistol Shot", "range < 20 & player.energy < 49 & player.buff(Opportunity) & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
+	{"Pistol Shot", "range < 20 & {!talent(1,3) & {player.energy < 49 || range > 9 & !lastcast & infront} || talent(1,3)} & {player.buff(Opportunity) || range > 9 & !lastcast & infront & pvp} & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
 	{"Saber Slash", "inmelee & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
 
 }
