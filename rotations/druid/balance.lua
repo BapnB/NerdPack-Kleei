@@ -85,7 +85,7 @@ local Shapeshift = {
 
 local pvp = {
 
-    {"Gladiator's Medallion", "UI(medal) & target.pvp & player.pvp & {state(stun) || state(fear) || state(disorient) || state(charm)}", "player"},
+    {"Gladiator's Medallion", "UI(medal) & {state(stun) || state(fear) || state(disorient) || state(charm)}", "player"},
 
 }
 

@@ -110,9 +110,9 @@ NeP.FakeUnits:Add("highestenemy", function(num)
 	return tempTable[num] and tempTable[num].key
 end)
 
---/dump NeP.DSL.Parse("infront.of.target", "", "")
+--/dump NeP.DSL.Parse("player.infront.of.target", "", "")
 NeP.DSL:Register("infront.of.target", function(target)
-  return NeP.Protected.Infront("target", "player")
+  return NeP.Protected.Infront("target", target)
 end)
 
 --/dump NeP.DSL.Parse("target.race", "", "")
