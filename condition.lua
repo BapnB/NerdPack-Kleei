@@ -31,13 +31,36 @@ end
     return false
 end)
 
+local immuneallbuff = {
+    "33786",     -- Cyclone
+    "209753",
+    "88010",
+    "45438",    -- Ice Block
+    "145533",
+    "41590",
+    "36911",
+    "27619",
+    "63148",    -- Divine Shield (Paladin)
+    "133093",
+    "186265",   -- Aspect of the Turtle
+	"19263",    -- Deterrence
+    "122464",   -- Dematerialize
+    "122465",
+    "122470",
+    "124280",   -- touch of karma
+    "125174",
+    "642",      -- Divine Shield
+}
+
 --/dump NeP.DSL.Parse("player.immune_all", "", "")
 --/dump NeP.DSL.Parse("target.immune_all", "", "")
-NeP.DSL:Register("immune_all", function(target, spell)
-    if UnitBuff(target, GetSpellInfo(45438)) or UnitBuff(target, GetSpellInfo(642)) or UnitBuff(target, GetSpellInfo(19263)) or UnitBuff(target, GetSpellInfo(186265)) then
-    return true
-end
-    return false
+NeP.DSL:Register('immune_all',function(target, spell)
+    for i = 1, #immuneallbuff do
+        if UnitBuff(target, GetSpellInfo(immuneallbuff[i])) then
+            return true
+        end
+        return false
+    end
 end)
 
 --/dump NeP.DSL.Parse("target.Garrote_Silence", "", "")
@@ -69,7 +92,7 @@ end
     if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193356)) > 3 then  roll = roll + 2  -- Broadsides
 end
 
-    if UnitDebuff("player", GetSpellInfo(202665)) then roll = roll + 1
+    if UnitDebuff("player", GetSpellInfo(202665)) then roll = roll + 2
 end
 
     if roll > 1 then
@@ -78,13 +101,31 @@ end
     return false
 end)
 
+local bufftosteal = {
+    "235450",    -- Prismatic Barrier    -- Mage Arcane
+    "12042",     -- Arcane Power         -- Mage Arcane
+	"11426",     -- Ice Barrier          -- Mage Frost
+    "12472",     -- Ice Veins            -- Mage Frost
+    "190319",    -- Combustion           -- Mage Fire
+    "198111",    -- Temporal Shield      -- Mage Fire PVP Talent
+	"29166",     -- Innervate            -- Druid
+	"1044",      -- Blessing of Freedom  -- Paladin
+	"184662",    -- Shield of Vengeance  -- Paladin
+	"47536",     -- Rapture              -- Priest
+	"17",        -- Power Word: Shield   -- Priest
+	"152118",    -- Clarity of Will      -- Priest
+    "212295",    -- Nether Ward          -- Warlock
+	"196098",    -- Soul Harvest         -- Warlock
+}
+
 --/dump NeP.DSL.Parse("steal_buff", "", "")
-NeP.DSL:Register("steal_buff", function(target, spell)
----------------------------Prismatic Barrier-------------------------------Innervate------------------------------Ice Barrier---------------------Blessing of Freedom------------------------Shield of Vengeance---------------------------------Rapture---------------------Power Word: Shield---------------------------Clarity of Will-------------------------------Combustion--------------------------------Icy Veins---------------------------Temporal Shield-----------------------------Arcane Power------------------------------Nether Ward-------------------------------Soul Harvest--
-    if UnitBuff(target, GetSpellInfo(235450)) or UnitBuff(target, GetSpellInfo(29166)) or UnitBuff(target, GetSpellInfo(11426)) or UnitBuff(target, GetSpellInfo(1044)) or UnitBuff(target, GetSpellInfo(184662)) or UnitBuff(target, GetSpellInfo(47536)) or UnitBuff(target, GetSpellInfo(17)) or UnitBuff(target, GetSpellInfo(152118)) or UnitBuff(target, GetSpellInfo(190319)) or UnitBuff(target, GetSpellInfo(12472)) or UnitBuff(target, GetSpellInfo(198111)) or UnitBuff(target, GetSpellInfo(12042)) or UnitBuff(target, GetSpellInfo(212295)) or UnitBuff(target, GetSpellInfo(196098)) then
-    return true
-end
-    return false
+NeP.DSL:Register('steal_buff',function(target, spell)
+    for i = 1, #bufftosteal do
+        if UnitBuff(target, GetSpellInfo(bufftosteal[i])) then
+            return true
+        end
+        return false
+    end
 end)
 
 --/dump NeP.DSL.Parse("enemy_totem", "", "")
