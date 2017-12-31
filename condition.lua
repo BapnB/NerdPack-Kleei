@@ -99,7 +99,7 @@ end)
 NeP.FakeUnits:Add("highestenemy", function(num)
 	local tempTable = {}
 	for _, Obj in pairs(NeP.OM:Get("Enemy")) do
-		if _G.UnitExists(Obj.key) and _G.UnitIsVisible(Obj.key) and NeP.DSL:Get("combat")(Obj.key) and NeP.DSL:Get("alive")(Obj.key) then
+		if _G.UnitExists(Obj.key) and _G.UnitIsVisible(Obj.key) and NeP.DSL:Get("combat")(Obj.key) and NeP.DSL:Get("alive")(Obj.key) and NeP.DSL:Get("!pvp")(Obj.key) then
 			tempTable[#tempTable+1] = {
 				key = Obj.key,
 				health = NeP.DSL:Get("health")(Obj.key)
@@ -110,7 +110,12 @@ NeP.FakeUnits:Add("highestenemy", function(num)
 	return tempTable[num] and tempTable[num].key
 end)
 
---/dump NeP.DSL.Parse("infront_of_target", "", "")
+--/dump NeP.DSL.Parse("infront.of.target", "", "")
 NeP.DSL:Register("infront.of.target", function(target)
   return NeP.Protected.Infront("target", "player")
+end)
+
+--/dump NeP.DSL.Parse("target.race", "", "")
+NeP.DSL:Register("race", function(target)
+  return UnitRace(target)
 end)

@@ -180,7 +180,7 @@ local inCombat = {
 
     {"%pause", "target.enemy & target.immune_all", "player"},
 	
-	{"Gladiator's Medallion", "target.pvp & player.pvp & UI(medal) & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
+    {"Gladiator's Medallion", "UI(medal) & target.pvp & player.pvp & {state(stun) || state(fear) || state(disorient) || state(charm)}", "player"},
 
     ---------------
 	{Keybinds},

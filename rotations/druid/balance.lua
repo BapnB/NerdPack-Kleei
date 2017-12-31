@@ -83,6 +83,12 @@ local Shapeshift = {
 	
 }
 
+local pvp = {
+
+    {"Gladiator's Medallion", "UI(medal) & target.pvp & player.pvp & {state(stun) || state(fear) || state(disorient) || state(charm)}", "player"},
+
+}
+
 local Keybinds = {
 
    --Coming Soon
@@ -143,6 +149,7 @@ local Combat = {
 
 local inCombat = {
 
+    {"!/stopcasting", "casting(Unnerving Howl) & interruptAt(75)", "enemies"},
     {Shapeshift},
 	{pvp_, "player.pvp & target.player & target.enemy & target.alive"},
 	{Keybinds},

@@ -82,8 +82,8 @@ end
 
 local pvp = {
 
-    {"Every Man for Himself", "UI(medal) & player.state(stun)", "player"},        
-    {"Gladiator's Medallion", "UI(medal) & {player.state(stun) & player.spell(Every Man for Himself)cooldown >= gcd || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},  
+    {"Every Man for Himself", "UI(medal) & state(stun)", "player"},        
+    {"Gladiator's Medallion", "UI(medal) & target.pvp & player.pvp & {state(stun) & spell(Every Man for Himself)cooldown >= gcd & race = Human || state(stun) & !race = Human || state(fear) || state(disorient) || state(charm)}", "player"},
 
 }
 

@@ -115,6 +115,13 @@ local exeOnLoad = function()
 	})
 	
 	NeP.Interface:AddToggle({
+		key = "hig_en",
+		name = "Highest Enemies",
+		text = "Disable if PVP enemies nearby.",
+		icon = "Interface\\Icons\\achievement_boss_guarm",
+	})
+	
+	NeP.Interface:AddToggle({
 		key = 'travelform',
 		icon = 'Interface\\Icons\\ability_druid_travelform',
 		name = 'Auto Travel Form',
@@ -126,8 +133,9 @@ end
 
 local Shapeshift = {
 
-    {"Moonkin Form", "!buff(Moonkin Form) & {!swimming & !toggle(travelform) || indoors || state(root) & UI(root) || target.enemy & target.alive || player.area(10).enemies >= 1}", "player"},
-	{"Bear Form", "!buff(Bear Form) & !buff(Prowl) & {state(root) & UI(root) || toggle(BEAR) & !buff(Dash) & !spell(Prowl).usable & target.alive & target.enemy & player.pvp & target.player & targettarget.is(player) & target.range > 7}", "player"},
+    {"Moonkin Form", "toggle(DPS) & !buff(Moonkin Form) & {!swimming & !toggle(travelform) || indoors || state(root) & UI(root) || target.enemy & target.alive || area(10).enemies >= 1}", "player"},
+    {"/cancelform", "!toggle(DPS) & buff(Moonkin Form)", "player"},
+	{"Bear Form", "!buff(Bear Form) & !buff(Prowl) & {state(root) & UI(root) || toggle(BEAR) & !buff(Dash) & !spell(Prowl).usable & target.alive & target.enemy & pvp & target.player & targettarget.is(player) & target.range > 7}", "player"},
 
 	{"/cancelform", "!player.buff(Prowl) & !indoors & player.swimming & !player.buff(Travel Form) & !player.area(20).enemies >= 1 & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}"},
 	{"Travel Form", "!player.buff(Moonkin Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.area(20).enemies >= 1 & player.swimming"},
@@ -149,7 +157,8 @@ local Keybinds = {
 
 local Survival = {
 
-	--Renewal
+    {"Gladiator's Medallion", "UI(medal) & target.pvp & player.pvp & {state(stun) || state(fear) || state(disorient) || state(charm)}", "player"},
+
 	{"Renewal", "player.health <= UI(ren_spin) & UI(ren_check)", "player"},
 	{"Mass Entanglement", "talent(4,2) & range <= 7 & player.area(7).enemies >= 2 & UI(root) & !debuff(Mass Entanglement) & !debuff(Entangling Roots)", "enemies"},
     {"Entangling Roots", "range <= 7 & player.area(7).enemies >= 1 & UI(root) & !debuff(Mass Entanglement) & !debuff(Entangling Roots) & !player.lastcast(Mass Entanglement) & !player.lastcast(Entangling Roots)", "enemies"},
@@ -187,11 +196,15 @@ local DPS = {
     {"Moonfire", "!debuff & range <= 40 & player.los(target) & enemy & alive", "target"},
 	{"Moonfire", "toggle(aoe) & !debuff & combat & range <= 40 & enemy & alive", "enemies"},
 	
-	{"Starsurge", "player.buff(Moonkin Form) & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
-	{"Lunar Strike", "player.buff(Lunar Empowerment) & target.area(5).enemies >= 4 & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
-	{"Solar Wrath", "player.buff(Solar Empowerment) & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
+	{"Starsurge", "{!toggle(hig_en) || target.boss || pvp & player.pvp} & player.buff(Moonkin Form) & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
+	{"Starsurge", "toggle(hig_en) & !target.boss & !pvp & player.buff(Moonkin Form) & player.los(target) & {UI(mc) || !UI(mc) & !player.moving}", "highestenemy"},
+	{"Lunar Strike", "{!toggle(hig_en) || target.boss || pvp & player.pvp} & player.buff(Lunar Empowerment) & area(5).enemies >= 4 & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
+	{"Lunar Strike", "toggle(hig_en) & !target.boss & !pvp & player.buff(Lunar Empowerment) & area(5).enemies >= 4 & player.los(target) & {UI(mc) || !UI(mc) & !player.moving}", "highestenemy"},
+	{"Solar Wrath", "{!toggle(hig_en) || target.boss || pvp & player.pvp} & player.buff(Solar Empowerment) & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
+	{"Solar Wrath", "toggle(hig_en) & !target.boss & !pvp & player.buff(Solar Empowerment) & player.los(target) & {UI(mc) || !UI(mc) & !player.moving}", "highestenemy"},
 	
-	{"Solar Wrath", "player.buff(Moonkin Form) & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
+	{"Solar Wrath", "{!toggle(hig_en) || target.boss || pvp & player.pvp} & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
+	{"Solar Wrath", "toggle(hig_en) & !target.boss & !pvp & player.buff(Moonkin Form) & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "highestenemy"},
 	
 }
 
@@ -336,6 +349,7 @@ local Healing = {
 
 local inCombat = {
 
+    {"!/stopcasting", "casting(Unnerving Howl) & interruptAt(75)", "enemies"},
     {Shapeshift},
     {Survival, "player.health < 100"},
 	{Keybinds, "range <= 40"},

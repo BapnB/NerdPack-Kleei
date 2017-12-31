@@ -127,6 +127,8 @@ end
 
 local pvp = {
 
+    {"Every Man for Himself", "UI(medal) & state(stun)", "player"},        
+    {"Gladiator's Medallion", "UI(medal) & target.pvp & player.pvp & {state(stun) & spell(Every Man for Himself)cooldown >= gcd & race = Human || state(stun) & !race = Human || state(fear) || state(disorient) || state(charm)}", "player"},
 	--{"Polymorph", "!immune_all & alive & enemy & combat & !count.enemies.debuffs(Polymorph) >= 1 & !player.lastcast(Polymorph) & pvp & !is(target) & player.area(28).enemies <= 3 & player.area(28).enemies >= 1 & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & UI(poly) & {UI(mc) || !UI(mc) & !player.moving}", "enemies"},
 	{"Spellsteal", "!immune_all & alive & enemy & range <= 38.5 & steal_buff & UI(st_buff) & {player.mana >= 25 || player.buff(Innervate)} & {!pvp || pvp & player.pvp}", "enemies"},
 
@@ -202,12 +204,13 @@ local Combat = {
 
 local inCombat = {
 
+    {"!/stopcasting", "casting(Unnerving Howl) & interruptAt(75)", "enemies"},
 	{pvp, "!player.buff(Invisibility)"},
 	{Keybinds},
 	{Interrupts, "toggle(interrupts) & !immune_all & !player.buff(Invisibility) & !debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
     {Survival, "player.health <= 100 & !player.buff(Invisibility)"},
 	{Cooldowns, "toggle(cooldowns) & !player.buff(Invisibility) & !debuff(Polymorph) & !target.buff(Cloak of Shadows) & !buff(Touch of Karma) & !buff(Dispersion) & !player.buff(Invisibility)"},
-    {Combat, "target.alive & !immune_all & target.enemy & !target.buff(Touch of Karma) & !target.buff(Cloak of Shadows) & !target.buff(Dispersion) & !player.buff(Invisibility) & !debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
+    {Combat, "target.alive & !immune_all & target.enemy & !target.immune(spell) & !player.buff(Invisibility) & !debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
 
 }
 

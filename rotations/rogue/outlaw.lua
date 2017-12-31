@@ -54,7 +54,7 @@ local GUI = {
 	{type = 'text', text = "Use Blind:|c0000FA9A in combat:"},
 	{type = 'spacer'},
 	{type = 'combo', default = '4', key = 'list2', list = keybind_list_2, width = 100},	
-	{type = 'text', text = "Use Gouge:|c0000FA9A"},
+	{type = 'text', text = "Use Gouge:|c0000FA9A if target are facing to you"},
 	{type = 'text', text = "Use Between the Eyes:|c0000FA9A < 20 yd:"},
 	{type = 'spacer'},
 	{type = 'combo', default = '9', key = 'list3', list = keybind_list_3, width = 100},		
@@ -63,7 +63,7 @@ local GUI = {
 	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},
 	
     {type = 'header', size = 16, text = 'PVP', align = 'center'},
-    {type = 'checkbox',	text = "Gouge:|c0000FA9A auto Gouge PVP Target.|r", align = 'left', key = 'gog', default = true},
+    {type = 'checkbox',	text = "Gouge:|c0000FA9A auto Gouge PVP Target if he are facing to you.|r", align = 'left', key = 'gog', default = true},
     {type = 'checkbox',	text = "Between the Eyes:|c0000FA9A auto stun PVP Target.|r", align = 'left', key = 'stun', default = true},
     --{type = 'checkbox',	text = "Vanish:|c0000FA9A target not stuned and [Between the Eyes] is on CD", align = 'left', key = 'van_no_stun', default = false},
 	--{type = 'checkbox',	text = "Blind:|c0000FA9A target not stuned and [Vanish] is on CD", align = 'left', key = 'blind_no_van', default = false},
@@ -121,8 +121,8 @@ local Grappling_Hook = {
 
 local pvp = {
 
-    {"Every Man for Himself", "UI(medal) & player.state(stun) & !player.buff(Vanish) & !player.buff(Stealth)", "player"},        
-    {"Gladiator's Medallion", "UI(medal) & !player.buff(Vanish) & !player.buff(Stealth) & {player.state(stun) & player.spell(Every Man for Himself)cooldown >= gcd || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},        
+    {"Every Man for Himself", "UI(medal) & state(stun) & !buff(Stealth) & !buff(Vanish)", "player"},        
+    {"Gladiator's Medallion", "UI(medal) & !buff(Vanish) & !buff(Stealth) & {state(stun) & spell(Every Man for Himself)cooldown >= gcd & race = Human || state(stun) & !race = Human || state(fear) || state(disorient) || state(charm)}", "player"},        
 	{"/stopattack", "target.state(disorient) & !player.buff(Stealth) || target.debuff(Blind) & !player.buff(Stealth) || player.buff(Vanish) || target.immune_all"},
 	{"Between the Eyes", "range < 20 & !player.buff(Stealth) & !player.buff(Vanish) & player.combopoints >= 3 & target.debuff(Cheap Shot).duration <= 0.5 & UI(stun)", "target"},
     {"Gouge", "inmelee & infront.of.target & !player.buff(Stealth) & !player.buff(Vanish) & !debuff(Cheap Shot) & !debuff(Between the Eyes) & UI(gog)", "target"},
@@ -207,7 +207,7 @@ local Combat = {
 	{"Run Through", "inmelee & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
 
     {"Ghostly Strike", "inmelee & talent(1,1) & buff(Ghostly Strike).duration < 2 & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
-	{"Pistol Shot", "range < 20 & {!talent(1,3) & {player.energy < 49 || range > 9 & !lastcast & infront} || talent(1,3)} & {player.buff(Opportunity) || range > 9 & !lastcast & infront & pvp} & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
+	{"Pistol Shot", "range < 20 & {!talent(1,3) & {player.energy < 49 || range > 9 & !lastcast & infront} || talent(1,3)} & player.buff(Opportunity) & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
 	{"Saber Slash", "inmelee & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
 
 }
@@ -221,7 +221,7 @@ local inCombat = {
     {Interrupts, "toggle(interrupts) & infront & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
 	{Survival, "player.health < 100"},
 	{Cooldowns, "toggle(cooldowns) & !target.immune_all & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
-    {"/stopattack", "target.debuff(Blind) & target.player & !player.buff(Stealth) || player.buff(Stealth) & target.player || target.buff(Touch of Karma) || player.buff(Vanish) & target.player || target.immune_all", "player"},
+    {"/stopattack", "target.player & {target.state(disorient) & !buff(Stealth) || target.state(incapacitate) & !buff(Stealth) || target.state(fear) & !buff(Stealth) || target.debuff(Polymorph) & !buff(Stealth) || target.buff(Touch of Karma) || buff(Vanish) || target.immune_all}", "player"},
 	{Combat, "!target.immune_all & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
 
 }
@@ -233,7 +233,7 @@ local outCombat = {
     {"/targetenemyplayer", "!target.exists & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}"},
 	{"Stealth", "!player.buff(Stealth) & !player.buff(Vanish) & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
 	{"Crimson Vial", "player.health <= UI(cv_spin) & UI(cv_check)"},
-	{"/stopattack", "player.pvp & target.player & target.enemy & target.alive & {target.debuff(Blind) & !player.buff(Stealth) || target.state(disorient) & !player.buff(Stealth)|| target.state(fear) & !player.buff(Stealth) || target.debuff(Polymorph) & !player.buff(Stealth) || target.immune_all}", "player"},
+	{"/stopattack", "player.pvp & target.player & target.enemy & target.alive & {target.state(disorient) & !buff(Stealth) || target.state(incapacitate) & !buff(Stealth) || target.state(fear) & !buff(Stealth) || target.debuff(Polymorph) & !buff(Stealth) || target.buff(Touch of Karma) || buff(Vanish) || target.immune_all}", "player"},
     {Keybinds, "target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
 	{PreCombat, "target.enemy & target.alive"},
 

@@ -198,7 +198,7 @@ local Shapeshift = {
 
 local pvp = {
 
-	{"Gladiator's Medallion", "UI(medal) & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
+    {"Gladiator's Medallion", "UI(medal) & {state(stun) || state(fear) || state(disorient) || state(charm)}", "player"},
     
 	--{"Incarnation: King of the Jungle", "toggle(cooldowns) & talent(5,2) & !player.buff(Shadowmeld) & !player.buff(Prowl) & player.combat & target.range <= 7 & ", "player"},
     --{"Prowl", "!player.buff(Prowl) & player.buff(Cat Form) & player.buff(Incarnation: King of the Jungle).duration <= 15"},
