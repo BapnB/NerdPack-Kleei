@@ -130,7 +130,6 @@ local exeOnLoad = function()
 
 end
 
-
 local Shapeshift = {
 
     {"Moonkin Form", "toggle(DPS) & !buff(Moonkin Form) & {!swimming & !toggle(travelform) || indoors || state(root) & UI(root) || target.enemy & target.alive || area(10).enemies >= 1}", "player"},
@@ -197,14 +196,14 @@ local DPS = {
 	{"Moonfire", "toggle(aoe) & !debuff & combat & range <= 40 & enemy & alive", "enemies"},
 	
 	{"Starsurge", "{!toggle(hig_en) || target.boss || pvp & player.pvp} & player.buff(Moonkin Form) & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
-	{"Starsurge", "toggle(hig_en) & !target.boss & !pvp & player.buff(Moonkin Form) & player.los(target) & {UI(mc) || !UI(mc) & !player.moving}", "highestenemy"},
+	{"Starsurge", "toggle(hig_en) & !target.boss & !pvp & player.buff(Moonkin Form) & {UI(mc) || !UI(mc) & !player.moving}", "highestenemy"},
 	{"Lunar Strike", "{!toggle(hig_en) || target.boss || pvp & player.pvp} & player.buff(Lunar Empowerment) & area(5).enemies >= 4 & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
-	{"Lunar Strike", "toggle(hig_en) & !target.boss & !pvp & player.buff(Lunar Empowerment) & area(5).enemies >= 4 & player.los(target) & {UI(mc) || !UI(mc) & !player.moving}", "highestenemy"},
+	{"Lunar Strike", "toggle(hig_en) & !target.boss & !pvp & player.buff(Lunar Empowerment) & area(5).enemies >= 4 & {UI(mc) || !UI(mc) & !player.moving}", "highestenemy"},
 	{"Solar Wrath", "{!toggle(hig_en) || target.boss || pvp & player.pvp} & player.buff(Solar Empowerment) & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
-	{"Solar Wrath", "toggle(hig_en) & !target.boss & !pvp & player.buff(Solar Empowerment) & player.los(target) & {UI(mc) || !UI(mc) & !player.moving}", "highestenemy"},
+	{"Solar Wrath", "toggle(hig_en) & !target.boss & !pvp & player.buff(Solar Empowerment) & {UI(mc) || !UI(mc) & !player.moving}", "highestenemy"},
 	
 	{"Solar Wrath", "{!toggle(hig_en) || target.boss || pvp & player.pvp} & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
-	{"Solar Wrath", "toggle(hig_en) & !target.boss & !pvp & player.buff(Moonkin Form) & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "highestenemy"},
+	{"Solar Wrath", "toggle(hig_en) & !target.boss & !pvp & player.buff(Moonkin Form) & {UI(mc) || !UI(mc) & !player.moving}", "highestenemy"},
 	
 }
 
@@ -357,7 +356,7 @@ local inCombat = {
 	{Cooldowns, "toggle(cooldowns)"},
 	{Moving, "range <= 40 & !UI(mc) & player.moving"},
 	{Healing, "range <= 40 & {UI(mc) || !UI(mc) & !player.moving}"},
-    {DPS,  "player.mana >=UI (mana) & toggle(DPS)"},
+    {DPS,  "toggle(DPS)"},
 	
 }
 
