@@ -167,8 +167,8 @@ local Survival = {
 local Interrupts = {
 
 	{"!Counterspell", "range <= 38.5 & interruptAt(55)", "target"},
-	{"!Dragon's Breath", "interruptAt(55) & player.spell(Counterspell).cooldown > gcd & !player.lastcast(Counterspell) & range <= 7 & infront & !immune_spell", "enemies"},
-	{"!Ring of Frost", "target.interruptAt(5) & player.spell(Counterspell).cooldown > gcd & !player.lastcast(Counterspell) & target.range < 30 & {UI(mc) || !UI(mc) & !player.moving}", "target.ground"},
+	{"!Dragon's Breath", "interruptAt(55) & player.spell(Counterspell).cooldown > gcd & !player.lastcast(Counterspell) & range <= 7 & infront & !immune_spell & {!player.pvp || player.pvp & pvp & player}", "enemies"},
+	{"!Ring of Frost", "target.interruptAt(5) & player.spell(Counterspell).cooldown > gcd & !player.lastcast(Counterspell) & target.range < 30 & {!player.pvp || player.pvp & pvp & player} & {UI(mc) || !UI(mc) & !player.moving}", "target.ground"},
 
 }
 
