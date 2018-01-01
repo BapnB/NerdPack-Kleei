@@ -130,23 +130,23 @@ local pvp = {
     {"Every Man for Himself", "UI(medal) & state(stun)", "player"},        
     {"Gladiator's Medallion", "UI(medal) & target.pvp & player.pvp & {state(stun) & spell(Every Man for Himself)cooldown >= gcd & race = Human || state(stun) & !race = Human || state(fear) || state(disorient) || state(charm)}", "player"},
 	--{"Polymorph", "!immune_all & alive & enemy & combat & !count.enemies.debuffs(Polymorph) >= 1 & !player.lastcast(Polymorph) & pvp & !is(target) & player.area(28).enemies <= 3 & player.area(28).enemies >= 1 & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & UI(poly) & {UI(mc) || !UI(mc) & !player.moving}", "enemies"},
-	{"Spellsteal", "!immune_all & alive & enemy & range <= 38.5 & steal_buff & UI(st_buff) & {player.mana >= 25 || player.buff(Innervate)} & {!pvp || pvp & player.pvp}", "enemies"},
+	{"Spellsteal", "!immune_all & !immune_spell & alive & enemy & range <= 38.5 & steal_buff & UI(st_buff) & {player.mana >= 25 || player.buff(Innervate)} & {!pvp || pvp & player.pvp}", "enemies"},
 
 }
 
 local Keybinds = {
 
-    {"Polymorph", "!immune_all & alive & enemy & debuff(Polymorph).duration <= 2 & !player.lastcast & range <= 27 & !focus.exists & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2} & {UI(mc) || !UI(mc) & !player.moving}", "target"},
-    {"Polymorph", "!immune_all & alive & enemy & debuff(Polymorph).duration <= 2 & !player.lastcast & range <= 27 & focus.exists & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2} & {UI(mc) || !UI(mc) & !player.moving}", "focus"},
-	{"Spellsteal", "!immune_all & alive & enemy & range <= 38.5 & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
-	{"Meteor", "target.alive & target.enemy & player.combat & target.range <= 38.5 & !target.immune_all & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "target.ground"},	
+    {"Polymorph", "!immune_all & !immune_spell & alive & enemy & {!pvp || pvp & player.pvp} & debuff(Polymorph).duration <= 2 & !player.lastcast & range <= 27 & !focus.exists & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2} & {UI(mc) || !UI(mc) & !player.moving}", "target"},
+    {"Polymorph", "!immune_all & !immune_spell & alive & enemy & {!pvp || pvp & player.pvp} & debuff(Polymorph).duration <= 2 & !player.lastcast & range <= 27 & focus.exists & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2} & {UI(mc) || !UI(mc) & !player.moving}", "focus"},
+	{"Spellsteal", "!immune_all & !immune_spell & alive & enemy & range <= 38.5 & {player.mana >= 25 || player.buff(Innervate)} & {!pvp || pvp & player.pvp} & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
+	{"Meteor", "target.alive & target.enemy & player.combat & target.range <= 38.5 & !target.immune_all & !target.immune_spell & {!target.pvp || target.pvp & player.pvp} & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "target.ground"},	
 
 }
 
 local PreCombat = { 
 
 	{"Blazing Barrier", "!buff(Blazing Barrier)", "player"},
-	{"Fireball", "range <= 38.5 & alive & enemy & !immune_all & !buff(Touch of Karma) & !buff(Dispersion) & !buff(Cloak of Shadows) & {!target.pvp || target.pvp & player.pvp} & {UI(allfacing) || !UI(allfacing) & infront} & {UI(mc) || !UI(mc) & !player.moving}", "target"},
+	{"Fireball", "range <= 38.5 & alive & enemy & !immune_all & !immune_spell & {!pvp || pvp & player.pvp} & {UI(allfacing) || !UI(allfacing) & infront} & {UI(mc) || !UI(mc) & !player.moving}", "target"},
 
 }
 
@@ -156,9 +156,9 @@ local Survival = {
 	{"!Gladiator's Medallion", "UI(medal) & target.pvp & player.pvp & {state(stun) & spell(Every Man for Himself).cooldown >= gcd || state(fear) || state(disorient) || state(charm)}", "player"},
 	{"!Ice Block", "area(40).enemies >= 1 & {player.health <= UI(ice_health_spin) & UI(ice_health_check) || debuff(Cauterize) & UI(cool_down) || state(stun) & spell(Every Man for Himself).cooldown >= gcd & spell(Gladiator's Medallion).cooldown >= gcd & !lastcast(Gladiator's Medallion) & UI(ice_stun)}", "player"},
     {"!Temporal Shield", "player.health <= UI(temp_shield_spin) & UI(temp_shield_check) & area(40).enemies >= 1", "player"},
-	{"Dragon's Breath",	"toggle(cr) & !enemy_totem & range <= 8 & infront & !immune_all & !buff(Cloak of Shadows) & !buff(Dispersion) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm)", "enemies"},
-	{"Frost Nova", "toggle(cr) & !enemy_totem & range <= 8 & !immune_all & !buff(Cloak of Shadows) & !buff(Dispersion) & !player.lastcast(Frost Nova) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm)", "enemies"},
-	{"Blazing Barrier", "buff(Blazing Barrier).duration < gcd", "player"},
+	{"Dragon's Breath",	"toggle(cr) & !enemy_totem & range <= 8 & infront & !immune_all & !immune_spell & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm)", "enemies"},
+	{"Frost Nova", "toggle(cr) & !enemy_totem & range <= 8 & !immune_all & !immune_spell & !player.lastcast(Frost Nova) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm)", "enemies"},
+	{"Blazing Barrier", "buff(Blazing Barrier).duration < gcd & !buff(Ice Block)", "player"},
 	{"#5512", "item(5512).count >= 1 & health <= UI(hs_spin) & UI(hs_check) & area(40).enemies >= 1", "player"}, --Health Stone
 
 }
@@ -173,11 +173,11 @@ local Interrupts = {
 
 local Cooldowns = {
 
-	{"Time Warp", "toggle(tw) & target.range <= 38.5 & !target.immune_all & target.alive & target.enemy"},
-	{"Combustion", "!player.buff(Hot Streak!) & target.range <= 38.5 & !target.immune_all & target.alive & target.enemy & UI(fire_man)", "player"},
-	{"Meteor", "target.range <= 38.5 & !target.immune_all & target.alive & target.enemy & UI(mete)", "target.ground"},
-    {"#trinket1", "UI(trk1) & target.range <= 38 & !target.immune_all & target.alive & target.enemy"},
-	{"#trinket2", "UI(trk2) & target.range <= 38 & !target.immune_all & target.alive & target.enemy"},
+	{"Time Warp", "toggle(tw) & target.range <= 38.5"},
+	{"Combustion", "!player.buff(Hot Streak!) & target.range <= 38.5 & UI(fire_man)", "player"},
+	{"Meteor", "target.range <= 38.5 & UI(mete)", "target.ground"},
+    {"#trinket1", "UI(trk1) & target.range <= 38"},
+	{"#trinket2", "UI(trk2) & target.range <= 38"},
 
 }
 
@@ -207,10 +207,10 @@ local inCombat = {
     {"!/stopcasting", "casting(Unnerving Howl) & interruptAt(75)", "enemies"},
 	{pvp, "!player.buff(Invisibility)"},
 	{Keybinds},
-	{Interrupts, "toggle(interrupts) & !immune_all & !player.buff(Invisibility) & !debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
+	{Interrupts, "toggle(interrupts) & !immune_all & !player.buff(Invisibility) & !target.debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
     {Survival, "player.health <= 100 & !player.buff(Invisibility)"},
-	{Cooldowns, "toggle(cooldowns) & !player.buff(Invisibility) & !debuff(Polymorph) & !target.buff(Cloak of Shadows) & !buff(Touch of Karma) & !buff(Dispersion) & !player.buff(Invisibility)"},
-    {Combat, "target.alive & !immune_all & target.enemy & !target.immune(spell) & !player.buff(Invisibility) & !debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
+	{Cooldowns, "toggle(cooldowns) & alive & enemy & !immune_all & !immune(spell) & !player.buff(Invisibility) & !target.debuff(Polymorph) & !player.buff(Invisibility) & {!target.pvp || target.pvp & player.pvp}"},
+    {Combat, "alive & enemy & !immune_all & !immune_spell & !player.buff(Invisibility) & !target.debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
 
 }
 

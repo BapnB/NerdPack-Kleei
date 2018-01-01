@@ -31,36 +31,107 @@ end
     return false
 end)
 
-local immuneallbuff = {
-    "33786",     -- Cyclone
-    "209753",
-    "88010",
-    "45438",    -- Ice Block
-    "145533",
-    "41590",
-    "36911",
-    "27619",
-    "63148",    -- Divine Shield (Paladin)
-    "133093",
-    "186265",   -- Aspect of the Turtle
-	"19263",    -- Deterrence
-    "122464",   -- Dematerialize
-    "122465",
-    "122470",
-    "124280",   -- touch of karma
-    "125174",
-    "642",      -- Divine Shield
-}
+--[[immune_all_spells = {
+    "642",      -- Divine Shield (Paladin)
+    "133093",   -- Divine Shield (Uncategorized)
+    "63148",    -- Divine Shield (Uncategorized)
+    "186265",   -- Aspect of the Turtle (Hunter)
+	"19263",    -- Deterrence (Uncategorized)
+    "122464",   -- Dematerialize (Uncategorized)
+    "122465",   -- Dematerialize (Uncategorized)
+    "122470",   -- Touch of Karma (Monk - Windwalker)
+    "124280",   -- Touch of Karma (Uncategorized)
+    "125174",   -- Touch of Karma (Uncategorized)
+    "45438",    -- Ice Block (Mage)
+    "145533",   -- Ice Block (Uncategorized)
+    "41590",    -- Ice Block (Uncategorized)
+    "36911",    -- Ice Block (Uncategorized)
+    "27619",    -- Ice Block (Uncategorized)
+	"47585",    -- Dispersion (Priest)
+	-- Debuff Immune
+    "33786",    -- Cyclone
+    "209753",   -- Cyclone
+    "88010",    -- Cyclone
+]]
 
 --/dump NeP.DSL.Parse("player.immune_all", "", "")
 --/dump NeP.DSL.Parse("target.immune_all", "", "")
-NeP.DSL:Register('immune_all',function(target, spell)
-    for i = 1, #immuneallbuff do
-        if UnitBuff(target, GetSpellInfo(immuneallbuff[i])) then
-            return true
-        end
-        return false
+NeP.DSL:Register("immune_all",function(target, spell)
+    if UnitBuff(target, GetSpellInfo(642)) or
+	   UnitBuff(target, GetSpellInfo(133093)) or
+	   UnitBuff(target, GetSpellInfo(63148)) or
+	   UnitBuff(target, GetSpellInfo(186265)) or
+	   UnitBuff(target, GetSpellInfo(19263)) or
+	   UnitBuff(target, GetSpellInfo(122464)) or
+	   UnitBuff(target, GetSpellInfo(122465)) or
+	   UnitBuff(target, GetSpellInfo(122470)) or
+	   UnitBuff(target, GetSpellInfo(124280)) or
+	   UnitBuff(target, GetSpellInfo(125174)) or
+	   UnitBuff(target, GetSpellInfo(45438)) or
+	   UnitBuff(target, GetSpellInfo(145533)) or
+	   UnitBuff(target, GetSpellInfo(41590)) or
+	   UnitBuff(target, GetSpellInfo(36911)) or
+	   UnitBuff(target, GetSpellInfo(27619)) or
+	   UnitBuff(target, GetSpellInfo(47585)) or
+	   UnitDebuff(target, GetSpellInfo(33786)) or
+	   UnitDebuff(target, GetSpellInfo(209753)) or
+	   UnitDebuff(target, GetSpellInfo(88010)) then
+       return true
     end
+       return false
+end)
+
+--/dump NeP.DSL.Parse("target.immune_spell", "", "")
+NeP.DSL:Register("immune_spell",function(target, spell)
+    if UnitBuff(target, GetSpellInfo(31224)) or
+	   UnitBuff(target, GetSpellInfo(65961)) or
+	   UnitBuff(target, GetSpellInfo(81549)) or
+	   UnitBuff(target, GetSpellInfo(213915)) or
+	   UnitBuff(target, GetSpellInfo(114028)) or
+	   UnitBuff(target, GetSpellInfo(23920)) or
+	   UnitBuff(target, GetSpellInfo(216890)) or
+	   UnitBuff(target, GetSpellInfo(57643)) then
+	   return true
+	end
+       return false
+end)
+
+--[[bufftosteal = {
+    "235450",    -- Prismatic Barrier    -- Mage Arcane
+    "12042",     -- Arcane Power         -- Mage Arcane
+	"11426",     -- Ice Barrier          -- Mage Frost
+    "12472",     -- Ice Veins            -- Mage Frost
+    "190319",    -- Combustion           -- Mage Fire
+    "198111",    -- Temporal Shield      -- Mage Fire PVP Talent
+	"29166",     -- Innervate            -- Druid
+	"1044",      -- Blessing of Freedom  -- Paladin
+	"184662",    -- Shield of Vengeance  -- Paladin
+	"47536",     -- Rapture              -- Priest
+	"17",        -- Power Word: Shield   -- Priest
+	"152118",    -- Clarity of Will      -- Priest
+    "212295",    -- Nether Ward          -- Warlock
+	"196098",    -- Soul Harvest         -- Warlock
+]]
+
+--/dump NeP.DSL.Parse("steal_buff", "", "")
+NeP.DSL:Register('steal_buff',function(target, spell)
+    if UnitBuff(target, GetSpellInfo(235450)) or
+	   UnitBuff(target, GetSpellInfo(12042)) or
+	   UnitBuff(target, GetSpellInfo(11426)) or
+	   UnitBuff(target, GetSpellInfo(12472)) or
+	   UnitBuff(target, GetSpellInfo(190319)) or
+	   UnitBuff(target, GetSpellInfo(198111)) or
+	   UnitBuff(target, GetSpellInfo(29166)) or
+	   UnitBuff(target, GetSpellInfo(1044)) or
+	   UnitBuff(target, GetSpellInfo(184662)) or
+	   UnitBuff(target, GetSpellInfo(47536)) or
+	   UnitBuff(target, GetSpellInfo(17)) or
+	   UnitBuff(target, GetSpellInfo(152118)) or
+	   UnitBuff(target, GetSpellInfo(212295)) or
+	   UnitBuff(target, GetSpellInfo(196098)) then
+       return true
+    end
+       return false
 end)
 
 --/dump NeP.DSL.Parse("target.Garrote_Silence", "", "")
@@ -101,36 +172,17 @@ end
     return false
 end)
 
-local bufftosteal = {
-    "235450",    -- Prismatic Barrier    -- Mage Arcane
-    "12042",     -- Arcane Power         -- Mage Arcane
-	"11426",     -- Ice Barrier          -- Mage Frost
-    "12472",     -- Ice Veins            -- Mage Frost
-    "190319",    -- Combustion           -- Mage Fire
-    "198111",    -- Temporal Shield      -- Mage Fire PVP Talent
-	"29166",     -- Innervate            -- Druid
-	"1044",      -- Blessing of Freedom  -- Paladin
-	"184662",    -- Shield of Vengeance  -- Paladin
-	"47536",     -- Rapture              -- Priest
-	"17",        -- Power Word: Shield   -- Priest
-	"152118",    -- Clarity of Will      -- Priest
-    "212295",    -- Nether Ward          -- Warlock
-	"196098",    -- Soul Harvest         -- Warlock
-}
-
---/dump NeP.DSL.Parse("steal_buff", "", "")
-NeP.DSL:Register('steal_buff',function(target, spell)
-    for i = 1, #bufftosteal do
-        if UnitBuff(target, GetSpellInfo(bufftosteal[i])) then
-            return true
-        end
-        return false
-    end
-end)
-
 --/dump NeP.DSL.Parse("enemy_totem", "", "")
 NeP.DSL:Register("enemy_totem", function(target)
-    if NeP.DSL.Parse("is(2630)", "", "") or NeP.DSL.Parse("is(113845)", "", "") or NeP.DSL.Parse("is(102392)", "", "") or NeP.DSL.Parse("is(106317)", "", "") or NeP.DSL.Parse("is(106319)", "", "") or NeP.DSL.Parse("is(106321)", "", "") or NeP.DSL.Parse("is(3527)", "", "") or NeP.DSL.Parse("is(59764)", "", "") or NeP.DSL.Parse("is(53006)", "", "") then
+    if NeP.DSL.Parse("is(2630)", "", "") or 
+	   NeP.DSL.Parse("is(113845)", "", "") or 
+	   NeP.DSL.Parse("is(102392)", "", "") or 
+	   NeP.DSL.Parse("is(106317)", "", "") or 
+	   NeP.DSL.Parse("is(106319)", "", "") or 
+	   NeP.DSL.Parse("is(106321)", "", "") or 
+	   NeP.DSL.Parse("is(3527)", "", "") or 
+	   NeP.DSL.Parse("is(59764)", "", "") or 
+	   NeP.DSL.Parse("is(53006)", "", "") then
     return true
 end
     return false
