@@ -31,29 +31,6 @@ end
     return false
 end)
 
---[[immune_all_spells = {
-    "642",      -- Divine Shield (Paladin)
-    "133093",   -- Divine Shield (Uncategorized)
-    "63148",    -- Divine Shield (Uncategorized)
-    "186265",   -- Aspect of the Turtle (Hunter)
-	"19263",    -- Deterrence (Uncategorized)
-    "122464",   -- Dematerialize (Uncategorized)
-    "122465",   -- Dematerialize (Uncategorized)
-    "122470",   -- Touch of Karma (Monk - Windwalker)
-    "124280",   -- Touch of Karma (Uncategorized)
-    "125174",   -- Touch of Karma (Uncategorized)
-    "45438",    -- Ice Block (Mage)
-    "145533",   -- Ice Block (Uncategorized)
-    "41590",    -- Ice Block (Uncategorized)
-    "36911",    -- Ice Block (Uncategorized)
-    "27619",    -- Ice Block (Uncategorized)
-	"47585",    -- Dispersion (Priest)
-	-- Debuff Immune
-    "33786",    -- Cyclone
-    "209753",   -- Cyclone
-    "88010",    -- Cyclone
-]]
-
 --/dump NeP.DSL.Parse("player.immune_all", "", "")
 --/dump NeP.DSL.Parse("target.immune_all", "", "")
 NeP.DSL:Register("immune_all",function(target, spell)
@@ -90,7 +67,8 @@ NeP.DSL:Register("immune_spell",function(target, spell)
 	   UnitBuff(target, GetSpellInfo(114028)) or
 	   UnitBuff(target, GetSpellInfo(23920)) or
 	   UnitBuff(target, GetSpellInfo(216890)) or
-	   UnitBuff(target, GetSpellInfo(57643)) then
+	   UnitBuff(target, GetSpellInfo(57643)) or
+	   UnitBuff(target, GetSpellInfo(48707)) then
 	   return true
 	end
        return false
@@ -111,9 +89,14 @@ end)
 	"152118",    -- Clarity of Will      -- Priest
     "212295",    -- Nether Ward          -- Warlock
 	"196098",    -- Soul Harvest         -- Warlock
+	
+	PVE-------------
+	"222477"     -- Vengeful Wail (+50% DMG)
+	"197892"     -- Runic Empowerment (Damage done increased by 30%.Damage taken reduced by 30%.)
+	"198745"     -- Protective Light (Absorbs 1500000 damage)
 ]]
 
---/dump NeP.DSL.Parse("steal_buff", "", "")
+--/dump NeP.DSL.Parse("target.steal_buff", "", "")
 NeP.DSL:Register('steal_buff',function(target, spell)
     if UnitBuff(target, GetSpellInfo(235450)) or
 	   UnitBuff(target, GetSpellInfo(12042)) or
@@ -128,7 +111,10 @@ NeP.DSL:Register('steal_buff',function(target, spell)
 	   UnitBuff(target, GetSpellInfo(17)) or
 	   UnitBuff(target, GetSpellInfo(152118)) or
 	   UnitBuff(target, GetSpellInfo(212295)) or
-	   UnitBuff(target, GetSpellInfo(196098)) then
+	   UnitBuff(target, GetSpellInfo(196098)) or
+	   UnitBuff(target, GetSpellInfo(222477)) or
+	   UnitBuff(target, GetSpellInfo(197892)) or
+	   UnitBuff(target, GetSpellInfo(198745)) then
        return true
     end
        return false
