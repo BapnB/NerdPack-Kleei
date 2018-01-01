@@ -115,6 +115,13 @@ local exeOnLoad = function()
 		text = "Automatically use Frost Nova & Dragon's Breath.",
 		icon = "Interface\\Icons\\spell_frost_frostnova",
 	})
+	
+	NeP.Interface:AddToggle({
+		key = "autopvp",
+		name = "Auto Target PVP enemies",
+		text = "Automatically Target PVP enemies for BG to avoid burst on enemy pets or totems.",
+		icon = "Interface\\Icons\\spell_shadow_charm",
+	})
 
 	NeP.Interface:AddToggle({
 		key = "hig_en",
@@ -205,6 +212,7 @@ local Combat = {
 
 local inCombat = {
 
+    {"/targetenemyplayer", "UI(autopvp) & player.pvp & !target.player & !target.pvp & !target.enemy & range <= 40"},
     {"!/stopcasting", "casting(Unnerving Howl) & interruptAt(75)", "enemies"},
 	{pvp, "!player.buff(Invisibility)"},
 	{Keybinds},
@@ -217,6 +225,7 @@ local inCombat = {
 
 local outCombat = {	
 
+    {"/targetenemyplayer", "UI(autopvp) & player.pvp & !target.player & !target.pvp & !target.enemy & range <= 40"},
 	{pvp, "!player.buff(Invisibility)"},
 	{Keybinds},
 	{PreCombat, "!player.buff(Invisibility)"},

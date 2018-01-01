@@ -74,7 +74,9 @@ NeP.DSL:Register("immune_spell",function(target, spell)
        return false
 end)
 
---[[bufftosteal = {
+--[[------------------------------------------------------
+                 Buff to Steal
+----------------------------------------------------------
     "235450",    -- Prismatic Barrier    -- Mage Arcane
     "12042",     -- Arcane Power         -- Mage Arcane
 	"11426",     -- Ice Barrier          -- Mage Frost
@@ -93,7 +95,7 @@ end)
 	PVE-------------
 	"222477"     -- Vengeful Wail (+50% DMG)
 	"197892"     -- Runic Empowerment (Damage done increased by 30%.Damage taken reduced by 30%.)
-	"198745"     -- Protective Light (Absorbs 1500000 damage)
+	"198745"     -- Protective Light (Absorbs 1.500.000 damage)
 ]]
 
 --/dump NeP.DSL.Parse("target.steal_buff", "", "")
@@ -159,19 +161,33 @@ end
 end)
 
 --/dump NeP.DSL.Parse("enemy_totem", "", "")
+NeP.DSL:Register("enemy_Earthbind_Totem", function(target)
+    if not _G.UnitExists(target) then 
+	return 
+	end
+    if _G.UnitName(target) == "Earthbind Totem" then
+	return true
+	end
+	return false
+end)
+
+--/dump NeP.DSL.Parse("enemy_totem", "", "")
 NeP.DSL:Register("enemy_totem", function(target)
-    if NeP.DSL.Parse("is(2630)", "", "") or 
-	   NeP.DSL.Parse("is(113845)", "", "") or 
-	   NeP.DSL.Parse("is(102392)", "", "") or 
-	   NeP.DSL.Parse("is(106317)", "", "") or 
-	   NeP.DSL.Parse("is(106319)", "", "") or 
-	   NeP.DSL.Parse("is(106321)", "", "") or 
-	   NeP.DSL.Parse("is(3527)", "", "") or 
-	   NeP.DSL.Parse("is(59764)", "", "") or 
-	   NeP.DSL.Parse("is(53006)", "", "") then
-    return true
-end
-    return false
+    if not _G.UnitExists(target) then 
+	return 
+	end
+    if NeP.DSL:Get("enemy")(taget) and _G.UnitName(target) == "Earthbind Totem" or
+	   NeP.DSL:Get("enemy")(taget) and _G.UnitName(target) == "Totem Mastery" or
+	   NeP.DSL:Get("enemy")(taget) and _G.UnitName(target) == "Resonance Totem" or
+	   NeP.DSL:Get("enemy")(taget) and _G.UnitName(target) == "Storm Totem" or
+	   NeP.DSL:Get("enemy")(taget) and _G.UnitName(target) == "Ember Totem" or
+	   NeP.DSL:Get("enemy")(taget) and _G.UnitName(target) == "Tailwind Totem" or
+	   NeP.DSL:Get("enemy")(taget) and _G.UnitName(target) == "Healing Stream Totem" or
+	   NeP.DSL:Get("enemy")(taget) and _G.UnitName(target) == "Healing Tide Totem" or
+	   NeP.DSL:Get("enemy")(taget) and _G.UnitName(target) == "Spirit Link Totem" then
+	return true
+	end
+	return false
 end)
 
 --- Highest Health Enemy
@@ -191,10 +207,10 @@ end)
 
 --/dump NeP.DSL.Parse("player.infront.of.target", "", "")
 NeP.DSL:Register("infront.of.target", function(target)
-  return NeP.Protected.Infront("target", target)
+    return NeP.Protected.Infront("target", target)
 end)
 
 --/dump NeP.DSL.Parse("target.race", "", "")
 NeP.DSL:Register("race", function(target)
-  return UnitRace(target)
+    return _G.UnitRace(target)
 end)
