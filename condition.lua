@@ -149,7 +149,7 @@ end
     if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193356)) > 3 then  roll = roll + 2  -- Broadsides
 end
 
-    if UnitDebuff("player", GetSpellInfo(202665)) then roll = roll + 2
+    if UnitDebuff("player", GetSpellInfo(202665)) then roll = roll + 1
 end
 
     if roll > 1 then

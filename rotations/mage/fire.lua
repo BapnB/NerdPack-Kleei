@@ -43,12 +43,12 @@ local GUI = {
 	{type = "text", text = "|c0000FA9A Just hold the Key|r", align = "center"},
 	{type = "text", text = "|c0087CEFA Choose Keybind:", align = "center"},
 	{type = "spacer"},
-	{type = "combo", default = "3", key = "list1", list = keybind_list_1, width = 100},	
+	{type = "combo", default = "1", key = "list1", list = keybind_list_1, width = 100},	
 	{type = "text", text = "Use Polymorph:|c0000FA9A "},
 	{type = "text", text = "      |c0000FA9A on target or on focus if exist:"},	
-	{type = "combo", default = "5", key = "list2", list = keybind_list_2, width = 100},	
+	{type = "combo", default = "none", key = "list2", list = keybind_list_2, width = 100},	
     {type = "text", text = "Use Spellsteal:|c0000FA9A on target|r"},
-	{type = "combo", default = "7", key = "list3", list = keybind_list_3, width = 100},		
+	{type = "combo", default = "8", key = "list3", list = keybind_list_3, width = 100},		
     {type = "text", text = "Use Meteor:|c0000FA9A on target ground|r"},
 	{type = "spacer"}, {type = "ruler"},
 	
@@ -130,7 +130,7 @@ local pvp = {
     {"Every Man for Himself", "UI(medal) & state(stun)", "player"},        
     {"Gladiator's Medallion", "UI(medal) & target.pvp & player.pvp & {state(stun) & spell(Every Man for Himself)cooldown >= gcd & race = Human || state(stun) & !race = Human || state(fear) || state(disorient) || state(charm)}", "player"},
 	--{"Polymorph", "!immune_all & alive & enemy & combat & !count.enemies.debuffs(Polymorph) >= 1 & !player.lastcast(Polymorph) & pvp & !is(target) & player.area(28).enemies <= 3 & player.area(28).enemies >= 1 & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & UI(poly) & {UI(mc) || !UI(mc) & !player.moving}", "enemies"},
-	{"Spellsteal", "!immune_all & !immune_spell & alive & enemy & range <= 38.5 & buff(Cauterizing Blink) & UI(st_buff) & {player.mana >= 25 || player.buff(Innervate)} & {!pvp || pvp & player.pvp}", "target"},
+	{"!Spellsteal", "!immune_all & !immune_spell & alive & enemy & range <= 38.5 & buff(Cauterizing Blink) & UI(st_buff) & {player.mana >= 25 || player.buff(Innervate)} & {!pvp || pvp & player.pvp}", "target"},
 	{"Spellsteal", "!immune_all & !immune_spell & alive & enemy & range <= 38.5 & steal_buff & UI(st_buff) & {player.mana >= 25 || player.buff(Innervate)} & {!pvp || pvp & player.pvp}", "enemies"},
 
 }
