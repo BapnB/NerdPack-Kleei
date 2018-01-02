@@ -152,7 +152,7 @@ local PreCombat = {
     {"/stopattack", "{player.buff(Vanish) || player.buff(Stealth)} & target.buff(Touch of Karma) || target.immune_all"},
 
     {"/startattack", "!isattacking & !immune_all & target.inmelee & !target.player & player.energy < 45"},
-	{"Pistol Shot", "range < 20 & range > 9 & !lastcast & infront & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6 || !talent(7,3) & player.buff(Opportunity)}", "target"},
+	{"Pistol Shot", "range < 20 & !immune_all & range > 9 & !target.pvp & !lastcast & infront & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6 || !talent(7,3) & player.buff(Opportunity)}", "target"},
 	{"Cheap Shot", "inmelee & !lastcast & target.pvp & player.buff(Stealth) & !debuff(Cheap Shot) & !immune_all & !UI(amb)}", "target"},
 	{"Ambush", "player.buff(Stealth) & inmelee & UI(amb)", "target"},
 	{"Saber Slash", "inmelee & !immune_all & {debuff(Cheap Shot) & target.pvp || !target.pvp} & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},

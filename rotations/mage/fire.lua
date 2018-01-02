@@ -125,8 +125,8 @@ local exeOnLoad = function()
 
 	NeP.Interface:AddToggle({
 		key = "hig_en",
-		name = "Highest Enemies",
-		text = "Disable if PVP enemies nearby.",
+		name = "Attack Highest Health Enemies",
+		text = "Works great in dungeons. Disable it in PVP.",
 		icon = "Interface\\Icons\\achievement_boss_guarm",
 	})
 	

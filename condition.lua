@@ -12,7 +12,7 @@ end)
 
 --/dump NeP.DSL.Parse("target.caster", "", "")
 NeP.DSL:Register("caster", function(target)
-    if NeP.DSL:Get("class")("target", "Priest") or NeP.DSL:Get("class")("target", "Shaman") or NeP.DSL:Get("class")("target", "Mage") or NeP.DSL:Get("class")("target", "Warlock") then
+    if NeP.DSL:Get("class")("target", "Priest") or NeP.DSL:Get("class")("target", "Mage") or NeP.DSL:Get("class")("target", "Warlock") then
       return true --Need To Add a few more specs not whole Class, Monk Mistweaver, Druid Balance, Druid Restoration, Paladin Holy
     end
       return false
@@ -75,27 +75,28 @@ NeP.DSL:Register("immune_spell",function(target, spell)
 end)
 
 --[[------------------------------------------------------
-                 Buff to Steal
+                         Buff to Steal
+---------------------------PvP-------------------------
 ----------------------------------------------------------
     "235450",    -- Prismatic Barrier    -- Mage Arcane
     "12042",     -- Arcane Power         -- Mage Arcane
-	"11426",     -- Ice Barrier          -- Mage Frost
+    "11426",     -- Ice Barrier          -- Mage Frost
     "12472",     -- Ice Veins            -- Mage Frost
     "190319",    -- Combustion           -- Mage Fire
     "198111",    -- Temporal Shield      -- Mage Fire PVP Talent
-	"29166",     -- Innervate            -- Druid
-	"1044",      -- Blessing of Freedom  -- Paladin
-	"184662",    -- Shield of Vengeance  -- Paladin
-	"47536",     -- Rapture              -- Priest
-	"17",        -- Power Word: Shield   -- Priest
-	"152118",    -- Clarity of Will      -- Priest
+    "29166",     -- Innervate            -- Druid
+    "1044",      -- Blessing of Freedom  -- Paladin
+    "184662",    -- Shield of Vengeance  -- Paladin
+    "47536",     -- Rapture              -- Priest
+    "17",        -- Power Word: Shield   -- Priest
+    "152118",    -- Clarity of Will      -- Priest
     "212295",    -- Nether Ward          -- Warlock
-	"196098",    -- Soul Harvest         -- Warlock
-	
-	PVE-------------
-	"222477"     -- Vengeful Wail (+50% DMG)
-	"197892"     -- Runic Empowerment (Damage done increased by 30%.Damage taken reduced by 30%.)
-	"198745"     -- Protective Light (Absorbs 1.500.000 damage)
+    "196098",    -- Soul Harvest         -- Warlock
+    
+---------------------------PVE------------------------
+    "222477"     -- Vengeful Wail (+50% DMG)
+    "197892"     -- Runic Empowerment (Damage done increased by 30%.Damage taken reduced by 30%.)
+    "198745"     -- Protective Light (Absorbs 1.500.000 damage)
 ]]
 
 --/dump NeP.DSL.Parse("target.steal_buff", "", "")
