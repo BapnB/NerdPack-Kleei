@@ -134,6 +134,8 @@ end
 
 local pvp = {
 
+    {"!/cleartarget", "toggle(autopvp) & player.pvp & target.exists & !target.player & target.enemy", "target"},
+    {"!/targetenemyplayer", "toggle(autopvp) & player.pvp & !target.exists & range <= 40 & infront", "enemies"},
     {"Every Man for Himself", "UI(medal) & state(stun)", "player"},        
     {"Gladiator's Medallion", "UI(medal) & target.pvp & player.pvp & {state(stun) & spell(Every Man for Himself)cooldown >= gcd & race = Human || state(stun) & !race = Human || state(fear) || state(disorient) || state(charm)}", "player"},
 	--{"Polymorph", "!immune_all & alive & enemy & combat & !count.enemies.debuffs(Polymorph) >= 1 & !player.lastcast(Polymorph) & pvp & !is(target) & player.area(28).enemies <= 3 & player.area(28).enemies >= 1 & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & UI(poly) & {UI(mc) || !UI(mc) & !player.moving}", "enemies"},
@@ -193,7 +195,7 @@ local Combat = {
 
 	{"!Pyroblast", "{!toggle(hig_en) || target.boss || pvp & player.pvp} & range <= 38.5 & player.buff(Hot Streak!) & player.buff(Combustion) & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
 	{"!Pyroblast", "toggle(hig_en) & !target.boss & !pvp & range <= 38.5 & player.buff(Hot Streak!) & player.buff(Combustion) & {UI(allfacing) || !UI(allfacing) & infront}", "highestenemy"},
-	{"Meteor", "target.range <= 38.5 & !player.buff(Heating up) & {toggle(AoE) & target.area(8).enemies >= UI(mete_aoe_spin) & UI(mete_aoe_check) || {target.pvp & {target.state(root) || target.state(stun) || target.state(disorient) || target.state(incapacitate)}}}", "target.ground"},
+	{"Meteor", "target.range <= 38.5 & {toggle(AoE) & target.area(8).enemies >= UI(mete_aoe_spin) & UI(mete_aoe_check) || {target.pvp & target.player & {target.state(root) || target.state(stun) || target.state(disorient) || target.state(incapacitate)}}}", "target.ground"},
     {"Flamestrike", "toggle(AoE) & !target.debuff(Dragon's Breath) & player.buff(Hot Streak!) & target.area(10).enemies >= 4 & {UI(mc) || !UI(mc) & !player.moving}", "target.ground"},
 	{"Pyroblast", "{!toggle(hig_en) || target.boss || pvp & player.pvp} & range <= 38.5 & !debuff(Dragon's Breath) & player.buff(Hot Streak!) & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
 	{"Pyroblast", "toggle(hig_en) & !target.boss & !pvp & range <= 38.5 & !debuff(Dragon's Breath) & player.buff(Hot Streak!) & {UI(allfacing) || !UI(allfacing) & infront}", "highestenemy"},
@@ -212,8 +214,6 @@ local Combat = {
 
 local inCombat = {
 
-    {"!/cleartarget", "toggle(autopvp) & player.pvp & !target.player & !target.pvp & !target.enemy & target.exists"},
-    {"!/targetenemyplayer", "toggle(autopvp) & player.pvp & range <= 40  & pvp & {!target.player & !target.pvp & !target.enemy || !target.exists}", "enemies"},
     {"!/stopcasting", "casting(Unnerving Howl) & interruptAt(75)", "enemies"},
 	{pvp, "!player.buff(Invisibility)"},
 	{Keybinds},
@@ -226,8 +226,6 @@ local inCombat = {
 
 local outCombat = {	
 
-    {"!/cleartarget", "toggle(autopvp) & player.pvp & !target.player & !target.pvp & !target.enemy & target.exists"},
-    {"!/targetenemyplayer", "toggle(autopvp) & player.pvp & range <= 40 & pvp & {!target.player & !target.pvp & !target.enemy || !target.exists}", "enemies"},
 	{pvp, "!player.buff(Invisibility)"},
 	{Keybinds},
 	{PreCombat, "!player.buff(Invisibility)"},
