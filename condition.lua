@@ -176,15 +176,15 @@ NeP.DSL:Register("enemy_totem", function(target)
     if not _G.UnitExists(target) then 
 	return 
 	end
-    if NeP.DSL:Get("enemy")(taget) and _G.UnitName(target) == "Earthbind Totem" or
-	   NeP.DSL:Get("enemy")(taget) and _G.UnitName(target) == "Totem Mastery" or
-	   NeP.DSL:Get("enemy")(taget) and _G.UnitName(target) == "Resonance Totem" or
-	   NeP.DSL:Get("enemy")(taget) and _G.UnitName(target) == "Storm Totem" or
-	   NeP.DSL:Get("enemy")(taget) and _G.UnitName(target) == "Ember Totem" or
-	   NeP.DSL:Get("enemy")(taget) and _G.UnitName(target) == "Tailwind Totem" or
-	   NeP.DSL:Get("enemy")(taget) and _G.UnitName(target) == "Healing Stream Totem" or
-	   NeP.DSL:Get("enemy")(taget) and _G.UnitName(target) == "Healing Tide Totem" or
-	   NeP.DSL:Get("enemy")(taget) and _G.UnitName(target) == "Spirit Link Totem" then
+    if _G.UnitName(target) == "Earthbind Totem" or
+	   _G.UnitName(target) == "Totem Mastery" or
+	   _G.UnitName(target) == "Resonance Totem" or
+	   _G.UnitName(target) == "Storm Totem" or
+	   _G.UnitName(target) == "Ember Totem" or
+	   _G.UnitName(target) == "Tailwind Totem" or
+	   _G.UnitName(target) == "Healing Stream Totem" or
+	   _G.UnitName(target) == "Healing Tide Totem" or
+	   _G.UnitName(target) == "Spirit Link Totem" then
 	return true
 	end
 	return false

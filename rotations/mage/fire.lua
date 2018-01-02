@@ -212,7 +212,8 @@ local Combat = {
 
 local inCombat = {
 
-    {"/targetenemyplayer", "UI(autopvp) & player.pvp & !target.player & !target.pvp & !target.enemy & range <= 40"},
+    {"!/cleartarget", "toggle(autopvp) & player.pvp & !target.player & !target.pvp & !target.enemy & target.exists"},
+    {"!/targetenemyplayer", "toggle(autopvp) & player.pvp & range <= 40  & pvp & {!target.player & !target.pvp & !target.enemy || !target.exists}", "enemies"},
     {"!/stopcasting", "casting(Unnerving Howl) & interruptAt(75)", "enemies"},
 	{pvp, "!player.buff(Invisibility)"},
 	{Keybinds},
@@ -225,7 +226,8 @@ local inCombat = {
 
 local outCombat = {	
 
-    {"/targetenemyplayer", "UI(autopvp) & player.pvp & !target.player & !target.pvp & !target.enemy & range <= 40"},
+    {"!/cleartarget", "toggle(autopvp) & player.pvp & !target.player & !target.pvp & !target.enemy & target.exists"},
+    {"!/targetenemyplayer", "toggle(autopvp) & player.pvp & range <= 40 & pvp & {!target.player & !target.pvp & !target.enemy || !target.exists}", "enemies"},
 	{pvp, "!player.buff(Invisibility)"},
 	{Keybinds},
 	{PreCombat, "!player.buff(Invisibility)"},
