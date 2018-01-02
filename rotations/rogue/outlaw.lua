@@ -174,10 +174,10 @@ local Survival ={
 
 local Interrupts = {
 
-    {"Sap", "interruptAt(75) & range <= 10 & !debuff(Sap) & !immune(disorient) & !player.lastcast(Sap) & !combat & pvp & player.pvp & !state(stun) & {player.buff(Stealth) || player.buff(Vanish)}", "target"},
+    {"!Sap", "{interruptAt(75) || channeling.percent(90)} & range <= 10 & !debuff(Sap) & !immune(disorient) & !player.lastcast(Sap) & !combat & pvp & player.pvp & !state(stun) & {player.buff(Stealth) || player.buff(Vanish)}", "target"},
     {"/stopattack", "buff(Vanish)", "player"},
-	{"Kick", "interruptAt(75) & inmelee", "target"},
-	{"Kick", "interruptAt(75)& inmelee", "enemies"},
+	{"!Kick", "interruptAt(75) & inmelee", "target"},
+	{"!Kick", "interruptAt(75) & inmelee", "enemies"},
 }
 
 local Cooldowns = {

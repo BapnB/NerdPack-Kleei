@@ -156,9 +156,9 @@ local Survival ={
 
 local Interrupts = {
 
-    {"Sap", "target.interruptAt(75) & range <= 10 & !debuff(Sap) & !immune(disorient) & !player.lastcast(Sap) & !combat & pvp & player.pvp & !state(stun) & {player.buff(Stealth) || player.buff(Vanish)}", "target"},
+    {"Sap", "interruptAt(75) & range <= 10 & !debuff(Sap) & !immune(disorient) & !player.lastcast(Sap) & !combat & pvp & player.pvp & !state(stun) & {player.buff(Stealth) || player.buff(Vanish)}", "target"},
     {"/stopattack", "player.buff(Vanish)", "player"},
-	{"Kick", "target.interruptAt(75) & target.inmelee", "target"},
+	{"!Kick", "interruptAt(75) & target.inmelee", "target"},
 	--{"Cloak of Shadows", "target.interruptAt(75) & target.caster & target.pvp & targettarget.is(player) & {player.spell(Kick).cooldown > 0.1 || player.state(root) || target.range >= 7}", "target"},
 	
 }

@@ -81,13 +81,15 @@ local Keybinds = {
 }
 
 local Interrupts = {
-	{"Mind Freeze", "target.range <= 15"},
+
+	{"!Mind Freeze", "interruptAt(75) & range <= 15", "target"},
+
 }
 
 local inCombat = {
 
 	{Keybinds},
-	{Interrupts, "target.interruptAt(30) & toggle(interrupts)"},
+	{Interrupts, "toggle(interrupts)"},
 	
 	--Ress 
 	{"Raise Ally", "!target.enemy & target.dead", "target"},
@@ -101,7 +103,7 @@ local outCombat = {
 
 	{Keybinds},
 	{PreCombat, "target.enemy & target.alive"},
-	{"Path of Frost", "player.swimming & !buff"},
+	{"Path of Frost", "player.swimming & !buff", "player"},
 
 }
 NeP.CR:Add(251, {

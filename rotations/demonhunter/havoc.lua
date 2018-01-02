@@ -117,8 +117,8 @@ local Survival = {
 
 local Interrupts = {
 
-	{"Consume Magic", "!inmelee", "target"},
-	{"Consume Magic", "inmelee", "enemies"},
+	{"!Consume Magic", "!inmelee", "target"},
+	{"!Consume Magic", "inmelee", "enemies"},
 	
 }
 
@@ -185,7 +185,7 @@ local inCombat = {
     ---------------
 	{Keybinds},
 	{Survival, "player.health < 100"},
-	{Interrupts, "{interruptAt(85) || channeling.percent >= 15} & toggle(interrupts) & {!target.player || player.pvp & target.player}"},
+	{Interrupts, "interruptAt(85) & toggle(interrupts) & {!target.player || player.pvp & target.player}"},
 	{Cooldowns, "toggle(cooldowns) & target.enemy & target.alive & target.range <= 2"},
 	---------------
 	{Combat, "target.alive & target.enemy & {!target.player || player.pvp & target.player}"},

@@ -150,8 +150,8 @@ local Cooldowns ={
 
 local Interrupts = {
 
-	{"Kick", "target.interruptAt(75) & target.inmelee", "target"},
-	{"Kick", "interruptAt(75)& inmelee", "enemies"},
+	{"!Kick", "interruptAt(75) & inmelee", "target"},
+	{"!Kick", "interruptAt(75) & inmelee", "enemies"},
 
 }
 

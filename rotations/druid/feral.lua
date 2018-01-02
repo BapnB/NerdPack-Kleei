@@ -261,10 +261,10 @@ local Interrupts = {
 
     --{"Bear Form", "target.interruptAt(90) & targettarget.is(player) & target.player & player.spell(Skull Bash).cooldown > 0.5 & !player.buff(Bear Form) & target.range > 2"},
 
-	{"&Skull Bash", "target.interruptAt(77) & range > 7", "target"},
-	{"&Skull Bash", "interruptAt(77) & range <= 7", "enemies"},
+	{"!Skull Bash", "interruptAt(77) & range > 7", "target"},
+	{"!Skull Bash", "interruptAt(77) & range <= 7", "enemies"},
 	
-	{"Typhoon", "talent(4,3) & target.interruptAt(45) & player.spell(Skull Bash).cooldown > gcd"},
+	{"!Typhoon", "talent(4,3) & target.interruptAt(45) & player.spell(Skull Bash).cooldown > gcd"},
 	
 }
 

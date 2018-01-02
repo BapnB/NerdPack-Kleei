@@ -167,9 +167,8 @@ local Survival = {
 
 local Interrupts = {
 	
-	{"Typhoon", "talent(4,3) & target.range <= 18"},
-	
-	{"Mighty Bash", "talent(4,1) & target.range <= 10"},
+	{"!Typhoon", "talent(4,3) & target.range <= 18"},
+	{"!Mighty Bash", "talent(4,1) & target.range <= 10"},
 	
 }
 

@@ -112,10 +112,10 @@ local Survival = {
 
 local Interrupts = {
 
-	{"Typhoon", "talent(4,3) & interruptAt(75) & range <= 17", "target"},
-	{"Typhoon", "talent(4,3) & interruptAt(75) & range <= 17", "enemies"},
-	{"Solar Beam", "interruptAt(75) & range <= 45 & {!talent(4,3) || talent(4,3) & {range >= 20 || player.spell(Typhoon).cooldown > 0.2}}", "target"},
-	{"Solar Beam", "interruptAt(75) & range <= 45 & {!talent(4,3) || talent(4,3) & {range >= 20 || player.spell(Typhoon).cooldown > 0.2}}", "enemies"},
+	{"!Typhoon", "talent(4,3) & interruptAt(75) & range <= 17", "target"},
+	{"!Typhoon", "talent(4,3) & interruptAt(75) & range <= 17", "enemies"},
+	{"!Solar Beam", "interruptAt(75) & range <= 45 & {!talent(4,3) || talent(4,3) & {range >= 20 || player.spell(Typhoon).cooldown > 0.2}}", "target"},
+	{"!Solar Beam", "interruptAt(75) & range <= 45 & {!talent(4,3) || talent(4,3) & {range >= 20 || player.spell(Typhoon).cooldown > 0.2}}", "enemies"},
 
 }
 

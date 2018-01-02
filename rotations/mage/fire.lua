@@ -84,6 +84,7 @@ local GUI = {
 
     {type = "text", text = "Cooldowns Toggle:", align = "center"},
 	{type = "text", text = "Use Time Warp|c0000FA9A if toggle is on|r"},
+	{type = "checkbox", text = "Use Rune of Power|c0000FA9A you can disable|r", key = "rop", default = true},
 	{type = "checkbox", text = "Use Combustion|c0000FA9A you can disable|r", key = "fire_man", default = true},
 	{type = "checkbox", text = "Use Meteor|c0000FA9A you can disable|r", key = "mete", default = false},
     {type = "spacer"}, {type = "ruler"},
@@ -99,7 +100,7 @@ local exeOnLoad = function()
 	print("|c0000FA9A --- |rHonor Talents: 1/1 - 2/1 - 3/1 - 4/1 - 5/3 - 6/2")
     print("|c0000FA9A")
 	print("|c0000FA9A ------------------------PVE-------------------------------------------|r")
-	print("|c0000FA9A --- |rRecommended Talents: 1/1 - 2/1 - 3/3 - 4/2 - 5/3 - 6/2 - 7/3")
+	print("|c0000FA9A --- |rRecommended Talents: 1/1 - 2/1 - 3/2 - 4/2 - 5/3 - 6/2 - 7/3")
 	print("|c0000FA9A ----------------------------------------------------------------------|r")
 	
 	NeP.Interface:AddToggle({
@@ -183,19 +184,20 @@ local Interrupts = {
 
 local Cooldowns = {
 
-	{"Time Warp", "toggle(tw) & target.range <= 38.5"},
-	{"Combustion", "!player.buff(Hot Streak!) & target.range <= 38.5 & UI(fire_man)", "player"},
-	{"Meteor", "target.range <= 38.5 & UI(mete)", "target.ground"},
-    {"#trinket1", "UI(trk1) & target.range <= 38"},
-	{"#trinket2", "UI(trk2) & target.range <= 38"},
+	{"Time Warp", "target.range <= 38.5 & toggle(tw)", "player"},
+    {"Rune of Power", "target.range <= 38.5 & !player.moving & !buff(Combustion) & UI(rop)", "player"},
+	{"&Combustion", "target.range <= 38.5 & UI(fire_man) & {talent(3,2) & {buff(Rune of Power) || spell(Rune of Power).charges < 1} & !player.moving || !talent(3,2)}", "player"},
+	{"Meteor", "target.range <= 38.5 {!spell(Rune of Power).cooldown <= 8 || spell(Rune of Power).cooldown <= 1} & UI(mete)", "target.ground"},
+    {"#trinket1", "target.range <= 38 & UI(trk1)"},
+	{"#trinket2", "target.range <= 38 & UI(trk2)"},
 
 }
 
 local Combat = {
 
-	{"!Pyroblast", "{!toggle(hig_en) || target.boss || pvp & player.pvp} & range <= 38.5 & player.buff(Hot Streak!) & player.buff(Combustion) & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
-	{"!Pyroblast", "toggle(hig_en) & !target.boss & !pvp & range <= 38.5 & player.buff(Hot Streak!) & player.buff(Combustion) & {UI(allfacing) || !UI(allfacing) & infront}", "highestenemy"},
-	{"Meteor", "target.range <= 38.5 & {toggle(AoE) & target.area(8).enemies >= UI(mete_aoe_spin) & UI(mete_aoe_check) || {target.pvp & target.player & {target.state(root) || target.state(stun) || target.state(disorient) || target.state(incapacitate)}}}", "target.ground"},
+	{"!Pyroblast", "{!toggle(hig_en) || target.boss || pvp & player.pvp} & range <= 38.5 & player.buff(Hot Streak!) & {player.buff(Combustion) || player.buff(Rune of Power)} & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
+	{"!Pyroblast", "toggle(hig_en) & !target.boss & !pvp & range <= 38.5 & player.buff(Hot Streak!) & {player.buff(Combustion) || player.buff(Rune of Power)} & {UI(allfacing) || !UI(allfacing) & infront}", "highestenemy"},
+	{"Meteor", "target.range <= 38.5 & {toggle(AoE) & target.area(8).enemies >= UI(mete_aoe_spin) & UI(mete_aoe_check) & !target.pvp || {target.pvp & target.player & player.pvp & {target.state(root) || target.state(stun) || target.state(disorient) || target.state(incapacitate)}}}", "target.ground"},
     {"Flamestrike", "toggle(AoE) & !target.debuff(Dragon's Breath) & player.buff(Hot Streak!) & target.area(10).enemies >= 4 & {UI(mc) || !UI(mc) & !player.moving}", "target.ground"},
 	{"Pyroblast", "{!toggle(hig_en) || target.boss || pvp & player.pvp} & range <= 38.5 & !debuff(Dragon's Breath) & player.buff(Hot Streak!) & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
 	{"Pyroblast", "toggle(hig_en) & !target.boss & !pvp & range <= 38.5 & !debuff(Dragon's Breath) & player.buff(Hot Streak!) & {UI(allfacing) || !UI(allfacing) & infront}", "highestenemy"},
@@ -205,10 +207,10 @@ local Combat = {
 	{"!Fire Blast", "toggle(hig_en) & !target.boss & !pvp & range <= 38.5 & !player.buff(Hot Streak!) & !debuff(Dragon's Breath) & !player.casting(Polymorph) & {player.buff(Heating up) || player.spell(Fire Blast).charges >= 2 || player.spell(Phoenix's Flames).charges >= 1} & {UI(allfacing) || !UI(allfacing) & infront}", "highestenemy"},
 	{"Living Bomb", "range <= 38.5 & talent(6,1) & !toggle(AoE)", "target"},
 	{"Living Bomb", "range <= 38.5 & talent(6,1) & toggle(AoE)", "lowestenemy"},
-	{"Fireball", "{!toggle(hig_en) || target.boss || pvp & player.pvp} & range <= 38.5 & !player.buff(Combustion) & {!player.buff(Hot Streak!) || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {UI(mc) || !UI(mc) & !player.moving} & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
-    {"Fireball", "toggle(hig_en) & !target.boss & !pvp & range <= 38.5 & !player.buff(Combustion) & {!player.buff(Hot Streak!) || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {UI(mc) || !UI(mc) & !player.moving} & {UI(allfacing) || !UI(allfacing) & infront}", "highestenemy"},
-	{"Scorch", "{!toggle(hig_en) || target.boss || pvp & player.pvp} & range <= 38.5 & {!player.buff(Hot Streak!) || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {player.moving || player.buff(Combustion)}", "target"},
-	{"Scorch", "toggle(hig_en) & !target.boss & !pvp & range <= 38.5 & {!player.buff(Hot Streak!) || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {player.moving || player.buff(Combustion)}", "highestenemy"},
+	{"Fireball", "{!toggle(hig_en) || target.boss || pvp & player.pvp} & range <= 38.5 & {!player.buff(Combustion) || player.buff(Time Warp)} & {!player.buff(Hot Streak!) || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {UI(mc) || !UI(mc) & !player.moving} & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
+    {"Fireball", "toggle(hig_en) & !target.boss & !pvp & range <= 38.5 & {!player.buff(Combustion) || player.buff(Time Warp)} & {!player.buff(Hot Streak!) || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {UI(mc) || !UI(mc) & !player.moving} & {UI(allfacing) || !UI(allfacing) & infront}", "highestenemy"},
+	{"Scorch", "{!toggle(hig_en) || target.boss || pvp & player.pvp} & range <= 38.5 & {!player.buff(Hot Streak!) || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {player.moving || player.buff(Combustion) & !player.buff(Time Warp)}", "target"},
+	{"Scorch", "toggle(hig_en) & !target.boss & !pvp & range <= 38.5 & {!player.buff(Hot Streak!) || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {player.moving || player.buff(Combustion) & !player.buff(Time Warp)}", "highestenemy"},
 
 }
 
@@ -219,8 +221,8 @@ local inCombat = {
 	{Keybinds},
 	{Interrupts, "toggle(interrupts) & !target.casting(Vengeful Wail) & !target.casting(Runic Empowerment) & !target.immune_all & !player.buff(Invisibility) & {!target.pvp || target.pvp & player.pvp}"},
     {Survival, "player.health <= 100 & !player.buff(Invisibility)"},
-	{Cooldowns, "toggle(cooldowns) & target.alive & target.enemy & !target.immune_all & !target.immune_spell & !player.buff(Invisibility) & !target.debuff(Polymorph) & !player.buff(Invisibility) & {!target.pvp || target.pvp & player.pvp}"},
-    {Combat, "target.alive & target.enemy & !target.immune_all & !target.immune_spell & !player.buff(Invisibility) & !target.debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
+	{Cooldowns, "toggle(cooldowns) & target.alive & target.enemy & !player.casting(Rune of Power) & !target.immune_all & !target.immune_spell & !player.buff(Invisibility) & !target.debuff(Polymorph) & !player.buff(Invisibility) & {!target.pvp || target.pvp & player.pvp}"},
+    {Combat, "target.alive & target.enemy & !player.casting(Rune of Power) & !target.immune_all & !target.immune_spell & !player.buff(Invisibility) & !target.debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
 
 }
 
