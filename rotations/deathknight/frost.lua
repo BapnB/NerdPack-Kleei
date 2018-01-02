@@ -76,7 +76,7 @@ local Combat = {
 
 local Keybinds = {
 	-- Pause
-	{"%pause", "keybind(alt)"},
+	--{"%pause", "keybind(alt)"},
 	
 }
 
