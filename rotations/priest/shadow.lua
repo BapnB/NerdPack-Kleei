@@ -109,6 +109,12 @@ local exeOnLoad = function()
 
 end
 
+local shadowform = {
+
+    {"Shadowform", "!buff(Voidform) & !buff(Shadowform)", "player"},
+	
+}
+
 local pvp = {
 
     {"!/cleartarget", "toggle(autopvp) & player.pvp & target.exists & !target.player & target.enemy", "target"},
@@ -193,18 +199,20 @@ local Combat = {
 local inCombat = {
 
     {"!/stopcasting", "casting(Unnerving Howl) & interruptAt(75)", "enemies"},
-	{pvp, "!player.buff(Invisibility)"},
+    {shadowform},
+	{pvp},
 	{Keybinds},
-	{Interrupts, "toggle(interrupts) & !target.casting(Vengeful Wail) & !target.casting(Runic Empowerment) & !target.immune_all & !player.buff(Invisibility) & {!target.pvp || target.pvp & player.pvp}"},
-    {Survival, "player.health <= 100 & !player.buff(Invisibility)"},
-	{Cooldowns, "toggle(cooldowns) & target.alive & target.enemy & !player.casting(Rune of Power) & !target.immune_all & !target.immune_spell & !player.buff(Invisibility) & !target.debuff(Polymorph) & !player.buff(Invisibility) & {!target.pvp || target.pvp & player.pvp}"},
-    {Combat, "target.alive & target.enemy & !player.casting(Rune of Power) & !target.immune_all & !target.immune_spell & !player.buff(Invisibility) & !target.debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
+	{Interrupts, "toggle(interrupts) & !target.immune_all & {!target.pvp || target.pvp & player.pvp}"},
+    {Survival, "player.health <= 100"},
+	{Cooldowns, "toggle(cooldowns) & target.alive & target.enemy & !target.immune_all & !target.immune_spell & !target.debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
+    {Combat, "target.alive & target.enemy & !target.immune_all & !target.immune_spell & !target.debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
 
 }
 
 local outCombat = {	
 
-	{pvp, "!player.buff(Invisibility)"},
+    {shadowform},
+	{pvp},
 	{Keybinds},
 	{PreCombat, "!player.buff(Invisibility)"},
 
