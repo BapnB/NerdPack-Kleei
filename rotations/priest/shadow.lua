@@ -105,7 +105,7 @@ local exeOnLoad = function()
 	--print("|c0000FA9A --- |rRecommended Talents: 1/1 - 2/1 - 3/2 - 4/2 - 5/3 - 6/2 - 7/3")
 	print("|c0000FA9A ----------------------------------------------------------------------|r")
 	print("|c0000FA9A")
-	print("|cffff6060 Please Setup Rotation Settings first before using it|r")
+	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
 
 end
 
