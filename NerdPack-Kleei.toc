@@ -29,3 +29,5 @@ rotations\mage\fire.lua
 
 rotations\warrior\fury.lua
 rotations\warrior\arms.lua
+
+rotations\priest\shadow.lua

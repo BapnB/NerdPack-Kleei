@@ -86,7 +86,7 @@ local GUI = {
 	{type = "text", text = "Use Time Warp|c0000FA9A if toggle is on|r"},
 	{type = "checkbox", text = "Use Rune of Power|c0000FA9A you can disable|r", key = "rop", default = true},
 	{type = "checkbox", text = "Use Combustion|c0000FA9A you can disable|r", key = "fire_man", default = true},
-	{type = "checkbox", text = "Use Meteor|c0000FA9A you can disable|r", key = "mete", default = true},
+	{type = "checkbox", text = "Use Meteor|c0000FA9A you can disable|r", key = "mete", default = false},
     {type = "spacer"}, {type = "ruler"},
 
 }
@@ -94,45 +94,19 @@ local GUI = {
 local exeOnLoad = function()
 
  	print("|c0000FA9A ----------------------------------------------------------------------|r")
-	print("|c0000FA9A --- |r|c0000BFFF Mage - Fire |r")
+	print("|c0000FA9A --- |r|c0000BFFF Priest - Shadow |r")
 	print("|c0000FA9A ------------------------PVP-------------------------------------------|r")
-	print("|c0000FA9A --- |rRecommended Talents: 1/1 - 2/1 - 3/3 - 4/2 - 5/3 - 6/1 - 7/3")
-	print("|c0000FA9A --- |rHonor Talents: 1/1 - 2/1 - 3/1 - 4/1 - 5/3 - 6/2")
+	print("|c0000FA9A --- |rRecommended Talents: Coming soon")
+	--print("|c0000FA9A --- |rRecommended Talents: 1/1 - 2/1 - 3/3 - 4/2 - 5/3 - 6/1 - 7/3")
+	--print("|c0000FA9A --- |rHonor Talents: 1/1 - 2/1 - 3/1 - 4/1 - 5/3 - 6/2")
     print("|c0000FA9A")
 	print("|c0000FA9A ------------------------PVE-------------------------------------------|r")
-	print("|c0000FA9A --- |rRecommended Talents: 1/1 - 2/1 - 3/2 - 4/2 - 5/3 - 6/2 - 7/3")
+	print("|c0000FA9A --- |rRecommended Talents: Coming soon")
+	--print("|c0000FA9A --- |rRecommended Talents: 1/1 - 2/1 - 3/2 - 4/2 - 5/3 - 6/2 - 7/3")
 	print("|c0000FA9A ----------------------------------------------------------------------|r")
 	print("|c0000FA9A")
 	print("|cffff6060 Please Setup Rotation Settings first before using it|r")
-	
-	NeP.Interface:AddToggle({
-		key = "tw",
-		name = "Time Warp",
-		text = "Automatically use Time Warp",
-		icon = "Interface\\Icons\\ability_mage_timewarp",
-	})
-	
-	NeP.Interface:AddToggle({
-		key = "cr",
-		name = "Auto Control",
-		text = "Automatically use Frost Nova & Dragon's Breath.",
-		icon = "Interface\\Icons\\spell_frost_frostnova",
-	})
-	
-	NeP.Interface:AddToggle({
-		key = "autopvp",
-		name = "Auto Target PVP enemies",
-		text = "Automatically Target PVP enemies for BG to avoid burst on enemy pets or totems.",
-		icon = "Interface\\Icons\\spell_shadow_charm",
-	})
 
-	NeP.Interface:AddToggle({
-		key = "hig_en",
-		name = "Attack Highest Health Enemies",
-		text = "Works great in dungeons. Disable it in PVP.",
-		icon = "Interface\\Icons\\achievement_boss_guarm",
-	})
-	
 end
 
 local pvp = {
@@ -236,8 +210,8 @@ local outCombat = {
 
 }
 
-NeP.CR:Add(63, {
-	name = "[|c0000BFFFKleei|r]|c0000BFFF Mage - Fire",
+NeP.CR:Add(258, {
+	name = "[|c0000BFFFKleei|r]|c0000BFFF Priest - Shadow",
 	ic = inCombat,
 	ooc = outCombat,
 	gui = GUI,
