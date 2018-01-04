@@ -172,7 +172,7 @@ NeP.DSL:Register("enemy_Earthbind_Totem", function(target)
 	return false
 end)
 
---/dump NeP.DSL.Parse("enemy_totem", "", "")
+--/dump NeP.DSL.Parse("enemy_totem", "", "") --------UNIT.id(0000000)
 NeP.DSL:Register("enemy_totem", function(target)
     if not _G.UnitExists(target) then 
 	return 
@@ -214,4 +214,14 @@ end)
 --/dump NeP.DSL.Parse("target.race", "", "")
 NeP.DSL:Register("race", function(target)
     return _G.UnitRace(target)
+end)
+
+NeP.DSL:Register("count.enemies.combat", function(num)
+  local n1 = 0
+  for _, Obj in pairs(NeP.OM:Get('Enemy')) do
+      if _G.UnitExists(Obj.key) and _G.UnitIsVisible(Obj.key) and NeP.DSL:Get("combat")(Obj.key) and NeP.DSL:Get("alive")(Obj.key) then
+          n1 = n1 + 1
+      end
+  end
+  return n1
 end)
