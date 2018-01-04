@@ -6,6 +6,7 @@
 ## OptionalDeps: NerdPack-CombatHelper
 
 condition.lua
+unit.lua
 
 rotations\druid\restoration.lua
 rotations\druid\feral.lua

@@ -157,7 +157,7 @@ local Keybinds = {
 
 local PreCombat = { 
 
-	{"Power Word: Shield", "!buff & {target.exists ||  & player.area(15).enemies <= 5} & target.enemy & target.alive", "player"},
+	{"Power Word: Shield", "{!buff & target.enemy & target.alive || !buff(Body and Soul) & player.movingfor >= 0.5 & talent(2,2) || !buff & player.area(15).enemies >= 1}", "player"},
 	{"Mind Blast", "range <= 38.5 & alive & enemy & !immune_all & !immune_spell & {!target.pvp || target.pvp & player.pvp} & {UI(allfacing) || !UI(allfacing) & infront} & {UI(mc) || !UI(mc) & !player.moving}", "target"},
 	{"Vampiric Touch", "range <= 38.5 & alive & enemy & !immune_all & !immune_spell & !player.lastcast & !buff & player.spell(Mind Blast).cooldown > 0 & {!target.pvp || target.pvp & player.pvp} & {UI(mc) || !UI(mc) & !player.moving}", "target"},
 

@@ -74,6 +74,9 @@ NeP.DSL:Register("immune_spell",function(target, spell)
        return false
 end)
 
+--/dump NeP.DSL.Parse("target.steal_buff", "", "")
+NeP.DSL:Register('steal_buff',function(target, spell)
+
 --[[------------------------------------------------------
                          Buff to Steal
 ---------------------------PvP-------------------------
@@ -99,8 +102,6 @@ end)
     "198745"     -- Protective Light (Absorbs 1.500.000 damage)
 ]]
 
---/dump NeP.DSL.Parse("target.steal_buff", "", "")
-NeP.DSL:Register('steal_buff',function(target, spell)
     if UnitBuff(target, GetSpellInfo(235450)) or
 	   UnitBuff(target, GetSpellInfo(12042)) or
 	   UnitBuff(target, GetSpellInfo(11426)) or
@@ -161,49 +162,46 @@ end
     return false
 end)
 
---/dump NeP.DSL.Parse("enemy_totem", "", "")
-NeP.DSL:Register("enemy_Earthbind_Totem", function(target)
+--/dump NeP.DSL.Parse("target.NAME_NPC", "", "")
+NeP.DSL:Register("NAME_NPC", function(target)
     if not _G.UnitExists(target) then 
 	return 
 	end
-    if _G.UnitName(target) == "Earthbind Totem" then
+    if _G.UnitName(target) == "NAME_NPC" then
 	return true
 	end
 	return false
 end)
 
---/dump NeP.DSL.Parse("enemy_totem", "", "") --------UNIT.id(0000000)
+--/dump NeP.DSL.Parse("target.enemy_totem", "", "")
 NeP.DSL:Register("enemy_totem", function(target)
-    if not _G.UnitExists(target) then 
-	return 
-	end
-    if _G.UnitName(target) == "Earthbind Totem" or
-	   _G.UnitName(target) == "Totem Mastery" or
-	   _G.UnitName(target) == "Resonance Totem" or
-	   _G.UnitName(target) == "Storm Totem" or
-	   _G.UnitName(target) == "Ember Totem" or
-	   _G.UnitName(target) == "Tailwind Totem" or
-	   _G.UnitName(target) == "Healing Stream Totem" or
-	   _G.UnitName(target) == "Healing Tide Totem" or
-	   _G.UnitName(target) == "Spirit Link Totem" then
-	return true
-	end
-	return false
-end)
 
---- Highest Health Enemy
-NeP.FakeUnits:Add("highestenemy", function(num)
-	local tempTable = {}
-	for _, Obj in pairs(NeP.OM:Get("Enemy")) do
-		if _G.UnitExists(Obj.key) and _G.UnitIsVisible(Obj.key) and NeP.DSL:Get("combat")(Obj.key) and NeP.DSL:Get("alive")(Obj.key) and not NeP.DSL:Get("pvp")(Obj.key) then
-			tempTable[#tempTable+1] = {
-				key = Obj.key,
-				health = NeP.DSL:Get("health")(Obj.key)
-			}
-		end
+--[[  TOTEMS
+-----------------------------------
+  -- 2630 -- Earthbind Totem
+  -- 113845 -- Totem Mastery
+  -- 102392 -- Resonance Totem
+  -- 106317 -- Storm Totem
+  -- 106319 -- Ember Totem
+  -- 106321 -- Tailwind Totem
+  -- 3527 -- Healing Stream Totem
+  -- 59764 -- Healing Tide Totem
+  -- 53006 -- Spirit Link Totem
+----------------------------------
+]]
+
+    if NeP.DSL:Get("id")(target, (2630)) or 
+	   NeP.DSL:Get("id")(target, (113845)) or 
+	   NeP.DSL:Get("id")(target, (102392)) or 
+	   NeP.DSL:Get("id")(target, (106317)) or 
+	   NeP.DSL:Get("id")(target, (106319)) or 
+	   NeP.DSL:Get("id")(target, (106321)) or 
+	   NeP.DSL:Get("id")(target, (3527)) or 
+	   NeP.DSL:Get("id")(target, (59764)) or 
+	   NeP.DSL:Get("id")(target, (53006)) then
+	  return true
 	end
-	table.sort( tempTable, function(a,b) return a.health > b.health end )
-	return tempTable[num] and tempTable[num].key
+	  return false
 end)
 
 --/dump NeP.DSL.Parse("player.infront.of.target", "", "")
@@ -216,12 +214,13 @@ NeP.DSL:Register("race", function(target)
     return _G.UnitRace(target)
 end)
 
+--/dump NeP.DSL.Parse("count.enemies.combat", "", "")
 NeP.DSL:Register("count.enemies.combat", function(num)
-  local n1 = 0
-  for _, Obj in pairs(NeP.OM:Get('Enemy')) do
+  local encombat = 0
+  for _, Obj in pairs(NeP.OM:Get("Enemy")) do
       if _G.UnitExists(Obj.key) and _G.UnitIsVisible(Obj.key) and NeP.DSL:Get("combat")(Obj.key) and NeP.DSL:Get("alive")(Obj.key) then
-          n1 = n1 + 1
+          encombat = encombat + 1
       end
   end
-  return n1
+  return encombat
 end)
