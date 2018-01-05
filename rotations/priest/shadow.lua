@@ -140,10 +140,7 @@ local pvp = {
     {"!/targetenemyplayer", "toggle(autopvp) & player.pvp & !target.exists & range <= 40 & infront", "enemies"},
     {"!Every Man for Himself", "UI(medal) & state(stun)", "player"},        
     {"!Gladiator's Medallion", "UI(medal) & target.pvp & player.pvp & {player.state(stun) & player.spell(Every Man for Himself)cooldown >= gcd & player.race = Human || player.state(stun) & !player.race = Human || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
-	--[[{"Polymorph", "!immune_all & alive & enemy & combat & !count.enemies.debuffs(Polymorph) >= 1 & !player.lastcast(Polymorph) & pvp & !is(target) & player.area(28).enemies <= 3 & player.area(28).enemies >= 1 & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & UI(poly) & {UI(mc) || !UI(mc) & !player.moving}", "enemies"},
-	{"!Spellsteal", "!immune_all & !immune_spell & alive & enemy & range <= 38.5 & buff(Cauterizing Blink) & UI(st_buff) & {player.mana >= 25 || player.buff(Innervate)} & {!pvp || pvp & player.pvp}", "target"},
-	{"Spellsteal", "!immune_all & !immune_spell & alive & enemy & range <= 38.5 & steal_buff & UI(st_buff) & {player.mana >= 25 || player.buff(Innervate)} & {!pvp || pvp & player.pvp}", "enemies"},
-]]
+
 }
 
 local Keybinds = {
@@ -151,9 +148,7 @@ local Keybinds = {
     {"Mind Bomb", "!immune_all & !immune_spell & alive & enemy & range <= 27.5 & {!target.pvp || target.pvp & player.pvp} & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target"}, -- & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm)
 	
 	{"Shadow Mend", "health <= 90 & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "player"},
---[[	
-	{"Meteor", "target.alive & target.enemy & player.combat & target.range <= 38.5 & !target.immune_all & !target.immune_spell & {!target.pvp || target.pvp & player.pvp} & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "target.ground"},	
-]]
+
 }
 
 local PreCombat = { 
@@ -168,11 +163,7 @@ local PreCombat = {
 local Survival = {
 
 	{"!Dispersion", "area(45).enemies >= 1 & {player.health <= UI(disp_health_spin) & UI(disp_health_check) || player.state(stun) & player.spell(Every Man for Himself).cooldown >= gcd & player.spell(Gladiator's Medallion).cooldown >= gcd & !player.lastcast(Gladiator's Medallion) & UI(disp_stun)}", "player"},
---[[    
-	{"!Temporal Shield", "player.health <= UI(temp_shield_spin) & UI(temp_shield_check) & area(40).enemies >= 1", "player"},
-	{"Dragon's Breath",	"toggle(cr) & !enemy_totem & range <= 8 & infront & !immune_all & !immune_spel & {!player.pvp || player.pvp & pvp & player} & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm)", "enemies"},
-	{"Frost Nova", "toggle(cr) & !enemy_totem & range <= 8 & !immune_all & !immune_spell & {!player.pvp || player.pvp & pvp & player} & !player.lastcast(Frost Nova) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm)", "enemies"},
-]]	
+
 	{"Power Word: Shield", "buff.duration < gcd & player.health <= UI(pws_spin) & UI(pws_check)", "player"}, --to do or not : to not cast when cooldowns toggle are on or you are solo
 	{"Power Word: Shield", "range <= 38.5 & !buff & tank.health <= 30 & player.ingroup", "tank"},
 	
@@ -183,10 +174,7 @@ local Survival = {
 local Interrupts = {
 
 	{"!Silence", "range <= 38.5 & !player.casting(Void Torrent) & interruptAt(55)", "target"},
---[[	
-	{"!Dragon's Breath", "interruptAt(55) & player.spell(Counterspell).cooldown > gcd & !player.lastcast(Counterspell) & range <= 7 & infront & !immune_spell & {!player.pvp || player.pvp & pvp & player}", "enemies"},
-	{"!Ring of Frost", "target.interruptAt(5) & player.spell(Counterspell).cooldown > gcd & !player.lastcast(Counterspell) & target.range < 30 & {!player.pvp || player.pvp & pvp & player} & {UI(mc) || !UI(mc) & !player.moving}", "target.ground"},
-]]
+
 }
 
 local Cooldowns = {
@@ -194,11 +182,7 @@ local Cooldowns = {
     {"Power Infusion", "target.range <= 38.5 & target.debuff(Shadow Word: Pain)"},
 	{"Shadowfiend", "target.range <= 38.5 & target.debuff(Shadow Word: Pain) & target.debuff(Vampiric Touch)", "target"},
     {"Void Torrent", "target.range <= 38.5 & player.buff(Voidform) & target.debuff(Shadow Word: Pain) & target.debuff(Vampiric Touch) & {UI(mc) || !UI(mc) & !player.moving}", "target"},
---[[
-    {"Rune of Power", "target.range <= 38.5 & !player.moving & !buff(Combustion) & UI(rop)", "player"},
-	{"&Combustion", "target.range <= 38.5 & UI(fire_man) & {talent(3,2) & {buff(Rune of Power) || spell(Rune of Power).charges < 1} & !player.moving || !talent(3,2)}", "player"},
-	{"Meteor", "target.range <= 38.5 {!spell(Rune of Power).cooldown <= 8 || spell(Rune of Power).cooldown <= 1} & UI(mete)", "target.ground"},
-]]
+
     {"#trinket1", "target.range <= 38 & UI(trk1)"},
 	{"#trinket2", "target.range <= 38 & UI(trk2)"},
 
@@ -224,10 +208,10 @@ local Combat = {
     {"Shadow Word: Death", "range <= 38.5 & !immune_spell & !immune_all & health <= 34", "target"},
     {"Shadow Word: Death", "range <= 38.5 & !immune_spell & !immune_all & toggle(AoE) & health <= 34 & combat & player.spell.charges > 1", "enemies"},  --& player.insanity <= 60
 
-	{"Vampiric Touch", "{!toggle(hig_en) || target.boss || pvp & player.pvp} & deathin >= 3 & !immune_spell & !immune_all & range <= 38.5 & !player.casting(Vampiric Touch) & !target.debuff(Vampiric Touch) & {UI(mc) || !UI(mc) & !player.moving}", "target"},
-	{"Vampiric Touch", "toggle(hig_en) & !target.boss & !pvp & deathin >= 3 & !immune_spell & !immune_all & range <= 38.5 & !player.casting(Vampiric Touch) & !debuff(Vampiric Touch) & {UI(mc) || !UI(mc) & !player.moving}", "highestenemy"},
-	{"Vampiric Touch", "toggle(AoE) & deathin >= 3 & !immune_spell & !immune_all & range <= 38.5 & !player.casting(Vampiric Touch) & !debuff(Vampiric Touch) & count.enemies.debuffs(Vampiric Touch) < UI(vamp) & combat & !pvp & {UI(mc) || !UI(mc) & !player.moving}", "enemies"},
-	{"Vampiric Touch", "toggle(AoE) & deathin >= 3 & !immune_spell & !immune_all & range <= 38.5 & !player.casting(Vampiric Touch) & !debuff(Vampiric Touch) & count.enemies.debuffs(Vampiric Touch) < UI(vamp) & player.pvp & pvp & {UI(mc) || !UI(mc) & !player.moving}", "enemies"},
+	{"Vampiric Touch", "{!toggle(hig_en) || target.boss || pvp & player.pvp} & deathin >= 3 & !immune_spell & !immune_all & range <= 38.5 & !player.lastcast(Vampiric Touch) & !target.debuff(Vampiric Touch) & {UI(mc) || !UI(mc) & !player.moving}", "target"},
+	{"Vampiric Touch", "toggle(hig_en) & !target.boss & !pvp & deathin >= 3 & !immune_spell & !immune_all & range <= 38.5 & !player.lastcast(Vampiric Touch) & !player.casting(Vampiric Touch) & !debuff(Vampiric Touch) & {UI(mc) || !UI(mc) & !player.moving}", "highestenemy"},
+	{"Vampiric Touch", "toggle(AoE) & deathin >= 3 & !immune_spell & !immune_all & range <= 38.5 & !player.lastcast(Vampiric Touch) & !debuff(Vampiric Touch) & count.enemies.debuffs(Vampiric Touch) < UI(vamp) & combat & !pvp & {UI(mc) || !UI(mc) & !player.moving}", "enemies"},
+	{"Vampiric Touch", "toggle(AoE) & deathin >= 3 & !immune_spell & !immune_all & range <= 38.5 & !player.lastcast(Vampiric Touch) & !debuff(Vampiric Touch) & count.enemies.debuffs(Vampiric Touch) < UI(vamp) & player.pvp & pvp & {UI(mc) || !UI(mc) & !player.moving}", "enemies"},
 	
 	{"Shadow Word: Pain", "!immune_spell & !immune_all & {!toggle(hig_en) || target.boss || pvp & player.pvp} & range <= 38.5 & !debuff(Shadow Word: Pain)", "target"},
 	{"Shadow Word: Pain", "!immune_spell & !immune_all & toggle(hig_en) & !target.boss & !pvp & range <= 38.5 & !debuff(Shadow Word: Pain) & combat", "highestenemy"},
@@ -246,8 +230,8 @@ local inCombat = {
 	{Keybinds},
 	{Interrupts, "toggle(interrupts) & !target.immune_all & !target.immune_spell & {!target.pvp || target.pvp & player.pvp}"},
     {Survival, "player.health <= 100"},
-	{Cooldowns, "toggle(cooldowns) & target.alive & target.enemy & !target.immune_all & !target.immune_spell & !target.debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
-    {Combat, "target.alive & target.enemy & !target.debuff(Polymorph) & {!target.pvp || target.pvp & player.pvp}"},
+	{Cooldowns, "toggle(cooldowns) & target.alive & target.enemy & !target.immune_all & !target.immune_spell & {!target.pvp || target.pvp & player.pvp}"},
+    {Combat, "target.alive & target.enemy & {!target.pvp || target.pvp & player.pvp}"},
 
 }
 

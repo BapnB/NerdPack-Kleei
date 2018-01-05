@@ -224,3 +224,19 @@ NeP.DSL:Register("count.enemies.combat", function(num)
   end
   return encombat
 end)
+
+--/dump NeP.DSL.Parse("IsGlobalCD", "", "")
+NeP.DSL:Register("IsGlobalCD", function()
+    if NeP.DSL:Get("spell.cooldown")("player", "61304") > 0.0000 then
+	return true
+	end
+	return false
+end)
+
+--/dump NeP.DSL.Parse("target.SpellInRange(Mind Blast)", "", "")
+NeP.DSL:Register("SpellInRange", function(spell, target)
+   if IsSpellInRange(spell, target) == 1 then
+   return true
+   end
+   return false
+end)
