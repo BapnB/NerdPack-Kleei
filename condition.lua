@@ -218,7 +218,7 @@ end)
 NeP.DSL:Register("count.enemies.combat", function(num)
   local encombat = 0
   for _, Obj in pairs(NeP.OM:Get("Enemy")) do
-      if _G.UnitExists(Obj.key) and _G.UnitIsVisible(Obj.key) and NeP.DSL:Get("combat")(Obj.key) and NeP.DSL:Get("alive")(Obj.key) then
+      if _G.UnitExists(Obj.key) and _G.UnitIsVisible(Obj.key) and NeP.DSL:Get("combat")(Obj.key) and NeP.DSL:Get("alive")(Obj.key) and NeP.DSL:Get("range")(Obj.key, "<=40") then
           encombat = encombat + 1
       end
   end
