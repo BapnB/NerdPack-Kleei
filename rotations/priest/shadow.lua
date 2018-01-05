@@ -119,12 +119,12 @@ local exeOnLoad = function()
 		icon = "Interface\\Icons\\spell_shadow_charm",
 	})
 
-	NeP.Interface:AddToggle({
+	--[[NeP.Interface:AddToggle({
 		key = "hig_en",
 		name = "Attack Highest Health Enemies",
 		text = "Works great in dungeons. Disable it in PVP.",
 		icon = "Interface\\Icons\\achievement_boss_guarm",
-	})
+	})]]
 	
 end
 
@@ -206,23 +206,28 @@ local Cooldowns = {
 
 local Combat = {
 
+	{"!Mind Bomb", "talent(3,1) & player.casting(Mind Flay) & !target.boss & !target.isdummy & range <= 27.5 & UI(mbomb) & enemy & alive & {!target.pvp || target.pvp & player.pvp}", "target"},
 	{"Mind Bomb", "talent(3,1) & !target.boss & !target.isdummy & range <= 27.5 & UI(mbomb) & enemy & alive & {!target.pvp || target.pvp & player.pvp}", "target"},
-    {"Void Eruption", "!toggle(AoE) & deathin >= 10 & !target.immune_spell & !target.immune_all & !buff(Voidform) & target.debuff(Shadow Word: Pain) & target.debuff(Vampiric Touch) & {talent(7,1) & player.insanity >= 65 || !talent(7,1) & player.insanity == 100}", "player"},
-    {"Void Eruption", "toggle(AoE) & deathin >= 10 & !immune_spell & !immune_all & !buff(Voidform) & {count.enemies.debuffs(Shadow Word: Pain) >= UI(ve) || count.enemies.debuffs(Shadow Word: Pain) == count.enemies.combat} & {talent(7,1) & player.insanity >= 65 || !talent(7,1) & player.insanity == 100}", "player"},
+
+    {"!Void Eruption", "!toggle(AoE) & deathin >= 10 & player.casting(Mind Flay) & !target.immune_spell & !target.immune_all & !player.buff(Voidform) & target.debuff(Shadow Word: Pain) & target.debuff(Vampiric Touch) & {talent(7,1) & player.insanity >= 65 || !talent(7,1) & player.insanity == 100}", "player"},
+    {"!Void Eruption", "toggle(AoE) & deathin >= 10 & player.casting(Mind Flay) & !immune_spell & !immune_all & !player.buff(Voidform) & {count.enemies.debuffs(Shadow Word: Pain) >= UI(ve) || count.enemies.debuffs(Shadow Word: Pain) == count.enemies.combat} & {talent(7,1) & player.insanity >= 65 || !talent(7,1) & player.insanity == 100}", "player"},
+    {"Void Eruption", "!toggle(AoE) & deathin >= 10 & !target.immune_spell & !target.immune_all & !player.buff(Voidform) & target.debuff(Shadow Word: Pain) & target.debuff(Vampiric Touch) & {talent(7,1) & player.insanity >= 65 || !talent(7,1) & player.insanity == 100}", "player"},
+    {"Void Eruption", "toggle(AoE) & deathin >= 10 & !immune_spell & !immune_all & !player.buff(Voidform) & {count.enemies.debuffs(Shadow Word: Pain) >= UI(ve) || count.enemies.debuffs(Shadow Word: Pain) == count.enemies.combat} & {talent(7,1) & player.insanity >= 65 || !talent(7,1) & player.insanity == 100}", "player"},
 	
-	{"!Void Bolt", "range <= 38.5 & player.buff(Voidform) & player.casting(Mind Flay) & area(15).enemies <= 5 & !immune_spell & !immune_all", "target"},
-	{"Void Bolt", "range <= 38.5 & player.buff(Voidform) & area(15).enemies <= 5 & !immune_spell & !immune_all", "target"},
+	{"!Void Bolt", "range <= 38.5 & player.buff(Voidform) & player.casting(Mind Flay) & area(15).enemies <= 5 & !immune_spell & !immune_all & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
+	{"Void Bolt", "range <= 38.5 & player.buff(Voidform) & area(15).enemies <= 5 & !immune_spell & !immune_all & {UI(allfacing) || !UI(allfacing) & infront}", "target"},
 	
 	{"Mind Blast", "range <= 38.5 & !immune_spell & !immune_all & area(10).enemies <= 2 & {UI(allfacing) || !UI(allfacing) & infront} & {UI(mc) || !UI(mc) & !player.moving}", "target"},
-	
-    {"Shadow Word: Death", "range <= 38.5 & !immune_spell & !immune_all & player.insanity <= 60 & health <= 35", "target"},
-    {"Shadow Word: Death", "range <= 38.5 & !immune_spell & !immune_all & player.insanity <= 60 & toggle(AoE) & health <= 35 & player.spell.charges > 1", "enemies"},
 
-	{"Vampiric Touch", "{!toggle(hig_en) || target.boss || pvp & player.pvp} & !immune_spell & !immune_all & range <= 38.5 & {!target.debuff(Vampiric Touch) || !target.debuff(Shadow Word: Pain) & talent(6,2)} & {UI(mc) || !UI(mc) & !player.moving}", "target"},
-	{"Vampiric Touch", "toggle(hig_en) & !target.boss & !pvp & !immune_spell & !immune_all & range <= 38.5 & !debuff(Vampiric Touch) & {UI(mc) || !UI(mc) & !player.moving}", "highestenemy"},
-	{"Vampiric Touch", "toggle(hig_en) & !target.boss & !pvp & !immune_spell & !immune_all & range <= 38.5 & talent(6,2) & !debuff(Shadow Word: Pain) & {UI(mc) || !UI(mc) & !player.moving}", "highestenemy"},
-	{"Vampiric Touch", "toggle(AoE) & !immune_spell & !immune_all & range <= 38.5 & !debuff(Vampiric Touch) & count.enemies.debuffs(Vampiric Touch) < UI(vamp) & combat & !pvp & {UI(mc) || !UI(mc) & !player.moving}", "enemies"},
-	{"Vampiric Touch", "toggle(AoE) & !immune_spell & !immune_all & range <= 38.5 & !debuff(Vampiric Touch) & count.enemies.debuffs(Vampiric Touch) < UI(vamp) & player.pvp & pvp & {UI(mc) || !UI(mc) & !player.moving}", "enemies"},
+    {"!Shadow Word: Death", "range <= 38.5 & player.casting(Mind Flay) & !immune_spell & !immune_all & health <= 34", "target"},
+    {"!Shadow Word: Death", "range <= 38.5 & player.casting(Mind Flay) & !immune_spell & !immune_all & toggle(AoE) & health <= 34 & combat & player.spell.charges > 1", "enemies"},  --& player.insanity <= 60
+    {"Shadow Word: Death", "range <= 38.5 & !immune_spell & !immune_all & health <= 34", "target"},
+    {"Shadow Word: Death", "range <= 38.5 & !immune_spell & !immune_all & toggle(AoE) & health <= 34 & combat & player.spell.charges > 1", "enemies"},  --& player.insanity <= 60
+
+	{"Vampiric Touch", "{!toggle(hig_en) || target.boss || pvp & player.pvp} & deathin >= 3 & !immune_spell & !immune_all & range <= 38.5 & !player.casting(Vampiric Touch) & !target.debuff(Vampiric Touch) & {UI(mc) || !UI(mc) & !player.moving}", "target"},
+	{"Vampiric Touch", "toggle(hig_en) & !target.boss & !pvp & deathin >= 3 & !immune_spell & !immune_all & range <= 38.5 & !player.casting(Vampiric Touch) & !debuff(Vampiric Touch) & {UI(mc) || !UI(mc) & !player.moving}", "highestenemy"},
+	{"Vampiric Touch", "toggle(AoE) & deathin >= 3 & !immune_spell & !immune_all & range <= 38.5 & !player.casting(Vampiric Touch) & !debuff(Vampiric Touch) & count.enemies.debuffs(Vampiric Touch) < UI(vamp) & combat & !pvp & {UI(mc) || !UI(mc) & !player.moving}", "enemies"},
+	{"Vampiric Touch", "toggle(AoE) & deathin >= 3 & !immune_spell & !immune_all & range <= 38.5 & !player.casting(Vampiric Touch) & !debuff(Vampiric Touch) & count.enemies.debuffs(Vampiric Touch) < UI(vamp) & player.pvp & pvp & {UI(mc) || !UI(mc) & !player.moving}", "enemies"},
 	
 	{"Shadow Word: Pain", "!immune_spell & !immune_all & {!toggle(hig_en) || target.boss || pvp & player.pvp} & range <= 38.5 & !debuff(Shadow Word: Pain)", "target"},
 	{"Shadow Word: Pain", "!immune_spell & !immune_all & toggle(hig_en) & !target.boss & !pvp & range <= 38.5 & !debuff(Shadow Word: Pain) & combat", "highestenemy"},
