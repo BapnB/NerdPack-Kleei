@@ -97,12 +97,13 @@ local GUI = {
     --{type = 'checkbox',	text = "Moving-Cast:|c0000FA9A if you use it check the box and it will cast when moving|r", align = 'left', key = 'mc', default = false},
 	{type = "spacer"}, {type = "ruler"},
 
-    {type = "text", text = "Cooldowns Toggle:"},
-	{type = "text", text = "|c0087CEFA All if target will die in more than 10 sec|r", align = "center"}, 
+	{type = "header", size = 16, text = "Cooldowns Toggle:", align = "center"},
     {type = "text", text = "Berserk|c0000FA9A if not talented(5,2)|r"},
+    {type = "text", text = "Ashamane's Frenzy"},
     {type = "text", text = "Tiger Fury|c0000FA9A if [Berserk], [Incarnation] buff is on|r"},
     {type = "text", text = "Brutal Slash|c0000FA9A if talented(7,3)"},	
     {type = "spacer"}, {type = "ruler"}, {type = "spacer"},
+
     {type = "text", text = "In combat:|c0000FA9A if your target is friendly and dead will use Rebirth to ress|r"},
     {type = "text", text = "Out of combat:|c0000FA9A if your target is friendly and dead will use Revive to ress|r"},
 
@@ -181,14 +182,14 @@ local Maim = {
 local Swipe = {
 
     {"%pause", "player.energy <= 44 & !player.buff(Clearcasting)"},
-    {"Swipe", nil, "target"},
+    {"Swipe", nil},
 	
 }	
 	
 local Thrash = {
 
     {"%pause", "player.energy <= 49 & !player.buff(Clearcasting)"},
-	{"Thrash", nil, "target"},
+	{"Thrash", nil},
 	
 }
 
@@ -296,7 +297,7 @@ local Cat_Combat = {
 
 	{"Tiger's Fury", "target.range <= 7 & energy < 40 & {talent(1,1) & target.debuff(Rake) || talent(1,1) & target.debuff(Rip) || talent(1,1) & target.debuff(Thrash) || !talent(1,1) & target.deathin >= 7}", "player"},
     {"Regrowth", "talent(7,2) & !player.buff(Prowl) & !player.debuff(Scent of Blood) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & !player.lastcast(Regrowth) & {talent(5,3) & player.combopoints >= 4 & target.debuff(Rip).duration < player.buff(Savage Roar).duration & !player.buff(Savage Roar).duration <= 10 || !talent(5,3) & player.combopoints >= 4}", "lowest"},
-    {Rake, "range <= 7 & infront & enemy & alive & buff(Prowl)", "target"}, --sometimes you enter in combat but you are still in stealth
+    {Rake, "target.range <= 7 & target.infront & target.enemy & target.alive & buff(Prowl)"}, --sometimes you enter in combat but you are still in stealth
 	
     {"/startattack", "!isattacking & range <= 6.5 & enemy & alive & {UI(allfacing) || !UI(allfacing) & target.infront}", "target"},	
 
@@ -305,11 +306,11 @@ local Cat_Combat = {
 	{Swipe, "toggle(AoE) & !talent(7,3) & player.debuff(Scent of Blood) & count.enemies.debuffs(Thrash) >= 6"}, -- & player.combopoints < 5
 	{"Rake", "toggle(AoE) & player.combopoints <= 4 & infront & range <= 4.5 & !pvp & debuff(Rake).duration <= 3 & count.enemies.debuffs(Rake) < UI(rake_count)", "enemies"},
 	
-	{Savage_Roar, "talent(5,3) & player.combopoints >= 4 & player.buff(Savage Roar).duration <= 10", "player"},
-	{Rip, "toggle(dot) & target.range <= 7 & {target.deathin >= 12 & !target.pvp || target.pvp} & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 9 & target.health >= 25 || player.combopoints >= 4 & !target.debuff(Rip) & target.health < 25} & {UI(allfacing) || !UI(allfacing) & target.infront}", "target"},
-	{Rake, "target.range <= 7 & player.combopoints < 5 & {target.debuff(Rake).duration <= 4 || player.buff(Bloodtalons) & !player.lastcast(Rake)} & {UI(allfacing) || !UI(allfacing) & target.infront}", "target"},	
+	{Savage_Roar, "talent(5,3) & player.combopoints >= 4 & player.buff(Savage Roar).duration <= 10"},
+	{Rip, "toggle(dot) & target.range <= 7 & {target.deathin >= 12 & !target.pvp || target.pvp} & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 9 & target.health >= 25 || player.combopoints >= 4 & !target.debuff(Rip) & target.health < 25} & {UI(allfacing) || !UI(allfacing) & target.infront}"},
+	{Rake, "target.range <= 7 & player.combopoints < 5 & {target.debuff(Rake).duration <= 4 || player.buff(Bloodtalons) & !player.lastcast(Rake)} & {UI(allfacing) || !UI(allfacing) & target.infront}"},	
 	--{Rake, "target.range <= 7 & player.combopoints < 5 & player.buff(Bloodtalons) & !player.lastcast(Rake) & {UI(allfacing) || !UI(allfacing) & target.infront}", "target"},
-	{Moonfire, "talent(1,3) & range <= 40 & infront & !player.buff(Prowl) & debuff(Moonfire).duration <= 4 & player.combopoints < 5", "target"},
+	{Moonfire, "talent(1,3) & target.range <= 40 & target.infront & !player.buff(Prowl) & debuff(Moonfire).duration <= 4 & player.combopoints < 5"},
 	{"Ferocious Bite", "range <= 7 & {player.combopoints == 5 || talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 6 & target.debuff(Rip).duration >= 0.1} & {UI(allfacing) || !UI(allfacing) & target.infront}", "target"},
 	{"Ferocious Bite", "range <= 7 & player.combopoints >= 4 & player.buff(Bloodtalons) & {UI(allfacing) || !UI(allfacing) & target.infront}", "target"},
 	{"Shred", "!player.buff(Prowl) & range <= 7 & player.combopoints < 5 & !player.buff(Bloodtalons) & {UI(allfacing) || !UI(allfacing) & target.infront}", "target"},
