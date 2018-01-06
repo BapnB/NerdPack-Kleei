@@ -76,7 +76,7 @@ local GUI = {
 	{type = "checkspin", text = "Use Health Stone:", key = "hs", check = true, spin = 30, width = 100, step = 5, max = 95, min = 1},
 	{type = "spacer"}, {type = "ruler"},
 
-	{type = "header", size = 16, text = "AOE", align = "center"},
+	{type = "header", size = 16, text = "AoE", align = "center"},
 	{type = "spinner", text = "Use Shadow Word: Pain|c0000FA9A on enemies", key = "swp", default = 5, width = 100, step = 1, max = 15, min = 1},
 	{type = "spinner", text = "Use Vampiric Touch|c0000FA9A on enemies", key = "vamp", default = 5, width = 100, step = 1, max = 15, min = 1},
 	{type = "spinner", text = "Use Void Eruption:|c0000FA9A", key = "ve", default = 5, width = 100, step = 1, max = 15, min = 1},

@@ -209,6 +209,11 @@ NeP.DSL:Register("infront.of.target", function(target)
     return NeP.Protected.Infront("target", target)
 end)
 
+--/dump NeP.DSL.Parse("player.behind.of.target", "", "")
+NeP.DSL:Register("behind.of.target", function(target)
+  return not NeP.Protected.Infront("target", target)
+end)
+
 --/dump NeP.DSL.Parse("target.race", "", "")
 NeP.DSL:Register("race", function(target)
     return _G.UnitRace(target)
@@ -233,10 +238,16 @@ NeP.DSL:Register("IsGlobalCD", function()
 	return false
 end)
 
---/dump NeP.DSL.Parse("target.SpellInRange(Mind Blast)", "", "")
-NeP.DSL:Register("SpellInRange", function(spell, target)
-   if IsSpellInRange(spell, target) == 1 then
+--/dump IsSpellInRange("Mind Blast", target)
+--/dump NeP.DSL.Parse("target.spell_in_range(Mind Blast)", "", "")
+NeP.DSL:Register("spell_in_range", function(spell, target)
+   if _G.IsSpellInRange(spell, target) > 0 then
    return true
    end
    return false
+end)
+
+--/dump NeP.DSL.Parse("target.CurrentSpell(Mind Blast)", "", "")
+NeP.DSL:Register("CurrentSpell", function(spell)
+  return _G.IsCurrentSpell(spell)
 end)
