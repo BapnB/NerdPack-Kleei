@@ -230,8 +230,8 @@ NeP.DSL:Register("count.enemies.combat", function(num)
   return encombat
 end)
 
---/dump NeP.DSL.Parse("IsGlobalCD", "", "")
-NeP.DSL:Register("IsGlobalCD", function()
+--/dump NeP.DSL.Parse("isgcd", "", "")
+NeP.DSL:Register("isgcd", function()
     if NeP.DSL:Get("spell.cooldown")("player", "61304") > 0.0000 then
 	return true
 	end

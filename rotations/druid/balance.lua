@@ -71,13 +71,13 @@ end
 
 local Shapeshift = {
 
-    {"Moonkin Form", "!buff(Moonkin Form) & {!swimming & !toggle(travelform) || indoors || state(root) & UI(root) || target.enemy & target.alive || player.area(10).enemies >= 1}", "player"},
-	{"Bear Form", "!buff(Bear Form) & !buff(Prowl) & {state(root) & UI(root) || toggle(BEAR) & !buff(Dash) & !spell(Prowl).usable & target.alive & target.enemy & player.pvp & target.player & targettarget.is(player) & target.range > 7}", "player"},
+    {"Moonkin Form", "!buff(Moonkin Form) & !keybind(alt) & {!player.swimming & !toggle(travelform) || player.indoors || player.state(root) & UI(root) || target.enemy & target.alive || player.area(15).enemies >= 1}", "player"},
+	{"Bear Form", "!buff(Bear Form) & !buff(Prowl) & state(root) & UI(root)", "player"},
 
-	{"/cancelform", "!player.buff(Prowl) & !indoors & player.swimming & !player.buff(Travel Form) & !player.area(20).enemies >= 1 & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}"},
-	{"Travel Form", "!player.buff(Moonkin Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.area(20).enemies >= 1 & player.swimming"},
-	{"/cancelform", "toggle(travelform) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.area(15).enemies >= 1 & buff(Moonkin Form) & {!target.enemy || target.enemy & !target.alive}", "player"},
-    {"Travel Form", "toggle(travelform) & !keybind(alt) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.buff(Moonkin Form) & !player.area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive}"},
+	{"/cancelform", "!buff(Prowl) & !indoors & swimming & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
+	{"Travel Form", "!buff(Cat Form) & !indoors & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & swimming & {!target.enemy || target.enemy & !target.alive || !target.exists}", "player"},
+	{"/cancelform", "toggle(travelform) & !indoors & !buff(Dash) & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
+    {"Travel Form", "toggle(travelform) & !indoors & !buff(Dash) & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & !keybind(alt)", "player"},
 	
     {"Blessing of the Ancients", "talent(6,3) & !player.buff(Blessing of Elune)"},
 	

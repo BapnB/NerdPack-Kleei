@@ -54,19 +54,20 @@ local GUI = {
 	{type = "combo", default = "1", key = "list1", list = keybind_list_1, width = 100},	
 	{type = "text", text = "Use Mighty Bash:|c0000FA9A in melee:"},
 	{type = "text", text = "Use Maim:|c0000FA9A in melee:"},
-    {type = "ruler"},
+	{type = "spacer"},
 	{type = "combo", default = "4", key = "list2", list = keybind_list_2, width = 100},	
     {type = "text", text = "Use Wild Charge:|c0000FA9A ranged:|r"},
     {type = "text", text = "Use Skull Bash:|c0000FA9A ranged:|r"},
-    {type = "ruler"},
+    {type = "spacer"},
 	{type = "combo", default = "none", key = "list3", list = keybind_list_3, width = 100},		
     {type = "text", text = "Use Berserk:|c0000FA9A"},
     {type = "text", text = "Use Incarnation: King of the Jungle:"},
     {type = "text", text = "|c0000FA9A if you have [Incarnation] buff it cast Stealth and Stun|r"},
-    {type = "ruler"},
+    {type = "spacer"},
 	{type = "combo", default = "12", key = "list4", list = keybind_list_4, width = 100},	
-    {type = "text", text =  "Regrowth lowest:|c0000FA9A", desc = "|c0000FA9A if lowest have less than 90% HP:|r"},
-    {type = "ruler"},
+    {type = "text", text = "Regrowth lowest:|c0000FA9A"},
+    {type = "text", text = "|c0000FA9A      if lowest have less than 90% HP:|r"},
+	{type = "ruler"},
 	
     {type = "header", size = 16,  text = "PVP", align = "center"},
     {type = "checkbox",	text = "Unroot: |c0000FA9A auto unroot Shapeshifting.|r", align = "left", key = "root", default = true},
@@ -203,13 +204,13 @@ local Rake = {
 
 local Shapeshift = {
 
-    {"Cat Form", "!buff(Cat Form) & !keybind(alt) & {!player.swimming & !toggle(travelform) || player.indoors || player.state(root) & UI(root) || target.enemy & target.alive || player.area(10).enemies >= 1}", "player"},
-	{"Bear Form", "!buff(Bear Form) & !buff(Prowl) & {player.state(root) & UI(root) || toggle(BEAR) & !player.buff(Dash) & !player.pell(Prowl).usable & target.alive & target.enemy & player.pvp & target.player & targettarget.is(player) & target.range > 7}", "player"},
+    {"Cat Form", "!buff(Cat Form) & !keybind(alt) & {!player.swimming & !toggle(travelform) || player.indoors || player.state(root) & UI(root) || target.enemy & target.alive || player.area(15).enemies >= 1}", "player"},
+	{"Bear Form", "!buff(Bear Form) & !buff(Prowl) & state(root) & UI(root)", "player"},
 
-	{"/cancelform", "!buff(Prowl) & !indoors & swimming & !buff(Travel Form) & !area(20).enemies >= 1 & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
-	{"Travel Form", "!buff(Cat Form) & !indoors & !buff(Prowl) & !buff(Travel Form) & !area(20).enemies >= 1 & swimming", "player"},
-	{"/cancelform", "toggle(travelform) & !indoors & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & buff(Cat Form) & {!target.enemy || target.enemy & !target.alive}", "player"},
-    {"Travel Form", "toggle(travelform) & !keybind(alt) & !indoors & !buff(Prowl) & !buff(Travel Form) & !buff(Cat Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive}", "player"},
+	{"/cancelform", "!buff(Prowl) & !indoors & swimming & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
+	{"Travel Form", "!buff(Cat Form) & !indoors & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & swimming & {!target.enemy || target.enemy & !target.alive || !target.exists}", "player"},
+	{"/cancelform", "toggle(travelform) & !indoors & !buff(Dash) & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
+    {"Travel Form", "toggle(travelform) & !indoors & !buff(Dash) & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & !keybind(alt)", "player"},
 
 }
 
@@ -226,7 +227,7 @@ local Keybinds = {
     {"/cancelform", "!player.buff(Prowl) & !player.moving & !player.buff(Predatory Swiftness) & lowest.health <= 90 & lowest.range <= 40 & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Travel Form)} & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp
 	{"Regrowth", "!player.buff(Prowl) & spell.InRange  & lowest.health <= 90 & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}", "lowest"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp
 	
-    {"Prowl", "!buff(Prowl) & buff(Cat Form) & buff(Incarnation: King of the Jungle) & {keybind(alt) & UI(list)==3 || keybind(shift) & UI(list)==1 || keybind(control) & UI(list)==2}", "player"},
+    {"Prowl", "!buff(Prowl) & buff(Cat Form) & buff(Incarnation: King of the Jungle) & {keybind(alt) & UI(list)==3 || keybind(shift) & UI(list)==1 || keybind(control) & UI(list)==2 || target.immune_all}", "player"},
     {Rake, "target.enemy & target.alive & player.buff(Prowl) & !target.immune_all & !target.state(stun) & {!target.player || target.player & player.pvp}"},
 	
 	{"Berserk", "!talent(5,2) & target.range <= 7 & !target.immune_all & combat & !buff(Shadowmeld) & !buff(Prowl) & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "player"},	

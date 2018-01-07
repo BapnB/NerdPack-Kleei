@@ -132,14 +132,14 @@ end
 
 local Shapeshift = {
 
-    {"Moonkin Form", "toggle(DPS) & !buff(Moonkin Form) & {!swimming & !toggle(travelform) || indoors || state(root) & UI(root) || target.enemy & target.alive || area(10).enemies >= 1}", "player"},
+    {"Moonkin Form", "toggle(DPS) & !buff(Moonkin Form) & {!player.swimming & !toggle(travelform) || player.indoors || player.state(root) & UI(root) || target.enemy & target.alive}", "player"},
     {"/cancelform", "!toggle(DPS) & buff(Moonkin Form)", "player"},
-	{"Bear Form", "!buff(Bear Form) & !buff(Prowl) & {state(root) & UI(root) || toggle(BEAR) & !buff(Dash) & !spell(Prowl).usable & target.alive & target.enemy & pvp & target.player & targettarget.is(player) & target.range > 7}", "player"},
+	{"Bear Form", "!buff(Bear Form) & !buff(Prowl) & state(root) & UI(root)", "player"},
 
-	{"/cancelform", "!player.buff(Prowl) & !indoors & player.swimming & !player.buff(Travel Form) & !player.area(20).enemies >= 1 & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}"},
-	{"Travel Form", "!player.buff(Moonkin Form) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.area(20).enemies >= 1 & player.swimming"},
-	{"/cancelform", "toggle(travelform) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.area(15).enemies >= 1 & buff(Moonkin Form) & {!target.enemy || target.enemy & !target.alive}", "player"},
-    {"Travel Form", "toggle(travelform) & !keybind(alt) & !indoors & !player.buff(Prowl) & !player.buff(Travel Form) & !player.buff(Moonkin Form) & !player.area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive}"},
+	{"/cancelform", "!buff(Prowl) & !indoors & swimming & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
+	{"Travel Form", "!buff(Cat Form) & !indoors & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & swimming & {!target.enemy || target.enemy & !target.alive || !target.exists}", "player"},
+	{"/cancelform", "toggle(travelform) & !indoors & !buff(Dash) & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
+    {"Travel Form", "toggle(travelform) & !indoors & !buff(Dash) & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & !keybind(alt)", "player"},
 
 }
 
@@ -148,7 +148,7 @@ local Keybinds = {
 	{"Mass Entanglement", "talent(4,2) & !debuff(Mass Entanglement) & !debuff(Entangling Roots) & !player.lastcast(Entangling Roots) & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "target"},
     {"Entangling Roots", "!debuff(Entangling Roots) & !debuff(Mass Entanglement) & !player.lastcast(Mass Entanglement) & !player.lastcast(Entangling Roots) & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "target"},
 
-    {"Innervate", "player.combat & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "player"},
+    {"Innervate", "combat & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "player"},
 
 	{"Efflorescence", "keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2", "cursor.ground"},
 	
@@ -187,8 +187,6 @@ local Innervate = {
 }
 
 local DPS = {
-
-	{"Moonkin Form", "!player.buff(Moonkin Form)"},
 
 	{"Sunfire",  "target.area(5).enemies >= 2 & !debuff(Sunfire).duration > 2 & player.los(target) & enemy & alive", "target"},
     {"Moonfire", "!debuff & range <= 40 & player.los(target) & enemy & alive", "target"},

@@ -164,7 +164,7 @@ local Combat = {
 	{"Fel Barrage", "talent(7,2) & !target.debuff(Imprison) & target.range <= 30 & player.spell(Fel Barrage).charges >= 5 & {player.buff(Metamorphosis) & player.fury <= 39 & player.spell(Death Sweep).cooldown >= gcd || player.buff(Metamorphosis) & player.fury <= 15 || !player.buff(Metamorphosis)}"},
 	{"Throw Glaive", "player.spell(Fel Rush).charges < 1 & player.spell(Felblade).cooldown > gcd & !target.debuff(Imprison) & target.range >= 8 & target.range <= 30"},
 	{"!Fel Rush", "toggle(charge) & target.infront & {target.range >= 6 || player.falling & target.inmelee & !player.lastcast(Fel Barrage) & !player.casting(Fel Barrage)}", "target"},
-	--{"/run JumpOrAscendStart()", "toggle(charge) & target.inmelee & target.infront & player.spell(Fel Rush).charges >= 1 & player.spell(Felblade).cooldown >= gcd & !player.falling & !player.lastcast(Blade Dance) & !player.casting(Fel Barrage) & {talent(3,2) & player.spell(Blade Dance).cooldown >= gcd & player.fury <= 38 || talent(3,2) & player.fury <= 14 || !talent(3,2) & player.fury <= 38}"},
+	{"/run JumpOrAscendStart()", "toggle(charge) & !isgcd & target.inmelee & target.infront & player.spell(Fel Rush).charges >= 1 & player.spell(Felblade).cooldown >= gcd & !player.falling & !player.lastcast(Blade Dance) & !player.casting(Fel Barrage) & {talent(3,2) & player.spell(Blade Dance).cooldown >= gcd & player.fury <= 38 || talent(3,2) & player.fury <= 14 || !talent(3,2) & player.fury <= 38}"},
 	
 	{"Throw Glaive", "!player.falling & {player.fury <= 38 & target.inmelee || !target.debuff(Master of the Glaive) & target.range > 7}", "target"},
 
