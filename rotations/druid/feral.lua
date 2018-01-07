@@ -227,7 +227,7 @@ local Keybinds = {
 	{"Regrowth", "!player.buff(Prowl) & spell.InRange  & lowest.health <= 90 & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}", "lowest"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp
 	
     {"Prowl", "!buff(Prowl) & buff(Cat Form) & buff(Incarnation: King of the Jungle) & !target.immune_all & {keybind(alt) & UI(list)==3 || keybind(shift) & UI(list)==1 || keybind(control) & UI(list)==2}", "player"},
-    {Rake, "target.enemy & target.alive & !target.immune_all & player.buff(Prowl) & !target.immune_all & !target.state(stun) & {!target.player || target.player & player.pvp}"},
+    {Rake, "target.enemy & target.alive & player.buff(Prowl) & !target.immune_all & !target.state(stun) & {!target.player || target.player & player.pvp}"},
 	
 	{"Berserk", "!talent(5,2) & target.range <= 7 & !target.immune_all & combat & !buff(Shadowmeld) & !buff(Prowl) & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "player"},	
 	{"Incarnation: King of the Jungle", "talent(5,2) & combat & target.range <= 7 & !target.immune_all & combat & !buff(Shadowmeld) & !buff(Prowl) & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "player"}, -- || player.spell(Prowl).cooldown <= 0.4 & keybind(alt)}
@@ -235,7 +235,7 @@ local Keybinds = {
     {"Mighty Bash", "!player.buff(Prowl) & player.combat & !target.immune_all & combat & !state(stun) & spell.InRange & enemy & alive & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || target.player & player.pvp & UI(stun)}", "target"},
 	{Maim, "!player.buff(Prowl) & player.combopoints >= 3 & !target.immune_all & combat & !target.state(stun) & target.enemy & target.alive & !player.lastcast(Mighty Bash) & player.spell(Mighty Bash).cooldown >= 0 & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}"}, -- || target.player & player.pvp & UI(stun) & !target.state(stun)
 	
-	{"Skull Bash", "player.spell(Wild Charge).cooldown < 13.5 & !player.buff(Prowl) & range > 7 & spell.InRange & enemy & alive & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
+	{"Skull Bash", "player.spell(Wild Charge).cooldown < 13.5 & !player.buff(Prowl) & range > 8 & spell.InRange & enemy & alive & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
 	{"Wild Charge", "spell.InRange & enemy & alive & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
 	
 }
@@ -331,7 +331,7 @@ local inCombat = {
 	{Keybinds},
 	{Interrupts, "toggle(interrupts) & !player.buff(Prowl) & target.enemy & {!target.player || player.pvp & target.player}"},
     {Survival, "player.health < 100 & !player.buff(Prowl)"},		
-	{Cooldowns, "toggle(cooldowns) & target.immune_all"},
+	{Cooldowns, "toggle(cooldowns) & !target.immune_all"},
 	{"%pause", "target.enemy & target.immune_all", "player"},
 	{Cat_Combat, "player.buff(Cat Form) & target.alive & target.enemy & {!target.player || player.pvp & target.player}"},
 	{Bear_Combat, "player.buff(Bear Form) & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
