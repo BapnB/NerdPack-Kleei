@@ -59,7 +59,7 @@ local GUI = {
     {type = "text", text = "Use Wild Charge:|c0000FA9A ranged:|r"},
     {type = "text", text = "Use Skull Bash:|c0000FA9A ranged:|r"},
     {type = "ruler"},
-	{type = "combo", default = "8", key = "list3", list = keybind_list_3, width = 100},		
+	{type = "combo", default = "none", key = "list3", list = keybind_list_3, width = 100},		
     {type = "text", text = "Use Berserk:|c0000FA9A"},
     {type = "text", text = "Use Incarnation: King of the Jungle:"},
     {type = "text", text = "|c0000FA9A if you have [Incarnation] buff it cast Stealth and Stun|r"},
@@ -226,7 +226,7 @@ local Keybinds = {
     {"/cancelform", "!player.buff(Prowl) & !player.moving & !player.buff(Predatory Swiftness) & lowest.health <= 90 & lowest.range <= 40 & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Travel Form)} & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp
 	{"Regrowth", "!player.buff(Prowl) & spell.InRange  & lowest.health <= 90 & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}", "lowest"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp
 	
-    {"Prowl", "!buff(Prowl) & buff(Cat Form) & buff(Incarnation: King of the Jungle) & !target.immune_all & {keybind(alt) & UI(list)==3 || keybind(shift) & UI(list)==1 || keybind(control) & UI(list)==2}", "player"},
+    {"Prowl", "!buff(Prowl) & buff(Cat Form) & buff(Incarnation: King of the Jungle) & {keybind(alt) & UI(list)==3 || keybind(shift) & UI(list)==1 || keybind(control) & UI(list)==2}", "player"},
     {Rake, "target.enemy & target.alive & player.buff(Prowl) & !target.immune_all & !target.state(stun) & {!target.player || target.player & player.pvp}"},
 	
 	{"Berserk", "!talent(5,2) & target.range <= 7 & !target.immune_all & combat & !buff(Shadowmeld) & !buff(Prowl) & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "player"},	
