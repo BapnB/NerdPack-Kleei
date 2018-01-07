@@ -238,16 +238,17 @@ NeP.DSL:Register("IsGlobalCD", function()
 	return false
 end)
 
---/dump IsSpellInRange("Mind Blast", target)
---/dump NeP.DSL.Parse("target.spell_in_range(Mind Blast)", "", "")
-NeP.DSL:Register("spell_in_range", function(spell, target)
-   if _G.IsSpellInRange(spell, target) > 0 then
-   return true
-   end
-   return false
+--/dump NeP.DSL.Parse("target.spell(Wild Charge).InRange", "", "")
+NeP.DSL:Register("spell.InRange", function(target, spell)
+  local spellIndex, spellBook = NeP.Core:GetSpellBookIndex(spell)
+  if not spellIndex then return false end
+  if spellIndex and _G.IsSpellInRange(spellIndex, spellBook, target) == 1 then
+  return true end
 end)
 
---/dump NeP.DSL.Parse("target.CurrentSpell(Mind Blast)", "", "")
+--/dump NeP.DSL.Parse("CurrentSpell(Regrowth)", "", "")
 NeP.DSL:Register("CurrentSpell", function(spell)
-  return _G.IsCurrentSpell(spell)
+  local spellIndex, spellBook = NeP.Core:GetSpellBookIndex(spell)
+  if not spellIndex then return false end
+  return spellIndex and  _G.IsCurrentSpell(spell)
 end)
