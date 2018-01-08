@@ -1,28 +1,5 @@
 local _G = _G
 
---/dump NeP.DSL.Parse("player.mana.actual", "", "")
-NeP.DSL:Register("mana.actual", function(target)
-	return _G.UnitMana(target)
-end)
-
---/dump NeP.DSL.Parse("player.mana.max", "", "")
-NeP.DSL:Register("mana.max", function(target)
-	return _G.UnitManaMax(target)
-end)
-
---/dump NeP.DSL.Parse("target.caster", "", "")
-NeP.DSL:Register("caster", function(target)
-    if NeP.DSL:Get("class")("target", "Priest") or NeP.DSL:Get("class")("target", "Mage") or NeP.DSL:Get("class")("target", "Warlock") then
-      return true --Need To Add a few more specs not whole Class, Monk Mistweaver, Druid Balance, Druid Restoration, Paladin Holy
-    end
-      return false
-end)
-
---/dump NeP.DSL.Parse("target.player", "", "")
-NeP.DSL:Register("player", function(target)
-  return _G.UnitIsPlayer(target)
-end)
-
 --/dump NeP.DSL.Parse("rake.stun", "", "")
 NeP.DSL:Register("rake.stun", function(target, spell)
     if NeP.DSL:Get("debuff.many")("target", "Rake") == 2 then
@@ -55,6 +32,36 @@ NeP.DSL:Register("immune_all",function(target, spell)
 	   UnitDebuff(target, GetSpellInfo(88010)) then
        return true
     end
+       return false
+end)
+
+--/dump NeP.DSL.Parse("target.immune_stun", "", "")
+NeP.DSL:Register("immune_stun",function(target, spell)
+--[[------------------------------------------------------
+----------------PVE , don't stun the bosses---------------
+----------------------------------------------------------
+                    Buff immune to stun
+---------------------------PvP----------------------------
+----------------------------------------------------------
+    "48792",     -- Icebound Fortitude                  -- Death Knight
+    "115018",    -- Desecrated Ground                   -- Death Knight
+    "46924",     -- Bladestorm                          -- Warrior
+    "19574",     -- Bestial Wrath                       -- Hunter
+    "213658",    -- Craft: Nimble Brew                  -- Monk
+    "204336",    -- Grounding Totem (Player Spell)      -- Shaman
+	"8178",      -- Grounding Totem (Totem Spell)       -- Shaman
+
+]]
+    if NeP.DSL:Get("boss")(target) or
+       UnitBuff(target, GetSpellInfo(48792)) or
+	   UnitBuff(target, GetSpellInfo(115018)) or
+	   UnitBuff(target, GetSpellInfo(46924)) or
+	   UnitBuff(target, GetSpellInfo(19574)) or
+	   UnitBuff(target, GetSpellInfo(213658)) or
+	   UnitBuff(target, GetSpellInfo(204336)) or
+	   UnitBuff(target, GetSpellInfo(8178)) then
+	   return true
+	end
        return false
 end)
 
@@ -162,31 +169,21 @@ end
     return false
 end)
 
---/dump NeP.DSL.Parse("target.NAME_NPC", "", "")
-NeP.DSL:Register("NAME_NPC", function(target)
-    if not _G.UnitExists(target) then 
-	return 
-	end
-    if _G.UnitName(target) == "NAME_NPC" then
-	return true
-	end
-	return false
-end)
-
 --/dump NeP.DSL.Parse("target.enemy_totem", "", "")
 NeP.DSL:Register("enemy_totem", function(target)
 
 --[[  TOTEMS
 -----------------------------------
-  -- 2630 -- Earthbind Totem
+  -- 2630   -- Earthbind Totem
   -- 113845 -- Totem Mastery
   -- 102392 -- Resonance Totem
   -- 106317 -- Storm Totem
   -- 106319 -- Ember Totem
   -- 106321 -- Tailwind Totem
-  -- 3527 -- Healing Stream Totem
-  -- 59764 -- Healing Tide Totem
-  -- 53006 -- Spirit Link Totem
+  -- 3527   -- Healing Stream Totem
+  -- 59764  -- Healing Tide Totem
+  -- 5925   -- Grounding Totem	   
+  -- 53006  -- Spirit Link Totem
 ----------------------------------
 ]]
 
@@ -197,37 +194,12 @@ NeP.DSL:Register("enemy_totem", function(target)
 	   NeP.DSL:Get("id")(target, (106319)) or 
 	   NeP.DSL:Get("id")(target, (106321)) or 
 	   NeP.DSL:Get("id")(target, (3527)) or 
-	   NeP.DSL:Get("id")(target, (59764)) or 
+	   NeP.DSL:Get("id")(target, (59764)) or
+	   NeP.DSL:Get("id")(target, (5925)) or	   
 	   NeP.DSL:Get("id")(target, (53006)) then
 	  return true
 	end
 	  return false
-end)
-
---/dump NeP.DSL.Parse("player.infront.of.target", "", "")
-NeP.DSL:Register("infront.of.target", function(target)
-    return NeP.Protected.Infront("target", target)
-end)
-
---/dump NeP.DSL.Parse("player.behind.of.target", "", "")
-NeP.DSL:Register("behind.of.target", function(target)
-  return not NeP.Protected.Infront("target", target)
-end)
-
---/dump NeP.DSL.Parse("target.race", "", "")
-NeP.DSL:Register("race", function(target)
-    return _G.UnitRace(target)
-end)
-
---/dump NeP.DSL.Parse("count.enemies.combat", "", "")
-NeP.DSL:Register("count.enemies.combat", function(num)
-  local encombat = 0
-  for _, Obj in pairs(NeP.OM:Get("Enemy")) do
-      if _G.UnitExists(Obj.key) and _G.UnitIsVisible(Obj.key) and NeP.DSL:Get("combat")(Obj.key) and NeP.DSL:Get("alive")(Obj.key) and NeP.DSL:Get("range")(Obj.key, "<=40") then
-          encombat = encombat + 1
-      end
-  end
-  return encombat
 end)
 
 --/dump NeP.DSL.Parse("isgcd", "", "")
@@ -238,17 +210,11 @@ NeP.DSL:Register("isgcd", function()
 	return false
 end)
 
---/dump NeP.DSL.Parse("target.spell(Wild Charge).InRange", "", "")
-NeP.DSL:Register("spell.InRange", function(target, spell)
+--/dump NeP.DSL.Parse("target.inRange(Wild Charge).spell", "", "")
+NeP.DSL:Register("inRange.spell", function(target, spell)
   local spellIndex, spellBook = NeP.Core:GetSpellBookIndex(spell)
   if not spellIndex then return false end
   if spellIndex and _G.IsSpellInRange(spellIndex, spellBook, target) == 1 then
   return true end
 end)
 
---/dump NeP.DSL.Parse("CurrentSpell(Regrowth)", "", "")
-NeP.DSL:Register("CurrentSpell", function(spell)
-  local spellIndex, spellBook = NeP.Core:GetSpellBookIndex(spell)
-  if not spellIndex then return false end
-  return spellIndex and  _G.IsCurrentSpell(spell)
-end)
