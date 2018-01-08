@@ -217,4 +217,3 @@ NeP.DSL:Register("inRange.spell", function(target, spell)
   if spellIndex and _G.IsSpellInRange(spellIndex, spellBook, target) == 1 then
   return true end
 end)
-

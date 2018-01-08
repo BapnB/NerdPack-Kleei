@@ -39,7 +39,7 @@ local keybind_list_4 = {
 local Logo_GUI = {
 
 	{type = "texture", texture = "Interface\\AddOns\\Nerdpack-Kleei\\media\\feral.blp", width = 128, height = 128, offset = 90, y = -50, align = "center"},
-	{type = "spacer"}, {type = "spacer"}, {type = "spacer"}, {type = "ruler"},
+	{type = "spacer"}, {type = "spacer"}, {type = "spacer"},
 
 }
 	
@@ -47,7 +47,6 @@ local GUI = {
     
 	unpack(Logo_GUI),
 	
-	{type = "spacer"},
 	{type = "header", size = 16, text = "Keybinds", align = "center"},
 	{type = "text", text = "|c0000FA9A Just hold the Key|r", align = "center"},
 	{type = "text", text = "|c0087CEFA Choose Keybind:", align = "center"},
@@ -62,7 +61,6 @@ local GUI = {
 	{type = "combo", default = "8", key = "list3", list = keybind_list_3, width = 100},
     {type = "text", text = "Dispel Self:|c0000FA9A "},
     {type = "text", text = "Use Prowl:|c0000FA9A if you have [Incarnation] buff"},
-    {type = "text", text = "|c0000FA9A                  |r"},
     {type = "spacer"},
 	{type = "combo", default = "12", key = "list4", list = keybind_list_4, width = 100},	
     {type = "text", text = "Use Regrowth on lowest:|c0000FA9A"},
@@ -85,12 +83,15 @@ local GUI = {
 	{type = "header", size = 16, text = "Survival", align = "center"},
 	{type = "checkspin", text = "Use Survival Instincts:", key = "suin", check = true, spin = 75, width = 100, step = 5, max = 95, min = 1},
 	{type = "checkspin", text = "Use Health Stone:", key = "hs", check = true, spin = 60, width = 100, step = 5, max = 95, min = 1},
-	{type = "checkspin", text = "Use Regrowth|c0000FA9A (Predatory Swiftness):", key = "rps", check = true, spin = 70, width = 100, step = 5, max = 95, min = 1},
+	{type = "checkspin", text = "Use Regrowth|c0000FA9A (Predatory Swiftness):", key = "rps", check = true, spin = 75, width = 100, step = 5, max = 95, min = 1},
     {type = "spacer"}, {type = "ruler"},
 
 	{type = "header", size = 16, text = "AoE", align = "center"},
-	{type = "spinner", text = "Rake:|c0000FA9A count debuff on enemies", key = "rake_count", default = 5, width = 100, step = 1, max = 15, min = 1},
 	{type = "spinner", text = "Brutal Slash:|c0000FA9A count enemies >=", key = "bs_aoe", default = 3, width = 100, step = 1, max = 15, min = 1},
+	{type = "spinner", text = "Swipe:|c0000FA9A count debuff Thrash on enemies", key = "swipe_key", default = 5, width = 100, step = 1, max = 15, min = 1},
+    {type = "text", text = "|c0000FA9A if artifact (Scent of Blood) is enabled|r"},
+	{type = "spinner", text = "Rake:|c0000FA9A count debuff on enemies", key = "rake_count", default = 5, width = 100, step = 1, max = 15, min = 1},
+    {type = "text", text = "|c0000FA9A disable Always-Facing for Rake AoE|r"},
     {type = "spacer"}, {type = "ruler"},
 
 	{type = "header", size = 16, text = "EWT cheat", align = "center"},
@@ -126,6 +127,13 @@ local exeOnLoad = function()
 	print("|c0000FA9A Please Setup Rotation Settings first before using it!|r")
 	
 		NeP.Interface:AddToggle({
+		key = "help_key",
+		icon = "Interface\\Icons\\spell_nature_resistnature",
+		name = "Heal Lowest",
+		text = "Help healer to heal the team when 4 combo-points and proc to instant Regrowth",
+	})
+	
+	    NeP.Interface:AddToggle({
 		key = "dot",
 		icon = "Interface\\Icons\\ability_ghoulfrenzy",
 		name = "Rip",
@@ -255,7 +263,7 @@ local PreCombat = {
     {"%dispelself", "!buff(Prowl)", "player"},
     {"Revive", "inRange.spell & !enemy & dead & player & player.ingroup(target)", "target"},
 
-    {"Regrowth", "health <= UI(rps_spin) & UI(rps_check) & !buff(Prowl) & {player.buff(Predatory Swiftness).duration >= 10 || !player.moving}", "player"},
+    {"Regrowth", "health <= UI(rps_spin) & UI(rps_check) & !buff(Prowl) & {player.buff(Predatory Swiftness) & spell(Regrowth).casttime==0 || !player.moving}", "player"},
 
 }
 
@@ -263,7 +271,7 @@ local Survival = {
 
 	{"%dispelself", "!buff(Prowl) & area(10).enemies < 1", "player"},
 	{"#5512", "item(5512).count >= 1 & health <= UI(hs_spin) & UI(hs_check) & area(40).enemies >= 1", "player"}, --Health Stone
-    {"Regrowth", "health <= UI(rps_spin) & UI(rps_check) & !buff(Prowl) & buff(Predatory Swiftness).duration >= 10 & !lastcast(Regrowth)", "player"},
+    {"Regrowth", "health <= UI(rps_spin) & UI(rps_check) & !buff(Prowl) & buff(Predatory Swiftness) & spell(Regrowth).casttime==0", "player"},
 	--{"Regrowth", "player.buff(Predatory Swiftness).duration >= 10 & !player.lastcast(Regrowth) & range <= 40 & target.player & player.pvp & target.enemy & target.alive & health <= 85", "lowest"},	
 --{"Regrowth", "player.buff(Predatory Swiftness).duration >= 10 & !player.lastcast(Regrowth) & range <= 40 & health <= 85 & !enemy & alive", "focus"}, -- helping friend
 	--{"!Entangling Roots", "player.buff(Predatory Swiftness) & !player.lastcast(Entangling Roots) & player.pvp & pvp & player & enemy & alive & range <= 37 & target.range >= 12", "enemies"},
@@ -299,18 +307,21 @@ local Cooldowns = {
 local Cat_Combat = {
 
 	{"Tiger's Fury", "target.inRange(Rake).spell & energydiff > 60 & target.alive & target.enemy & {!target.player || target.faction.positive || target.faction.negative & player.pvp} & {talent(1,1) & {target.debuff(Rake) || target.debuff(Rip) || target.debuff(Thrash)} || !talent(1,1) & target.deathin >= 7}", "player"},
-    {"Regrowth", "talent(7,2) & !player.buff(Prowl) & !player.debuff(Scent of Blood) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & !player.lastcast(Regrowth) & {talent(5,3) & player.combopoints >= 4 & target.debuff(Rip).duration < player.buff(Savage Roar).duration & !player.buff(Savage Roar).duration <= 10 || !talent(5,3) & player.combopoints >= 4}", "player"},
-    {Rake, "target.infront & player.buff(Prowl) & {!target.immune_all || target.buff(Touch of Karma)}"}, --sometimes you enter in combat but you are still in stealth
+    
+	{"Regrowth", "!toggle(help_key) & spell(Regrowth).casttime==0 & talent(7,2) & !player.buff(Prowl) & !player.debuff(Scent of Blood) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & {talent(5,3) & player.combopoints >= 4 & target.debuff(Rip).duration < player.buff(Savage Roar).duration & !player.buff(Savage Roar).duration <= 10 || !talent(5,3) & player.combopoints >= 4}", "player"},
+    {"Regrowth", "toggle(help_key) & spell(Regrowth).casttime==0 & talent(7,2) & !player.buff(Prowl) & !player.debuff(Scent of Blood) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & {talent(5,3) & player.combopoints >= 4 & target.debuff(Rip).duration < player.buff(Savage Roar).duration & !player.buff(Savage Roar).duration <= 10 || !talent(5,3) & player.combopoints >= 4}", "lowest"},
+    
+	{Rake, "target.infront & player.buff(Prowl) & {!target.immune_all || target.buff(Touch of Karma)}"}, --sometimes you enter in combat but you are still in stealth
 	
     {"/startattack", "!isattacking & target.inmelee & enemy & alive & {!target.player || target.faction.positive || target.faction.negative & player.pvp} & {UI(allfacing) || !UI(allfacing) & target.infront}", "target"},	
 
 	{"Brutal Slash", "talent(7,3) & player.combopoints <= 4 & {toggle(AoE) & player.area(10).enemies >= UI(bs_aoe) || toggle(cooldowns) & !target.debuff(Rake).duration <= 4 & player.area(7).enemies >= 1 & UI(brutal_key) & {talent(5,3) & player.buff(Savage Roar) || !talent(5,3)}}"},
-	{Thrash, "toggle(AoE) & {!artifact.enabled(Scent of Blood) & target.debuff(Thrash).duration <= 3.5 & player.area(10).enemies >= 3 || target.debuff(Thrash).duration <= 3.5 & player.area(10).enemies >= 3 & player.area(10).enemies <= 5 & artifact.enabled(Shadow Thrash) || talent(7,3) & !player.debuff(Scent of Blood) & artifact.enabled(Scent of Blood) & player.area(10).enemies >= 6 & player.spell(Brutal Slash).cooldown > 0 || !talent(7,3) & !player.debuff(Scent of Blood) & artifact.enabled(Scent of Blood) & player.area(10).enemies >= 6}"},
-	{Swipe, "toggle(AoE) & !talent(7,3) & player.debuff(Scent of Blood) & count.enemies.debuffs(Thrash) >= 6"}, -- & player.combopoints < 5
+	{Thrash, "toggle(AoE) & {count.enemies.debuffs(Thrash) < {talent(3,1) & player.area(10).enemies || !talent(3,1) & player.area(5).enemies} & {talent(3,1) & player.area(10).enemies >= 3 || !talent(3,1) & player.area(5).enemies >= 3}} || {artifact.enabled(Scent of Blood) & !player.debuff(Scent of Blood) & count.enemies.debuffs(Thrash) < {talent(3,1) & player.area(10).enemies || !talent(3,1) & player.area(5).enemies} & {talent(3,1) & player.area(10).enemies >= UI(swipe_key) || !talent(3,1) & player.area(5).enemies >= UI(swipe_key)}}"}, -- || target.debuff(Thrash).duration <= 3.5 & player.area(10).enemies >= 3 & player.area(10).enemies <= 5 & artifact.enabled(Shadow Thrash) || talent(7,3) & !player.debuff(Scent of Blood) & artifact.enabled(Scent of Blood) & player.area(10).enemies >= 6 & player.spell(Brutal Slash).cooldown > 0 || !talent(7,3) & !player.debuff(Scent of Blood) & artifact.enabled(Scent of Blood) & player.area(10).enemies >= 6}"},
+	{Swipe, "toggle(AoE) & !talent(7,3) & player.debuff(Scent of Blood) & count.enemies.debuffs(Thrash) >= UI(swipe_key)"}, -- & player.combopoints < 5
 
-	{"Rake", "toggle(AoE) & player.combopoints <= 4 & alive & enemy & infront & target.infront & target.inmelee & inRange.spell & !player & debuff(Rake).duration <= 3 & count.enemies.debuffs(Rake) < UI(rake_count)", "enemies"},
-	{"Rake", "toggle(AoE) & player.combopoints <= 4 & alive & enemy & infront & target.infront & target.inmelee & inRange.spell & faction.positive & debuff(Rake).duration <= 3 & count.enemies.debuffs(Rake) < UI(rake_count)", "enemies"},
-	{"Rake", "toggle(AoE) & player.combopoints <= 4 & alive & enemy & infront & target.infront & target.inmelee & inRange.spell & faction.negative & player.pvp & debuff(Rake).duration <= 3 & count.enemies.debuffs(Rake) < UI(rake_count)", "enemies"},
+	{"Rake", "toggle(AoE) & player.combopoints <= 4 & infront & alive & enemy & inRange.spell & !player & debuff(Rake).duration <= 3 & count.enemies.debuffs(Rake) < UI(rake_count)", "enemies"}, -- target.infront & target.inmelee
+	{"Rake", "toggle(AoE) & player.combopoints <= 4 & infront & alive & enemy & inRange.spell & faction.positive & debuff(Rake).duration <= 3 & count.enemies.debuffs(Rake) < UI(rake_count)", "enemies"}, -- target.infront & target.inmelee
+	{"Rake", "toggle(AoE) & player.combopoints <= 4 & infront & alive & enemy & inRange.spell & faction.negative & player.pvp & debuff(Rake).duration <= 3 & count.enemies.debuffs(Rake) < UI(rake_count)", "enemies"}, -- target.infront & target.inmelee
 	
 	{Savage_Roar, "talent(5,3) & player.combopoints >= 4 & player.buff(Savage Roar).duration <= 10 & target.alive & target.enemy & {!target.player || target.faction.positive || target.faction.negative & player.pvp}"},
 	{Rip, "toggle(dot) & {target.deathin >= 12 & !target.player || target.faction.positive || target.faction.negative & player.pvp} & {UI(allfacing) || !UI(allfacing) & target.infront} & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 9 & target.health >= 25 || player.combopoints >= 4 & !target.debuff(Rip) & target.health < 25}"},
