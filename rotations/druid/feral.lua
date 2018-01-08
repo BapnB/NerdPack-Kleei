@@ -218,7 +218,7 @@ local Shapeshift = {
 
 local pvp = {
 
-    --{"%target", "range <= 40 & infront & !target.exists", "enemies"},
+    ----{"%target", "range <= 40 & infront & !target.exists", "enemies"},
 
     {"!/cleartarget", "toggle(autopvp) & exists & enemy & !player", "target"},
     {"!/targetenemyplayer", "toggle(autopvp) & !target.exists & range <= 40 & infront & faction.positive", "enemies"},
