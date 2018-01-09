@@ -121,8 +121,8 @@ local exeOnLoad = function()
 	print("|c0000FA9A --- |rRecommended Talents: 1/3 - 2/3 - 3/1 - 4/1 - 5/2 - 6/2 - 7/2")
     print("|c0000FA9A")
 	print("|c0000FA9A ------------------------PVE-------------------------------------------|r")
-	print("|c0000FA9A --- |rRecommended Talents: 1/1 - 2/3 - 3/1 - 4/1 - 5/1 - 6/2 - 7/2")
-	print("|c0000FA9A --- |rRecommended Talents: 1/1 - 2/3 - 3/1 - 4/1 - 5/1 - 6/2 - 7/3")
+	print("|c0000FA9A --- |rRecommended Talents: 1/2 - 2/3 - 3/1 - 4/1 - 5/1 - 6/2 - 7/2-- ST")
+	print("|c0000FA9A --- |rRecommended Talents: 1/1 - 2/3 - 3/1 - 4/1 - 5/1 - 6/2 - 7/2-- AoE")
 	print("|c0000FA9A ----------------------------------------------------------------------|r")
 	print("|c0000FA9A")
 	print("|c0000FA9A Please Setup Rotation Settings first before using it!|r")
@@ -131,7 +131,7 @@ local exeOnLoad = function()
 		key = "help_key",
 		icon = "Interface\\Icons\\spell_nature_resistnature",
 		name = "Heal Lowest",
-		text = "Help healer to heal the team when 4 combo-points and proc to instant Regrowth",
+		text = "Help healer to heal the team when 4 combo-points and proc the instant Regrowth",
 	})
 	
 	    NeP.Interface:AddToggle({
@@ -249,7 +249,7 @@ local Keybinds = {
     {"Mighty Bash", "!player.buff(Prowl) & player.combat & !immune_stun & !state(stun) & inRange.spell & enemy & alive & {!target.immune_all || target.buff(Touch of Karma)} & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || {target.faction.positive || target.faction.negative & player.pvp} & UI(stun)}", "target"},
 	{Maim, "!player.buff(Prowl) & player.combopoints >= 3 & !target.state(stun) & !player.lastcast(Mighty Bash) & player.spell(Mighty Bash).cooldown >= 0 & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}"}, -- || target.player & player.pvp & UI(stun) & !target.state(stun)
 	
-	{"Skull Bash", "player.spell(Wild Charge).cooldown < 13.5 & !player.buff(Prowl) & range > 8 & inRange.spell & enemy & alive & {!target.player || target.faction.positive || target.faction.negative & player.pvp} & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
+	{"Skull Bash", "player.spell(Wild Charge).cooldown < 13.5 & player.spell(Wild Charge).cooldown > 0 & !player.buff(Prowl) & range > 8 & inRange.spell & enemy & alive & {!target.player || target.faction.positive || target.faction.negative & player.pvp} & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
 	{"Wild Charge", "inRange.spell & enemy & alive & !player.lastcast(Skull Bash) & {!target.player || target.faction.positive || target.faction.negative & player.pvp} & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
 	
 }
@@ -298,7 +298,7 @@ local Cooldowns = {
 	{"Tiger's Fury", "target.inRange(Rake).spell & !buff(Prowl) & UI(tiger_key) & {player.buff(Berserk) || player.buff(Incarnation: King of the Jungle)}", "player"},
 	{"Berserk", "!talent(5,2) & target.inRange(Rake).spell & UI(bers_key)", "player"},
 	{"Incarnation: King of the Jungle", "talent(5,2) & target.inRange(Rake).spell & UI(incarnation_key)", "player"},	
-	{"Ashamane's Frenzy", "inRange.spell & player.combopoints <= 3 UI(ashamane_key)", "target"},
+	{"Ashamane's Frenzy", "inRange.spell & {player.combopoints <= 3 || player.buff(Tiger's Fury)} & UI(ashamane_key)", "target"},
 	
 	{"#trinket1", "UI(trk1) & target.inRange(Rake).spell"},
 	{"#trinket2", "UI(trk2) & target.inRange(Rake).spell"},
@@ -307,7 +307,7 @@ local Cooldowns = {
 
 local Cat_Combat = {
 
-	{"Tiger's Fury", "target.inRange(Rake).spell & energydiff > 60 & target.alive & target.enemy & {!target.player || target.faction.positive || target.faction.negative & player.pvp} & {talent(1,1) & {target.debuff(Rake) || target.debuff(Rip) || target.debuff(Thrash)} || !talent(1,1) & target.deathin >= 7}", "player"},
+	{"Tiger's Fury", "target.inRange(Rake).spell & energydiff > 60 & target.alive & target.enemy & {!target.player || target.faction.positive || target.faction.negative & player.pvp} & {talent(1,1) & {count.enemies.debuffs(Rake) > 0 || count.enemies.debuffs(Rip) > 0 || count.enemies.debuffs(Thrash) > 0} || !talent(1,1) & target.deathin >= 7}", "player"},
     
 	{"Regrowth", "!toggle(help_key) & spell(Regrowth).casttime==0 & talent(7,2) & !player.buff(Prowl) & !player.debuff(Scent of Blood) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & {talent(5,3) & player.combopoints >= 4 & target.debuff(Rip).duration < player.buff(Savage Roar).duration & !player.buff(Savage Roar).duration <= 10 || !talent(5,3) & player.combopoints >= 4}", "player"},
     {"Regrowth", "toggle(help_key) & inRange.spell & spell(Regrowth).casttime==0 & talent(7,2) & !player.buff(Prowl) & !player.debuff(Scent of Blood) & player.buff(Predatory Swiftness) & !player.buff(Bloodtalons) & {talent(5,3) & player.combopoints >= 4 & target.debuff(Rip).duration < player.buff(Savage Roar).duration & !player.buff(Savage Roar).duration <= 10 || !talent(5,3) & player.combopoints >= 4}", "lowest"},
