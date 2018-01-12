@@ -52,17 +52,10 @@ local GUI = {
 	{type = "spacer"}, {type = "ruler"},
 
     {type = "header", size = 16,  text = "PVP", align = "center"},
-    {type = "checkbox",	text = "Burst: |c0000FA9A burst as in combat PVP enemies|r", align = "left", key = "burst_key", default = true},
+    {type = "checkbox",	text = "Burst: |c0000FA9A Burst PVP enemy|r", align = "left", key = "burst_key", default = true},
     {type = "checkbox",	text = "Spellsteal: |c0000FA9A steal good buffs enemies around|r", align = "left", key = "st_buff", default = true},
     {type = "checkbox",	text = "Gladiator's Medallion , Every Man for Himself:", align = "left", key = "medal", default = true},
 	{type = "text", text = "|c0000FA9A      Remove stun/fear/disorient/charm.|r"},
-	{type = "spacer"}, {type = "ruler"},
-
-	{type = "header", size = 16, text = "Trinkets", align = "center"},
-	{type = "text", text = "|c0000FA9A Use Trinkets if Cooldown Toggle is enable|r", align = "center"},
-	{type = "checkbox", text = "Trinket #1", key = "trk1",	default = false},
-	{type = "checkbox", text = "Trinket #2", key = "trk2",   default = false},
-	{type = "text", text = "|c0000FA9A Enable only trinkets that are usable, otherwise it will loop the rotation !|r"},
 	{type = "spacer"}, {type = "ruler"},
 
 	{type = "header", size = 16, text = "Survival", align = "center"},
@@ -84,6 +77,13 @@ local GUI = {
 	{type = "checkbox", text = "Use Combustion|c0000FA9A you can disable|r", key = "fire_man", default = true},
 	{type = "checkbox", text = "Use Meteor|c0000FA9A you can disable|r", key = "mete", default = true},
     {type = "spacer"}, {type = "ruler"},
+
+	{type = "header", size = 16, text = "Trinkets", align = "center"},
+	{type = "text", text = "|c0000FA9A Use Trinkets if Cooldown Toggle is enable|r", align = "center"},
+	{type = "checkbox", text = "Trinket #1", key = "trk1",	default = false},
+	{type = "checkbox", text = "Trinket #2", key = "trk2",   default = false},
+	{type = "text", text = "|c0000FA9A Enable only trinkets that are usable, otherwise it will loop the rotation !|r"},
+	{type = "spacer"}, {type = "ruler"},
 
 	{type = "header", size = 16, text = 'EWT cheat', align = 'center'},
     {type = "checkbox",	text = "Always-Facing:|c0000FA9A if you use it check the box|r", align = "left", key = "allfacing", default = false},
