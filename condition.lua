@@ -217,3 +217,12 @@ NeP.DSL:Register("inRange.spell", function(target, spell)
   if spellIndex and _G.IsSpellInRange(spellIndex, spellBook, target) == 1 then
   return true end
 end)
+
+-- Arcane Mage 3x(Arcane Missile!) Condition 
+--/dump NeP.DSL.Parse("missile.ready", "", "")
+NeP.DSL:Register("missile.ready", function()
+  if NeP.DSL:Get("buff.count")("player", GetSpellInfo(79683)) == 3 then
+	return true
+	end
+	return false
+end)

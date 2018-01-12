@@ -4,7 +4,7 @@ local _G = _G
 NeP.FakeUnits:Add("highestenemy", function(num)
 	local tempTable = {}
 	for _, Obj in pairs(NeP.OM:Get("Enemy")) do
-		if _G.UnitExists(Obj.key) and _G.UnitIsVisible(Obj.key) and NeP.DSL:Get("combat")(Obj.key) and NeP.DSL:Get("alive")(Obj.key) and not NeP.DSL:Get("pvp")(Obj.key) then
+		if _G.UnitExists(Obj.key) and _G.UnitIsVisible(Obj.key) and NeP.DSL:Get("combat")(Obj.key) and NeP.DSL:Get("alive")(Obj.key) and not NeP.DSL:Get("player")(Obj.key) then
 			tempTable[#tempTable+1] = {
 				key = Obj.key,
 				health = NeP.DSL:Get("health")(Obj.key)
@@ -67,17 +67,19 @@ end)
 --/dump NeP.DSL.Parse("target.faction.positive", "", "")
 NeP.DSL:Register("faction.positive", function(target)
   if not _G.UnitExists then return false end
-  if select(2, _G.UnitFactionGroup("player")) == select(2, _G.UnitFactionGroup(target)) and NeP.DSL:Get("player")(target) then
+  if _G.UnitFactionGroup("player") == _G.UnitFactionGroup(target) and NeP.DSL:Get("player")(target) then
   return true
   end
   return false
 end)
 
---/dump NeP.DSL.Parse("target.faction.negative", "", "")
+--/dump NeP.DSL.Parse("target.faction.negative", "", "") -----------   if select(1, _G.UnitFactionGroup("player")) ~= select(1, _G.UnitFactionGroup(target)) and NeP.DSL:Get("player")(target) then
 NeP.DSL:Register("faction.negative", function(target)
   if not _G.UnitExists then return false end
-  if select(2, _G.UnitFactionGroup("player")) ~= select(2, _G.UnitFactionGroup(target)) and NeP.DSL:Get("player")(target) then
+  if _G.UnitFactionGroup("player") ~= _G.UnitFactionGroup(target) and NeP.DSL:Get("player")(target) then
   return true
   end
   return false
 end)
+
+--[[/run _G.TargetUnit("player")]]
