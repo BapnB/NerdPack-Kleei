@@ -36,6 +36,14 @@ local keybind_list_4 = {
 	
 }
 
+local target_list_5 = {
+
+	{key = "13", text = "On Self"},
+	{key = "14", text = "On Focus"},
+    {key = "15", text = "Lowest Member"},
+
+}
+
 local Logo_GUI = {
 
 	{type = "texture", texture = "Interface\\AddOns\\Nerdpack-Kleei\\media\\feral.blp", width = 128, height = 128, offset = 90, y = -50, align = "center"},
@@ -53,19 +61,19 @@ local GUI = {
 	{type = "combo", default = "1", key = "list1", list = keybind_list_1, width = 100},	
 	{type = "text", text = "Use Mighty Bash:|c0000FA9A in melee:"},
 	{type = "text", text = "Use Maim:|c0000FA9A in melee:"},
-	{type = "spacer"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "combo", default = "4", key = "list2", list = keybind_list_2, width = 100},	
     {type = "text", text = "Use Wild Charge:|c0000FA9A ranged:|r"},
     {type = "text", text = "Use Skull Bash:|c0000FA9A ranged:|r"},
-    {type = "spacer"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "combo", default = "8", key = "list3", list = keybind_list_3, width = 100},
     {type = "text", text = "Dispel Self:|c0000FA9A "},
     {type = "text", text = "Use Prowl:|c0000FA9A if you have [Incarnation] buff"},
-    {type = "spacer"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "combo", default = "12", key = "list4", list = keybind_list_4, width = 100},	
-    {type = "text", text = "Use Regrowth on lowest:|c0000FA9A"},
-    {type = "text", text = "|c0000FA9A      if lowest have less than 85% HP:|r"},
-	{type = "ruler"},
+    {type = "text", text = "Regrowth:|c0000FA9A if have less than 88% HP:"},
+	{type = "combo", default = "13",  key = "list5",  list = target_list_5,  width = 100},
+	{type = "spacer"}, {type = "spacer"}, {type = "ruler"},
 	
     {type = "header", size = 16,  text = "PVP", align = "center"},
     {type = "checkbox",	text = "Unroot:|c0000FA9A auto unroot Shapeshifting.|r", align = "left", key = "root", default = true},
@@ -73,18 +81,11 @@ local GUI = {
     {type = "checkbox",	text = "Stun:|c0000FA9A auto stun PVP Target [Mighty Bash].|r", align = "left", key = "stun", default = true},		
     {type = "checkbox",	text = "Gladiator's Medallion:|c0000FA9A remove stun/fear/disorient/charm.|r", align = "left", key = "medal", default = true},
 	{type = "spacer"}, {type = "ruler"},
- 
-	{type = "header", size = 16, text = "Trinkets", align = "center"},
-	{type = "text", text = "|c0000FA9A Use Trinkets if Cooldown Toggle is enable|r", align = "center"},
-	{type = "checkbox", text = "Trinket #1", key = "trk1", default = false},
-	{type = "checkbox", text = "Trinket #2", key = "trk2", default = false},
-	{type = "text", text = "|c0000FA9A Enable only trinkets that are usable, otherwise it will loop the rotation !|r"},
-	{type = "ruler"},
 	
 	{type = "header", size = 16, text = "Survival", align = "center"},
 	{type = "checkspin", text = "Use Survival Instincts:", key = "suin", check = true, spin = 75, width = 100, step = 5, max = 95, min = 1},
 	{type = "checkspin", text = "Use Health Stone:", key = "hs", check = true, spin = 60, width = 100, step = 5, max = 95, min = 1},
-	{type = "checkspin", text = "Use Regrowth|c0000FA9A (Predatory Swiftness):", key = "rps", check = true, spin = 75, width = 100, step = 5, max = 95, min = 1},
+	{type = "checkspin", text = "Use Regrowth|c0000FA9A (Predatory Swiftness):", key = "rps", check = true, spin = 55, width = 100, step = 5, max = 95, min = 1},
     {type = "spacer"}, {type = "ruler"},
 
 	{type = "header", size = 16, text = "AoE", align = "center"},
@@ -92,13 +93,8 @@ local GUI = {
 	{type = "spinner", text = "Swipe:|c0000FA9A count debuff Thrash on enemies", key = "swipe_key", default = 5, width = 100, step = 1, max = 15, min = 1},
     {type = "text", text = "|c0000FA9A if artifact (Scent of Blood) is enabled|r"},
 	{type = "spinner", text = "Rake:|c0000FA9A count enemies in front of you", key = "rake_count", default = 5, width = 100, step = 1, max = 15, min = 1},
-    {type = "text", text = "|c0000FA9A disable Always-Facing for Rake AoE|r"},
+    {type = "text", text = "|c0000FA9A disable Always-Facing ,it will break Rake AoE|r"},
     {type = "spacer"}, {type = "ruler"},
-
-	{type = "header", size = 16, text = "EWT cheat", align = "center"},
-    {type = "checkbox",	text = "Always-Facing:|c0000FA9A if you use it check the box|r", align = "left", key = "allfacing", default = false},
-    --{type = 'checkbox',	text = "Moving-Cast:|c0000FA9A if you use it check the box and it will cast when moving|r", align = 'left', key = 'mc', default = false},
-	{type = "spacer"}, {type = "ruler"},
 
 	{type = "header", size = 16, text = "Cooldowns Toggle:", align = "center"},
     {type = "checkbox",	text = "Berserk|c0000FA9A if not talented(5,2)|r", align = "left", key = "bers_key", default = true},
@@ -106,7 +102,19 @@ local GUI = {
     {type = "checkbox",	text = "Ashamane's Frenzy", align = "left", key = "ashamane_key", default = true},
     {type = "checkbox",	text = "Tiger Fury|c0000FA9A if [Berserk], [Incarnation] buff is on|r", align = "left", key = "tiger_key", default = true},
     {type = "checkbox",	text = "Brutal Slash|c0000FA9A if talented(7,3)", align = "left", key = "brutal_key", default = true},
-    {type = "spacer"}, {type = "ruler"}, {type = "spacer"},
+    {type = "spacer"}, {type = "ruler"},
+ 
+	{type = "header", size = 16, text = "Trinkets", align = "center"},
+	{type = "text", text = "|c0000FA9A Use Trinkets if Cooldown Toggle is enable|r", align = "center"},
+	{type = "checkbox", text = "Trinket #1", key = "trk1", default = false},
+	{type = "checkbox", text = "Trinket #2", key = "trk2", default = false},
+	{type = "text", text = "|c0000FA9A Enable only trinkets that are usable, otherwise it will loop the rotation !|r"},
+	{type = "ruler"},
+
+	{type = "header", size = 16, text = "EWT cheat", align = "center"},
+    {type = "checkbox",	text = "Always-Facing:|c0000FA9A if you use it check the box|r", align = "left", key = "allfacing", default = false},
+    --{type = 'checkbox',	text = "Moving-Cast:|c0000FA9A if you use it check the box and it will cast when moving|r", align = 'left', key = 'mc', default = false},
+	{type = "spacer"}, {type = "ruler"}, {type = "spacer"},
 
     {type = "text", text = "In combat:|c0000FA9A if your target is friendly and dead will use Rebirth to ress|r"},
     {type = "text", text = "Out of combat:|c0000FA9A if your target is friendly and dead will use Revive to ress|r"},
@@ -231,20 +239,24 @@ local pvp = {
     ----{"%target", "range <= 40 & infront & !target.exists", "enemies"},
 
     {"!/cleartarget", "toggle(autopvp) & exists & enemy & !player", "target"},
-    {"!/targetenemyplayer", "toggle(autopvp) & !target.exists & range <= 40 & infront & faction.positive", "enemies"},
-    {"!/targetenemyplayer", "toggle(autopvp) & !target.exists & range <= 40 & infront & faction.negative & player.pvp", "enemies"},
+    {"!/targetenemyplayer", "toggle(autopvp) & !target.exists & range <= 45 & faction.positive", "enemies"},
+    {"!/targetenemyplayer", "toggle(autopvp) & !target.exists & range <= 45 & faction.negative & player.pvp", "enemies"},
+
+    {"!Gladiator's Medallion", "UI(medal) & {target.faction.positive || target.faction.negative & player.pvp} & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
 
 	{"Entangling Roots", "UI(roots_key) & player.buff(Predatory Swiftness) & spell(Entangling Roots).casttime == 0 & inRange.spell & target.range >= 8 & enemy & alive & !immune_all & !immune_stun & !state(stun) & !state(root) & !state(fear) & !state(disorient) & !state(charm) & player.spell(Wild Charge).cooldown < 13.5 & player.spell(Wild Charge).cooldown > 0 & {!target.inRange(Skull Bash).spell || player.spell(Skull Bash).cooldown > 0} & {target.faction.positive || target.faction.negative & player.pvp}", "target"},
     {"%dispelself", "target.range >= 8.5 & enemy & alive & player.spell(Wild Charge).cooldown < 13.5 & {!target.inRange(Wild Charge).spell || player.spell(Wild Charge).cooldown > 0} & {!target.inRange(Skull Bash).spell || player.spell(Skull Bash).cooldown > 0} & {target.faction.positive || target.faction.negative & player.pvp}"},
-
-    {"!Gladiator's Medallion", "UI(medal) & pvp & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
 
 }
 
 local Keybinds = {
 
-    {"/cancelform", "!player.buff(Prowl) & !player.moving & !player.buff(Predatory Swiftness) & lowest.inRange(Regrowth).spell & lowest.health <= 85 & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Travel Form)} & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp
-	{"Regrowth", "!player.buff(Prowl) & inRange.spell & lowest.health <= 85 & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}", "lowest"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp
+    {"/cancelform", "UI(list5)==15 & lowest.health <= 88 & !player.moving & !player.buff(Prowl) & !player.buff(Predatory Swiftness) & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Travel Form)} & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp
+	{"Regrowth", "UI(list5)==15 & lowest.health <= 88 & {!player.moving || player.buff(Predatory Swiftness)} & !player.buff(Prowl) & inRange.spell & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}", "lowest"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp
+	{"/cancelform", "UI(list5)==13 & player.health <= 88 & !player.moving & !player.buff(Prowl) & !player.buff(Predatory Swiftness) & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Travel Form)} & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp
+	{"Regrowth", "UI(list5)==13 & player.health <= 88 & {!player.moving || player.buff(Predatory Swiftness)} & !player.buff(Prowl) & inRange.spell & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}", "player"},
+	{"/cancelform", "UI(list5)==14 & focus.health <= 88 & focus.exists & !player.moving & !player.buff(Prowl) & !player.buff(Predatory Swiftness) & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Travel Form)} & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp
+	{"Regrowth", "UI(list5)==14 & focus.health <= 88 & {!player.moving || player.buff(Predatory Swiftness)} & !player.buff(Prowl) & inRange.spell & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}", "focus"},
 	
     {"%dispelself", "!player.buff(Prowl) & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}"},
     {"Prowl", "!buff(Prowl) & buff(Cat Form) & buff(Incarnation: King of the Jungle) & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8 || target.immune_all}", "player"},
@@ -268,7 +280,7 @@ local PreCombat = {
     {"%dispelself", "!buff(Prowl)", "player"},
     {"Revive", "inRange.spell & !enemy & dead & player & player.ingroup(target)", "target"},
 
-    {"Regrowth", "health <= UI(rps_spin) & UI(rps_check) & !buff(Prowl) & {player.buff(Predatory Swiftness) & spell(Regrowth).casttime==0 || !player.moving}", "player"},
+    {"Regrowth", "health <= 85 & !buff(Prowl) & {spell(Regrowth).casttime==0 || !player.moving}", "player"},
 
 }
 
@@ -321,9 +333,9 @@ local Cat_Combat = {
 	{Thrash, "toggle(AoE) & {{count.enemies.debuffs(Thrash) < {talent(3,1) & player.area(10).enemies || !talent(3,1) & player.area(5).enemies} & {talent(3,1) & player.area(10).enemies >= 3 || !talent(3,1) & player.area(5).enemies >= 3}} || {artifact.enabled(Scent of Blood) & !player.debuff(Scent of Blood) & count.enemies.debuffs(Thrash) < {talent(3,1) & player.area(10).enemies || !talent(3,1) & player.area(5).enemies} & {talent(3,1) & player.area(10).enemies >= UI(swipe_key) || !talent(3,1) & player.area(5).enemies >= UI(swipe_key)}}}"}, -- || target.debuff(Thrash).duration <= 3.5 & player.area(10).enemies >= 3 & player.area(10).enemies <= 5 & artifact.enabled(Shadow Thrash) || talent(7,3) & !player.debuff(Scent of Blood) & artifact.enabled(Scent of Blood) & player.area(10).enemies >= 6 & player.spell(Brutal Slash).cooldown > 0 || !talent(7,3) & !player.debuff(Scent of Blood) & artifact.enabled(Scent of Blood) & player.area(10).enemies >= 6}"},
 	{Swipe, "toggle(AoE) & !talent(7,3) & player.debuff(Scent of Blood) & count.enemies.debuffs(Thrash) >= UI(swipe_key)"}, -- & player.combopoints < 5
 
-	{"Rake", "toggle(AoE) & player.combopoints <= 4 & infront & alive & enemy & inRange.spell & !player & debuff(Rake).duration <= 3 & count.enemies.debuffs(Rake) < UI(rake_count)", "enemies"}, -- target.infront & target.inmelee
-	{"Rake", "toggle(AoE) & player.combopoints <= 4 & infront & alive & enemy & inRange.spell & faction.positive & debuff(Rake).duration <= 3 & count.enemies.debuffs(Rake) < UI(rake_count)", "enemies"}, -- target.infront & target.inmelee
-	{"Rake", "toggle(AoE) & player.combopoints <= 4 & infront & alive & enemy & inRange.spell & faction.negative & player.pvp & debuff(Rake).duration <= 3 & count.enemies.debuffs(Rake) < UI(rake_count)", "enemies"}, -- target.infront & target.inmelee
+	{"Rake", "toggle(AoE) & {player.combopoints <= 4 || talent(3,1) & target.range > 10 || !talent(3,1) & target.range > 5} & infront & alive & enemy & inRange.spell & !player & debuff(Rake).duration <= 3 & count.enemies.debuffs(Rake) < UI(rake_count)", "enemies"}, -- target.infront & target.inmelee
+	{"Rake", "toggle(AoE) & {player.combopoints <= 4 || talent(3,1) & target.range > 10 || !talent(3,1) & target.range > 5} & infront & alive & enemy & inRange.spell & faction.positive & debuff(Rake).duration <= 3 & count.enemies.debuffs(Rake) < UI(rake_count)", "enemies"}, -- target.infront & target.inmelee
+	{"Rake", "toggle(AoE) & {player.combopoints <= 4 || talent(3,1) & target.range > 10 || !talent(3,1) & target.range > 5} & infront & alive & enemy & inRange.spell & faction.negative & player.pvp & debuff(Rake).duration <= 3 & count.enemies.debuffs(Rake) < UI(rake_count)", "enemies"}, -- target.infront & target.inmelee
 	
 	{Savage_Roar, "talent(5,3) & target.alive & target.enemy & player.buff(Savage Roar).duration <= 8 & {target.deathin > 10 & player.combopoints >= 4 || target.deathin <= 10 & player.combopoints > 1} & {!target.player || target.faction.positive || target.faction.negative & player.pvp}"},
 	{Rip, "toggle(dot) & {target.deathin >= 12 & !target.player || target.faction.positive || target.faction.negative & player.pvp} & {UI(allfacing) || !UI(allfacing) & target.infront} & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 9 & target.health >= 25 || player.combopoints >= 4 & !target.debuff(Rip) & target.health < 25}"},
