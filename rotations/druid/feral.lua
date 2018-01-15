@@ -96,7 +96,7 @@ local GUI = {
     {type = "text", text = "|c0000FA9A disable Always-Facing ,it will break Rake AoE|r"},
     {type = "spacer"}, {type = "ruler"},
 
-	{type = "header", size = 16, text = "Cooldowns Toggle:", align = "center"},
+	{type = "header", size = 16, text = "Cooldowns Toggle", align = "center"},
     {type = "checkbox",	text = "Berserk|c0000FA9A if not talented(5,2)|r", align = "left", key = "bers_key", default = true},
     {type = "checkbox",	text = "Incarnation: King of the Jungle|c0000FA9A if talented(5,2)|r", align = "left", key = "incarnation_key", default = true},
     {type = "checkbox",	text = "Ashamane's Frenzy", align = "left", key = "ashamane_key", default = true},

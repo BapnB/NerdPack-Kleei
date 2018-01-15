@@ -29,8 +29,8 @@ local keybind_list_3 = {
 
 local target_list = {
 
-    {key = 'cur', text = 'Cursor Ground'},
-	{key = 'tar', text = 'Target Ground'},
+    {key = '10', text = 'Cursor Ground'},
+	{key = '11', text = 'Target Ground'},
 
 }
 
@@ -59,7 +59,7 @@ local GUI = {
 	{type = 'spacer'},
 	{type = 'combo', default = '9', key = 'list3', list = keybind_list_3, width = 100},		
     {type = 'text', text = "Use Grappling Hook:"},
-	{type = 'combo', default = 'tar', key = 'list4', list = target_list,  width = 100},
+	{type = 'combo', default = '11', key = 'list4', list = target_list,  width = 100},
 	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},
 	
     {type = 'header', size = 16, text = 'PVP', align = 'center'},
@@ -114,8 +114,8 @@ end
 
 local Grappling_Hook = {
 
-    {"Grappling Hook", "talent(2,1) & UI(list4)==tar & range < 40 & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "target.ground"},
-    {"Grappling Hook", "talent(2,1) & UI(list4)==cur & {!UI(list4)==tar || !target.exists} & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "cursor.ground"},
+    {"Grappling Hook", "talent(2,1) & UI(list4)==11 & range < 40 & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "target.ground"},
+    {"Grappling Hook", "talent(2,1) & {UI(list4)==10 || !target.exists} & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "cursor.ground"},
 
 }
 

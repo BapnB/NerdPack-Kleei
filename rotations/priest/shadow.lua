@@ -110,7 +110,7 @@ local exeOnLoad = function()
 	print("|c0000FA9A --- |rRecommended Talents: 1/1 - 2/2 - 3/1 - 4/2 - 5/1 - 6/2 - 7/1")
 	print("|c0000FA9A ----------------------------------------------------------------------|r")
 	print("|c0000FA9A")
-	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
+	print("|c0000FA9A Please Setup Rotation Settings first before using it!|r")
 
 	NeP.Interface:AddToggle({
 		key = "autopvp",
