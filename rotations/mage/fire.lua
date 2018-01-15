@@ -2,35 +2,42 @@ local unpack = _G.unpack
 
 local keybind_list_1 = {
 
-	{key = '1', text = 'Shift Keybind'},
-	{key = '2', text = 'Control Keybind'},
-	{key = '3', text = 'Alt Keybind'},
-	{key = 'none', text = 'Disable'},	
+	{key = "1", text = "Shift Keybind"},
+	{key = "2", text = "Control Keybind"},
+	{key = "3", text = "Alt Keybind"},
+	{key = "none", text = "Disable"},	
 	
 }
 
 local keybind_list_2 = {
 
-	{key = '4', text = 'Shift Keybind'},
-	{key = '5', text = 'Control Keybind'},
-	{key = '6', text = 'Alt Keybind'},
-	{key = 'none', text = 'Disable'},	
+	{key = "4", text = "Shift Keybind"},
+	{key = "5", text = "Control Keybind"},
+	{key = "6", text = "Alt Keybind"},
+	{key = "none", text = "Disable"},	
 
 }
 
 local keybind_list_3 = {
 
-	{key = '7', text = 'Shift Keybind'},
-	{key = '8', text = 'Control Keybind'},
-	{key = '9', text = 'Alt Keybind'},
-	{key = 'none', text = 'Disable'},	
+	{key = "7", text = "Shift Keybind"},
+	{key = "8", text = "Control Keybind"},
+	{key = "9", text = "Alt Keybind"},
+	{key = "none", text = "Disable"},	
+
+}
+
+local target_list = {
+
+    {key = "10", text = "Cursor Ground"},
+	{key = "11", text = "Target Ground"},
 
 }
 
 local Logo_GUI = {
 
-	{type = 'texture', texture = 'Interface\\AddOns\\Nerdpack-Kleei\\media\\fire.blp', width = 256, height = 256, offset = 90, y = -80, align = 'center'},
-	{type = 'spacer'}, {type = 'spacer'}, {type = 'spacer'}, {type = 'ruler'},
+	{type = "texture", texture = "Interface\\AddOns\\Nerdpack-Kleei\\media\\fire.blp", width = 256, height = 256, offset = 90, y = -80, align = "center"},
+	{type = "spacer"}, {type = "spacer"}, {type = "spacer"}, {type = "ruler"},
 
 }
 
@@ -42,14 +49,16 @@ local GUI = {
 	{type = "header", size = 16, text = "Keybinds", align = "center"},
 	{type = "text", text = "|c0000FA9A Just hold the Key|r", align = "center"},
 	{type = "text", text = "|c0087CEFA Choose Keybind:", align = "center"},
+	{type = "combo", default = "6", key = "list2", list = keybind_list_2, width = 100},	
+    {type = "text", text = "Use Ring of Frost:|c0000FA9A on cursor ground|r"},
 	{type = "combo", default = "1", key = "list1", list = keybind_list_1, width = 100},	
 	{type = "text", text = "Use Polymorph:|c0000FA9A "},
 	{type = "text", text = "      |c0000FA9A on target or on focus if exist:"},	
-	{type = "combo", default = "6", key = "list2", list = keybind_list_2, width = 100},	
-    {type = "text", text = "Use Ring of Frost:|c0000FA9A on cursor ground|r"},
-	{type = "combo", default = "8", key = "list3", list = keybind_list_3, width = 100},		
-    {type = "text", text = "Use Meteor:|c0000FA9A on target ground|r"},
-	{type = "spacer"}, {type = "ruler"},
+    {type = "text", text = ""},
+	{type = 'combo', default = '10', key = 'list4', list = target_list, width = 100},
+    {type = "text", text = "Use Meteor:|c0000FA9A on:|r"},
+	{type = "combo", default = "8", key = "list3", list = keybind_list_3, width = 100},	
+	{type = "spacer"},{type = "text", text = ""},{type = "text", text = ""},{type = "ruler"},
 
     {type = "header", size = 16,  text = "PVP", align = "center"},
     {type = "checkbox",	text = "Burst: |c0000FA9A Burst PVP enemy|r", align = "left", key = "burst_key", default = true},
@@ -68,10 +77,10 @@ local GUI = {
 
 	{type = "header", size = 16, text = "AoE Toggle", align = "center"},
 	{type = "checkspin", text = "Flamestrike:|c0000FA9A target enemies nearby >=", key = "flstrike_aoe", check = true, spin = 4, width = 100, step = 1, max = 10, min = 1},
-	{type = "checkspin", text = "Meteor:|c0000FA9A target enemies nearby >=", key = "mete_aoe", check = true, spin = 4, width = 100, step = 1, max = 10, min = 1},
+	{type = "checkspin", text = "Meteor:|c0000FA9A target enemies nearby >=", key = "mete_aoe", check = true, spin = 5, width = 100, step = 1, max = 10, min = 1},
 	{type = "spacer"}, {type = "ruler"},
 
-	{type = "header", size = 16, text = "Cooldowns Toggle:", align = "center"},
+	{type = "header", size = 16, text = "Cooldowns Toggle", align = "center"},
 	{type = "text", text = "Use Time Warp|c0000FA9A if toggle is on|r"},
 	{type = "checkbox", text = "Use Rune of Power|c0000FA9A you can disable|r", key = "rop", default = true},
 	{type = "checkbox", text = "Use Combustion|c0000FA9A you can disable|r", key = "fire_man", default = true},
@@ -83,7 +92,7 @@ local GUI = {
 	{type = "checkbox", text = "Trinket #1", key = "trk1",	default = false},
 	{type = "checkbox", text = "Trinket #2", key = "trk2",   default = false},
 	{type = "text", text = "|c0000FA9A Enable only trinkets that are usable, otherwise it will loop the rotation !|r"},
-	{type = "spacer"}, {type = "ruler"},
+	{type = "ruler"},
 
 	{type = "header", size = 16, text = 'EWT cheat', align = 'center'},
     {type = "checkbox",	text = "Always-Facing:|c0000FA9A if you use it check the box|r", align = "left", key = "allfacing", default = false},
@@ -146,9 +155,9 @@ local pvp = {
 	
 	{"!Ring of Frost", "{keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5} & {UI(mc) || !UI(mc) & !player.moving}", "cursor.ground"},
 	
-	{"Spellsteal", "!immune_all & !immune_spell & alive & enemy & inRange.spell & steal_buff & UI(st_buff) & {player.mana >= 25 || player.buff(Innervate)} & !player", "enemies"},
-	{"Spellsteal", "!immune_all & !immune_spell & alive & enemy & inRange.spell & steal_buff & UI(st_buff) & {player.mana >= 25 || player.buff(Innervate)} & faction.positive", "enemies"},
-	{"Spellsteal", "!immune_all & !immune_spell & alive & enemy & inRange.spell & steal_buff & UI(st_buff) & {player.mana >= 25 || player.buff(Innervate)} & faction.negative & player.pvp", "enemies"},
+	{"Spellsteal", "!immune_all & !immune_spell & alive & enemy & inRange.spell & UI(st_buff) & {player.mana >= 25 || player.buff(Innervate)} & !player", "enemystbuff"},
+	{"Spellsteal", "!immune_all & !immune_spell & alive & enemy & inRange.spell & UI(st_buff) & {player.mana >= 25 || player.buff(Innervate)} & faction.positive", "enemystbuff"},
+	{"Spellsteal", "!immune_all & !immune_spell & alive & enemy & inRange.spell & UI(st_buff) & {player.mana >= 25 || player.buff(Innervate)} & faction.negative & player.pvp", "enemystbuff"},
 
 }
 
@@ -156,14 +165,15 @@ local Keybinds = {
 
     {"Polymorph", "!immune_all & !immune_spell & alive & enemy & debuff(Polymorph).duration <= 2 & !player.lastcast & inRange.spell & !focus.exists & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & {!target.player || target.faction.positive || target.faction.negative & player.pvp} & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2} & {UI(mc) || !UI(mc) & !player.moving}", "target"},
     {"Polymorph", "!immune_all & !immune_spell & alive & enemy & debuff(Polymorph).duration <= 2 & !player.lastcast & inRange.spell & focus.exists & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & {!focus.player || focus.faction.positive || focus.faction.negative & player.pvp} & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2} & {UI(mc) || !UI(mc) & !player.moving}", "focus"},
-	{"Meteor", "target.alive & target.enemy & player.combat & range <= 38.5 & !target.immune_all & !target.immune_spell & {!target.player || target.faction.positive || target.faction.negative & player.pvp} & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "target.ground"},	
+	{"Meteor", "UI(list4)==11 & target.alive & target.enemy & player.combat & range <= 38.5 & !target.immune_all & !target.immune_spell & {!target.player || target.faction.positive || target.faction.negative & player.pvp} & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "target.ground"},
+	{"Meteor", "UI(list4)==10 & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "cursor.ground"},
 	
 }
 
 local PreCombat = { 
 
-	{"Blazing Barrier", "!buff(Blazing Barrier)", "player"},
-	{"Fireball", "inRange.spell & alive & enemy & !immune_all & !immune_spell & {!target.player || target.faction.positive || target.faction.negative & player.pvp} & {UI(allfacing) || !UI(allfacing) & infront} & {UI(mc) || !UI(mc) & !player.moving}", "target"},
+	{"Blazing Barrier", "buff(Blazing Barrier).duration <= 5", "player"},
+	{"Fireball", "inRange.spell & alive & enemy & !immune_all & !immune_spell & {!target.player || target.faction.positive || target.faction.negative & player.pvp} & {UI(allfacing) || !UI(allfacing) & target.infront} & {UI(mc) || !UI(mc) & !player.moving}", "target"},
 
 }
 
@@ -199,7 +209,7 @@ local Cooldowns = {
 	{"Time Warp", "target.inRange(Pyroblast).spell & toggle(tw)", "player"},
     {"Rune of Power", "target.inRange(Pyroblast).spell & !player.moving & !buff(Combustion) & UI(rop)", "player"},
 	{"&Combustion", "target.inRange(Pyroblast).spell & UI(fire_man) & {talent(3,2) & {player.buff(Rune of Power) || player.spell(Rune of Power).charges < 1} || !talent(3,2)}", "player"},
-	{"Meteor", "target.inRange(Pyroblast).spell & !target.player & {!player.spell(Rune of Power).cooldown <= 8 || player.spell(Rune of Power).cooldown <= 1} & UI(mete)", "target.ground"},
+	{"Meteor", "target.inRange(Pyroblast).spell & !target.player & {!player.spell(Rune of Power).cooldown <= 8 & talent(3,2) || !talent(3,2)}  & UI(mete)", "target.ground"},
     {"#trinket1", "target.inRange(Pyroblast).spell & UI(trk1)"},
 	{"#trinket2", "target.inRange(Pyroblast).spell & UI(trk2)"},
 
@@ -211,7 +221,7 @@ local Combat = {
 	{"!Pyroblast", "toggle(hig_en) & !target.boss & inRange.spell & spell(Pyroblast).casttime==0 & {player.buff(Combustion) || player.buff(Rune of Power) || player.buff(Hot Streak!).duration <= 3} & UI(allfacing)", "highestenemy"},
 	{"!Pyroblast", "toggle(hig_en) & !target.boss & inRange.spell & spell(Pyroblast).casttime==0 & {player.buff(Combustion) || player.buff(Rune of Power) || player.buff(Hot Streak!).duration <= 3} & !UI(allfacing) & infront", "highestenemy"},
 
-	{"Meteor", "target.inRange(Pyroblast).spell & {toggle(AoE) & target.area(8).enemies >= UI(mete_aoe_spin) & UI(mete_aoe_check) & !target.player || {target.faction.positive || target.faction.negative & player.pvp} & {target.state(root) || target.state(stun) || target.state(disorient) || target.state(incapacitate)}}", "target.ground"},
+	{"Meteor", "target.inRange(Pyroblast).spell & {toggle(AoE) & target.area(8).enemies >= UI(mete_aoe_spin) & UI(mete_aoe_check) & !target.player & !target.moving || {target.faction.positive || target.faction.negative & player.pvp} & {target.state(root) || target.state(stun) || target.state(disorient) || target.state(incapacitate)}}", "target.ground"},
     {"Flamestrike", "toggle(AoE) & target.inRange(Pyroblast).spell & spell(Flamestrike).casttime==0 & target.area(8).enemies >= UI(flstrike_aoe_spin) & UI(flstrike_aoe_spin) & {UI(mc) || !UI(mc) & !player.moving}", "target.ground"},
 
 	{"Pyroblast", "{!toggle(hig_en) || target.boss || target.faction.positive || target.faction.negative & player.pvp} & inRange.spell & !debuff(Dragon's Breath) & spell(Pyroblast).casttime==0 & {UI(allfacing) || !UI(allfacing) & target.infront}", "target"},
