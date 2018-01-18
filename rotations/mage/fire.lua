@@ -190,7 +190,7 @@ local Survival = {
 	{"Frost Nova", "toggle(cr) & !enemy_totem & range <= 7.5 & !immune_all & !immune_spell & !player.lastcast(Frost Nova) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & faction.positive", "enemies"},
 	{"Frost Nova", "toggle(cr) & !enemy_totem & range <= 7.5 & !immune_all & !immune_spell & !player.lastcast(Frost Nova) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & faction.negative & player.pvp", "enemies"},
 
-	{"Blazing Barrier", "!buff(Ice Block) & buff(Blazing Barrier).duration < 2 & {!player.buff(Rune of Power) & !player.buff(Combustion) || {target.faction.positive || target.faction.negative & player.pvp}}", "player"},
+	{"Blazing Barrier", "!buff(Ice Block) & buff(Blazing Barrier).duration < 3 & {!player.buff(Rune of Power) & !player.buff(Combustion) || {target.faction.positive || target.faction.negative & player.pvp}}", "player"},
 	{"#5512", "item(5512).count >= 1 & health <= UI(hs_spin) & UI(hs_check) & area(40).enemies >= 1", "player"}, --Health Stone
 
 }

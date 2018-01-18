@@ -136,8 +136,8 @@ end
 
 local Shapeshift = {
 
-    {"Moonkin Form", "toggle(DPS) & !buff(Moonkin Form) & {!player.swimming & !toggle(travelform) || player.indoors || player.state(root) & UI(root) || target.enemy & target.alive}", "player"},
-    {"/cancelform", "!toggle(DPS) & player.buff(Moonkin Form) || !toggle(travelform) & !player.swimming & player.buff(Travel Form)", "player"},
+    --{"Moonkin Form", "toggle(DPS) & !buff(Moonkin Form) & {!player.swimming & !toggle(travelform) || player.indoors || player.state(root) & UI(root) || target.enemy & target.alive}", "player"},
+    --{"/cancelform", "!toggle(DPS) & player.buff(Moonkin Form) || !toggle(travelform) & !player.swimming & player.buff(Travel Form)", "player"},
 	{"Bear Form", "!buff(Bear Form) & !buff(Prowl) & state(root) & UI(root)", "player"},
 
 	{"/cancelform", "!buff(Prowl) & !indoors & swimming & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
@@ -192,14 +192,14 @@ local Innervate = {
 
 local DPS = {
 
-	{"Sunfire",  "target.area(5).enemies >= 2 & !debuff(Sunfire).duration > 2 & player.los(target) & enemy & alive", "target"},
+	{"Sunfire",  "target.area(3.5).enemies >= 2 & debuff(Sunfire).duration <= 2 & player.los(target) & enemy & alive", "target"},
     {"Moonfire", "!debuff & range <= 40 & player.los(target) & enemy & alive", "target"},
 	{"Moonfire", "toggle(aoe) & !debuff & combat & range <= 40 & enemy & alive", "enemies"},
 	
 	{"Starsurge", "{!toggle(hig_en) || target.boss || target.faction.positive || target.faction.negative & player.pvp} & inRange.spell & player.buff(Moonkin Form) & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
 	{"Starsurge", "toggle(hig_en) & !target.boss & inRange.spell & player.buff(Moonkin Form) & {UI(mc) || !UI(mc) & !player.moving}", "highestenemy"},
 	{"Lunar Strike", "{!toggle(hig_en) || target.boss || target.faction.positive || target.faction.negative & player.pvp} & inRange.spell & player.buff(Lunar Empowerment) & area(5).enemies >= 4 & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
-	{"Lunar Strike", "toggle(hig_en) & !target.boss & inRange.spell & player.buff(Lunar Empowerment) & area(5).enemies >= 4 & {UI(mc) || !UI(mc) & !player.moving}", "highestenemy"},
+	{"Lunar Strike", "toggle(hig_en) & !target.boss & inRange.spell & player.buff(Lunar Empowerment) & area(4).enemies >= 4 & {UI(mc) || !UI(mc) & !player.moving}", "highestenemy"},
 	{"Solar Wrath", "{!toggle(hig_en) || target.boss || target.faction.positive || target.faction.negative & player.pvp} & inRange.spell & player.buff(Solar Empowerment) & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
 	{"Solar Wrath", "toggle(hig_en) & !target.boss & inRange.spell & player.buff(Solar Empowerment) & {UI(mc) || !UI(mc) & !player.moving}", "highestenemy"},
 	
@@ -211,8 +211,8 @@ local DPS = {
 local Moving = {
 
     --Revive
-	{"Rebirth", "!target.enemy & target.dead & target.player & player.area(40).enemies >= 1 & combat", "target"},
-	{"Rebirth", "player.area(40).dead.friendly >= 1 & player.area(40).enemies >= 1 & tank.health >= 40 & combat", "friendly"},
+	{"Rebirth", "!enemy & dead & player & player.area(40).enemies >= 1 & player.combat", "target"},
+	{"Rebirth", "player.area(40).dead.friendly >= 1 & player.area(40).enemies >= 1 & tank.health >= 40 & player.combat", "friendly"},
 
 	--Dispell
 	{"&%dispelall", "toggle(dispelall) & player.spell(Nature's Cure).cooldown < 0.3"},
@@ -256,7 +256,7 @@ local oocHealing = {
 	
     --MASS Ress
     {"Revitalize", "player.area(45).dead.friendly >= 1"},
-    {"Revitalize", "!target.enemy & target.player & target.dead", "target"},
+    {"Revitalize", "!enemy & player & dead", "target"},
 	
 	--Clearcasting
 	{"Regrowth", "player.buff(Clearcasting) & lowest.health <= 90", "lowest"},
@@ -290,8 +290,8 @@ local oocHealing = {
 local Healing = { 
 
     --Revive
-	{"Rebirth", "!target.enemy & target.dead & target.player & player.area(40).enemies >= 1 & combat", "target"},
-	{"Rebirth", "player.area(40).dead.friendly >= 1 & player.area(40).enemies >= 1 & tank.health >= 40 & combat", "friendly"},
+	{"Rebirth", "!enemy & dead & player & player.area(40).enemies >= 1 & player.combat", "target"},
+	{"Rebirth", "player.area(40).dead.friendly >= 1 & player.area(40).enemies >= 1 & tank.health >= 40 & player.combat", "friendly"},
 
 	--Dispell
 	{"&%dispelall", "toggle(dispelall) & player.spell(Nature's Cure).cooldown < 0.3"},

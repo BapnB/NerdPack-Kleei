@@ -46,7 +46,7 @@ end)
     "198745"     -- Protective Light (Absorbs 1.500.000 damage)
 ]]
 --Enemies with buffs that needs to be stolen
-NeP.FakeUnits:Add({"enemystbuff"}, function(_, buff)
+NeP.FakeUnits:Add("enemystbuff", function(_, buff)
   for _, Obj in pairs(NeP.OM:Get("Enemy")) do
     if UnitBuff(Obj.key, GetSpellInfo(235450)) or
 	   UnitBuff(Obj.key, GetSpellInfo(12042)) or
@@ -121,20 +121,16 @@ end)
 
 --/dump NeP.DSL.Parse("target.faction.positive", "", "")
 NeP.DSL:Register("faction.positive", function(target)
-  if not _G.UnitExists then return false end
-  if _G.UnitFactionGroup("player") == _G.UnitFactionGroup(target) and NeP.DSL:Get("player")(target) then
-  return true
-  end
-  return false
+    if _G.UnitFactionGroup("player") == _G.UnitFactionGroup(target) and NeP.DSL:Get("player")(target) then
+      return true 
+    end
 end)
 
 --/dump NeP.DSL.Parse("target.faction.negative", "", "")
 NeP.DSL:Register("faction.negative", function(target)
-  if not _G.UnitExists then return false end
-  if _G.UnitFactionGroup("player") ~= _G.UnitFactionGroup(target) and NeP.DSL:Get("player")(target) then
-  return true
-  end
-  return false
+    if _G.UnitFactionGroup("player") ~= _G.UnitFactionGroup(target) and NeP.DSL:Get("player")(target) then
+      return true 
+    end
 end)
 
 --[[/run _G.TargetUnit("player")]]
