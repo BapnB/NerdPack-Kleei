@@ -67,7 +67,7 @@ local GUI = {
     {type = "text", text = "Use Skull Bash:|c0000FA9A ranged:|r"},
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "combo", default = "8", key = "list3", list = keybind_list_3, width = 100},
-    {type = "text", text = "Dispel Self:|c0000FA9A "},
+    --{type = "text", text = "Dispel Self:|c0000FA9A "},
     {type = "text", text = "Use Prowl:|c0000FA9A if you have [Incarnation] buff"},
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "combo", default = "12", key = "list4", list = keybind_list_4, width = 100},	
@@ -102,6 +102,7 @@ local GUI = {
     {type = "checkbox",	text = "Ashamane's Frenzy", align = "left", key = "ashamane_key", default = true},
     {type = "checkbox",	text = "Tiger Fury|c0000FA9A if [Berserk], [Incarnation] buff is on|r", align = "left", key = "tiger_key", default = true},
     {type = "checkbox",	text = "Brutal Slash|c0000FA9A if talented(7,3)", align = "left", key = "brutal_key", default = true},
+	{type = "text", text = "Berserking:|c0000FA9A Troll Racial|r"},
     {type = "spacer"}, {type = "ruler"},
  
 	{type = "header", size = 16, text = "Trinkets", align = "center"},
@@ -245,7 +246,7 @@ local pvp = {
     {"!Gladiator's Medallion", "UI(medal) & {target.faction.positive || target.faction.negative & player.pvp} & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
 
 	{"Entangling Roots", "UI(roots_key) & player.buff(Predatory Swiftness) & spell(Entangling Roots).casttime == 0 & inRange.spell & target.range >= 8 & enemy & alive & !immune_all & !immune_stun & !state(stun) & !state(root) & !state(fear) & !state(disorient) & !state(charm) & player.spell(Wild Charge).cooldown < 13.5 & player.spell(Wild Charge).cooldown > 0 & {!target.inRange(Skull Bash).spell || player.spell(Skull Bash).cooldown > 0} & {target.faction.positive || target.faction.negative & player.pvp}", "target"},
-    {"%dispelself", "target.range >= 8.5 & enemy & alive & player.spell(Wild Charge).cooldown < 13.5 & {!target.inRange(Wild Charge).spell || player.spell(Wild Charge).cooldown > 0} & {!target.inRange(Skull Bash).spell || player.spell(Skull Bash).cooldown > 0} & {target.faction.positive || target.faction.negative & player.pvp}"},
+    --{"%dispelself", "target.range >= 8.5 & enemy & alive & player.spell(Wild Charge).cooldown < 13.5 & {!target.inRange(Wild Charge).spell || player.spell(Wild Charge).cooldown > 0} & {!target.inRange(Skull Bash).spell || player.spell(Skull Bash).cooldown > 0} & {target.faction.positive || target.faction.negative & player.pvp}"}, --can be used only on firestorm server being in cat form
 
 }
 
@@ -258,7 +259,7 @@ local Keybinds = {
 	{"/cancelform", "UI(list5)==14 & focus.health <= 88 & focus.exists & !player.moving & !player.buff(Prowl) & !player.buff(Predatory Swiftness) & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Travel Form)} & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp
 	{"Regrowth", "UI(list5)==14 & focus.health <= 88 & {!player.moving || player.buff(Predatory Swiftness)} & !player.buff(Prowl) & inRange.spell & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}", "focus"},
 	
-    {"%dispelself", "!player.buff(Prowl) & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}"},
+    --{"%dispelself", "!player.buff(Prowl) & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}"}, -- can be used only on firestorm server being in cat form
     {"Prowl", "!buff(Prowl) & buff(Cat Form) & buff(Incarnation: King of the Jungle) & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8 || target.immune_all}", "player"},
     {Rake, "target.infront & player.buff(Prowl) & !target.state(stun) & !target.immune_stun & !target.buff(Touch of Karma)"},
 
@@ -277,7 +278,7 @@ local PreCombat = {
  	{"Prowl", "!buff(Prowl) & buff(Cat Form) & {target.enemy & target.alive & {!target.player || target.faction.positive || target.faction.negative & player.pvp}} || player.buff(Shadowmeld)", "player"},  --|| player.area(15).enemies >= 1
     {"%pause", "target.state(fear) & !player.buff(Prowl) || target.debuff(Polymorph) & !player.buff(Prowl) || target.immune_all", "player"},
 
-    {"%dispelself", "!buff(Prowl)", "player"},
+    --{"%dispelself", "!buff(Prowl)", "player"}, -- can be used only on firestorm server being in cat form
     {"Revive", "inRange.spell & !enemy & dead & player & player.ingroup(target)", "target"},
 
     {"Regrowth", "health <= 85 & !buff(Prowl) & {spell(Regrowth).casttime==0 || !player.moving}", "player"},
@@ -297,7 +298,7 @@ local Survival = {
 local Interrupts = {
 
 	{"!Skull Bash", "interruptAt(75) & infront & inRange.spell & {!target.player || target.faction.positive || target.faction.negative & player.pvp}", "target"},
-	--{"!Skull Bash", "interruptAt(75) & infront & range <= 5 & !player", "enemies"},
+	--{"!Skull Bash", "interruptAt(75) & infront & range <= 5 & !player", "enemies"}, -- drops FPS
 
 }
 
@@ -306,6 +307,7 @@ local Cooldowns = {
 	{"Tiger's Fury", "target.inRange(Rake).spell & UI(tiger_key) & {player.buff(Berserk) || player.buff(Incarnation: King of the Jungle)}", "player"},
 	{"Berserk", "!talent(5,2) & target.inRange(Rake).spell & player.energy > 40 & UI(bers_key)", "player"},
 	{"Incarnation: King of the Jungle", "talent(5,2) & target.inRange(Rake).spell & player.energy > 40 & UI(incarnation_key)", "player"},	
+	{"Berserking", "target.inRange(Rake).spell", "player"},
 	{"Ashamane's Frenzy", "inRange.spell & {player.combopoints <= 3 || player.buff(Tiger's Fury)} & UI(ashamane_key)", "target"},
 	
 	{"#trinket1", "UI(trk1) & target.inRange(Rake).spell"},
@@ -325,12 +327,12 @@ local Cat_Combat = {
     {"/startattack", "!isattacking & target.inmelee & {UI(allfacing) || !UI(allfacing) & target.infront}", "target"},	
 
 	{"Brutal Slash", "talent(7,3) & player.combopoints <= 4 & {toggle(AoE) & {talent(3,1) & player.area(10).enemies >= UI(bs_aoe) || !talent(3,1) & player.area(5).enemies >= UI(bs_aoe)} || toggle(cooldowns) & !target.debuff(Rake).duration <= 4 & player.area(7).enemies >= 1 & UI(brutal_key) & {talent(5,3) & player.buff(Savage Roar) || !talent(5,3)}}"},
-	--{Thrash, "toggle(AoE) & {{count.enemies.debuffs(Thrash) < {talent(3,1) & player.area(10).enemies || !talent(3,1) & player.area(5).enemies} & {talent(3,1) & player.area(10).enemies >= 3 || !talent(3,1) & player.area(5).enemies >= 3}} || {artifact.enabled(Scent of Blood) & !player.debuff(Scent of Blood) & count.enemies.debuffs(Thrash) < {talent(3,1) & player.area(10).enemies || !talent(3,1) & player.area(5).enemies} & {talent(3,1) & player.area(10).enemies >= UI(swipe_key) || !talent(3,1) & player.area(5).enemies >= UI(swipe_key)}}}"},
-	--{Swipe, "toggle(AoE) & !talent(7,3) & player.debuff(Scent of Blood) & count.enemies.debuffs(Thrash) >= UI(swipe_key)"}, -- & player.combopoints < 5
+	{Thrash, "toggle(AoE) & {{count.enemies.debuffs(Thrash) < {talent(3,1) & player.area(10).enemies || !talent(3,1) & player.area(5).enemies} & {talent(3,1) & player.area(10).enemies >= 3 || !talent(3,1) & player.area(5).enemies >= 3}} || {artifact.enabled(Scent of Blood) & !player.debuff(Scent of Blood) & count.enemies.debuffs(Thrash) < {talent(3,1) & player.area(10).enemies || !talent(3,1) & player.area(5).enemies} & {talent(3,1) & player.area(10).enemies >= UI(swipe_key) || !talent(3,1) & player.area(5).enemies >= UI(swipe_key)}}}"},
+	{Swipe, "toggle(AoE) & !talent(7,3) & player.debuff(Scent of Blood) & count.enemies.debuffs(Thrash) >= UI(swipe_key)"},
 
 	{"Rake", "toggle(AoE) & {player.combopoints <= 4 || talent(3,1) & target.range > 10 || !talent(3,1) & target.range > 5} & infront & alive & enemy & inRange.spell & !player & debuff(Rake).duration <= 3 & count.enemies.debuffs(Rake) < UI(rake_count)", "enemies"},
-	--{"Rake", "toggle(AoE) & {player.combopoints <= 4 || talent(3,1) & target.range > 10 || !talent(3,1) & target.range > 5} & infront & alive & enemy & inRange.spell & faction.positive & debuff(Rake).duration <= 3 & count.enemies.debuffs(Rake) < UI(rake_count)", "enemies"},
-	--{"Rake", "toggle(AoE) & {player.combopoints <= 4 || talent(3,1) & target.range > 10 || !talent(3,1) & target.range > 5} & infront & alive & enemy & inRange.spell & faction.negative & player.pvp & debuff(Rake).duration <= 3 & count.enemies.debuffs(Rake) < UI(rake_count)", "enemies"},
+	{"Rake", "toggle(AoE) & {player.combopoints <= 4 || talent(3,1) & target.range > 10 || !talent(3,1) & target.range > 5} & infront & alive & enemy & inRange.spell & faction.positive & debuff(Rake).duration <= 3 & count.enemies.debuffs(Rake) < UI(rake_count)", "enemies"},
+	{"Rake", "toggle(AoE) & {player.combopoints <= 4 || talent(3,1) & target.range > 10 || !talent(3,1) & target.range > 5} & infront & alive & enemy & inRange.spell & faction.negative & player.pvp & debuff(Rake).duration <= 3 & count.enemies.debuffs(Rake) < UI(rake_count)", "enemies"},
 	
 	{Savage_Roar, "talent(5,3) & player.buff(Savage Roar).duration <= 8 & {target.deathin > 10 & player.combopoints >= 4 || target.deathin <= 10 & player.combopoints > 1}"},
 	{Rip, "toggle(dot) & {target.deathin >= 12 & !target.player || target.faction.positive || target.faction.negative & player.pvp} & {UI(allfacing) || !UI(allfacing) & target.infront} & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 9 & target.health >= 25 || player.combopoints >= 4 & !target.debuff(Rip) & target.health < 25}"},
@@ -379,7 +381,7 @@ local outCombat = {
 }
 
 NeP.CR:Add(103, {
-	name = "[|c00FF7F00Kleei|r]|c00FF7F00 DRUID - Feral",
+	name = "[|c00FF7F00Kleei|r]|c00FF7F00 DRUID - Feral|r Advanced Unlocker",
 	ic = inCombat,
 	ooc = outCombat,
 	gui = GUI,
