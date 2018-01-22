@@ -29,7 +29,7 @@ local PreCombat = {
 
     {"Bear Form", "!player.buff(Bear Form)"},
 	
-	{"Swipe", "player.area(8)enemies >= 1 || target.enemy & target.alive & target.inmelee", "target"},
+	{"Swipe", "player.area(5)enemies >= 1 || target.enemy & target.alive & target.inmelee", "target"},
     
 }
 
@@ -45,7 +45,7 @@ local Survival = {
 
     {"#5512", "item(5512).count >= 1 & player.health <= 60", "player"}, --Health Stone
 	
-	{"Rejuvenation", "talent(3,3) & player.health <= 90 & !player.buff(Rejuvenation)", "player"},-- on private servers it cast being in form without quit from it
+	--{"Rejuvenation", "talent(3,3) & player.health <= 90 & !player.buff(Rejuvenation)", "player"},-- on private servers it cast being in form without quit from it
 	
     {"Survival Instincts", "player.health <= 65 & !player.buff(Survival Instincts)", "player"},
 

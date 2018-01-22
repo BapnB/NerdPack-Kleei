@@ -52,8 +52,7 @@ NeP.DSL:Register("immune_stun",function(target, spell)
 	"8178",      -- Grounding Totem (Totem Spell)       -- Shaman
 
 ]]
-    if NeP.DSL:Get("boss")(target) or
-       UnitBuff(target, GetSpellInfo(48792)) or
+    if UnitBuff(target, GetSpellInfo(48792)) or
 	   UnitBuff(target, GetSpellInfo(115018)) or
 	   UnitBuff(target, GetSpellInfo(46924)) or
 	   UnitBuff(target, GetSpellInfo(19574)) or

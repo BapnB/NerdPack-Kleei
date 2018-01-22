@@ -67,7 +67,7 @@ local GUI = {
     {type = "text", text = "Use Skull Bash:|c0000FA9A ranged:|r"},
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "combo", default = "8", key = "list3", list = keybind_list_3, width = 100},
-    --{type = "text", text = "Dispel Self:|c0000FA9A "},
+    {type = "text", text = "Dispel Self:|c0000FA9A "},
     {type = "text", text = "Use Prowl:|c0000FA9A if you have [Incarnation] buff"},
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "combo", default = "12", key = "list4", list = keybind_list_4, width = 100},	
@@ -102,7 +102,7 @@ local GUI = {
     {type = "checkbox",	text = "Ashamane's Frenzy", align = "left", key = "ashamane_key", default = true},
     {type = "checkbox",	text = "Tiger Fury|c0000FA9A if [Berserk], [Incarnation] buff is on|r", align = "left", key = "tiger_key", default = true},
     {type = "checkbox",	text = "Brutal Slash|c0000FA9A if talented(7,3)", align = "left", key = "brutal_key", default = true},
-	{type = "text", text = "Berserking:|c0000FA9A Troll Racial|r"},
+    {type = "checkbox",	text = "Berserking:|c0000FA9A Troll Racial|r", align = "left", key = "troll_key", default = true},
     {type = "spacer"}, {type = "ruler"},
  
 	{type = "header", size = 16, text = "Trinkets", align = "center"},
@@ -237,8 +237,6 @@ local Shapeshift = {
 
 local pvp = {
 
-    ----{"%target", "range <= 40 & infront & !target.exists", "enemies"},
-
     {"!/cleartarget", "toggle(autopvp) & exists & enemy & !player", "target"},
     {"!/targetenemyplayer", "toggle(autopvp) & !target.exists & range <= 45 & faction.positive", "enemies"},
     {"!/targetenemyplayer", "toggle(autopvp) & !target.exists & range <= 45 & faction.negative & player.pvp", "enemies"},
@@ -246,7 +244,7 @@ local pvp = {
     {"!Gladiator's Medallion", "UI(medal) & {target.faction.positive || target.faction.negative & player.pvp} & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
 
 	{"Entangling Roots", "UI(roots_key) & player.buff(Predatory Swiftness) & spell(Entangling Roots).casttime == 0 & inRange.spell & target.range >= 8 & enemy & alive & !immune_all & !immune_stun & !state(stun) & !state(root) & !state(fear) & !state(disorient) & !state(charm) & player.spell(Wild Charge).cooldown < 13.5 & player.spell(Wild Charge).cooldown > 0 & {!target.inRange(Skull Bash).spell || player.spell(Skull Bash).cooldown > 0} & {target.faction.positive || target.faction.negative & player.pvp}", "target"},
-    --{"%dispelself", "target.range >= 8.5 & enemy & alive & player.spell(Wild Charge).cooldown < 13.5 & {!target.inRange(Wild Charge).spell || player.spell(Wild Charge).cooldown > 0} & {!target.inRange(Skull Bash).spell || player.spell(Skull Bash).cooldown > 0} & {target.faction.positive || target.faction.negative & player.pvp}"}, --can be used only on firestorm server being in cat form
+    {"%dispelself", "target.range >= 8.5 & enemy & alive & player.spell(Wild Charge).cooldown < 13.5 & {!target.inRange(Wild Charge).spell || player.spell(Wild Charge).cooldown > 0} & {!target.inRange(Skull Bash).spell || player.spell(Skull Bash).cooldown > 0} & {target.faction.positive || target.faction.negative & player.pvp}"},
 
 }
 
@@ -259,7 +257,7 @@ local Keybinds = {
 	{"/cancelform", "UI(list5)==14 & focus.health <= 88 & focus.exists & !player.moving & !player.buff(Prowl) & !player.buff(Predatory Swiftness) & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Travel Form)} & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}"}, -- & player.mana.actual >= 49100 & target.pvp & player.pvp
 	{"Regrowth", "UI(list5)==14 & focus.health <= 88 & {!player.moving || player.buff(Predatory Swiftness)} & !player.buff(Prowl) & inRange.spell & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}", "focus"},
 	
-    --{"%dispelself", "!player.buff(Prowl) & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}"}, -- can be used only on firestorm server being in cat form
+    --{"%dispelself", "!player.buff(Prowl) & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}"},
     {"Prowl", "!buff(Prowl) & buff(Cat Form) & buff(Incarnation: King of the Jungle) & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8 || target.immune_all}", "player"},
     {Rake, "target.infront & player.buff(Prowl) & !target.state(stun) & !target.immune_stun & !target.buff(Touch of Karma)"},
 
@@ -273,12 +271,14 @@ local Keybinds = {
 
 local PreCombat = {
 
-	{Rake, "target.infront & !target.buff(Touch of Karma) & {player.buff(Prowl) || player.spell(Prowl).cooldown > 0.5 & !player.buff(Shadowmeld) || player.buff(Shadowmeld)}"},
+	{Rake, "!target.buff(Touch of Karma) & !target.immune_stun & {player.buff(Prowl) || player.spell(Prowl).cooldown > 0.5 & !player.buff(Shadowmeld) || player.buff(Shadowmeld)}"},
+    
+	{"Regrowth", "!buff(Prowl) & !lastcast(Prowl) & talent(7,2) & !buff(Bloodtalons) & {target.enemy & target.alive & {!target.player || target.faction.positive || target.faction.negative & player.pvp}} & {spell(Regrowth).casttime==0 || !player.moving}", "player"},
+ 	{"Prowl", "!buff(Prowl) & buff(Cat Form) & {!talent(7,2) || player.buff(Bloodtalons) || player.moving & !spell(Regrowth).casttime==0} & {target.enemy & target.alive & {!target.player || target.faction.positive || target.faction.negative & player.pvp}} || player.buff(Shadowmeld)", "player"},  --|| player.area(15).enemies >= 1
 
- 	{"Prowl", "!buff(Prowl) & buff(Cat Form) & {target.enemy & target.alive & {!target.player || target.faction.positive || target.faction.negative & player.pvp}} || player.buff(Shadowmeld)", "player"},  --|| player.area(15).enemies >= 1
     {"%pause", "target.state(fear) & !player.buff(Prowl) || target.debuff(Polymorph) & !player.buff(Prowl) || target.immune_all", "player"},
 
-    --{"%dispelself", "!buff(Prowl)", "player"}, -- can be used only on firestorm server being in cat form
+    {"%dispelself", "!buff(Prowl)", "player"},
     {"Revive", "inRange.spell & !enemy & dead & player & player.ingroup(target)", "target"},
 
     {"Regrowth", "health <= 85 & !buff(Prowl) & {spell(Regrowth).casttime==0 || !player.moving}", "player"},
@@ -304,11 +304,11 @@ local Interrupts = {
 
 local Cooldowns = {
 
-	{"Tiger's Fury", "target.inRange(Rake).spell & UI(tiger_key) & {player.buff(Berserk) || player.buff(Incarnation: King of the Jungle)}", "player"},
-	{"Berserk", "!talent(5,2) & target.inRange(Rake).spell & player.energy > 40 & UI(bers_key)", "player"},
-	{"Incarnation: King of the Jungle", "talent(5,2) & target.inRange(Rake).spell & player.energy > 40 & UI(incarnation_key)", "player"},	
-	{"Berserking", "target.inRange(Rake).spell", "player"},
-	{"Ashamane's Frenzy", "inRange.spell & {player.combopoints <= 3 || player.buff(Tiger's Fury)} & UI(ashamane_key)", "target"},
+	{"&Tiger's Fury", "target.inRange(Rake).spell & UI(tiger_key) & {player.buff(Berserk) || player.buff(Incarnation: King of the Jungle)}", "player"},
+	{"&Berserk", "!talent(5,2) & target.inRange(Rake).spell & player.energy > 40 & UI(bers_key)", "player"},
+	{"&Incarnation: King of the Jungle", "talent(5,2) & target.inRange(Rake).spell & player.energy > 40 & UI(incarnation_key)", "player"},	
+	{"&Berserking", "target.inRange(Rake).spell & UI(troll_key)", "player"},
+	{"Ashamane's Frenzy", "inRange.spell & {player.combopoints <= 3 || player.buff(Tiger's Fury) || player.buff(Bloodtalons)} & UI(ashamane_key)", "target"},
 	
 	{"#trinket1", "UI(trk1) & target.inRange(Rake).spell"},
 	{"#trinket2", "UI(trk2) & target.inRange(Rake).spell"},
@@ -362,7 +362,7 @@ local inCombat = {
     {Shapeshift},
 	{pvp},
 	{Keybinds},
-	{Interrupts, "toggle(interrupts) & !player.buff(Prowl) & target.immune_all"},
+	{Interrupts, "toggle(interrupts) & !player.buff(Prowl) & !target.immune_all"},
     {Survival, "player.health < 100 & !player.buff(Prowl)"},
 	{"%pause", "target.enemy & target.immune_all", "player"},	
 	{Cooldowns, "toggle(cooldowns) & !player.buff(Shadowmeld) & !player.buff(Prowl) & {!target.player || target.faction.positive || target.faction.negative & player.pvp}"},
