@@ -55,7 +55,7 @@ local GUI = {
 	{type = "text", text = "Use Polymorph:|c0000FA9A "},
 	{type = "text", text = "      |c0000FA9A on target or on focus if exist:"},	
     {type = "text", text = ""},
-	{type = 'combo', default = '10', key = 'list4', list = target_list, width = 100},
+	{type = "combo", default = "10", key = "list4", list = target_list, width = 100},
     {type = "text", text = "Use Meteor:|c0000FA9A on:|r"},
 	{type = "combo", default = "8", key = "list3", list = keybind_list_3, width = 100},	
 	{type = "spacer"},{type = "text", text = ""},{type = "text", text = ""},{type = "ruler"},

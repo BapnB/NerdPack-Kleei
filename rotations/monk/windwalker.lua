@@ -9,6 +9,15 @@ local keybind_list_1 = {
 	
 }
 
+local keybind_list_2 = {
+
+	{key = "4", text = "Shift Keybind"},
+	{key = "5", text = "Control Keybind"},
+	{key = "6", text = "Alt Keybind"},
+	{key = "none", text = "Disable"},	
+
+}
+
 local Logo_GUI = {
 
 	{type = 'texture', texture = 'Interface\\AddOns\\Nerdpack-Kleei\\media\\monk.blp', width = 128, height = 128, offset = 90, y = -50, align = 'center'},
@@ -27,7 +36,10 @@ local GUI = {
 	{type = 'combo', default = '1', key = 'list1', list = keybind_list_1, width = 100},	
 	{type = 'text', text = "Use Leg Sweep:|c0000FA9A in melee :|r"},
 	{type = 'text', text = "Use Paralysis:|c0000FA9A range > 10 yards:|r"},
-	{type = 'spacer'}, {type = 'ruler'},
+	{type = 'spacer'},
+	{type = "combo", default = "6", key = "list2", list = keybind_list_2, width = 100},	
+    {type = "text", text = "Use Paralysis:|c0000FA9A on focus:|r"},
+    {type = "spacer"}, {type = "ruler"}, {type = "spacer"},
 	
     {type = 'header', size = 16, text = 'PVP', align = 'center'},
     {type = 'checkbox',	text = "Stun:|c0000FA9A Auto stun PVP Target [Cheap Shot] or [Kidney Shot].|r", align = 'left', key = 'stun', default = true},
@@ -64,7 +76,7 @@ local GUI = {
 	
 	{type = 'header', size = 16, text = 'TO DO:', align = 'center'},
 	{type = 'text', text = "Touch of Karma: when we are target of target and he activate the CD's to you"},
-	
+
 } 
 
 local exeOnLoad = function()
@@ -84,7 +96,7 @@ local Precombat = {
 
 local Survival = {
 
-    {"Paralysis", "target.enemy & player.health <= UI(par_spin) & UI(par_check) & targettarget.is(player) & target.health > player.health & !target.state(disorient) & !target.state(fear) & !debuff(Paralysis) & !debuff(Sap & !debuff(Polymorph)", "target"}, 
+    {"Paralysis", "enemy & alive & player.health <= UI(par_spin) & UI(par_check) & targettarget.is(player) & !boss & !state(disorient) & !state(fear) & !debuff(Paralysis) & !debuff(Sap) & !debuff(Polymorph)", "target"}, 
     {"/stopattack", "player.health <= UI(par_spin) & UI(par_check) & target.health > player.health & !target.state(disorient) & !target.state(fear) & !debuff(Paralysis) & !debuff(Sap & !debuff(Polymorph)", "target"},
 	
     {"Gift of the Naaru", "player.health <= 40 & target.enemy & target.alive", "player"},
@@ -107,8 +119,8 @@ local Cooldowns = {
 
 local Interrupts = {
 
-    {"Spear Hand Strike", "target.inmelee", "target"},
-	{"Paralysis", "!target.inmelee || target.inmelee & player.spell(Spear Hand Strike).cooldown > gcd", "target"},
+    {"Spear Hand Strike", "inmelee", "target"},
+	{"Paralysis", "!target.inmelee || target.inmelee & player.spell(Spear Hand Strike).cooldown > 0", "target"},
 	
 }
 
@@ -133,7 +145,8 @@ local Keybinds = {
 
 	{"Leg Sweep", "target.enemy & target.alive & target.range <= 5 & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || target.pvp & player.pvp & UI(stun)}", "target"},
 	{"Paralysis", "target.range >= 10 & target.enemy & target.alive & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || target.pvp & player.pvp & UI(stun)}", "target"},
-
+	{"Paralysis", "inRange.spell & enemy & alive & !immune_stun & !state(stun) & !state(disorient) & {!focus.immune_all || focus.buff(Touch of Karma)} & {!focus.player || focus.faction.positive || focus.faction.negative & player.pvp} & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "focus"},
+	
 }
 
 local inCombat = {
@@ -158,8 +171,8 @@ local outCombat = {
 
     {"%dispelself", nil, "player"},
 
-    {"Resuscitate", "player.area(38).dead.friendly >= 1", "friendly"},	
-	--{"Resuscitate", "!target.enemy & target.dead", "target"},
+    --{"Resuscitate", "player.area(38).dead.friendly >= 1", "friendly"},	
+	{"Resuscitate", "!target.enemy & target.dead", "target"},
 	--{"Effuse", "!player.moving & player.health < 90", "player"},
 	
 }
