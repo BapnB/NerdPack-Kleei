@@ -1,5 +1,16 @@
 local _G = _G
 
+--Dead group member that can be resurrected (not ghost) 
+NeP.FakeUnits:Add({"deadgroupmember", "deadfriend"}, function()
+   for _, Obj in pairs(NeP.OM:Get("Dead")) do
+    if _G.UnitExists(Obj.key) and not _G.UnitIsGhost(Obj.key) and
+        (_G.UnitInParty(Obj.key) or _G.UnitInRaid(Obj.key)) and
+        _G.UnitIsPlayer(Obj.key) and not NeP.DSL:Get("alive")(Obj.key) then
+      return Obj.key
+    end
+   end
+end)
+
 --- Highest Health Enemy
 NeP.FakeUnits:Add("highestenemy", function(num)
 	local tempTable = {}

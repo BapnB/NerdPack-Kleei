@@ -228,9 +228,9 @@ local Shapeshift = {
     {"Cat Form", "!buff(Cat Form) & !keybind(alt) & {!player.combat & player.health > 85 || player.combat} & {!player.swimming & !toggle(travelform) || player.indoors || player.state(root) & UI(root) || target.enemy & target.alive || player.area(15).enemies >= 1}", "player"},
 	{"Bear Form", "!buff(Bear Form) & !buff(Prowl) & state(root) & UI(root)", "player"},
 
-	--{"/cancelform", "!buff(Prowl) & !indoors & swimming & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
+	{"/cancelform", "!buff(Prowl) & !indoors & swimming & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
 	{"Travel Form", "!indoors & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & swimming & {!health <= 85 || health <= 85 & spell(Regrowth).casttime==0 || player.moving} & {!target.enemy || target.enemy & !target.alive || !target.exists}", "player"},
-	--{"/cancelform", "toggle(travelform) & !indoors & !buff(Dash) & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
+	{"/cancelform", "toggle(travelform) & !indoors & !buff(Dash) & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
     {"Travel Form", "toggle(travelform) & !indoors & !buff(Dash) & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & {!health <= 85 || health <= 85 & spell(Regrowth).casttime==0 || player.moving} & {!target.enemy || target.enemy & !target.alive || !target.exists} & !keybind(alt)", "player"},
 
 }
@@ -271,6 +271,8 @@ local Keybinds = {
 
 local PreCombat = {
 
+    {"Revive", "!player.combat & inRange.spell & !player.moving", "deadgroupmember"},
+
 	{Rake, "!target.buff(Touch of Karma) & !target.immune_stun & {player.buff(Prowl) || player.spell(Prowl).cooldown > 0.5 & !player.buff(Shadowmeld) || player.buff(Shadowmeld)}"},
     
 	{"Regrowth", "!buff(Prowl) & talent(7,2) & !buff(Bloodtalons) & target.enemy & target.alive & {!target.player || target.faction.positive || target.faction.negative & player.pvp} & {spell(Regrowth).casttime==0 || !player.moving} || spell(Regrowth).casttime==0 & player.buff(Predatory Swiftness).duration <= 3 & !buff(Prowl) & !target.exists", "player"},
@@ -292,7 +294,9 @@ local Survival = {
 	{"#5512", "item(5512).count >= 1 & health <= UI(hs_spin) & UI(hs_check) & area(40).enemies >= 1", "player"}, --Health Stone
     {"Regrowth", "health <= UI(rps_spin) & UI(rps_check) & !buff(Prowl) & buff(Predatory Swiftness) & spell(Regrowth).casttime==0", "player"},
     {"Survival Instincts", 	"health <= UI(suin_spin) & UI(suin_check) & !buff(Survival Instincts) & player.incdmg(3) >= player.health.max*0.05", "player"},
-    {"Rebirth", "inRange.spell & !enemy & dead & player & player.ingroup(target) & player.area(40).enemies >= 1 & player.combat", "target"},
+    --Revive
+	{"Rebirth", "inRange.spell & !enemy & dead & player & player.area(40).enemies >= 1", "target"},
+    {"Rebirth", "inRange.spell & player.area(40).enemies >= 1 & is(tank)", "deadgroupmember"},
 
 }
 

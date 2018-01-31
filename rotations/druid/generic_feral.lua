@@ -202,8 +202,8 @@ local Maim = {
 
 local Swipe = {
 
-    {"%pause", "player.energy <= 44 & !player.buff(Clearcasting)"},
-    {"Swipe", nil},
+    {"%pause", "player.energy <= 44 & !player.buff(Clearcasting) & player.buff(Scent of Blood)"},
+    {"Swipe", "player.buff(Scent of Blood)"},
 	
 }	
 	
@@ -226,9 +226,9 @@ local Shapeshift = {
     {"Cat Form", "!buff(Cat Form) & !keybind(alt) & {!player.combat & player.health > 85 || player.combat} & {!player.swimming & !toggle(travelform) || player.indoors || player.state(root) & UI(root) || target.enemy & target.alive || player.area(15).enemies >= 1}", "player"},
 	{"Bear Form", "!buff(Bear Form) & !buff(Prowl) & state(root) & UI(root)", "player"},
 
-	--{"/cancelform", "!buff(Prowl) & !indoors & swimming & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
+	{"/cancelform", "!buff(Prowl) & !indoors & swimming & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
 	{"Travel Form", "!indoors & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & swimming & {!health <= 85 || health <= 85 & spell(Regrowth).casttime==0 || player.moving} & {!target.enemy || target.enemy & !target.alive || !target.exists}", "player"},
-	--{"/cancelform", "toggle(travelform) & !indoors & !buff(Dash) & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
+	{"/cancelform", "toggle(travelform) & !indoors & !buff(Dash) & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
     {"Travel Form", "toggle(travelform) & !combat & !indoors & !buff(Dash) & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & {!health <= 85 || health <= 85 & spell(Regrowth).casttime==0 || player.moving} & {!target.enemy || target.enemy & !target.alive || !target.exists} & !keybind(alt)", "player"},
 
 }
@@ -271,9 +271,11 @@ local Keybinds = {
 
 local PreCombat = {
 
+    {"Revive", "!player.combat & inRange.spell & !player.moving", "deadgroupmember"},
+
 	{Rake, "!target.buff(Touch of Karma) & !target.immune_stun & {player.buff(Prowl) || player.spell(Prowl).cooldown > 0.5 & !player.buff(Shadowmeld) || player.buff(Shadowmeld)}"},
     
-	{"Regrowth", "!buff(Prowl) & talent(7,2) & !buff(Bloodtalons) & target.enemy & target.alive & {!target.player || target.faction.positive || target.faction.negative & player.pvp} & {spell(Regrowth).casttime==0 || !player.moving} || spell(Regrowth).casttime==0 & player.buff(Predatory Swiftness).duration <= 3 & !buff(Prowl) & !target.exists", "player"},
+	{"Regrowth", "!buff(Prowl) & talent(7,2) & buff(Bloodtalons).count < 2 & target.enemy & target.alive & {!target.player || target.faction.positive || target.faction.negative & player.pvp} & {spell(Regrowth).casttime==0 || !player.moving} || spell(Regrowth).casttime==0 & player.buff(Predatory Swiftness).duration <= 3 & !buff(Prowl) & !target.exists", "player"},
  	{"Prowl", "!buff(Prowl) & buff(Cat Form) & target.enemy & target.alive & {!talent(7,2) || player.buff(Bloodtalons) || player.moving & !spell(Regrowth).casttime==0} & {!target.player || target.faction.positive || target.faction.negative & player.pvp} || player.buff(Shadowmeld)", "player"},  --|| player.area(15).enemies >= 1
 
     {"%pause", "target.state(fear) & !player.buff(Prowl) || target.debuff(Polymorph) & !player.buff(Prowl) || target.immune_all", "player"},
@@ -292,7 +294,9 @@ local Survival = {
 	{"#5512", "item(5512).count >= 1 & health <= UI(hs_spin) & UI(hs_check) & area(40).enemies >= 1", "player"}, --Health Stone
     {"Regrowth", "health <= UI(rps_spin) & UI(rps_check) & !buff(Prowl) & buff(Predatory Swiftness) & spell(Regrowth).casttime==0", "player"},
     {"Survival Instincts", 	"health <= UI(suin_spin) & UI(suin_check) & !buff(Survival Instincts) & player.incdmg(3) >= player.health.max*0.05", "player"},
-    {"Rebirth", "inRange.spell & !enemy & dead & player & player.ingroup(target) & player.area(40).enemies >= 1 & player.combat", "target"},
+    --Revive
+	{"Rebirth", "inRange.spell & !enemy & dead & player & player.area(40).enemies >= 1", "target"},
+    {"Rebirth", "inRange.spell & player.area(40).enemies >= 1 & is(tank)", "deadgroupmember"},
 
 }
 
@@ -319,16 +323,16 @@ local Cat_Combat = {
 
 	{"!Tiger's Fury", "target.inRange(Rake).spell & {player.energydiff >= 60 & equipped(Chatoyant Signet) || player.energydiff >= 40 & !equipped(Chatoyant Signet)} & {talent(1,1) & {target.debuff(Rake) || target.debuff(Rip) || target.debuff(Thrash)} || !talent(1,1) & target.deathin >= 7}", "player"},
     
-	{"Regrowth", "!toggle(help_key) & spell(Regrowth).casttime == 0 & talent(7,2) & !player.buff(Prowl) & !player.buff(Bloodtalons) & {player.combopoints >= 4 || !target.debuff(Rake) || player.buff(Predatory Swiftness).duration <= 3}", "player"},
-    {"Regrowth", "toggle(help_key) & spell(Regrowth).casttime == 0 & talent(7,2) & !player.buff(Prowl) & !player.buff(Bloodtalons) & {player.combopoints >= 4 || !target.debuff(Rake) || player.buff(Predatory Swiftness).duration <= 3} & inRange.spell", "lowest"},
+	{"Regrowth", "!toggle(help_key) & spell(Regrowth).casttime == 0 & talent(7,2) & !player.buff(Prowl) & !player.buff(Bloodtalons) & {player.combopoints >= 4 || !target.debuff(Rake) || player.buff(Predatory Swiftness).duration <= 4}", "player"},
+    {"Regrowth", "toggle(help_key) & spell(Regrowth).casttime == 0 & talent(7,2) & !player.buff(Prowl) & !player.buff(Bloodtalons) & {player.combopoints >= 4 || !target.debuff(Rake) || player.buff(Predatory Swiftness).duration <= 4} & inRange.spell", "lowest"},
     
 	--{Rake, "target.infront & player.buff(Prowl) & !target.buff(Touch of Karma)"}, --sometimes you enter in combat but you are still in stealth
 	
     {"/startattack", "!isattacking & target.inmelee", "target"},	
 
 	{"Brutal Slash", "talent(7,3) & player.combopoints <= 4 & {toggle(AoE) & {talent(3,1) & player.area(10).enemies >= UI(bs_aoe) || !talent(3,1) & player.area(5).enemies >= UI(bs_aoe)} || toggle(cooldowns) & !target.debuff(Rake).duration <= 4 & player.area(7).enemies >= 1 & UI(brutal_key) & {talent(5,3) & player.buff(Savage Roar) || !talent(5,3)}}"},
-	{Thrash, "toggle(AoE) & !player.buff(Prowl) & artifact.enabled(Scent of Blood) & !player.buff(Scent of Blood) & !talent(7,3) & player.area(5).enemies >= UI(swipe_key) & {player.combopoints <= 4 || group.type >= 2}"},
-	{Swipe, "toggle(AoE) & !talent(7,3) & player.buff(Scent of Blood) & artifact.enabled(Scent of Blood) & player.area(5).enemies >= UI(swipe_key)"}, -- & player.combopoints < 5
+	{Thrash, "toggle(AoE) & {player.energy >= 65 || player.buff(Clearcasting) & player.energy >= 30} & !player.buff(Prowl) & artifact.enabled(Scent of Blood) & !player.buff(Scent of Blood) & !talent(7,3) & player.area(5).enemies >= UI(swipe_key) & {player.combopoints <= 4 || group.type >= 2}"},
+	{Swipe, "toggle(AoE) & player.buff(Scent of Blood) & !talent(7,3) & player.area(5).enemies >= UI(swipe_key)"}, -- & player.combopoints < 5 & artifact.enabled(Scent of Blood)
 	
 	{"Shred", "!player.buff(Prowl) & inRange.spell & player.combopoints < 5 & player.buff(Clearcasting)", "target"},
 	

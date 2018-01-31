@@ -145,10 +145,10 @@ end
 local Shapeshift = {
 
     --{"Moonkin Form", "toggle(DPS) & !buff(Moonkin Form) & {!player.swimming & !toggle(travelform) || player.indoors || player.state(root) & UI(root) || target.enemy & target.alive}", "player"},
-    {"/cancelform", "!toggle(DPS) & player.buff(Moonkin Form) || !toggle(travelform) & !player.swimming & player.buff(Travel Form) || combat & buff(Cat Form)", "player"},
+    {"/cancelform", "!toggle(DPS) & player.buff(Moonkin Form) || !toggle(travelform) & !player.swimming & player.buff(Travel Form) || buff(Cat Form) || buff(Bear Form)", "player"},
 	{"Bear Form", "!buff(Bear Form) & !buff(Prowl) & state(root) & UI(unroot)", "player"},
 
-	--{"/cancelform", "!buff(Prowl) & !indoors & swimming & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
+	{"/cancelform", "!buff(Prowl) & !indoors & swimming & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
 	{"Travel Form", "!indoors & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & swimming & {!health <= 85 || health <= 85 & spell(Regrowth).casttime==0 || player.moving} & {!target.enemy || target.enemy & !target.alive || !target.exists}", "player"},
 	{"/cancelform", "toggle(travelform) & !indoors & !buff(Dash) & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
     {"Travel Form", "toggle(travelform) & !indoors & !buff(Dash) & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & {!health <= 85 || health <= 85 & spell(Regrowth).casttime==0 || player.moving} & {!target.enemy || target.enemy & !target.alive || !target.exists} & !keybind(alt)", "player"},
@@ -220,8 +220,8 @@ local DPS = {
 local Moving = {
 
     --Revive
-	{"Rebirth", "inRange.spell & !enemy & dead & player & player.area(40).enemies >= 1 & player.combat", "target"},
-	{"Rebirth", "inRange.spell & player.area(40).dead.friendly >= 1 & player.area(40).enemies >= 1 & tank.health >= 40 & player.combat", "friendly"},
+	{"Rebirth", "player.combat & inRange.spell & !enemy & dead & player & player.area(40).enemies >= 1", "target"},
+    {"Rebirth", "player.combat & inRange.spell & player.area(40).enemies >= 1 & is(tank)", "deadgroupmember"},
 
 	--Dispell
 	{"&%dispelall", "toggle(dispelall) & player.spell(Nature's Cure).cooldown < 0.3"},
@@ -264,8 +264,8 @@ local oocHealing = {
 	{"&%dispelall", "toggle(dispelall) & player.spell(Nature's Cure).cooldown < 0.3"},
 	
     --MASS Ress
-    {"Revitalize", "range <= 50 & !enemy & dead & player", "target"},
-    {"Revitalize", "player.area(45).dead.friendly >= 1"},
+    {"Revitalize", "!player.combat & inRange(Revive).spell & !player.moving", "deadgroupmember"},
+    {"Revitalize", "inRange(Revive).spell & !enemy & dead & player", "target"},
 
 	--Clearcasting
     {"Regrowth", "inRange.spell & player.buff(Clearcasting) & health <= 85", "lowestpredicted"},
@@ -299,11 +299,11 @@ local oocHealing = {
 local Healing = { 
 
     --Revive
-	{"Rebirth", "inRange.spell & !enemy & dead & player & player.area(40).enemies >= 1 & player.combat", "target"},
-	{"Rebirth", "player.area(40).dead.friendly >= 1 & player.area(40).enemies >= 1 & tank.health >= 40 & player.combat", "friendly"},
+	{"Rebirth", "player.combat & inRange.spell & !enemy & dead & player & player.area(40).enemies >= 1", "target"},
+    {"Rebirth", "player.combat & inRange.spell & player.area(40).enemies >= 1 & is(tank)", "deadgroupmember"},
 
 	--Dispell
-	{"&%dispelall", "toggle(dispelall) & player.spell(Nature's Cure).cooldown < 0.3"},
+	{"&%dispelall", "toggle(dispelall) & player.spell(Nature's Cure).cooldown == 0.000"},
 	
 	--Ironbark
 	{"Ironbark", "inRange.spell & health <= UI(ironbark) & combat & incdmg(3) >= health.max*0.02", "tank"},
@@ -319,8 +319,8 @@ local Healing = {
 	
 	{"Lifebloom", "inRange.spell & buff.duration <= 4.5 & area(20).enemies >= 1 & {lowest.health >= 70 & group.type == 2 || group.type == 3}", "tank"},
 	
-	{"Wild Growth", "area(40,80).heal >= 3", "lowest"},
-	{"Essence of G'Hanir", "lowest.area(40,80).heal >= 3 & lowest.area(40).enemies > 0"},	
+	{"Wild Growth", "area(40,80).heal >= 2", "lowest"},
+	{"Essence of G'Hanir", "lowest.area(40,80).heal >= 2 & lowest.area(40).enemies > 0"},	
 
 	{"Flourish", "talent(7,3) & player.lastcast(Wild Growth) & lowest.health <= 50"}, 
 	
