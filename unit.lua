@@ -5,7 +5,8 @@ NeP.FakeUnits:Add({"deadgroupmember", "deadfriend"}, function()
    for _, Obj in pairs(NeP.OM:Get("Dead")) do
     if _G.UnitExists(Obj.key) and not _G.UnitIsGhost(Obj.key) and
         (_G.UnitInParty(Obj.key) or _G.UnitInRaid(Obj.key)) and
-        _G.UnitIsPlayer(Obj.key) and not NeP.DSL:Get("alive")(Obj.key) then
+        _G.UnitIsPlayer(Obj.key) and not NeP.DSL:Get("alive")(Obj.key) and not 
+	UnitHasIncomingResurrection(Obj.key) then
       return Obj.key
     end
    end
