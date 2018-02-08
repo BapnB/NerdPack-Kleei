@@ -223,7 +223,7 @@ local Rake = {
 
 local Shapeshift = {
 
-    {"Cat Form", "!buff(Cat Form) & !keybind(alt) & {!player.combat & player.health > 85 || player.combat} & {!player.swimming & !toggle(travelform) || player.indoors || player.state(root) & UI(root) || target.enemy & target.alive || player.area(15).enemies >= 1}", "player"},
+    {"Cat Form", "!buff(Cat Form) & !keybind(alt) & {!player.combat & player.health > 85 || player.combat || player.moving} & {!player.swimming & !toggle(travelform) || player.indoors || player.state(root) & UI(root) || target.enemy & target.alive || player.area(15).enemies >= 1}", "player"},
 	{"Bear Form", "!buff(Bear Form) & !buff(Prowl) & state(root) & UI(root)", "player"},
 
 	{"/cancelform", "!buff(Prowl) & !indoors & swimming & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
@@ -237,7 +237,7 @@ local pvp = {
 
     {"!/run TargetNearestEnemy()", "toggle(target_key) & player.area(15).enemies > 0 & player.combat & {!target.exists || target.dead}"},
 
-    {"!/cleartarget", "toggle(autopvp) & exists & enemy & !player", "target"},
+    {"!/cleartarget", "toggle(autopvp) & exists & enemy & !player", "target"}, -- || toggle(target_key) & player.combat & exists & enemy & alive & player
     {"!/targetenemyplayer", "toggle(autopvp) & !target.exists & range <= 45 & faction.positive", "enemies"},
     {"!/targetenemyplayer", "toggle(autopvp) & !target.exists & range <= 45 & faction.negative & player.pvp", "enemies"},
 

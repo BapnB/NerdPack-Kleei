@@ -6,7 +6,7 @@ NeP.FakeUnits:Add({"deadgroupmember", "deadfriend"}, function()
     if _G.UnitExists(Obj.key) and not _G.UnitIsGhost(Obj.key) and
         (_G.UnitInParty(Obj.key) or _G.UnitInRaid(Obj.key)) and
         _G.UnitIsPlayer(Obj.key) and not NeP.DSL:Get("alive")(Obj.key) and not 
-	UnitHasIncomingResurrection(Obj.key) then
+	    _G.UnitHasIncomingResurrection(Obj.key) then
       return Obj.key
     end
    end
@@ -143,6 +143,11 @@ NeP.DSL:Register("faction.negative", function(target)
     if _G.UnitFactionGroup("player") ~= _G.UnitFactionGroup(target) and NeP.DSL:Get("player")(target) then
       return true 
     end
+end)
+
+--/dump NeP.DSL.Parse("target.flying", "", "")
+NeP.DSL:Register("flying", function()
+  return _G.IsFlying()
 end)
 
 --[[/run _G.TargetUnit("player")]]
