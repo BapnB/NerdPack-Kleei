@@ -6,7 +6,8 @@ NeP.FakeUnits:Add({"deadgroupmember", "deadfriend"}, function()
     if _G.UnitExists(Obj.key) and not _G.UnitIsGhost(Obj.key) and
         (_G.UnitInParty(Obj.key) or _G.UnitInRaid(Obj.key)) and
         _G.UnitIsPlayer(Obj.key) and not NeP.DSL:Get("alive")(Obj.key) and not 
-	    _G.UnitHasIncomingResurrection(Obj.key) then
+	    _G.UnitHasIncomingResurrection(Obj.key) and not _G.UnitDebuff(Obj.key, GetSpellInfo(160029)) and not
+        _G.UnitDebuff(Obj.key, GetSpellInfo(72221)) then
       return Obj.key
     end
    end
@@ -21,7 +22,7 @@ NeP.FakeUnits:Add("highestenemy", function(num)
 		   NeP.DSL:Get("alive")(Obj.key) and 
 		   NeP.DSL:Get("infront")(Obj.key) and not 
 		   NeP.DSL:Get("player")(Obj.key) and not 
-		   NeP.DSL:Get("pvp")(Obj.key) then
+		   NeP.DSL:Get("pvp")(Obj.key) and NeP.DSL:Get("range")(Obj.key) <= 40 then
 			tempTable[#tempTable+1] = {
 				key = Obj.key,
 				health = NeP.DSL:Get("health")(Obj.key)
@@ -57,26 +58,22 @@ end)
     "197892"     -- Runic Empowerment (Damage done increased by 30%.Damage taken reduced by 30%.)
     "198745"     -- Protective Light (Absorbs 1.500.000 damage)
 ]]
+
+--/dump NeP.DSL.Parse("target.BuffToSteal", "", "")
+NeP.DSL:Register("BuffToSteal",function(target)
+ local BuffToSteal = { 235450, 12042, 11426, 12472, 190319, 198111, 29166, 1044, 184662, 47536, 17, 152118, 212295, 196098, 222477, 197892, 198745 }
+  for i = 1, #BuffToSteal do
+    local BuffToStealName = _G.GetSpellInfo(BuffToSteal[i])
+	 if _G.UnitBuff(target, BuffToStealName) then
+    	return true end
+  end
+end)
+
 --Enemies with buffs that needs to be stolen
 NeP.FakeUnits:Add("enemystbuff", function(_, buff)
   for _, Obj in pairs(NeP.OM:Get("Enemy")) do
-    if UnitBuff(Obj.key, GetSpellInfo(235450)) or
-	   UnitBuff(Obj.key, GetSpellInfo(12042)) or
-	   UnitBuff(Obj.key, GetSpellInfo(11426)) or
-	   UnitBuff(Obj.key, GetSpellInfo(12472)) or
-	   UnitBuff(Obj.key, GetSpellInfo(190319)) or
-	   UnitBuff(Obj.key, GetSpellInfo(198111)) or
-	   UnitBuff(Obj.key, GetSpellInfo(29166)) or
-	   UnitBuff(Obj.key, GetSpellInfo(1044)) or
-	   UnitBuff(Obj.key, GetSpellInfo(184662)) or
-	   UnitBuff(Obj.key, GetSpellInfo(47536)) or
-	   UnitBuff(Obj.key, GetSpellInfo(17)) or
-	   UnitBuff(Obj.key, GetSpellInfo(152118)) or
-	   UnitBuff(Obj.key, GetSpellInfo(212295)) or
-	   UnitBuff(Obj.key, GetSpellInfo(196098)) or
-	   UnitBuff(Obj.key, GetSpellInfo(222477)) or
-	   UnitBuff(Obj.key, GetSpellInfo(197892)) or
-	   UnitBuff(Obj.key, GetSpellInfo(198745)) then
+    if _G.UnitExists(Obj.key) and _G.UnitIsVisible(Obj.key) and 
+	    NeP.DSL:Get("BuffToSteal")(Obj.key) then
         return Obj.key
     end
   end
@@ -99,8 +96,8 @@ end)
 
 --/dump NeP.DSL.Parse("target.caster", "", "")
 NeP.DSL:Register("caster", function(target)
-    if NeP.DSL:Get("class")("target", "Priest") or NeP.DSL:Get("class")("target", "Mage") or NeP.DSL:Get("class")("target", "Warlock") then
-      return true --Need To Add a few more specs not whole Class, Monk Mistweaver, Druid Balance, Druid Restoration, Paladin Holy
+    if NeP.DSL:Get("class")(target, "Priest") or NeP.DSL:Get("class")(target, "Mage") or NeP.DSL:Get("class")(target, "Warlock") then
+      return true
     end
       return false
 end)
@@ -124,23 +121,34 @@ end)
 NeP.DSL:Register("count.enemies.combat", function(num)
   local encombat = 0
   for _, Obj in pairs(NeP.OM:Get("Enemy")) do
-      if _G.UnitExists(Obj.key) and _G.UnitIsVisible(Obj.key) and NeP.DSL:Get("combat")(Obj.key) and NeP.DSL:Get("alive")(Obj.key) and NeP.DSL:Get("range")(Obj.key) <= 40 then
+      if _G.UnitExists(Obj.key) and _G.UnitIsVisible(Obj.key) and 
+	      NeP.DSL:Get("combat")(Obj.key) and NeP.DSL:Get("alive")(Obj.key) and 
+		    NeP.DSL:Get("range")(Obj.key) <= 40 then
           encombat = encombat + 1
       end
   end
   return encombat
 end)
 
+--/dump NeP.DSL.Parse("target.area().enemies.nocombat", "", "")
+NeP.DSL:Register("area.enemies.nocombat", function(unit, distance)
+  for _, Obj in pairs(NeP.OM:Get('Enemy', true)) do
+    if not NeP.DSL:Get('combat')(Obj.key) and NeP.DSL:Get("rangefrom")(unit, Obj.key) < tonumber(distance) then
+        return true
+    end
+  end
+end)
+
 --/dump NeP.DSL.Parse("target.faction.positive", "", "")
 NeP.DSL:Register("faction.positive", function(target)
-    if _G.UnitFactionGroup("player") == _G.UnitFactionGroup(target) and NeP.DSL:Get("player")(target) then
+    if _G.UnitFactionGroup("player") == _G.UnitFactionGroup(target) and NeP.DSL:Get("player")(target) and NeP.DSL:Get("enemy")(target) and NeP.DSL:Get("alive")(target) then
       return true 
     end
 end)
 
 --/dump NeP.DSL.Parse("target.faction.negative", "", "")
 NeP.DSL:Register("faction.negative", function(target)
-    if _G.UnitFactionGroup("player") ~= _G.UnitFactionGroup(target) and NeP.DSL:Get("player")(target) then
+    if _G.UnitFactionGroup("player") ~= _G.UnitFactionGroup(target) and NeP.DSL:Get("player")(target) and NeP.DSL:Get("enemy")(target) and NeP.DSL:Get("alive")(target) then
       return true 
     end
 end)
@@ -149,5 +157,3 @@ end)
 NeP.DSL:Register("flying", function()
   return _G.IsFlying()
 end)
-
---[[/run _G.TargetUnit("player")]]

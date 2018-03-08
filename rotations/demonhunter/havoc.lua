@@ -41,7 +41,7 @@ local GUI = {
 	{type = 'text', text = "|c0000FA9A Just hold the Key|r", align = 'center'},
 	{type = 'text', text = "|c0087CEFA Choose Keybind:", align = 'center'},
 	{type = 'spacer'},
-	{type = 'combo', default = '8', key = 'list3', list = target_list, width = 100},
+	{type = 'combo', default = '7', key = 'list3', list = target_list, width = 100},
 	{type = 'text', text = "Use Metamorphosis:"},
 	{type = 'combo', default = '2', key = 'list1', list = keybind_list_1, width = 100},
 	{type = 'text', text = "|c0000FA9A if Cooldowns Toggle is ON|r"},
@@ -49,7 +49,7 @@ local GUI = {
 	{type = 'spacer'},
 	{type = 'combo', default = '4', key = 'list2', list = keybind_list_2, width = 100},
     {type = 'text', text = "Use Chaos Nova:|c0000FA9A in melee >= 1 enemies:|r"},
-    {type = 'text', text = "Use Imprison:|c0000FA9A ranged > 10 yards:|r"},
+    {type = 'text', text = "Use Imprison:|c0000FA9A ranged > 6 yards:|r"},
 	{type = 'spacer'}, {type = 'ruler'},
 	
     {type = 'header', size = 16, text = 'PVP', align = 'center'},
@@ -95,16 +95,22 @@ local exeOnLoad = function()
 		text = 'ON/OFF using Felblade and Fel Rush in Rotation',
 		icon = 'Interface\\Icons\\ability_demonhunter_felblade',
 	})
-
 	
+    NeP.Interface:AddToggle({
+		key = "target_key",
+		name = "Auto Target PVE Enemies",
+		text = "Automatically target the nearest enemy. Better works with advanced unlocker",
+		icon = "Interface\\Icons\\ability_hunter_snipershot",
+})
+
 end
 
 local Precombat = {
 
-	{"Chaos Strike", "inRange.spell & player.fury >= 40", "target"},	
-	{"Throw Glaive", "inRange.spell & {target.faction.positive || target.faction.negative & player.pvp} & {!target.inRange(Felblade).spell || player.spell(Felblade).cooldown > 0} & !target.debuff(Master of the Glaive)", "target"},	
-    --{"Fel Rush", "toggle(charge) & target.infront & target.range >= 6 & target.range <= 15", "target"},
-	{"Felblade", "toggle(charge) & talent(1,2) & inRange.spell & target.infront & player.fury <= 100", "target"},
+	{"Chaos Strike", "inRange.spell", "target"},
+	{"Annihilation", "inRange.spell", "target"},
+	{"Felblade", "toggle(charge) & talent(1,2) & inRange.spell & target.infront", "target"},
+	{"Demon's Bite", "!talent(2,2) & inRange.spell", "target"},
 
 }
 
@@ -119,7 +125,6 @@ local Survival = {
 local Interrupts = {
 
 	{"!Consume Magic", "inRange.spell", "target"},
-	{"!Consume Magic", "inmelee", "enemies"},
 	
 }
 
@@ -128,9 +133,9 @@ local Keybinds = {
     {"Metamorphosis", "toggle(cooldowns) & UI(meta_key) & UI(list3)==8 & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target.ground"},
 	{"Metamorphosis", "toggle(cooldowns) & UI(meta_key) & UI(list3)==7 & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "cursor.ground"},
 
-	{"Chaos Nova", "player.area(5).enemies >= 1 & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5 || target.pvp & player.pvp & UI(stun)}"},
+	{"Chaos Nova", "player.area(5).enemies >= 1 & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5 || {target.faction.positive || target.faction.negative & player.pvp} & UI(stun)}"},
 
-	{"Imprison", "inRange.spell & target.range >= 10 & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5 || target.pvp & player.pvp & UI(stun)}", "target"},
+	{"Imprison", "inRange.spell & target.fixRange >= 6 & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5 || {target.faction.positive || target.faction.negative & player.pvp} & UI(stun)}", "target"},
 	
 }
 
@@ -138,7 +143,7 @@ local Cooldowns = {
 
 	{"Nemesis", "talent(5,3) & UI(nemesis_key)", "target"},
 	{"Chaos Blades", "talent(7,1) & UI(chaos_key)"},
-	{"Fury of the Illidari", "!player.moving & !player.lastcast(Vengeful Retreat) & target.range <= 1 & UI(foti_key)"},
+	{"Fury of the Illidari", "UI(foti_key) & !player.moving & !player.lastcast(Vengeful Retreat) & player.area(5).enemies >= 1"},
 	
 	{"#trinket1", "UI(trk1) & target.inmelee & target.deathin >= 10"},
 	{"#trinket2", "UI(trk2) & target.inmelee & target.deathin >= 10"},
@@ -147,35 +152,32 @@ local Cooldowns = {
 
 local Combat = {
 
-    {"/startattack", "!isattacking & target.inRange(Chaos Strike).spell & enemy & alive & {!target.player || target.faction.positive || target.faction.negative & player.pvp}", "target"},	
+    {"/startattack", "!isattacking & {!player.buff(Metamorphosis) & target.inRange(Chaos Strike).spell || player.buff(Metamorphosis) & target.inRange(Annihilation).spell}", "target"},	
 	---Mass
-	{"Fury of the Illidari", "toggle(AoE) & !player.moving & !player.lastcast(Vengeful Retreat) & player.area(2).enemies >= 5"},
-	{"Eye Beam", "toggle(AoE) & !player.moving & !player.lastcast(Vengeful Retreat) & player.area(15).enemies.infront >= 5"},
+	{"Fury of the Illidari", "toggle(AoE) & !player.moving & !player.lastcast(Vengeful Retreat) & player.area(5).enemies >= 5"},
+	{"Eye Beam", "toggle(AoE) & !player.moving & !player.lastcast(Vengeful Retreat) & player.area(15).enemies.infront >= 4"},
 	
-	{"Blade Dance", "talent(3,1) & toggle(AoE) & !player.lastcast(Vengeful Retreat) & {player.area(6.5).enemies == 4 || player.spell(Eye Beam).cooldown > 0 & player.area(6.5).enemies >= 5}"},
-	{"Death Sweep", "talent(3,1) & toggle(AoE) & !player.lastcast(Vengeful Retreat) & {player.area(6.5).enemies == 4 || player.spell(Eye Beam).cooldown > 0 & player.area(6.5).enemies >= 5}"},
+	{"Blade Dance", "!talent(3,2) & toggle(AoE) & !player.lastcast(Vengeful Retreat) & {player.area(5).enemies == 4 || player.spell(Eye Beam).cooldown > 0 & player.area(5).enemies >= 5}"},
+	{"Death Sweep", "!talent(3,2) & toggle(AoE) & !player.lastcast(Vengeful Retreat) & {player.area(5).enemies == 4 || player.spell(Eye Beam).cooldown > 0 & player.area(5).enemies >= 5}"},
 	
-	{"Blade Dance", "talent(3,2) & !player.lastcast(Vengeful Retreat) & {player.area(6.5).enemies == 1 & !toggle(AoE) || player.area(6.5).enemies >= 1 & player.area(6.5).enemies <= 4 & toggle(AoE) || player.spell(Eye Beam).cooldown > 0 & player.area(6.5).enemies >= 5 & toggle(AoE)}"},
-	{"Death Sweep", "talent(3,2) & toggle(AoE) & !player.lastcast(Vengeful Retreat) & {player.area(6.5).enemies == 1 & player.fury <= 39 || player.area(6.5).enemies >= 2 & player.area(6.5).enemies <= 4 & toggle(AoE) || player.spell(Eye Beam).cooldown > 0 & player.area(6.5).enemies >= 5 & toggle(AoE)}"},
+	{"Blade Dance", "talent(3,2) & !player.lastcast(Vengeful Retreat) & {player.area(5).enemies == 1 & !toggle(AoE) || player.area(5).enemies >= 1 & player.area(5).enemies <= 4 & toggle(AoE) || player.spell(Eye Beam).cooldown > 0 & player.area(5).enemies >= 5 & toggle(AoE)}"},
+	{"Death Sweep", "talent(3,2) & toggle(AoE) & !player.lastcast(Vengeful Retreat) & {player.area(5).enemies == 1 & player.fury <= 39 || player.area(5).enemies >= 2 & player.area(5).enemies <= 4 & toggle(AoE) || player.spell(Eye Beam).cooldown > 0 & player.area(5).enemies >= 5 & toggle(AoE)}"},
 	
 	---Charge
 	{"Felblade", "toggle(charge) & talent(1,2) & target.infront & {player.mana <= 60 & !player.buff(Metamorphosis) & target.inRange(Felblade).spell || player.fury <= 39 & player.buff(Metamorphosis) & target.inmelee || player.furydiff >= 60 & player.buff(Metamorphosis) & !target.inmelee & target.inRange(Felblade).spell}", "target"},
 	
 	---Out of melee range
 	{"Fel Eruption", "talent(5,2) & inRange.spell & player.fury >= 10", "target"},
-	{"Fel Barrage", "talent(7,2) & !target.debuff(Imprison) & inRange.spell & player.spell(Fel Barrage).charges >= 5 & {player.buff(Metamorphosis) & player.fury <= 39 & player.spell(Death Sweep).cooldown >= 0 || player.buff(Metamorphosis) & player.fury <= 15 || !player.buff(Metamorphosis)}", "target"},
-	{"Throw Glaive", "player.spell(Fel Rush).charges < 1 & player.spell(Felblade).cooldown > 0 & !target.debuff(Imprison) & !target.debuff(Master of the Glaive) & target.range >= 8 & inRange.spell", "target"},
-	
-	--{"Fel Rush", "toggle(charge) & target.infront & {target.range >= 6 || player.falling & target.inmelee & !player.lastcast(Fel Barrage)}", "target"}, -- & !player.casting(Fel Barrage) --  & player.fury <= 38}
-	--{"/run JumpOrAscendStart()", "toggle(charge) & !isgcd & target.inmelee & target.infront & player.spell(Fel Rush).charges >= 1 & {player.spell(Felblade).cooldown >= 0 & talent(1,2) || !talent(1,2)} & !player.falling & {talent(3,2) & player.spell(Blade Dance).cooldown > 0 & player.fury <= 38 || talent(3,2) & player.fury <= 14 || !talent(3,2) & player.fury <= 38}"}, -- & !player.lastcast(Blade Dance) & !player.casting(Fel Barrage)
+	{"Fel Barrage", "talent(7,2) & inRange.spell & !target.debuff(Imprison) & player.spell(Fel Barrage).charges >= 5 & {player.buff(Metamorphosis) & player.fury <= 39 & player.spell(Death Sweep).cooldown >= 0 || player.buff(Metamorphosis) & player.fury <= 15 || !player.buff(Metamorphosis)}", "target"},
 
-	{"Vengeful Retreat", "toggle(charge) & talent(2,1) & !player.buff(Metamorphosis) & player.spell(Fel Rush).charges >= 1 & target.range <= 2 & player.energy <= 39"},
+	--{"Vengeful Retreat", "toggle(charge) & talent(2,1) & !player.buff(Metamorphosis) & player.spell(Fel Rush).charges >= 1 & target.range <= 2 & player.fury <= 39"},
 
-	{"Chaos Strike", "inRange.spell & player.fury >= 40 & {toggle(AoE) & {player.area(8).enemies <= 5 & || player.spell(Eye Beam).cooldown > 0} || !toggle(AoE)}", "target"},
-	{"Annihilation", "inRange.spell & player.fury >= 40 & {toggle(AoE) & {player.area(8).enemies <= 5 & || player.spell(Eye Beam).cooldown > 0} || !toggle(AoE)}", "target"},
-	{"Demon's Bite", "!talent(2,2) & inRange.spell & player.fury < 40", "target"},
+	{"Chaos Strike", "inRange.spell & {toggle(AoE) & {player.area(8).enemies <= 5 & || player.spell(Eye Beam).cooldown > 0} || !toggle(AoE)}", "target"},
+	{"Annihilation", "inRange.spell & {toggle(AoE) & {player.area(8).enemies <= 5 & || player.spell(Eye Beam).cooldown > 0} || !toggle(AoE)}", "target"},
 
-	{"Throw Glaive", "target.inRange(Chaos Strike).spell", "target"}, --!player.falling & 
+	{"Demon's Bite", "!talent(2,2) & inRange.spell", "target"},
+
+	{"Throw Glaive", "inRange.spell & !target.debuff(Imprison) & !target.debuff(Master of the Glaive) & {target.faction.positive || target.faction.negative & player.pvp}", "target"},
 
 }
 
@@ -183,13 +185,15 @@ local inCombat = {
 
     {"%pause", "target.enemy & target.immune_all", "player"},
 	
-    {"Gladiator's Medallion", "UI(medal) & target.pvp & player.pvp & {state(stun) || state(fear) || state(disorient) || state(charm)}", "player"},
+    {"&/run TargetNearestEnemy()", "toggle(target_key) & player.area(15).enemies.infront > 0 & player.combat & player.alive & {!target.exists || target.dead}"},
+	
+    {"!Gladiator's Medallion", "UI(medal) & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
 
     ---------------
 	{Keybinds},
 	{Survival, "player.health < 100"},
 	{Interrupts, "interruptAt(85) & toggle(interrupts) & {!target.player || player.pvp & target.player}"},
-	{Cooldowns, "toggle(cooldowns) & target.enemy & target.alive & target.range <= 2"},
+	{Cooldowns, "toggle(cooldowns) & target.enemy & target.alive"},
 	---------------
 	{Combat, "target.alive & target.enemy & {!target.player || player.pvp & target.player}"},
 
@@ -197,8 +201,8 @@ local inCombat = {
 
 local outCombat = {
 
-    {"%pause", "target.enemy & target.immune_all", "player"},
 	{Keybinds},
+    {"%pause", "target.enemy & target.immune_all", "player"},
 	{Precombat, "target.alive & target.enemy & {!target.player || player.pvp & target.player}"},
 	
 }

@@ -1,8 +1,8 @@
 local _G = _G
 
 --/dump NeP.DSL.Parse("rake.stun", "", "")
-NeP.DSL:Register("rake.stun", function(target, spell)
-    if NeP.DSL:Get("debuff.many")("target", "Rake") == 2 then
+NeP.DSL:Register("rake.stun", function(target)
+    if NeP.DSL:Get("debuff.many")(target, "Rake") == 2 then
     return true
 end
     return false
@@ -10,37 +10,24 @@ end)
 
 --/dump NeP.DSL.Parse("player.immune_all", "", "")
 --/dump NeP.DSL.Parse("target.immune_all", "", "")
-NeP.DSL:Register("immune_all",function(target, spell)
-    if UnitBuff(target, GetSpellInfo(642)) or
-	   UnitBuff(target, GetSpellInfo(133093)) or
-	   UnitBuff(target, GetSpellInfo(63148)) or
-	   UnitBuff(target, GetSpellInfo(186265)) or
-	   UnitBuff(target, GetSpellInfo(19263)) or
-	   UnitBuff(target, GetSpellInfo(122464)) or
-	   UnitBuff(target, GetSpellInfo(122465)) or
-	   UnitBuff(target, GetSpellInfo(122470)) or
-	   UnitBuff(target, GetSpellInfo(124280)) or
-	   UnitBuff(target, GetSpellInfo(125174)) or
-	   UnitBuff(target, GetSpellInfo(45438)) or
-	   UnitBuff(target, GetSpellInfo(145533)) or
-	   UnitBuff(target, GetSpellInfo(41590)) or
-	   UnitBuff(target, GetSpellInfo(36911)) or
-	   UnitBuff(target, GetSpellInfo(27619)) or
-	   UnitBuff(target, GetSpellInfo(47585)) or
-	   UnitDebuff(target, GetSpellInfo(33786)) or
-	   UnitDebuff(target, GetSpellInfo(209753)) or
-	   UnitDebuff(target, GetSpellInfo(88010)) then
-       return true
-    end
-       return false
+NeP.DSL:Register("immune_all",function(target)
+ local immunallbuff = { 642, 133093, 63148, 186265, 19263, 122464, 122465, 122470, 124280, 125174, 45438, 145533, 41590, 36911, 27619, 47585 }
+  for i = 1, #immunallbuff do
+    local BuffName = _G.GetSpellInfo(immunallbuff[i])
+	 if _G.UnitBuff(target, BuffName) then
+    	return true end
+  end
+   local immunalldebuff = { 33786, 209753, 88010 }
+      for i = 1, #immunalldebuff do
+	    local DebuffName = _G.GetSpellInfo(immunalldebuff[i])
+	      if _G.UnitDebuff(target, DebuffName) then
+    	   return true end
+	  end
 end)
 
 --/dump NeP.DSL.Parse("target.immune_stun", "", "")
-NeP.DSL:Register("immune_stun",function(target, spell)
---[[------------------------------------------------------
-----------------PVE , don't stun the bosses---------------
-----------------------------------------------------------
-                    Buff immune to stun
+NeP.DSL:Register("immune_stun",function(target)
+--[[                Buff immune to stun
 ---------------------------PvP----------------------------
 ----------------------------------------------------------
     "48792",     -- Icebound Fortitude                  -- Death Knight
@@ -50,46 +37,35 @@ NeP.DSL:Register("immune_stun",function(target, spell)
     "213658",    -- Craft: Nimble Brew                  -- Monk
     "204336",    -- Grounding Totem (Player Spell)      -- Shaman
 	"8178",      -- Grounding Totem (Totem Spell)       -- Shaman
-
 ]]
-    if UnitBuff(target, GetSpellInfo(48792)) or
-	   UnitBuff(target, GetSpellInfo(115018)) or
-	   UnitBuff(target, GetSpellInfo(46924)) or
-	   UnitBuff(target, GetSpellInfo(19574)) or
-	   UnitBuff(target, GetSpellInfo(213658)) or
-	   UnitBuff(target, GetSpellInfo(204336)) or
-	   UnitBuff(target, GetSpellInfo(8178)) then
-	   return true
-	end
-       return false
+ local immunstun = { 48792, 115018, 46924, 19574, 213658, 204336, 8178 }
+  for i = 1, #immunstun do
+    local immunstunName = _G.GetSpellInfo(immunstun[i])
+	 if _G.UnitBuff(target, immunstunName) then
+    	return true end
+  end
 end)
 
 --/dump NeP.DSL.Parse("target.immune_spell", "", "")
-NeP.DSL:Register("immune_spell",function(target, spell)
-    if UnitBuff(target, GetSpellInfo(31224)) or
-	   UnitBuff(target, GetSpellInfo(65961)) or
-	   UnitBuff(target, GetSpellInfo(81549)) or
-	   UnitBuff(target, GetSpellInfo(213915)) or
-	   UnitBuff(target, GetSpellInfo(114028)) or
-	   UnitBuff(target, GetSpellInfo(23920)) or
-	   UnitBuff(target, GetSpellInfo(216890)) or
-	   UnitBuff(target, GetSpellInfo(57643)) or
-	   UnitBuff(target, GetSpellInfo(48707)) then
-	   return true
-	end
-       return false
+NeP.DSL:Register("immune_spell",function(target)
+ local immunspell = { 31224, 65961, 81549, 213915, 114028, 23920, 216890, 57643, 48707 }
+  for i = 1, #immunspell do
+    local immunspellName = _G.GetSpellInfo(immunspell[i])
+	 if _G.UnitBuff(target, immunspellName) then
+    	return true end
+  end
 end)
 
 --/dump NeP.DSL.Parse("target.Garrote_Silence", "", "")
-NeP.DSL:Register("Garrote_Silence", function(target, spell)
-    if UnitDebuff("target", GetSpellInfo(1330)) then
+NeP.DSL:Register("Garrote_Silence", function(target)
+    if UnitDebuff(target, GetSpellInfo(1330)) then
     return true
 end
     return false
 end)
 
 --/dump NeP.DSL.Parse("buff_of_the_bones", "", "")
-NeP.DSL:Register("buff_of_the_bones", function(target, spell)
+NeP.DSL:Register("buff_of_the_bones", function()
   local roll = 0
     if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193357)) > 3 then  roll = roll + 2 -- Shark Infested Waters
 end
@@ -135,20 +111,12 @@ NeP.DSL:Register("enemy_totem", function(target)
   -- 53006  -- Spirit Link Totem
 ----------------------------------
 ]]
-
-    if NeP.DSL:Get("id")(target, (2630)) or 
-	   NeP.DSL:Get("id")(target, (113845)) or 
-	   NeP.DSL:Get("id")(target, (102392)) or 
-	   NeP.DSL:Get("id")(target, (106317)) or 
-	   NeP.DSL:Get("id")(target, (106319)) or 
-	   NeP.DSL:Get("id")(target, (106321)) or 
-	   NeP.DSL:Get("id")(target, (3527)) or 
-	   NeP.DSL:Get("id")(target, (59764)) or
-	   NeP.DSL:Get("id")(target, (5925)) or	   
-	   NeP.DSL:Get("id")(target, (53006)) then
-	  return true
-	end
-	  return false
+ local Ktotems = { 2630, 113845, 102392, 106317, 106319, 106321, 3527, 59764, 5925, 53006 }
+  for i = 1, #Ktotems do
+    local totemsName = Ktotems[i]
+	 if NeP.DSL:Get("id")(target, totemsName) then
+    	return true end
+  end
 end)
 
 --/dump NeP.DSL.Parse("isgcd", "", "")
@@ -174,4 +142,50 @@ NeP.DSL:Register("missile.ready", function()
 	return true
 	end
 	return false
+end)
+
+--/dump NeP.DSL.Parse("dungeon.interrupts", "", "")
+NeP.DSL:Register("dungeon.interrupts", function(target)
+local cast = { 196392, 226206, 226269, 226285, 211007, 203176, 194657, 199514, 198405, 194266, 195293, 198407, 198495, 225573, 196883, 200248, 202181, 193585, 215204, 211299, 211470, 211401, 208165, 209413, 209485, 209404, 225100, 200658, 200642, 204243, 201411, 218532, 196870, 195108, 195129, 195046, 197502, 196027, 196175, 192003, 198595, 198931, 198934, 198962, 198959, 192563, 192288, 199726, 198750, 193069, 191595, 191823, 194675, 202661, 201488, 195332, 228255, 228239, 227917, 232115, 228280, 228279, 228277, 226316, 228625, 227823, 227800, 227545, 227616, 227542, 228606, 229307, 36247, 227628, 227592, 229714, 229083, 230084, 205112, 205121, 224453, 224460, 204963, 221059, 205070, 223392, 225042, 223565, 208697, 225079, 205300, 211368, 223038, 223590, 222939 }
+  for i = 1, #cast do
+    local SpellName = _G.GetSpellInfo(cast[i])
+    if NeP.DSL:Get("casting")(target, SpellName) and not _G.UnitIsPlayer(target) and NeP.DSL:Get("indungeon")(nil) then
+      return true end
+  end
+end)
+
+--[[USAGE: instanceType == none --when outside an instance
+pvp --when in a battleground
+arena --when in an arena
+party --when in a 5-man instance
+raid --when in a raid instance
+nil --when in an unknown kind of instance, eg. in a scenario]]
+
+--/dump NeP.DSL.Parse("instanceType", "", "")
+NeP.DSL:Register("instanceType", function()
+  return select(2, _G.IsInInstance())
+end)
+
+--/dump NeP.DSL.Parse("indungeon", "", "")
+NeP.DSL:Register("indungeon", function()
+  if NeP.DSL:Get("instanceType")(nil) == "party" or NeP.DSL:Get("instanceType")(nil) == "raid" then 
+    return true 
+  end 
+   return false
+end)
+
+--/dump GetSpellAutocast("Waterbolt")
+--/dump NeP.DSL.Parse("PetSpell(Waterbolt).autocast", "", "")
+NeP.DSL:Register("PetSpell.autocast", function(_, spell)
+  return select(2, GetSpellAutocast(spell))
+end)
+
+--/dump NeP.DSL.Parse("PetUIExists", "", "")
+NeP.DSL:Register("PetUIExists", function()
+  return select(1, _G.HasPetUI())
+end)
+
+--/dump NeP.DSL.Parse("target.fixRange", "", "")
+NeP.DSL:Register("fixRange", function(target)
+   return NeP.Protected.Distance("player", target)
 end)
