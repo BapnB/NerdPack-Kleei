@@ -27,6 +27,15 @@ local keybind_list_3 = {
 
 }
 
+local keybind_list_4 = {
+
+	{key = '10', text = 'Shift Keybind'},
+	{key = '11', text = 'Control Keybind'},
+	{key = '12', text = 'Alt Keybind'},
+	{key = 'none', text = 'Disable'},	
+
+}
+
 local Logo_GUI = {
 
 	{type = 'texture', texture = 'Interface\\AddOns\\Nerdpack-Kleei\\media\\outlaw.blp', width = 200, height = 200, offset = 90, y = -45, align = 'center'},
@@ -51,8 +60,11 @@ local GUI = {
 	--{type = 'text', text = "Use Gouge:|c0000FA9A if target are facing to you"},
 	{type = 'text', text = "Use Between the Eyes:|c0000FA9A < 20 yd:"},
 	{type = "text", text = "", align = "center"}, --------------------------------------
-	{type = 'combo', default = '9', key = 'list3', list = keybind_list_3, width = 100},		
+	{type = 'combo', default = '9', key = 'list3', list = keybind_list_3, width = 100},
     {type = 'text', text = "Use Grappling Hook:|c0000FA9A on cursor ground"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = 'combo', default = 'none', key = 'list4', list = keybind_list_4, width = 100},
+	{type = 'text', text = "Cannonball Barrage:|c0000FA9A on cursor ground"},
 	{type = 'spacer'}, {type = 'ruler'},
 	
     {type = 'header', size = 16, text = 'PVP', align = 'center'},
@@ -76,6 +88,7 @@ local GUI = {
     {type = "text", text = "Curse of the Dreadblades:"},
 
 	{type = 'header', size = 16, text = 'Other', align = 'center'},
+	{type = 'checkbox', text = "Auto Stealth:|c0000FA9A when you have enemy target", key = "stealth_key", default = true},
 	{type = 'checkbox', text = "Use Tricks of the Trade:|c0000FA9A in party on tank", key = "tott", default = true},
 	{type = 'checkbox', text = "Pick Pocket:|c0000FA9A < 10 yards when you stand and don't move", 	key = 'pp',   default = false},
 	{type = 'spacer'}, {type = 'ruler'},
@@ -123,6 +136,12 @@ local BtE = {
 
 }
 
+local Cannonball = {
+
+	{"Cannonball Barrage", "talent(6,1) & {keybind(alt) & UI(list4)==12 || keybind(shift) & UI(list4)==10 || keybind(control) & UI(list4)==11}", "cursor.ground"},
+
+}
+
 local Grappling_Hook = {
 
     {"Grappling Hook", "talent(2,1) & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "cursor.ground"},
@@ -159,7 +178,7 @@ local PreCombat = {
 
 	{"Pick Pocket", "inRange.spell & UI(pp) & !player.moving & player.buff(Stealth) & !player.lastcast(Pick Pocket) & creatureType(Humanoid) & !target.player & !isdummy", "target"},	
 	
-	{"%pause", "target.debuff(Sap) & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2} & {!target.player || target.player & player.pvp}"},	
+	{"%pause", "{target.debuff(Sap) || target.combat} & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2} & {!target.player || target.player & player.pvp}"},	
 
 	{"Ambush", "inRange.spell & player.buff(Stealth) & {!target.player || target.faction.positive & target.state(stun) || target.faction.negative & player.pvp & target.state(stun)} & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
 	{"Saber Slash", "inRange.spell & player.level < 22 & player.combopoints < 5 & {!target.player || target.faction.positive & target.state(stun) || target.faction.negative & player.pvp & target.state(stun)}", "target"},
@@ -193,7 +212,6 @@ local Interrupts = {
 local Cooldowns = {
 
     {"#7676", "item(7676).count > 0 & player.energy < 40 & target.deathin >= 5 & {target.boss || target.pvp}"},
-	{"Cannonball Barrage", "talent(6,1)", "target.ground"},
 	{"Marked for Death", "target.inRange(Saber Slash).spell & talent(7,2) & player.combopoints < 2", "target"},
 	{"Curse of the Dreadblades", "target.inRange(Saber Slash).spell & player.combopoints <= 3 & !player.buff(Broadsides)"},
 	{"Adrenaline Rush", "target.inRange(Saber Slash).spell"},
@@ -227,6 +245,7 @@ local Combat = {
 local inCombat = {
 
     {pvp},
+	{Cannonball},
     {Grappling_Hook},
     {Keybinds, "target.enemy & target.alive & !target.immune_all & {!target.player || target.faction.positive || target.faction.negative & player.pvp}"},
     {Interrupts, "toggle(interrupts) & target.enemy & target.alive & !target.immune_all & {!target.player || target.faction.positive || target.faction.negative & player.pvp}"},
@@ -240,10 +259,11 @@ local inCombat = {
 local outCombat = {
 
     {pvp},
+	{Cannonball},
     {Grappling_Hook},
 	{"Blade Flurry", "player.area(8).enemies <= 1 & buff(Blade Flurry)", "player"},
     {"/targetenemyplayer", "!target.exists & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}"},
-	{"Stealth", "!player.buff(Stealth) & !player.buff(Vanish) & target.enemy & target.alive & {!target.player || target.faction.positive || target.faction.negative & player.pvp}"},
+	{"Stealth", "UI(stealth_key) & !player.buff(Stealth) & !player.buff(Vanish) & target.enemy & target.alive & {!target.player || target.faction.positive || target.faction.negative & player.pvp}"},
 	{"Crimson Vial", "player.health <= UI(cv_spin) & UI(cv_check)"},
 	{"/stopattack", "target.enemy & target.alive & {target.faction.positive || target.faction.negative & player.pvp} & {target.buff(Touch of Karma) || player.buff(Vanish) || target.immune_all}"},
     {Keybinds, "target.enemy & target.alive & !target.immune_all & {!target.player || target.faction.positive || target.faction.negative & player.pvp}"},
