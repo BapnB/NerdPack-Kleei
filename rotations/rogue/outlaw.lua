@@ -181,7 +181,7 @@ local PreCombat = {
 	{"%pause", "{target.debuff(Sap) || target.combat} & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2} & {!target.player || target.player & player.pvp}"},	
 
 	{"Ambush", "inRange.spell & player.buff(Stealth) & {!target.player || target.faction.positive & target.state(stun) || target.faction.negative & player.pvp & target.state(stun)} & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
-	{"Saber Slash", "inRange.spell & player.level < 22 & player.combopoints < 5 & {!target.player || target.faction.positive & target.state(stun) || target.faction.negative & player.pvp & target.state(stun)}", "target"},
+	{"Saber Slash", "inRange.spell & {player.level < 22 || !player.buff(Stealth) & !player.buff(Vanish)} & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6} & {!target.player || target.faction.positive || target.faction.negative}", "target"},
 	
 	{"Death from Above", "talent(7,3) & inRange.spell & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6} & {!target.player || target.faction.positive & target.state(stun) || target.faction.negative & player.pvp & target.state(stun)}", "target"},
 	{"Run Through", "inRange.spell & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6} & {!target.player || target.faction.positive & target.state(stun) || target.faction.negative & player.pvp & target.state(stun)}", "target"},
