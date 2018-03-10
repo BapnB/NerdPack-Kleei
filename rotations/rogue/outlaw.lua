@@ -84,8 +84,13 @@ local GUI = {
 	{type = 'spacer'}, {type = 'ruler'},
 	
 	{type = "header", size = 16, text = "Cooldowns Toggle:", align = 'center'},
-    {type = "text", text = "Adrenaline Rush:"},
-    {type = "text", text = "Curse of the Dreadblades:"},
+    {type = "text", text = "*Adrenaline Rush:"},
+    {type = "text", text = "*Curse of the Dreadblades:"},
+    {type = "text", text = "*Thistle Tea:|c0000FA9A when energy < 40 and target boss or PVP enemy"},
+    {type = "text", text = "*Sprint:|c0000FA9A if equipped [Thraxi's Tricksy Treads]"},
+    {type = "text", text = "*Marked for Death:|c0000FA9A when < 2 combo points"},
+    {type = "text", text = "*Killing Spree:"},
+	{type = 'spacer'}, {type = 'ruler'},
 
 	{type = 'header', size = 16, text = 'Other', align = 'center'},
 	{type = 'checkbox', text = "Auto Stealth:|c0000FA9A when you have enemy target", key = "stealth_key", default = true},
@@ -211,11 +216,12 @@ local Interrupts = {
 
 local Cooldowns = {
 
-    {"#7676", "item(7676).count > 0 & player.energy < 40 & target.deathin >= 5 & {target.boss || target.pvp}"},
-	{"Marked for Death", "target.inRange(Saber Slash).spell & talent(7,2) & player.combopoints < 2", "target"},
-	{"Curse of the Dreadblades", "target.inRange(Saber Slash).spell & player.combopoints <= 3 & !player.buff(Broadsides)"},
+    {"#7676", "target.inRange(Saber Slash).spell & item(7676).count > 0 & player.energy < 40 & {target.boss || target.faction.positive || target.faction.negative & player.pvp}"},
+	{"Sprint", "target.inRange(Run Through).spell & target.deathin > 5 & equipped(Thraxi's Tricksy Treads) & {!talent(3,1) & player.combopoints >= 4 || talent(3,1) & player.combopoints >= 5}"},
+	{"Marked for Death", "target.inRange(Saber Slash).spell & talent(7,2) & player.combopoints < 2 & !player.buff(Curse of the Dreadblades)", "target"},
+	{"Curse of the Dreadblades", "target.inRange(Saber Slash).spell & player.combopoints <= 3 & !player.lastcast(Marked for Death) & !player.buff(Broadsides)"},
 	{"Adrenaline Rush", "target.inRange(Saber Slash).spell"},
-	{"Killing Spree", "talent(6,3) & target.range <= 10 & player.energy < 15", "target"},
+	{"Killing Spree", "inRange.spell & talent(6,3)", "target"},
 
 	{"#trinket1", "UI(trk1) & target.inRange(Saber Slash).spell"},
 	{"#trinket2", "UI(trk2) & target.inRange(Saber Slash).spell"},
@@ -224,21 +230,23 @@ local Cooldowns = {
 
 local Combat = {
 
-    {"/startattack", "!isattacking & target.inRange(Saber Slash).spell & !player.buff(Stealth) & !player.buff(Vanish)"},
-    {"Tricks of the Trade", "player.aggro & inRange(Tricks of the Trade).spell  & UI(tott) & player.los(tank) & {group.type == 3 || group.type == 2}", "tank"},
+    {"/startattack", "!isattacking & target.inRange(Saber Slash).spell & !player.buff(Stealth)"},
+    {"Tricks of the Trade", "player.aggro & inRange(Tricks of the Trade).spell  & UI(tott) & player.los(tank) & !player.buff(Stealth) & {group.type == 3 || group.type == 2}", "tank"},
 
 	{"Blade Flurry", "toggle(AoE) & player.area(8).enemies >= 2 & !player.buff(Blade Flurry) || !toggle(AoE) & player.buff(Blade Flurry) || player.area(8).enemies <= 1 & player.buff(Blade Flurry)"},
 
-	{"Death from Above", "talent(7,3) & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
-    {"Roll the Bones", "!talent(7,1) & target.deathin > 10 & player.combopoints > 4 & !buff_of_the_bones", "player"},
+	{"Death from Above", "talent(7,3) & !player.buff(Stealth) & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
+    {"Run Through", "inRange.spell & equipped(Thraxi's Tricksy Treads) & player.buff(Sprint) & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
+	
+	{"Roll the Bones", "!talent(7,1) & target.deathin > 10 & player.combopoints > 4 & !buff_of_the_bones", "player"},
 	{"Slice and Dice", "talent(7,1) & player.buff(Slice and Dice).duration < 3 & {target.deathin > 10 & player.combopoints > 4 || target.deathin <= 10 & player.combopoints > 1}"},
 	{"Run Through", "inRange.spell & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
 
-	{"Ambush", "target.inRange(Ambush).spell & player.buff(Stealth) & {!target.player || target.faction.positive & target.state(stun) || target.faction.negative & player.pvp & target.state(stun)} & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
+	{"Ambush", "target.inRange(Ambush).spell & player.buff(Stealth) & {!target.player || target.faction.positive || target.faction.negative & player.pvp} & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
     {"Ghostly Strike", "inRange.spell & talent(1,1) & buff(Ghostly Strike).duration < 2 & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
-	{"Pistol Shot", "inRange.spell & player.buff(Opportunity) & target.infront & {!talent(1,3) & {player.energy < 49 || !target.inRange(Saber Slash).spell} || talent(1,3)}", "target"},
-	{"Blunderbuss", "inRange.spell & player.buff(Opportunity) & target.infront & {!talent(1,3) & {player.energy < 49 || !target.inRange(Saber Slash).spell} || talent(1,3)}", "target"},
-	{"Saber Slash", "inRange.spell & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
+	{"Blunderbuss", "inRange.spell & target.infront & !player.buff(Stealth)", "target"},
+	{"Pistol Shot", "inRange.spell & player.buff(Opportunity) & target.infront & !player.buff(Stealth) & {!talent(1,3) & {player.energy < 49 || !target.inRange(Saber Slash).spell} || talent(1,3)}", "target"},
+	{"Saber Slash", "inRange.spell & !player.buff(Stealth) & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
 
 }
 
@@ -248,10 +256,10 @@ local inCombat = {
 	{Cannonball},
     {Grappling_Hook},
     {Keybinds, "target.enemy & target.alive & !target.immune_all & {!target.player || target.faction.positive || target.faction.negative & player.pvp}"},
-    {Interrupts, "toggle(interrupts) & target.enemy & target.alive & !target.immune_all & {!target.player || target.faction.positive || target.faction.negative & player.pvp}"},
+    {Interrupts, "toggle(interrupts) & target.enemy & target.alive & !target.immune_all & !player.buff(Stealth) & {!target.player || target.faction.positive || target.faction.negative & player.pvp}"},
 	{Survival, "player.health < 100"},
 	{"/stopattack", "target.enemy & target.alive & {target.faction.positive || target.faction.negative & player.pvp} & {target.buff(Touch of Karma) || player.buff(Vanish) || target.immune_all}"},
-	{Cooldowns, "toggle(cooldowns) & target.enemy & target.alive & !target.immune_all & {!target.player || target.faction.positive || target.faction.negative & player.pvp}"},
+	{Cooldowns, "toggle(cooldowns) & target.enemy & target.alive & !target.immune_all & !player.buff(Stealth) & {!target.player || target.faction.positive || target.faction.negative & player.pvp}"},
 	{Combat, "target.enemy & target.alive & !target.immune_all & {!target.player || target.faction.positive || target.faction.negative & player.pvp}"},
 
 }
