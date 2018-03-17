@@ -158,49 +158,48 @@ local Interrupts = {
 local Combat = {
 	
     {"/startattack", "!isattacking & target.inmelee"},
-    {"Tricks of the Trade", "player.aggro & {group.type == 3 || group.type == 2}", "tank"},
+    {"Tricks of the Trade", "inRange.spell & player.aggro & indungeon & player.los(tank) & !player.buff(Stealth)", "tank"},
+
 	--MASS Shuriken
 	{"Shuriken Storm", "toggle(aoe) & !player.buff(Stealth) & !player.buff(Vanish) & player.combopoints < 5 & player.area(8).enemies >= 4"},
 	
     --Steath Actions
-	{"Symbols of Death", "target.inmelee & player.buff(Symbols of Death).duration <= 4"},
-	{"Shadowstrike", "!player.buff(Vanish) & range <= 15 & player.combopoints < 5 & {player.buff(Shadow Dance) || player.buff(Subterfuge)}", "target"},
-	{"Shadowstrike", "!player.buff(Vanish) & range <= 15 & player.combopoints < 5 & player.buff(Subterfuge)", "target"},
+	{"Symbols of Death", "target.inRange(Shadowstrike).spell & player.buff(Symbols of Death).duration <= 4"},
+	{"Shadowstrike", "inRange.spell & player.combopoints < 5 & {player.buff(Shadow Dance) || player.buff(Subterfuge)}", "target"},
 	
 	--Finishers  
-	{"Nightblade", "toggle(Dotting) & deathin > 10 & inmelee & player.combopoints == 5 & debuff(Nightblade).duration <= 3.5", "target"},
-	{"Eviscerate", "player.combopoints == 5 & inmelee", "target"},
+	{"Death from Above", "talent(7,3) & inRange.spell & !player.buff(Stealth) & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
+	{"Nightblade", "inRange.spell & toggle(Dotting) & deathin > 10 & debuff(Nightblade).duration <= 3.5 & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
+	{"Eviscerate", "inRange.spell & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
 	
 	--Stealth Cooldowns
-    {"Shadow Dance", "!player.buff(Shadow Dance) & !player.buff(Subterfuge) & !player.combopoints > 4 & player.energy >= 38 & target.range < 15"},
+    {"Shadow Dance", "target.inRange(Shadowstrike).spell & !player.buff(Shadow Dance) & !player.buff(Subterfuge) & !player.combopoints > 4 & player.energy >= 38"},
     
 	--Build Combo Point
-	{"Backstab", "!talent(1,3) & player.combopoints < 5 & !player.buff(Stealth) & !player.buff(Shadow Dance) & !player.buff(Vanish) & !player.buff(Subterfuge) & {player.spell(Shadow Dance).charges < 1 || player.level < 40}", "target"},
-	{"Gloomblade", "talent(1,3) & player.combopoints < 5 & !player.buff(Stealth) & !player.buff(Shadow Dance) & !player.buff(Vanish) & !player.buff(Subterfuge) & {player.spell(Shadow Dance).charges < 1 || player.level < 40}", "target"},
+	{"Backstab", "inRange.spell & !talent(1,3) & player.combopoints < 5 & !player.buff(Stealth) & !player.buff(Shadow Dance) & !player.buff(Vanish) & !player.buff(Subterfuge) & {player.spell(Shadow Dance).charges < 1 || player.level < 40}", "target"},
+	{"Gloomblade", "inRange.spell & talent(1,3) & player.combopoints < 5 & !player.buff(Stealth) & !player.buff(Shadow Dance) & !player.buff(Vanish) & !player.buff(Subterfuge) & {player.spell(Shadow Dance).charges < 1 || player.level < 40}", "target"},
 
 }
 
 local inCombat = {
 
-	{"/stopattack", "player.pvp & target.player & target.enemy & target.alive & target.debuff(Blind) & !player.buff(Stealth)"},
     {pvp, "player.pvp & target.player & target.enemy & target.alive"},
 	{Keybinds},
 	{Interrupts, "toggle(interrupts) & target.infront & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
 	{Survival, "player.health <100"},
 	{Cooldowns, "toggle(cooldowns) & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
-    {"/stopattack", "target.player & {target.state(disorient) & !buff(Stealth) || target.state(incapacitate) & !buff(Stealth) || target.state(fear) & !buff(Stealth) || target.debuff(Polymorph) & !buff(Stealth) || target.buff(Touch of Karma) || buff(Vanish) || target.immune_all}", "player"},
+	{"/stopattack", "{!target.player || target.faction.positive || target.faction.negative & player.pvp} & {player.buff(Vanish) || target.immune_all}"},
 	{Combat, "!player.buff(Stealth) & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
     
 }
 
 local outCombat = {
 
-    {"/targetenemyplayer", "!target.exists & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}"},
-	{"Stealth", "!player.buff(Stealth) & !player.buff(Vanish) & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
+	{"Stealth", "!player.buff(Stealth) & !player.buff(Vanish) & target.enemy & target.alive & {!target.player || target.faction.positive || target.faction.negative & player.pvp}"},
 	{"Crimson Vial", "player.health <= UI(cv_spin) & UI(cv_check)"},
-	{"/stopattack", "player.pvp & target.player & target.enemy & target.alive & {target.state(disorient) & !buff(Stealth) || target.state(incapacitate) & !buff(Stealth) || target.state(fear) & !buff(Stealth) || target.debuff(Polymorph) & !buff(Stealth) || target.buff(Touch of Karma) || buff(Vanish) || target.immune_all}", "player"},
+	{"/stopattack", "{!target.player || target.faction.positive || target.faction.negative & player.pvp} & {player.buff(Vanish) || target.immune_all}"},
     {Keybinds},
-	{PreCombat, "target.enemy & target.alive"},
+	{PreCombat, "target.enemy & target.alive & !target.immune_all"},
 
 }
 

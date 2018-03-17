@@ -183,6 +183,8 @@ local Combat = {
 
 local inCombat = {
 
+    --{(function() print("|c0000FA9A Falling Time :", NeP.DSL:Get("falling.duration")("player")) end), "falling.duration > 0"},
+	{"Glide", "!player.buff(Glide) & falling.duration > 1"},
     {"%pause", "target.enemy & target.immune_all", "player"},
 	
     {"&/run TargetNearestEnemy()", "toggle(target_key) & player.area(15).enemies.infront > 0 & player.combat & player.alive & {!target.exists || target.dead}"},
@@ -201,6 +203,8 @@ local inCombat = {
 
 local outCombat = {
 
+    --{(function() print("|c0000FA9A Falling Time :", NeP.DSL:Get("falling.duration")("player")) end), "falling.duration > 0"},
+	{"Glide", "!player.buff(Glide) & falling.duration >= 0.50"},
 	{Keybinds},
     {"%pause", "target.enemy & target.immune_all", "player"},
 	{Precombat, "target.alive & target.enemy & {!target.player || player.pvp & target.player}"},

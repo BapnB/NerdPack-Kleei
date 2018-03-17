@@ -161,7 +161,7 @@ local PreCombat = {
 
 	{"Ice Barrier", "buff.duration <= 5", "player"},
 	
-    {(function() print("Debuff |c0000FA9A[Necrotic]|r Stacks : ", NeP.DSL:Get("debuff.count")("lowest", GetSpellInfo(209858))) end), (function() if NeP.DSL:Get("debuff.count")("lowest", GetSpellInfo(209858)) > 0 then return true end end)},
+    {(function() print("Debuff |c0000FA9A[Necrotic]|r Stacks : ", NeP.DSL:Get("debuff.count.any")("lowest", GetSpellInfo(209858))) end), (function() if NeP.DSL:Get("debuff.count.any")("lowest", GetSpellInfo(209858)) > 0 then return true end end)},
 	
 	--Pet Function
 	{"Summon Water Elemental", "!talent(1,2) & !Pet.Exists & !player.moving"},

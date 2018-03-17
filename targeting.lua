@@ -24,13 +24,13 @@ function TargetingPVE()
 	end
 end
 
-C_Timer.NewTicker(0.02, (function()
+--[[C_Timer.NewTicker(0.02, (function()
 	if (UnitAffectingCombat("player") or NeP.DSL:Get("indungeon")(nil))
 	and NeP.DSL:Get("toggle")(nil, "mastertoggle")
 	and NeP.DSL:Get("toggle")(nil, "auto_target_key") then
 			TargetingPVE()
 	end
-end), nil)
+end), nil)]]
 
 --Auto Target Player enemies (advanced unlocker)
 function TargetingPVP()

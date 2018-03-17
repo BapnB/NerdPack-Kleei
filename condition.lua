@@ -67,25 +67,25 @@ end)
 --/dump NeP.DSL.Parse("buff_of_the_bones", "", "")
 NeP.DSL:Register("buff_of_the_bones", function()
   local roll = 0
-    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193357)) > 3 then  roll = roll + 2 -- Shark Infested Waters
+    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193357)) > 1.5 then  roll = roll + 2 -- Shark Infested Waters
 end
 
-    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193359)) > 3 then  roll = roll + 1  -- True Bearing
+    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193359)) > 1.5 then  roll = roll + 2  -- True Bearing
 end
 
-    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(199603)) > 3 then  roll = roll + 1  -- Jolly Roger
+    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(199603)) > 1.5 then  roll = roll + 1  -- Jolly Roger
 end
 
-    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193358)) > 3 then  roll = roll + 1  -- Grand Melee
+    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193358)) > 1.5 then  roll = roll + 1  -- Grand Melee
 end
 
-    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(199600)) > 3 then  roll = roll + 1  -- Buried Treasure
+    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(199600)) > 1.5 then  roll = roll + 1  -- Buried Treasure
 end
 
-    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193356)) > 3 then  roll = roll + 2  -- Broadsides
+    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193356)) > 1.5 then  roll = roll + 2  -- Broadsides
 end
 
-    if UnitDebuff("player", GetSpellInfo(202665)) then roll = roll + 1
+    if _G.UnitDebuff("player", GetSpellInfo(202665)) then roll = roll + 1 -- Curse of the Dreadblades
 end
 
     if roll > 1 then
@@ -127,7 +127,7 @@ NeP.DSL:Register("isgcd", function()
 	return false
 end)
 
---/dump NeP.DSL.Parse("target.inRange(Wild Charge).spell", "", "")
+--USAGE UNIT.inRange(SPELL_NAME).spell
 NeP.DSL:Register("inRange.spell", function(target, spell)
   local spellIndex, spellBook = NeP.Core:GetSpellBookIndex(spell)
   if not spellIndex then return false end

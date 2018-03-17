@@ -228,7 +228,8 @@ local Combat = {
     {Garrote, "target.deathin > 10 & player.combopoints <= 4 & target.debuff(Garrote).duration <= 5 & {player.area(10).enemies <= 3 || !toggle(AoE)}", "target"}, --player.area(10).enemies <= 3
 
     {"Envenom", "talent(6,3) & player.combopoints >= 4 & player.spell(Exsanguinate).cooldown > 33", "target"},
-	{"Envenom", "player.combopoints >= 4 & {target.debuff(Rupture).duration > 9 || target.deathin < 12 || !toggle(Rupt) || player.area(5).enemies.infront >= 3}", "target"},
+	{"Death from Above", "talent(7,3) & inRange.spell & !player.buff(Stealth) & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
+	{"Envenom", "player.combopoints >= 4 & {talent(7,3) & spell(Death from Above).cooldown > 1 || !talent(7,3)} & {target.debuff(Rupture).duration > 9 || target.deathin < 12 || !toggle(Rupt) || player.area(5).enemies.infront >= 3}", "target"},
 
     {"Fan of Knives", "toggle(AoE) & player.combopoints < 5 & player.area(10).enemies >= 3"},
 	{"Mutilate", "player.combopoints < 5 & {player.area(10).enemies <= 3 || !toggle(AoE)}"},
