@@ -1,6 +1,14 @@
+local Logo_GUI = {
+
+	{type = 'texture', texture = 'Interface\\AddOns\\Nerdpack-Kleei\\media\\balance.blp', width = 200, height = 200, offset = 155, y = -75, align = 'center'},
+
+}
+
 local GUI = {
 
-		--[[{type = "spacer"},
+	unpack(Logo_GUI),
+
+	--[[
 	{type = "header", size = 16, text = "Keybinds", align = "center"},
 	{type = "text", text = "|c0000FA9A Just hold the Key|r", align = 'center'},
 	{type = "text", text = "|c0087CEFA Choose Keybind:", align = 'center'},

@@ -36,18 +36,9 @@ local keybind_list_4 = {
 
 }
 
-local keybind_list_5 = {
-
-	{key = '13', text = 'Shift Keybind'},
-	{key = '14', text = 'Control Keybind'},
-	{key = '15', text = 'Alt Keybind'},
-	{key = 'none', text = 'Disable'},	
-
-}
-
 local Logo_GUI = {
 
-	{type = 'texture', texture = 'Interface\\AddOns\\Nerdpack-Kleei\\media\\outlaw.blp', width = 200, height = 200, offset = 90, y = -45, align = 'center'},
+	{type = 'texture', texture = 'Interface\\AddOns\\Nerdpack-Kleei\\media\\outlaw.blp', width = 250, height = 250, offset = 105, y = -50, align = 'center'},
 
 }
 
@@ -59,7 +50,13 @@ local GUI = {
 	{type = 'text', text = "|c0000FA9A Just hold the Key|r", align = 'center'},
 	{type = 'text', text = "|c0087CEFA Choose Keybind:", align = 'center'},
 	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = 'combo', default = '9', key = 'list3', list = keybind_list_3, width = 100},
+    {type = 'text', text = "Use Grappling Hook:|c0000FA9A on cursor ground"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = 'combo', default = 'none', key = 'list4', list = keybind_list_4, width = 100},
+	{type = 'text', text = "Cannonball Barrage:|c0000FA9A on cursor ground"},
 	--{type = 'text', text = "Run /TargetEnemyPlayer:|c0000FA9A target Stealthed:|r"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = 'combo', default = '2', key = 'list1', list = keybind_list_1, width = 100},
 	--{type = 'text', text = "Use Sap:|c0000FA9A or pause if already Sapped:|r"},
 	{type = 'text', text = "Use Blind:|c0000FA9A"},
@@ -69,11 +66,6 @@ local GUI = {
 	--{type = 'text', text = "Use Gouge:|c0000FA9A if target are facing to you"},
 	{type = 'text', text = "Use Between the Eyes:"},
 	{type = "text", text = "", align = "center"}, --------------------------------------
-	{type = 'combo', default = '9', key = 'list3', list = keybind_list_3, width = 100},
-    {type = 'text', text = "Use Grappling Hook:|c0000FA9A on cursor ground"},
-	{type = "text", text = "", align = "center"}, --------------------------------------
-	{type = 'combo', default = 'none', key = 'list4', list = keybind_list_4, width = 100},
-	{type = 'text', text = "Cannonball Barrage:|c0000FA9A on cursor ground"},
 	{type = 'spacer'}, {type = 'ruler'},
 	
     {type = 'header', size = 16, text = 'PVP', align = 'center'},
@@ -84,13 +76,13 @@ local GUI = {
 	{type = 'text', text = "|c0000FA9A      Remove stun/fear/disorient/charm.|r"},
 	{type = 'spacer'}, {type = 'ruler'},
 	
-	{type = 'header', size = 16, text = 'Survival', align = 'center'},
-	{type = 'checkbox', text = "Use Faint:|c0000FA9A Sprint is up and Deception is active", key = "fnt", default = true},
-	{type = 'checkspin', text = 'Use Vanish:', key = 'van', check = true, spin = 15, width = 150, step = 5, max = 95, min = 1},
-	{type = 'checkspin', text = 'Use Crimson Vial:', key = 'cv', check = true, spin = 75, width = 150, step = 5, max = 95, min = 1},
-	{type = 'checkspin', text = 'Use Riposte:', key = 'ripo', check = true, spin = 65, width = 150, step = 5, max = 95, min = 1},
-	{type = 'checkspin', text = 'Use Health Stone:', key = 'hs', check = true, spin = 60, width = 150, step = 5, max = 95, min = 1},
-	{type = 'spacer'}, {type = 'ruler'},
+	{type = "header", size = 16, text = "Survival", align = "center"},
+	{type = "checkspin", text = "Use Feint:|c0000FA9A [Will of Valeera]", key = "fnt", check = true, spin = 30, width = 150, step = 5, max = 95, min = 1},
+	{type = "checkspin", text = "Use Vanish:", key = "van", check = true, spin = 15, width = 150, step = 5, max = 95, min = 1},
+	{type = "checkspin", text = "Use Crimson Vial:", key = 'cv', check = true, spin = 75, width = 150, step = 5, max = 95, min = 1},
+	{type = "checkspin", text = "Use Riposte:", key = 'ripo', check = true, spin = 65, width = 150, step = 5, max = 95, min = 1},
+	{type = "checkspin", text = "Use Health Stone:", key = 'hs', check = true, spin = 60, width = 150, step = 5, max = 95, min = 1},
+	{type = "spacer"}, {type = "ruler"},
 	
 	{type = "header", size = 16, text = "Cooldowns Toggle:", align = 'center'},
 	{type = 'checkbox', text = "Adrenaline Rush:", key = "adr_key", default = true},
@@ -118,27 +110,22 @@ local GUI = {
 	
 local exeOnLoad = function()
 
- 	print('|c0000FA9A ----------------------------------------------------------------------|r')
- 	print('|c0000FA9A --- |r|cffffff00ROGUE - Outlaw|r')	
-	print('|c0000FA9A ------------------------PVP-------------------------------------------|r')
- 	print('|c0000FA9A --- |rRecommended Talents: 1/1 - 2/1 - 3/1 - 4/2 - 5/3 - 6/2 - 7/3')
-    print('|c0000FA9A')
-	print('|c0000FA9A ------------------------PVE-------------------------------------------|r')
- 	print('|c0000FA9A --- |rRecommended Talents: 1/1 - 2/1 - 3/1 - 4/x - 5/x - 6/2 - 7/2')
- 	print('|c0000FA9A ----------------------------------------------------------------------|r')
+ 	print("|c0000FA9A ----------------------------------------------------------------------|r")
+ 	print("|c0000FA9A --- |r|cffffff00ROGUE - Outlaw|r")	
+	print("|c0000FA9A ------------------------PVP-------------------------------------------|r")
+ 	print("|c0000FA9A --- |rRecommended Talents: 1/1 - 2/1 - 3/1 - 4/2 - 5/3 - 6/2 - 7/3")
+    print("|c0000FA9A")
+	print("|c0000FA9A ------------------------PVE-------------------------------------------|r")
+ 	print("|c0000FA9A --- |rRecommended Talents: 1/1 - 2/1 - 3/1 - 4/x - 5/x - 6/2 - 7/2")
+ 	print("|c0000FA9A ----------------------------------------------------------------------|r")
+	print("|c0000FA9A")
+	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
 
     NeP.Interface:AddToggle({
 		key = "target_key",
 		name = "Auto Target PVE Enemies",
 		text = "Automatically target the nearest enemy. Better works with advanced unlocker",
 		icon = "Interface\\Icons\\ability_hunter_snipershot",
-})
-
-NeP.Interface:AddToggle({
-		key = "autopvp_key",
-		name = "Auto Target PVP enemies",
-		text = "Automatically Target PVP enemies to avoid burst on enemy pets or totems. Better works with advanced unlocker",
-		icon = "Interface\\Icons\\spell_shadow_charm",
 })
 
 end
@@ -168,9 +155,6 @@ local pvp = {
 
     {"!Every Man for Himself", "UI(medal) & state(stun) & !buff(Stealth) & !buff(Vanish)", "player"},        
     {"!Gladiator's Medallion", "UI(medal) & !buff(Stealth) & !buff(Vanish) & {target.faction.positive || target.faction.negative & player.pvp} & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
-    
-	--{"Vanish", "!player.buff(Stealth) & !player.buff(Cloak of Shadows) & !target.debuff(Sap) & UI(van_no_stun) & !target.state(stun) & !target.state(disorient) & !player.lastcast(Kidney Shot) & player.spell(Kidney Shot).cooldown >= gcd & !player.buff(Evasion)  & {target.class(Rogue) & player.spell(Blind).cooldown >= gcd || !target.class(Rogue)}"}, --test  & targettarget.is(player)
-    --{"Blind", "!player.buff(Stealth) & !player.buff(Vanish) & !player.buff(Cloak of Shadows) & !target.debuff(Sap) & !target.debuff(Blind) & UI(blind_no_van) & !target.state(stun) & !target.state(disorient) & !player.lastcast(Kidney Shot) & !player.lastcast(Vanish) & player.spell(Kidney Shot).cooldown >= gcd & !target.immune(disorient) & !player.buff(Evasion)", "target"},-- & targettarget.is(player)
 
 }
 
@@ -205,21 +189,21 @@ local PreCombat = {
 local Survival ={
 
 	{"#neck", "{equipped(Eternal Will of the Martyr) || equipped(Eternal Woven Ivy Necklace)} & !player.buff(Stealth) & !player.buff(Vanish) & player.health <= 40"},
-    {"Faint", "buff(Sprint) & !buff(Faint) & !player.lastcast(Faint) & artifact(Deception).enabled & UI(fnt)", "player"},
-    {"Blind", "target.buff(Touch of Karma) & !player.buff(Stealth) & !player.buff(Vanish)", "target"}, -- || many more target CD's
+    --{"Blind", "target.buff(Touch of Karma) & !player.buff(Stealth) & !player.buff(Vanish)", "target"}, -- || many more target CD's
     {"Vanish", "!player.buff(Stealth) & target.player & player.health < target.health & player.health <= UI(van_spin) & UI(van_check)"},
 	{"Crimson Vial", "player.health <= UI(cv_spin) & UI(cv_check) & !isdummy"},
 	{"Riposte", "player.health <= UI(ripo_spin) & UI(ripo_check) & !player.buff(Stealth) & !player.buff(Vanish) & player.incdmg.phys(5) >= player.health.max*0.02"},
 	{"#5512", "item(5512).count >= 1 & player.health <= UI(hs_spin) & UI(hs_check)"}, --Health Stone
+    {"Feint", "!player.buff(Will of Valeera) & equipped(Will of Valeera) & player.health <= UI(fnt_spin) & UI(fnt_check) & !instanceType == pvp & !instanceType == arena"},
 
 }
 
 local Interrupts = {
 
-	{"!Kick", "interruptAt(70) & target.inRange(Kick).spell & {player.level < 100 || !indungeon} & {!target.player || target.faction.positive || target.faction.negative & player.pvp}", "target"},
+	{"!Kick", "interruptAt(60) & target.inRange(Kick).spell & {player.level < 100 || !indungeon}", "target"},
 	{"!Kick", "interruptAt(1) & inRange(Kick).spell & dungeon.interrupts & player.level > 99", "enemies"},
-	{"!Arcane Torrent", "interruptAt(1) & inRange.spell & dungeon.interrupts & player.level > 99", "enemies"},
-	{"!Arcane Torrent",	"interruptAt(70) & inRange.spell & {player.level < 100 || !indungeon} & {!target.player || target.faction.positive || target.faction.negative & player.pvp}", "target"},
+	{"!Arcane Torrent", "interruptAt(1) & inRange(Kick).spell & dungeon.interrupts & player.level > 99", "enemies"},
+	{"!Arcane Torrent",	"interruptAt(60) & inRange(Kick).spell & {player.level < 100 || !indungeon}", "target"},
 
 }
 
@@ -229,7 +213,7 @@ local Cooldowns = {
 	{"Sprint", "target.inRange(Run Through).spell & UI(sprint_key) & target.deathin > 5 & equipped(Thraxi's Tricksy Treads) & !player.buff(Killing Spree) & {!talent(3,1) & player.combopoints >= 4 || talent(3,1) & player.combopoints >= 5}"},
 	{"Killing Spree", "inRange.spell & talent(6,3) & UI(ks_key) & !player.debuff(Curse of the Dreadblades) & !player.lastcast(Curse of the Dreadblades)", "target"}, --Curse of the Dreadblades fara CD
 	{"Marked for Death", "target.inRange(Saber Slash).spell & UI(mfd_key) & talent(7,2) & player.combopoints < 2 & !player.debuff(Curse of the Dreadblades) & !player.lastcast(Curse of the Dreadblades) & !player.buff(Killing Spree)"},
-	{"Curse of the Dreadblades", "target.inRange(Saber Slash).spell & UI(cotd_key) & player.combopoints <= 3 & !player.lastcast(Marked for Death) & !player.buff(Broadsides) & !player.buff(Killing Spree) & !player.lastcast(Killing Spree)"}, --
+	{"Curse of the Dreadblades", "target.inRange(Saber Slash).spell & UI(cotd_key) & player.combopoints <= 3 & !player.lastcast(Marked for Death) & !player.buff(Killing Spree) & !player.lastcast(Killing Spree)"}, --
 	{"Adrenaline Rush", "target.inRange(Saber Slash).spell & !player.buff(Killing Spree) & !player.lastcast(Killing Spree) & UI(adr_key)"},
 
 	{"#trinket1", "UI(trk1) & target.inRange(Saber Slash).spell"},
@@ -239,6 +223,7 @@ local Cooldowns = {
 
 local Combat = {
 
+	{"Ambush", "inRange.spell & player.buff(Stealth) & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
     {"/startattack", "!isattacking & target.inRange(Saber Slash).spell & !player.buff(Stealth)"},
     {"Tricks of the Trade", "inRange.spell & player.aggro & indungeon & UI(tott) & player.los(tank) & !player.buff(Stealth)", "tank"},
 
@@ -251,7 +236,6 @@ local Combat = {
 	{"Slice and Dice", "talent(7,1) & player.buff(Slice and Dice).duration < 3 & {target.deathin > 10 & player.combopoints > 4 || target.deathin <= 10 & player.combopoints > 1}"},
 	{"Run Through", "inRange.spell & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
 
-	{"Ambush", "inRange.spell & player.buff(Stealth) & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
     {"Ghostly Strike", "inRange.spell & talent(1,1) & buff(Ghostly Strike).duration < 2 & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
 	{"Blunderbuss", "inRange.spell & !player.buff(Stealth) & !state(disorient) & !player.debuff(Curse of the Dreadblades)", "target"},
 	{"Pistol Shot", "inRange.spell & !player.buff(Stealth) & !state(disorient) & player.buff(Opportunity) & {talent(1,3) & !player.debuff(Curse of the Dreadblades) || player.debuff(Curse of the Dreadblades) & player.energy < 56}", "target"},
@@ -280,7 +264,7 @@ local outCombat = {
     {pvp},
 	{Cannonball},
     {Grappling_Hook},
-	{"Blade Flurry", "player.area(8).enemies <= 1 & buff(Blade Flurry) || areaHeal(40, 100, 2)", "player"},
+	{"Blade Flurry", "player.area(8).enemies <= 1 & player.buff(Blade Flurry)"},
     --{"/targetenemyplayer", "!target.exists & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}"},
 	{"Stealth", "UI(stealth_key) & !player.buff(Stealth) & !player.buff(Vanish) & target.enemy & target.alive & {!target.player || target.faction.positive || target.faction.negative & player.pvp}"},
 	{"Crimson Vial", "player.health <= UI(cv_spin) & UI(cv_check)"},

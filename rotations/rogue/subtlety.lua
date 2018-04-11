@@ -58,6 +58,7 @@ local GUI = {
 	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},
 	
 	{type = 'header', size = 16, text = 'Survival', align = 'center'},
+	{type = "checkspin", text = "Use Feint:|c0000FA9A [Will of Valeera]", key = "fnt", check = true, spin = 30, width = 150, step = 5, max = 95, min = 1},
 	{type = 'checkspin', text = 'Use Vanish:', key = 'van', check = true, spin = 15, width = 150, step = 5, max = 95, min = 1},
 	{type = 'checkspin', text = 'Use Crimson Vial:', key = 'cv', check = true, spin = 75, width = 150, step = 5, max = 95, min = 1},
 	{type = 'checkspin', text = 'Use Evasion:', key = 'eva', check = true, spin = 80, width = 150, step = 5, max = 95, min = 1},
@@ -84,7 +85,9 @@ local exeOnLoad = function()
 	print('|c0000FA9A ------------------------PVE-------------------------------------------|r')
  	print('|c0000FA9A --- |rRecommended Talents: 1/2 - 2/2 - 3/3 - 4/1 - 5/1 - 6/1 - 7/1')
  	print('|c0000FA9A ----------------------------------------------------------------------|r')
-	
+	print("|c0000FA9A")
+	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
+
 		NeP.Interface:AddToggle({
 		key = 'Dotting',
 		icon = 'Interface\\Icons\\ability_rogue_nightblade',
@@ -138,6 +141,7 @@ local Survival ={
 	{"Crimson Vial", "player.health <= UI(cv_spin) & UI(cv_check)"},
 	{"Evasion", "player.health <= UI(eva_spin) & UI(eva_check) & !player.buff(Stealth) & !player.buff(Vanish) & player.incdmg.phys(5) >= 100000"},
 	{"#5512", "item(5512).count >= 1 & player.health <= UI(hs_spin) & UI(hs_check)"}, --Health Stone
+    {"Feint", "!player.buff(Will of Valeera) & equipped(Will of Valeera) & player.health <= UI(fnt_spin) & UI(fnt_check) & !instanceType == pvp & !instanceType == arena"},
 	
 }
 
@@ -150,8 +154,10 @@ local Cooldowns ={
 
 local Interrupts = {
 
-	{"!Kick", "interruptAt(75) & inmelee", "target"},
-	{"!Kick", "interruptAt(75) & inmelee", "enemies"},
+	{"!Kick", "interruptAt(60) & target.inRange(Kick).spell & {player.level < 100 || !indungeon}", "target"},
+	{"!Kick", "interruptAt(1) & inRange(Kick).spell & dungeon.interrupts & player.level > 99", "enemies"},
+	{"!Arcane Torrent", "interruptAt(1) & inRange(Kick).spell & dungeon.interrupts & player.level > 99", "enemies"},
+	{"!Arcane Torrent",	"interruptAt(60) & inRange(Kick).spell & {player.level < 100 || !indungeon}", "target"},
 
 }
 

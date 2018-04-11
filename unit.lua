@@ -96,10 +96,10 @@ end)
 
 --/dump NeP.DSL.Parse("target.caster", "", "")
 NeP.DSL:Register("caster", function(target)
-    if NeP.DSL:Get("class")(target, "Priest") or NeP.DSL:Get("class")(target, "Mage") or NeP.DSL:Get("class")(target, "Warlock") then
+    local class = select(2, _G.UnitClass(target))
+    if class == "Priest" or class == "Mage" or class == "Warlock" then
       return true
     end
-      return false
 end)
 
 --/dump NeP.DSL.Parse("player.infront.of.target", "", "")

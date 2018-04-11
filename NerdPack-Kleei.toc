@@ -7,6 +7,7 @@
 targeting.lua
 condition.lua
 unit.lua
+equip_sets_table.lua
 
 rotations\druid\restoration.lua
 rotations\druid\feral.lua
@@ -34,3 +35,5 @@ rotations\warrior\fury.lua
 rotations\warrior\arms.lua
 
 rotations\priest\shadow.lua
+
+rotations\paladin\protection.lua

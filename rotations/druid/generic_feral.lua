@@ -269,9 +269,12 @@ local PreCombat = {
     {"Revive", "inRange.spell & !player.moving & !player.lastcast", "deadgroupmember"},
 
 	{Rake, "!target.buff(Touch of Karma) & !target.immune_stun & {player.buff(Prowl) || player.spell(Prowl).cooldown > 0.5 & !player.buff(Shadowmeld) || player.buff(Shadowmeld)}"},
-    
+	
 	{"Regrowth", "!buff(Prowl) & talent(7,2) & buff(Bloodtalons).count < 2 & target.enemy & target.alive & {!target.player || target.faction.positive || target.faction.negative & player.pvp} & {spell(Regrowth).casttime==0 || !player.moving} || spell(Regrowth).casttime==0 & player.buff(Predatory Swiftness).duration <= 3 & !buff(Prowl) & !target.exists", "player"},
  	{"&Prowl", "!buff(Prowl) & buff(Cat Form) & target.enemy & target.alive & {!talent(7,2) || player.buff(Bloodtalons) || player.moving & !spell(Regrowth).casttime==0} & {!target.player || target.faction.positive || target.faction.negative & player.pvp} || player.buff(Shadowmeld)", "player"},  --|| player.area(15).enemies >= 1
+    
+	{"Shred", "inRange.spell & player.level < 12 & combopoints < 5", "target"},
+	{"Ferocious Bite", "inRange.spell & player.level < 12 & combopoints == 5", "target"},
 
     {"%pause", "target.state(fear) & !player.buff(Prowl) || target.debuff(Polymorph) & !player.buff(Prowl) || target.immune_all", "player"},
 

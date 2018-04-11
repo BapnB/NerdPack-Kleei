@@ -124,8 +124,11 @@ local Survival = {
 
 local Interrupts = {
 
-	{"!Consume Magic", "inRange.spell", "target"},
-	
+	{"!Consume Magic", "interruptAt(60) & inRange.spell & {player.level < 100 || !indungeon}", "target"},
+	{"!Consume Magic", "interruptAt(1) & inRange.spell & dungeon.interrupts & player.level > 99", "enemies"},
+	{"!Arcane Torrent", "interruptAt(1) & {!player.buff(Metamorphosis) & target.inRange(Chaos Strike).spell || player.buff(Metamorphosis) & target.inRange(Annihilation).spell} & dungeon.interrupts & player.level > 99", "enemies"},
+	{"!Arcane Torrent",	"interruptAt(60) & {!player.buff(Metamorphosis) & target.inRange(Chaos Strike).spell || player.buff(Metamorphosis) & target.inRange(Annihilation).spell} & {player.level < 100 || !indungeon}", "target"},
+
 }
 
 local Keybinds = {

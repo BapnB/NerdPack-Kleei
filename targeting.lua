@@ -55,9 +55,9 @@ function TargetingPVP()
 	end
 end
 
-C_Timer.NewTicker(0.02, (function()
+--[[C_Timer.NewTicker(0.02, (function()
 	if NeP.DSL:Get("toggle")(nil, "mastertoggle")
 	and NeP.DSL:Get("toggle")(nil, "autopvp_key") then
 			TargetingPVP()
 	end
-end), nil)
+end), nil)]]
