@@ -84,7 +84,7 @@ local GUI = {
 	{type = "checkspin", text = "Use Ice Block:", key = "ice_health", check = true, spin = 10, width = 100, step = 5, max = 95, min = 1},
 	{type = "checkspin", text = "Use Temporal Shield:", key = "temp_shield", check = true, spin = 70, width = 100, step = 5, max = 95, min = 1},
 	{type = "checkspin", text = "Use Health Stone:", key = "hs", check = true, spin = 30, width = 100, step = 5, max = 95, min = 1},
-	{type = "checkspin", text = "Use Mana Pudding:", key = "pudding_key", check = true, spin = 75, width = 100, step = 5, max = 95, min = 1},
+	{type = "checkspin", text = "Use Mana Pudding:", key = "pudding_key", check = true, spin = 75, width = 100, step = 5, max = 100, min = 1},
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "text", text = "", align = "center"}, --------------------------------------
@@ -186,7 +186,7 @@ local PreCombat = {
 	{"Fireball", "inRange.spell & alive & enemy & !immune_all & !immune_spell & {!target.player || target.faction.positive || target.faction.negative & player.pvp} & {UI(allfacing) || !UI(allfacing) & target.infront} & {UI(mc) || !UI(mc) & !player.moving}", "target"},
 
     {"Conjure Refreshment", "item(80610).count < 1 & !player.moving"},
-	{"#80610", "item(80610).count >= 1 & player.health <= UI(pudding_key) & !player.buff(Refreshment) & !player.moving"},
+	{"#80610", "item(80610).count >= 1 & !player.buff(Refreshment) & !player.moving & player.health <= UI(pudding_key_spin) & UI(pudding_key_check)"},
 
 }
 
