@@ -2,28 +2,28 @@ local unpack = _G.unpack
 
 local keybind_list_1 = {
 
-	{key = '1', text = 'Shift Keybind'},
-	{key = '2', text = 'Control Keybind'},
-	{key = '3', text = 'Alt Keybind'},
-	{key = 'none', text = 'Disable'},	
+	{key = "1", text = "Shift Keybind"},
+	{key = "2", text = "Control Keybind"},
+	{key = "3", text = "Alt Keybind"},
+	{key = "none", text = "Disable"},	
 	
 }
 
 local keybind_list_2 = {
 
-	{key = '4', text = 'Shift Keybind'},
-	{key = '5', text = 'Control Keybind'},
-	{key = '6', text = 'Alt Keybind'},
-	{key = 'none', text = 'Disable'},	
+	{key = "4", text = "Shift Keybind"},
+	{key = "5", text = "Control Keybind"},
+	{key = "6", text = "Alt Keybind"},
+	{key = "none", text = "Disable"},	
 
 }
 
 local keybind_list_3 = {
 
-	{key = '7', text = 'Shift Keybind'},
-	{key = '8', text = 'Control Keybind'},
-	{key = '9', text = 'Alt Keybind'},
-	{key = 'none', text = 'Disable'},	
+	{key = "7", text = "Shift Keybind"},
+	{key = "8", text = "Control Keybind"},
+	{key = "9", text = "Alt Keybind"},
+	{key = "none", text = "Disable"},	
 
 }
 
@@ -48,14 +48,21 @@ local GUI = {
 	{type = "text", text = "Use Divine Shield:|c0000FA9A"},
 	{type = "combo", default = "9", key = "list3", list = keybind_list_3, width = 100},
     {type = "text", text = "Use Flash of Light:|c0000FA9A on self"},
-	{type = "spacer"}, {type = "ruler"},
+	{type = "spacer"},
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 	
     {type = "header", size = 16, text = "PVP", align = "center"},
     {type = "checkbox",	text = "Stun:|c0000FA9A auto [Hammer of Justice] PVP Target.|r", align = "left", key = "stun", default = true},
 	--{type = 'checkbox',	text = "Blind:|c0000FA9A target not stuned and [Vanish] is on CD", align = 'left', key = 'blind_no_van', default = false},
     {type = "checkbox",	text = "Gladiator's Medallion , Every Man for Himself:", align = "left", key = "medal", default = true},
 	{type = "text", text = "|c0000FA9A      Remove stun/fear/disorient/charm.|r"},
-	{type = "spacer"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 	
 	{type = "header", size = 16, text = "Survival", align = "center"},
 	{type = "checkspin", text = "Use Lay on Hands:", key = "loh_key", check = true, spin = 15, width = 150, step = 5, max = 95, min = 1},
@@ -67,7 +74,11 @@ local GUI = {
 	--{type = 'checkspin', text = 'Use Crimson Vial:', key = 'cv', check = true, spin = 75, width = 150, step = 5, max = 95, min = 1},
 	--{type = 'checkspin', text = 'Use Riposte:', key = 'ripo', check = true, spin = 65, width = 150, step = 5, max = 95, min = 1},
 	--{type = 'checkspin', text = 'Use Health Stone:', key = 'hs', check = true, spin = 60, width = 150, step = 5, max = 95, min = 1},
-	{type = "spacer"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 	
 	{type = "header", size = 16, text = "Cooldowns Toggle:", align = "center"},
     {type = 'checkbox', text = "Avenging Wrath", key = "aw_key", default = true},
@@ -77,22 +88,32 @@ local GUI = {
 	--{type = 'checkbox', text = "Sprint:|c0000FA9A if equipped [Thraxi's Tricksy Treads]", key = "sprint_key", default = true},
 	--{type = 'checkbox', text = "Marked for Death:|c0000FA9A when < 2 combo points", key = "mfd_key", default = true},
 	--{type = 'checkbox', text = "Killing Spree:", key = "ks_key", default = true},
-	{type = "spacer"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 
 	{type = 'header', size = 16, text = 'Other', align = 'center'},
     {type = "checkbox",	text = "Freedom:|c0000FA9A auto [Blessing of Freedom] when snare or root.", align = "left", key = "bof_key", default = true},
 	--{type = 'checkbox', text = "Use Tricks of the Trade:|c0000FA9A in party on tank", key = "tott", default = true},
 	--{type = 'checkbox', text = "Pick Pocket:|c0000FA9A < 10 yards when you stand and don't move", 	key = 'pp',   default = false},
-	{type = 'spacer'}, {type = 'ruler'},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 
 	{type = "header", size = 16, text = "Trinkets", align = "center"},
 	{type = "text", text = "|c0000FA9A Use Trinkets if Cooldown Toggle is enable|r", align = "center"},
 	{type = "checkbox", text = "Trinket #1", 	key = "trk1",	default = false},
 	{type = "checkbox", text = 'Trinket #2', 	key = 'trk2',   default = false},
 	{type = "text", text = "|c0000FA9A Enable only trinkets that are usable, otherwise it will loop the rotation !|r"},
-	{type = "spacer"}, {type = "ruler"},
-
-
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 
 }
 
@@ -105,25 +126,11 @@ local exeOnLoad = function()
 	print("|c0000FA9A")
 	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
 
-    NeP.Interface:AddToggle({
-		key  = "target_key",
-		name = "Auto Target PVE Enemies",
-		text = "Automatically target the nearest enemy. Better works with advanced unlocker",
-		icon = "Interface\\Icons\\ability_hunter_snipershot",
-})
-
-    NeP.Interface:AddToggle({
-        key  = "AutoTaunt",
-        name = "Auto Taunt",
-        text = "Automatically taunt nearby enemies.",
-        icon = "Interface\\Icons\\spell_nature_shamanrage.png",
-})
+    NeP.Interface:AddToggle({key  = "AutoTaunt", name = "Auto Taunt", text = "Automatically taunt nearby enemies.", icon = "Interface\\Icons\\spell_nature_shamanrage.png"})
 
 end
 
 local pvp = {
-
-    {"!/run TargetNearestEnemy()", "toggle(target_key) & player.area(15).enemies.infront > 0 & player.combat & player.alive & {!target.exists || target.dead}"},
 
     {"!Every Man for Himself", "UI(medal) & state(stun)", "player"},        
     {"!Gladiator's Medallion", "UI(medal) & {target.faction.positive || target.faction.negative & player.pvp} & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},

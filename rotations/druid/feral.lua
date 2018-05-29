@@ -1,4 +1,4 @@
-local unpack = _G.unpack
+local unpack = unpack
 
 local keybind_list_1 = {
 
@@ -72,28 +72,44 @@ local GUI = {
 	{type = "combo", default = "12", key = "list4", list = keybind_list_4, width = 100},	
     {type = "text", text = "Regrowth:|c0000FA9A if have less than 88% HP:"},
 	{type = "combo", default = "13",  key = "list5",  list = target_list_5,  width = 100},
-	{type = "spacer"}, {type = "spacer"}, {type = "ruler"},
+    {type = "spacer"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 	
     {type = "header", size = 16,  text = "PVP", align = "center"},
     {type = "checkbox",	text = "Unroot:|c0000FA9A auto unroot Shapeshifting.|r", align = "left", key = "root", default = true},
     {type = "checkbox",	text = "Root:|c0000FA9A enemy PVP range >10 yd when free Entangling Roots.|r", align = "left", key = "roots_key", default = true},
     {type = "checkbox",	text = "Stun:|c0000FA9A auto stun PVP Target [Mighty Bash].|r", align = "left", key = "stun", default = true},		
     {type = "checkbox",	text = "Gladiator's Medallion:|c0000FA9A remove stun/fear/disorient/charm.|r", align = "left", key = "medal", default = true},
-	{type = "spacer"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 	
 	{type = "header", size = 16, text = "Survival", align = "center"},
 	{type = "checkspin", text = "Use Survival Instincts:", key = "suin", check = true, spin = 75, width = 100, step = 5, max = 95, min = 1},
 	{type = "checkspin", text = "Use Health Stone:", key = "hs", check = true, spin = 60, width = 100, step = 5, max = 95, min = 1},
 	{type = "checkspin", text = "Use Regrowth|c0000FA9A (Predatory Swiftness):", key = "rps", check = true, spin = 55, width = 100, step = 5, max = 95, min = 1},
-    {type = "spacer"}, {type = "ruler"},
+    {type = "checkbox",	text = "Heal Lowest:|c0000FA9A Help healer, heal the team when 4 combo-points and proc the instant Regrowth.|r", align = "left", key = "help_key", default = false},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 
 	{type = "header", size = 16, text = "AoE", align = "center"},
 	{type = "spinner", text = "Brutal Slash:|c0000FA9A count enemies >=", key = "bs_aoe", default = 3, width = 100, step = 1, max = 15, min = 1},
 	{type = "spinner", text = "Swipe:|c0000FA9A count debuff Thrash on enemies", key = "swipe_key", default = 5, width = 100, step = 1, max = 15, min = 1},
-    {type = "text", text = "|c0000FA9A if artifact (Scent of Blood) is enabled|r"},
 	{type = "spinner", text = "Rake:|c0000FA9A count enemies in front of you", key = "rake_count", default = 5, width = 100, step = 1, max = 15, min = 1},
-    {type = "text", text = "|c0000FA9A disable Always-Facing ,it will break Rake AoE|r"},
-    {type = "spacer"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 
 	{type = "header", size = 16, text = "Cooldowns Toggle", align = "center"},
     {type = "checkbox",	text = "Berserk|c0000FA9A if not talented(5,2)|r", align = "left", key = "bers_key", default = true},
@@ -102,19 +118,22 @@ local GUI = {
     {type = "checkbox",	text = "Tiger Fury|c0000FA9A if [Berserk], [Incarnation] buff is on|r", align = "left", key = "tiger_key", default = true},
     {type = "checkbox",	text = "Brutal Slash|c0000FA9A if talented(7,3)", align = "left", key = "brutal_key", default = true},
     {type = "checkbox",	text = "Berserking:|c0000FA9A Troll Racial|r", align = "left", key = "troll_key", default = true},
-    {type = "spacer"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
  
 	{type = "header", size = 16, text = "Trinkets", align = "center"},
 	{type = "text", text = "|c0000FA9A Use Trinkets if Cooldown Toggle is enable|r", align = "center"},
 	{type = "checkbox", text = "Trinket #1", key = "trk1", default = false},
 	{type = "checkbox", text = "Trinket #2", key = "trk2", default = false},
 	{type = "text", text = "|c0000FA9A Enable only trinkets that are usable, otherwise it will loop the rotation !|r"},
-	{type = "ruler"},
-
-	{type = "header", size = 16, text = "EWT cheat", align = "center"},
-    {type = "checkbox",	text = "Always-Facing:|c0000FA9A if you use it check the box|r", align = "left", key = "allfacing", default = false},
-    --{type = 'checkbox',	text = "Moving-Cast:|c0000FA9A if you use it check the box and it will cast when moving|r", align = 'left', key = 'mc', default = false},
-	{type = "spacer"}, {type = "ruler"}, {type = "spacer"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 
     {type = "text", text = "In combat:|c0000FA9A if your target is friendly and dead will use Rebirth to ress|r"},
     {type = "text", text = "Out of combat:|c0000FA9A if your target is friendly and dead will use Revive to ress|r"},
@@ -124,7 +143,7 @@ local GUI = {
 local exeOnLoad = function()
 
  	print("|c0000FA9A ----------------------------------------------------------------------|r")
-	print("|c0000FA9A --- |r|c00FF7F00 DRUID - Feral |r")
+	print("|c0000FA9A --- |r|c00FF7F00 DRUID - Feral|r|c00FF0000 for Advanced Unlocker|r")
 	print("|c0000FA9A ------------------------PVP-------------------------------------------|r")
 	print("|c0000FA9A --- |rRecommended Talents: 1/2 - 2/3 - 3/1 - 4/1 - 5/2 - 6/2 - 7/2")
 	print("|c0000FA9A --- |rRecommended Talents: 1/3 - 2/3 - 3/1 - 4/1 - 5/2 - 6/2 - 7/2")
@@ -136,40 +155,8 @@ local exeOnLoad = function()
 	print("|c0000FA9A")
 	print("|c0000FA9A Please Setup Rotation Settings first before using it!|r")
 
-    NeP.Interface:AddToggle({
-		key = "auto_target_key",
-		name = "Auto Target PVE Enemies",
-		text = "Automatically target the nearest enemy. Better works with advanced unlocker",
-		icon = "Interface\\Icons\\ability_hunter_snipershot",
-})
-
-NeP.Interface:AddToggle({
-		key = "autopvp_key",
-		name = "Auto Target PVP enemies",
-		text = "Automatically Target PVP enemies to avoid burst on enemy pets or totems. Better works with advanced unlocker",
-		icon = "Interface\\Icons\\spell_shadow_charm",
-})
-
-		NeP.Interface:AddToggle({
-		key = "help_key",
-		icon = "Interface\\Icons\\spell_nature_resistnature",
-		name = "Heal Lowest",
-		text = "Help healer to heal the team when 4 combo-points and proc the instant Regrowth",
-	})
-	
-	    NeP.Interface:AddToggle({
-		key = "dot",
-		icon = "Interface\\Icons\\ability_ghoulfrenzy",
-		name = "Rip",
-		text = "Include Rip in rotation",
-	})
-
-	NeP.Interface:AddToggle({
-		key = "travelform",
-		icon = "Interface\\Icons\\ability_druid_travelform",
-		name = "Auto Travel Form",
-		text = "ON/OFF Auto Travel Form",
-	})
+    NeP.Interface:AddToggle({key = "dot", icon = "Interface\\Icons\\ability_ghoulfrenzy", name = "Rip", text = "Include Rip in rotation"})
+    NeP.Interface:AddToggle({key = "travelform", icon = "Interface\\Icons\\ability_druid_travelform", name = "Auto Travel Form", text = "ON/OFF Auto Travel Form",})
 
 end
 
@@ -224,13 +211,13 @@ local Rake = {
 
 local Shapeshift = {
 
-    {"Cat Form", "!buff(Cat Form) & !keybind(alt) & {!player.combat & player.health > 85 || player.combat || player.moving} & {!player.swimming & !toggle(travelform) || player.indoors || player.state(root) & UI(root) || target.enemy & target.alive & {!target.player || target.faction.positive || target.faction.negative & player.pvp}}", "player"},-- || player.area(15).enemies >= 1
-	{"Bear Form", "!buff(Bear Form) & !buff(Prowl) & state(root) & UI(root)", "player"},
+    {"Cat Form", "!buff(Cat Form) & !flying & !keybind(alt) & {!player.combat & player.health > 85 || player.combat || player.moving} & {!player.swimming & {!toggle(travelform) || player.level < 18} || player.indoors || player.state(root) & UI(root) || target.enemy & target.alive & {!target.player || target.faction.positive || target.faction.negative & player.pvp}}", "player"},-- || player.area(15).enemies >= 1
+	{"Bear Form", "!buff(Bear Form) & !flying & !buff(Prowl) & state(root) & UI(root)", "player"},
 
-	{"&/cancelform", "!buff(Prowl) & !indoors & swimming & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
-	{"Travel Form", "!indoors & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & swimming & {!health <= 85 || health <= 85 & spell(Regrowth).casttime==0 || player.moving} & {!target.enemy || target.enemy & !target.alive || !target.exists}", "player"},
-	{"&/cancelform", "toggle(travelform) & !combat & !indoors & !buff(Dash) & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
-    {"Travel Form", "toggle(travelform) & !combat & !indoors & !buff(Dash) & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & {!health <= 85 || health <= 85 & spell(Regrowth).casttime==0 || player.moving} & {!target.enemy || target.enemy & !target.alive || !target.exists} & !keybind(alt)", "player"},
+	{"&/cancelform", "player.level >= 18 & !buff(Prowl) & !indoors & swimming & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
+	{"Travel Form", "!indoors & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & swimming & {!player.health <= 85 || player.health <= 85 & spell(Regrowth).casttime==0 || player.moving} & {!target.enemy || target.enemy & !target.alive || !target.exists}", "player"},
+	{"&/cancelform", "player.level >= 18 & toggle(travelform) & !combat & !indoors & !buff(Dash) & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
+    {"Travel Form", "toggle(travelform) & !combat & !indoors & !buff(Dash) & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & {!player.health <= 85 || player.health <= 85 & spell(Regrowth).casttime==0 || player.moving} & {!target.enemy || target.enemy & !target.alive || !target.exists} & !keybind(alt)", "player"},
 
 }
 
@@ -239,7 +226,7 @@ local pvp = {
     {"!Gladiator's Medallion", "UI(medal) & {target.faction.positive || target.faction.negative & player.pvp} & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
 
 	{"Entangling Roots", "UI(roots_key) & player.buff(Predatory Swiftness) & spell(Entangling Roots).casttime == 0 & inRange.spell & target.range >= 8 & enemy & alive & !immune_all & !immune_stun & !state(stun) & !state(root) & !state(fear) & !state(disorient) & !state(charm) & player.spell(Wild Charge).cooldown < 13.5 & player.spell(Wild Charge).cooldown > 0 & {!target.inRange(Skull Bash).spell || player.spell(Skull Bash).cooldown > 0} & {target.faction.positive || target.faction.negative & player.pvp}", "target"},
-    {"%dispelself", "target.range >= 8.5 & enemy & alive & player.spell(Wild Charge).cooldown < 13.5 & {!target.inRange(Wild Charge).spell || player.spell(Wild Charge).cooldown > 0} & {!target.inRange(Skull Bash).spell || player.spell(Skull Bash).cooldown > 0} & {target.faction.positive || target.faction.negative & player.pvp}"},
+    {"%dispelself", "target.range >= 8.5 & !flying & player.spell(Wild Charge).cooldown < 13.5 & {!target.inRange(Wild Charge).spell || player.spell(Wild Charge).cooldown > 0} & {!target.inRange(Skull Bash).spell || player.spell(Skull Bash).cooldown > 0} & {target.faction.positive || target.faction.negative & player.pvp}"},
 
 }
 
@@ -267,20 +254,21 @@ local Keybinds = {
 
 local PreCombat = {
 
-    {"Revive", "inRange.spell & !player.moving & !player.lastcast", "deadgroupmember"},
-
-	{Rake, "!target.buff(Touch of Karma) & !target.immune_stun & {player.buff(Prowl) || player.spell(Prowl).cooldown > 0.5 & !player.buff(Shadowmeld) || player.buff(Shadowmeld)}"},
+	{Rake, "!target.buff(Touch of Karma) & !target.immune_stun & {player.buff(Prowl) || player.spell(Prowl).cooldown > 0.5 & !player.buff(Shadowmeld) || player.buff(Shadowmeld) || player.level < 16}"},
+	
+	{"Regrowth", "!buff(Prowl) & talent(7,2) & buff(Bloodtalons).count < 2 & target.enemy & target.alive & !flying & {!target.player || target.faction.positive || target.faction.negative & player.pvp} & {spell(Regrowth).casttime==0 || !player.moving} || spell(Regrowth).casttime==0 & player.buff(Predatory Swiftness).duration <= 3 & !buff(Prowl) & !target.exists", "player"},
+ 	{"&Prowl", "!player.state(dot) & !buff(Prowl) & buff(Cat Form) & target.enemy & target.alive & {!talent(7,2) || player.buff(Bloodtalons) || player.moving & !spell(Regrowth).casttime==0} & {!target.player || target.faction.positive || target.faction.negative & player.pvp} || player.buff(Shadowmeld)", "player"},  --|| player.area(15).enemies >= 1
     
-	{"Regrowth", "!buff(Prowl) & talent(7,2) & buff(Bloodtalons).count < 2 & target.enemy & target.alive & {!target.player || target.faction.positive || target.faction.negative & player.pvp} & {spell(Regrowth).casttime==0 || !player.moving} || spell(Regrowth).casttime==0 & player.buff(Predatory Swiftness).duration <= 3 & !buff(Prowl) & !target.exists", "player"},
- 	{"&Prowl", "!buff(Prowl) & buff(Cat Form) & target.enemy & target.alive & {!talent(7,2) || player.buff(Bloodtalons) || player.moving & !spell(Regrowth).casttime==0} & {!target.player || target.faction.positive || target.faction.negative & player.pvp} || player.buff(Shadowmeld)", "player"},  --|| player.area(15).enemies >= 1
+	{"Shred", "inRange.spell & player.level < 12 & combopoints < 5", "target"},
+	{"Ferocious Bite", "inRange.spell & player.level < 12 & combopoints == 5", "target"},
 
     {"%pause", "target.state(fear) & !player.buff(Prowl) || target.debuff(Polymorph) & !player.buff(Prowl) || target.immune_all", "player"},
 
-    {"%dispelself", "!buff(Prowl)", "player"},
-    {"Revive", "inRange.spell & !enemy & dead & player & player.ingroup(target)", "target"},
+    {"%dispelself", "!buff(Prowl) & !flying", "player"},
+    {"Revive", "inRange.spell & !flying & !player.moving & !player.lastcast", "deadgroupmember"},
 
-	{"!/cancelform", "health < 85 & !buff(Prowl) & !spell(Regrowth).casttime==0 & !player.moving & {player.buff(Cat Form) || player.buff(Travel Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
-    {"Regrowth", "health < 85 & !buff(Prowl) & {spell(Regrowth).casttime==0 || !player.moving}", "player"},
+	{"!/cancelform", "health < 85 & !buff(Prowl) & !spell(Regrowth).casttime==0 & !player.moving & !flying & {player.buff(Cat Form) || player.buff(Travel Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
+    {"Regrowth", "health < 85 & !buff(Prowl) & !flying & {spell(Regrowth).casttime==0 || !player.moving}", "player"},
 
 }
 
@@ -321,31 +309,28 @@ local Cat_Combat = {
 
 	{"&Tiger's Fury", "target.inRange(Rake).spell & {player.energydiff >= 60 & equipped(Chatoyant Signet) || player.energydiff >= 40 & !equipped(Chatoyant Signet)} & {talent(1,1) || !talent(1,1) & target.deathin >= 7}", "player"}, --{target.debuff(Rake) || target.debuff(Rip) || target.debuff(Thrash)}
     
-	{"Regrowth", "!toggle(help_key) & spell(Regrowth).casttime == 0 & talent(7,2) & !player.buff(Prowl) & !player.buff(Bloodtalons) & {player.combopoints >= 4 || !target.debuff(Rake) || player.buff(Predatory Swiftness).duration <= 3}", "player"},
-    {"Regrowth", "toggle(help_key) & spell(Regrowth).casttime == 0 & talent(7,2) & !player.buff(Prowl) & !player.buff(Bloodtalons) & {player.combopoints >= 4 || !target.debuff(Rake) || player.buff(Predatory Swiftness).duration <= 3} & inRange.spell", "lowest"},
+	{"Regrowth", "!UI(help_key) & spell(Regrowth).casttime == 0 & talent(7,2) & !player.buff(Prowl) & !player.buff(Bloodtalons) & {player.combopoints >= 4 || !target.debuff(Rake) || player.buff(Predatory Swiftness).duration <= 3}", "player"},
+    {"Regrowth", "UI(help_key) & spell(Regrowth).casttime == 0 & talent(7,2) & !player.buff(Prowl) & !player.buff(Bloodtalons) & {player.combopoints >= 4 || !target.debuff(Rake) || player.buff(Predatory Swiftness).duration <= 3} & inRange.spell", "lowest"},
     
 	{Rake, "target.infront & player.buff(Prowl) & !target.buff(Touch of Karma)"}, --sometimes you enter in combat but you are still in stealth
 	
-    {"/startattack", "!isattacking & target.inmelee & {UI(allfacing) || !UI(allfacing) & target.infront}", "target"},	
+    {"/startattack", "!isattacking & inmelee & infront", "target"},	
 
 	{"Brutal Slash", "talent(7,3) & player.combopoints <= 4 & {toggle(AoE) & {talent(3,1) & player.area(10).enemies >= UI(bs_aoe) || !talent(3,1) & player.area(5).enemies >= UI(bs_aoe)} || toggle(cooldowns) & !target.debuff(Rake).duration <= 4 & player.area(7).enemies >= 1 & UI(brutal_key) & {talent(5,3) & player.buff(Savage Roar) || !talent(5,3)}}"},
-	--backup :    {Thrash, "toggle(AoE) & {{count.enemies.debuffs(Thrash) < {talent(3,1) & player.area(10).enemies || !talent(3,1) & player.area(5).enemies} & {talent(3,1) & player.area(10).enemies >= 3 || !talent(3,1) & player.area(5).enemies >= 3}} || {{player.energy >= 65 || player.buff(Clearcasting) & player.energy >= 30} & artifact.enabled(Scent of Blood) & !player.buff(Scent of Blood) & count.enemies.debuffs(Thrash) < {talent(3,1) & player.area(10).enemies || !talent(3,1) & player.area(5).enemies} & {talent(3,1) & player.area(10).enemies >= UI(swipe_key) || !talent(3,1) & player.area(5).enemies >= UI(swipe_key)}}}"},
-	--{Thrash, "toggle(AoE) & !talent(7,3) & {!target.debuff(Thrash) & {talent(3,1) & player.area(9).enemies >= 3 || !talent(3,1) & player.area(5).enemies >= 3}} || {{player.energy >= 65 || player.buff(Clearcasting) & player.energy >= 30} & artifact.enabled(Scent of Blood) & !player.buff(Scent of Blood) & !target.debuff(Thrash) & {talent(3,1) & player.area(9).enemies >= UI(swipe_key) || !talent(3,1) & player.area(5).enemies >= UI(swipe_key)}}}"},
 	{Swipe, "toggle(AoE) & !talent(7,3) & count.enemies.debuffs(Thrash) >= UI(swipe_key) & {player.combopoints <= 4 || player.buff(Scent of Blood)}"},
 
-	{"Rake", "toggle(AoE) & target.debuff(Rake) & {player.combopoints <= 4 || talent(3,1) & target.range > 10 || !talent(3,1) & target.range > 5} & infront & alive & enemy & combat & inRange.spell & !player & debuff(Rake).duration <= 3 & count.enemies.debuffs(Rake) < UI(rake_count)", "enemies"},
-	{"Rake", "toggle(AoE) & target.debuff(Rake) & {player.combopoints <= 4 || talent(3,1) & target.range > 10 || !talent(3,1) & target.range > 5} & infront & alive & enemy & combat & inRange.spell & toggle(autopvp) & faction.positive & debuff(Rake).duration <= 3 & count.enemies.debuffs(Rake) < UI(rake_count)", "enemies"},
-	{"Rake", "toggle(AoE) & target.debuff(Rake) & {player.combopoints <= 4 || talent(3,1) & target.range > 10 || !talent(3,1) & target.range > 5} & infront & alive & enemy & combat & inRange.spell & toggle(autopvp) & faction.negative & player.pvp & debuff(Rake).duration <= 3 & count.enemies.debuffs(Rake) < UI(rake_count)", "enemies"},
+	{"Rake", "toggle(AoE) & inRange.spell & infront & combat & target.debuff(Rake) & {player.combopoints <= 4 || talent(3,1) & target.range > 10 || !talent(3,1) & target.range > 5} & !player & debuff(Rake).duration <= 3 & count.enemies.debuffs(Rake) < UI(rake_count)", "enemies"},
+	{"Rake", "toggle(AoE) & inRange.spell & infront & combat & target.debuff(Rake) & {player.combopoints <= 4 || talent(3,1) & target.range > 10 || !talent(3,1) & target.range > 5} & faction.positive & debuff(Rake).duration <= 3 & count.enemies.debuffs(Rake) < UI(rake_count)", "enemies"},
+	{"Rake", "toggle(AoE) & inRange.spell & infront & combat & target.debuff(Rake) & {player.combopoints <= 4 || talent(3,1) & target.range > 10 || !talent(3,1) & target.range > 5} & faction.negative & player.pvp & debuff(Rake).duration <= 3 & count.enemies.debuffs(Rake) < UI(rake_count)", "enemies"},
 	
 	{Savage_Roar, "talent(5,3) & player.buff(Savage Roar).duration <= 8 & {target.deathin > 10 & player.combopoints >= 4 || target.deathin <= 10 & player.combopoints > 1}"},
-	{Rip, "toggle(dot) & {target.deathin >= 12 & !target.player || target.faction.positive || target.faction.negative & player.pvp} & {UI(allfacing) || !UI(allfacing) & target.infront} & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 9 & target.health >= 25 || player.combopoints >= 4 & !target.debuff(Rip) & target.health < 25}"},
-	{"Rip", "toggle(AoE) & toggle(dot) & deathin >= 12 & !target.player & player.combopoints >= 4 & infront & alive & enemy & !debuff(Rip) & inRange.spell", "enemies"},
-	{Rake, "player.combopoints < 5 & {target.debuff(Rake).duration <= 4 || player.buff(Bloodtalons) & !player.lastcast(Rake)} & {UI(allfacing) || !UI(allfacing) & target.infront}"},	
-	--{Rake, "target.range <= 7 & player.combopoints < 5 & player.buff(Bloodtalons) & !player.lastcast(Rake) & {UI(allfacing) || !UI(allfacing) & target.infront}", "target"},
+	{Rip, "toggle(dot) & {target.deathin >= 12 & !target.player || target.faction.positive || target.faction.negative & player.pvp} & target.infront & {talent(6,1) & player.combopoints == 5 & !target.debuff(Rip) || !talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 9 & target.health >= 25 || player.combopoints >= 4 & !target.debuff(Rip) & target.health < 25}"},
+	{"Rip", "toggle(AoE) & toggle(dot) & inRange.spell & infront & deathin >= 12 & !target.player & player.combopoints >= 4 & !debuff(Rip)", "enemies"},
+	{Rake, "player.combopoints < 5 & {target.debuff(Rake).duration <= 4 || player.buff(Bloodtalons) & !player.lastcast(Rake)} & target.infront"},	
 	{Moonfire, "talent(1,3) & target.infront & !player.buff(Prowl) & target.debuff(Moonfire).duration <= 4 & player.combopoints < 5"},
-	{"Ferocious Bite", "inRange.spell & {player.combopoints == 5 || talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 6 & target.debuff(Rip).duration >= 0.1} & {UI(allfacing) || !UI(allfacing) & target.infront}", "target"},
-	{"Ferocious Bite", "inRange.spell & player.combopoints >= 4 & player.buff(Bloodtalons) & {UI(allfacing) || !UI(allfacing) & target.infront}", "target"},
-	{"Shred", "!player.buff(Prowl) & inRange.spell & player.combopoints < 5 & {UI(allfacing) || !UI(allfacing) & target.infront}", "target"}, --  & !player.buff(Bloodtalons)
+	{"Ferocious Bite", "inRange.spell & infront & {player.combopoints == 5 || talent(6,1) & player.combopoints >= 4 & target.debuff(Rip).duration <= 6 & target.debuff(Rip).duration >= 0.1}", "target"},
+	{"Ferocious Bite", "inRange.spell & infront & player.combopoints >= 4 & player.buff(Bloodtalons)", "target"},
+	{"Shred", "inRange.spell & infront & !player.buff(Prowl) & player.combopoints < 5", "target"}, --  & !player.buff(Bloodtalons)
 
 }
 
@@ -386,7 +371,7 @@ local outCombat = {
 }
 
 NeP.CR:Add(103, {
-	name = "[|c00FF7F00Kleei|r]|c00FF7F00 DRUID - Feral|r Advanced Unlocker",
+	name = "[|c00FF7F00Kleei|r]|c00FF7F00 DRUID - Feral|r",
 	ic = inCombat,
 	ooc = outCombat,
 	gui = GUI,

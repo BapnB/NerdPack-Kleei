@@ -33,25 +33,33 @@ local GUI = {
     {type = 'header', size = 16,  text = 'PvP', align = 'center'},
     {type = 'checkbox',	text = "Unroot: |c0000FA9A auto unroot Shapeshifting.|r", align = 'left', key = 'root', default = true},		
     {type = 'checkbox',	text = "Gladiator's Medallion:|c0000FA9A remove stun/fear/disorient/charm.|r", align = 'left', key = 'medal', default = true},
-	{type = 'spacer'}, {type = 'ruler'},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
  
 	{type = 'header', size = 16, text = 'Trinkets', align = 'center'},
 	{type = 'text', text = '|c0000FA9A Use Trinkets if Cooldown Toggle is enable|r', align = 'center'},
 	{type = 'checkbox', text = 'Trinket #1', 	key = 'trk1',	default = false},
 	{type = 'checkbox', text = 'Trinket #2', 	key = 'trk2',   default = false},
 	{type = 'text', text = '|c0000FA9A Enable only trinkets that are usable, otherwise it will loop the rotation !|r'},
-	{type = 'spacer'}, {type = 'ruler'},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 	
 	{type = "header", size = 16, text = 'Survival', align = 'center'},
     {type = "checkspin", text = "Use Swiftmend:", key = "sw", check = true, spin = 40, width = 100, step = 5, max = 95, min = 1},
     {type = "checkspin", text = "Use Regrowth:", key = "reg", check = true, spin = 50, width = 100, step = 5, max = 95, min = 1},
     {type = "checkspin", text = "Use Rejuvenation:", key = "rej", check = true, spin = 70, width = 100, step = 5, max = 95, min = 1},	
 	{type = "checkspin", text = "Use Health Stone:", key = "hs", check = true, spin = 60, width = 100, step = 5, max = 95, min = 1},
-    {type = "ruler"}, {type = "spacer"},
-
-	{type = 'header', size = 16, text = 'EWT cheat', align = 'center'},
-    {type = 'checkbox',	text = "Moving-Cast:|c0000FA9A EWT cheat, if you use it check the box and it will cast when moving|r", align = 'left', key = 'mc', default = false},
-    {type = 'ruler'}, {type = 'spacer'},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 	
     {type = 'text', text = "Cooldowns Toggle:"},
 	{type = 'text', text = "|c0087CEFA All if target will die in more than 10 sec|r", align = 'center'}, 
@@ -70,12 +78,7 @@ local exeOnLoad = function()
 	print('|cffADFF2F ----------------------------------------------------------------------|r')
 
 	
-	NeP.Interface:AddToggle({
-		key = 'travelform',
-		icon = 'Interface\\Icons\\ability_druid_travelform',
-		name = 'Auto Travel Form',
-		text = 'ON/OFF Auto Travel Form',
-	})
+    NeP.Interface:AddToggle({key = "travelform", icon = "Interface\\Icons\\ability_druid_travelform", name = "Auto Travel Form", text = "ON/OFF Auto Travel Form",})
 	
 end
 
@@ -129,38 +132,37 @@ local Survival = {
 
 local Interrupts = {
 
-	{"!Typhoon", "talent(4,3) & interruptAt(75) & range <= 17", "target"},
-	{"!Typhoon", "talent(4,3) & interruptAt(75) & range <= 17", "enemies"},
-	{"!Solar Beam", "interruptAt(75) & range <= 45 & {!talent(4,3) || talent(4,3) & {range >= 20 || player.spell(Typhoon).cooldown > 0.2}}", "target"},
-	{"!Solar Beam", "interruptAt(75) & range <= 45 & {!talent(4,3) || talent(4,3) & {range >= 20 || player.spell(Typhoon).cooldown > 0.2}}", "enemies"},
+	{"!Typhoon", "talent(4,3) & interruptAt(75) & range <= 17 & infront", "target"},
+	{"!Typhoon", "talent(4,3) & interruptAt(75) & range <= 17 & infront", "enemies"},
+	{"!Solar Beam", "inRange.spell & interruptAt(75) & {!talent(4,3) || talent(4,3) & {range >= 20 || player.spell(Typhoon).cooldown > 0.2}}", "target"},
+	{"!Solar Beam", "inRange.spell & interruptAt(75) & {!talent(4,3) || talent(4,3) & {range >= 20 || player.spell(Typhoon).cooldown > 0.2}}", "enemies"},
 
 }
 
 local Cooldowns = {
 
-    {"Celestial Alignment", "target.range <= 45 & target.combat & target.debuff(Sunfire) & target.debuff(Moonfire) & {UI(mc) || !UI(mc) & !player.moving}"},
-    {"Incarnation: Chosen of Elune", "talent(5,2) & target.range <= 45 & target.combat & target.debuff(Sunfire) & target.debuff(Moonfire) & {UI(mc) || !UI(mc) & !player.moving}"},
+    {"Celestial Alignment", "target.range <= 45 & target.combat & target.debuff(Sunfire) & target.debuff(Moonfire) & !player.moving"},
+    {"Incarnation: Chosen of Elune", "talent(5,2) & target.range <= 45 & target.combat & target.debuff(Sunfire) & target.debuff(Moonfire) & !player.moving"},
 
 }
 
 local Combat = {
 
-    --Keep  Moonfire and  Sunfire on the target
-    {"Stellar Flare", "talent(5,3) & {UI(mc) || !UI(mc) & !player.moving} & debuff(Stellar Flare).duration <= 2 & deathin >= 15 & range <= 45 & {tarea.area(14).enemies <= 3 || target.debuff(Starfall).duration > 2}", "target"},
-	{"Sunfire", "debuff(Sunfire).duration <= 2 & range <= 45", "target"},
-    {"Moonfire", "debuff(Moonfire).duration <= 2 & range <= 45", "target"},
-	{"Starsurge", "{tarea.area(14).enemies <= 3 || target.debuff(Starfall).duration > 2} & range <= 45 & {!toggle(cooldowns) || toggle(cooldowns) & player.buff(Celestial Alignment) || toggle(cooldowns) & player.spell(Celestial Alignment).cooldown > gcd}", "target"},
-	{"New Moon", "range <= 45 & {UI(mc) || !UI(mc) & !player.moving} & {!toggle(cooldowns) || toggle(cooldowns) & player.buff(Celestial Alignment) || toggle(cooldowns) & player.spell(Celestial Alignment).cooldown > gcd}", "target"},
+    {"Stellar Flare", "talent(5,3) & inRange.spell & !player.moving & debuff(Stellar Flare).duration <= 2 & deathin >= 15 & {tarea.area(14).enemies <= 3 || target.debuff(Starfall).duration > 2}", "target"},
+	{"Sunfire", "inRange.spell & debuff(Sunfire).duration <= 2", "target"},
+    {"Moonfire", "inRange.spell & debuff(Moonfire).duration <= 2", "target"},
+	{"Starsurge", "inRange.spell & {tarea.area(14).enemies <= 3 || target.debuff(Starfall).duration > 2} & {!toggle(cooldowns) || toggle(cooldowns) & player.buff(Celestial Alignment) || toggle(cooldowns) & player.spell(Celestial Alignment).cooldown > gcd}", "target"},
+	{"New Moon", "inRange.spell & !player.moving & {!toggle(cooldowns) || toggle(cooldowns) & player.buff(Celestial Alignment) || toggle(cooldowns) & player.spell(Celestial Alignment).cooldown > gcd}", "target"},
 
-    {"Sunfire",  "toggle(aoe) & count.enemies.debuffs(Sunfire) < 3 & debuff(Sunfire).duration <= 2 & combat & range <= 45", "enemies"},
-	{"Moonfire", "toggle(aoe) & count.enemies.debuffs(Moonfire) < 3 & debuff(Moonfire).duration <= 2 & combat & range <= 45", "enemies"},
+    {"Sunfire",  "inRange.spell & toggle(aoe) & count.enemies.debuffs(Sunfire) < 3 & debuff(Sunfire).duration <= 2 & combat", "enemies"},
+	{"Moonfire", "inRange.spell & toggle(aoe) & count.enemies.debuffs(Moonfire) < 3 & debuff(Moonfire).duration <= 2 & combat", "enemies"},
     {"Starfall", "toggle(aoe) & target.area(14).enemies >= 4 & !target.debuff(Starfall) & target.range <= 45 & {!toggle(cooldowns) || toggle(cooldowns) & player.buff(Celestial Alignment) || toggle(cooldowns) & player.spell(Celestial Alignment).cooldown > gcd}", "target.ground"},
 
-	{"Solar Wrath", "player.buff(Solar Empowerment) & range <= 45 & area(5).enemies <= 3 & {UI(mc) || !UI(mc) & !player.moving}", "target"},
-	{"Lunar Strike", "player.buff(Lunar Empowerment) & range <= 45 & {UI(mc) || !UI(mc) & !player.moving}", "target"},
+	{"Solar Wrath", "inRange.spell & player.buff(Solar Empowerment) & area(5).enemies <= 3 & !player.moving", "target"},
+	{"Lunar Strike", "inRange.spell & player.buff(Lunar Empowerment) & !player.moving", "target"},
 
-	{"Solar Wrath", "range <= 45 & area(5).enemies <= 3 & {UI(mc) || !UI(mc) & !player.moving}", "target"},
-	{"Lunar Strike", "range <= 45 & area(5).enemies >= 4 & {UI(mc) || !UI(mc) & !player.moving}", "target"},
+	{"Solar Wrath", "inRange.spell & area(5).enemies <= 3 & !player.moving", "target"},
+	{"Lunar Strike", "inRange.spell & area(5).enemies >= 4 & !player.moving", "target"},
 
 }
 

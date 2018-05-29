@@ -1,11 +1,18 @@
 local _G = _G
+local NeP = NeP
+
+function Kleei.ObjectValid(Obj)
+	return _G.UnitInPhase(Obj)
+	and _G.UnitIsVisible(Obj)
+	and NeP.Protected.Distance("player", Obj) < 50
+	and NeP.Protected.LineOfSight("player", Obj)
+end
 
 --/dump NeP.DSL.Parse("rake.stun", "", "")
 NeP.DSL:Register("rake.stun", function(target)
     if NeP.DSL:Get("debuff.many")(target, "Rake") == 2 then
-    return true
-end
-    return false
+      return true
+    end
 end)
 
 --/dump NeP.DSL.Parse("player.immune_all", "", "")
@@ -58,40 +65,24 @@ end)
 
 --/dump NeP.DSL.Parse("target.Garrote_Silence", "", "")
 NeP.DSL:Register("Garrote_Silence", function(target)
-    if UnitDebuff(target, GetSpellInfo(1330)) then
-    return true
-end
-    return false
+   if _G.UnitDebuff(target, _G.GetSpellInfo(1330)) then
+     return true
+   end
 end)
 
 --/dump NeP.DSL.Parse("buff_of_the_bones", "", "")
 NeP.DSL:Register("buff_of_the_bones", function()
   local roll = 0
-    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193357)) > 1.5 then  roll = roll + 2 -- Shark Infested Waters
-end
-
-    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193359)) > 1.5 then  roll = roll + 2  -- True Bearing
-end
-
-    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(199603)) > 1.5 then  roll = roll + 1  -- Jolly Roger
-end
-
-    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193358)) > 1.5 then  roll = roll + 1  -- Grand Melee
-end
-
-    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(199600)) > 1.5 then  roll = roll + 1  -- Buried Treasure
-end
-
-    if NeP.DSL:Get("buff.duration")("player", GetSpellInfo(193356)) > 1.5 then  roll = roll + 2  -- Broadsides
-end
-
-    if _G.UnitDebuff("player", GetSpellInfo(202665)) then roll = roll + 1 -- Curse of the Dreadblades
-end
-
+    if NeP.DSL:Get("buff.duration")("player", _G.GetSpellInfo(193357)) > 1.5 then  roll = roll + 2 end -- Shark Infested Waters
+    if NeP.DSL:Get("buff.duration")("player", _G.GetSpellInfo(193359)) > 1.5 then  roll = roll + 2 end -- True Bearing
+    if NeP.DSL:Get("buff.duration")("player", _G.GetSpellInfo(199603)) > 1.5 then  roll = roll + 1 end -- Jolly Roger
+    if NeP.DSL:Get("buff.duration")("player", _G.GetSpellInfo(193358)) > 1.5 then  roll = roll + 1 end -- Grand Melee
+    if NeP.DSL:Get("buff.duration")("player", _G.GetSpellInfo(199600)) > 1.5 then  roll = roll + 1 end -- Buried Treasure
+    if NeP.DSL:Get("buff.duration")("player", _G.GetSpellInfo(193356)) > 1.5 then  roll = roll + 2 end -- Broadsides
+    if _G.UnitDebuff("player", _G.GetSpellInfo(202665)) then roll = roll + 1 end -- Curse of the Dreadblades
     if roll > 1 then
     return true
-end
-    return false
+   end
 end)
 
 --/dump NeP.DSL.Parse("target.enemy_totem", "", "")
@@ -122,26 +113,24 @@ end)
 --/dump NeP.DSL.Parse("isgcd", "", "")
 NeP.DSL:Register("isgcd", function()
     if NeP.DSL:Get("spell.cooldown")("player", "61304") > 0.0000 then
-	return true
+	  return true
 	end
-	return false
 end)
 
 --USAGE UNIT.inRange(SPELL_NAME).spell
 NeP.DSL:Register("inRange.spell", function(target, spell)
   local spellIndex, spellBook = NeP.Core:GetSpellBookIndex(spell)
-  if not spellIndex then return false end
-  if spellIndex and _G.IsSpellInRange(spellIndex, spellBook, target) == 1 then
+   if not spellIndex then return false end
+   if spellIndex and _G.IsSpellInRange(spellIndex, spellBook, target) == 1 then
   return true end
 end)
 
 -- Arcane Mage 3x(Arcane Missile!) Condition 
 --/dump NeP.DSL.Parse("missile.ready", "", "")
 NeP.DSL:Register("missile.ready", function()
-  if NeP.DSL:Get("buff.count")("player", GetSpellInfo(79683)) == 3 then
+  if NeP.DSL:Get("buff.count")("player", _G.GetSpellInfo(79683)) == 3 then
 	return true
-	end
-	return false
+  end
 end)
 
 --/dump NeP.DSL.Parse("dungeon.interrupts", "", "")
@@ -177,7 +166,7 @@ end)
 --/dump GetSpellAutocast("Waterbolt")
 --/dump NeP.DSL.Parse("PetSpell(Waterbolt).autocast", "", "")
 NeP.DSL:Register("PetSpell.autocast", function(_, spell)
-  return select(2, GetSpellAutocast(spell))
+  return select(2, _G.GetSpellAutocast(spell))
 end)
 
 --/dump NeP.DSL.Parse("PetUIExists", "", "")
@@ -188,4 +177,21 @@ end)
 --/dump NeP.DSL.Parse("target.fixRange", "", "")
 NeP.DSL:Register("fixRange", function(target)
    return NeP.Protected.Distance("player", target)
+end)
+
+-- Checks if the player has autoattack toggled currently (Hunters Specificaly)
+-- Use {'/startattack', '!isshooting'}, at the top of a CR to force autoattacks
+NeP.DSL:Register("isshooting", function(target)
+  return _G.IsCurrentSpell(75)
+end)
+
+--/dump NeP.DSL.Parse("IsMounted", "", "")
+NeP.DSL:Register("IsMounted", function()
+  return SecureCmdOptionParse("[overridebar][vehicleui][possessbar,@vehicle,exists][mounted]true")
+end)
+
+--/dump NeP.DSL.Parse("target.InLOS", "", "")
+NeP.DSL:Register("InLOS", function(target)
+  if _G.UnitExists(target) and _G.UnitIsVisible(target) then
+  return NeP.Protected.LineOfSight("player", target) end
 end)

@@ -103,36 +103,12 @@ local exeOnLoad = function()
 	print("|c0000FA9A")
 	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
 	
-	NeP.Interface:AddToggle({
-		key = "tw",
-		name = "Time Warp",
-		text = "Automatically use Time Warp",
-		icon = "Interface\\Icons\\ability_mage_timewarp",
-	})
-	
-	NeP.Interface:AddToggle({
-		key = "cr",
-		name = "Auto Control",
-		text = "Automatically use Frost Nova & Dragon's Breath.",
-		icon = "Interface\\Icons\\spell_frost_frostnova",
-	})
-	
-	NeP.Interface:AddToggle({
-		key = "autopvp",
-		name = "Auto Target PVP enemies",
-		text = "Automatically Target PVP enemies for BG to avoid burst on enemy pets or totems.",
-		icon = "Interface\\Icons\\spell_shadow_charm",
-	})
+	NeP.Interface:AddToggle({key = "tw", name = "Time Warp", text = "use Time Warp", icon = "Interface\\Icons\\ability_mage_timewarp"})
+	NeP.Interface:AddToggle({key = "cr", name = "Auto Control", text = "Automatically use Frost Nova & Dragon's Breath.", icon = "Interface\\Icons\\spell_frost_frostnova"})
 
 end
 
 local pvp = {
-
-    {"!/run TargetNearestEnemy()", "player.area(15).enemies.infront > 0 & player.combat & player.alive & {!target.exists || target.dead}"},
-
-    {"!/cleartarget", "toggle(autopvp) & exists & enemy & !player", "target"},
-    {"!/targetenemyplayer", "toggle(autopvp) & !target.exists & range <= 45 & faction.positive", "enemies"},
-    {"!/targetenemyplayer", "toggle(autopvp) & !target.exists & range <= 45 & faction.negative & player.pvp", "enemies"},
 	
     {"!Every Man for Himself", "UI(medal) & state(stun)", "player"},        
     {"!Gladiator's Medallion", "UI(medal) & {target.faction.positive || target.faction.negative & player.pvp} & {player.state(stun) & player.spell(Every Man for Himself)cooldown > 0 & player.race = Human || player.state(stun) & !player.race = Human || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
@@ -160,8 +136,6 @@ local PreCombat = {
 	{"Slow Fall", "falling.duration >= 1.5 & !player.buff(Slow Fall)"},
 
 	{"Ice Barrier", "buff.duration <= 5", "player"},
-	
-    {(function() print("Debuff |c0000FA9A[Necrotic]|r Stacks : ", NeP.DSL:Get("debuff.count.any")("lowest", GetSpellInfo(209858))) end), (function() if NeP.DSL:Get("debuff.count.any")("lowest", GetSpellInfo(209858)) > 0 then return true end end)},
 	
 	--Pet Function
 	{"Summon Water Elemental", "!talent(1,2) & !Pet.Exists & !player.moving"},

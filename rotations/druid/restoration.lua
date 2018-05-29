@@ -1,4 +1,4 @@
-local unpack = _G.unpack
+local unpack = unpack
 
 local keybind_list_1 = {
 
@@ -48,6 +48,10 @@ local GUI = {
 	{type = "spinner", 	text = "Ironbark / Barkskin - tank / player",    key = "ironbark", default = 65, step = 5, width = 100},
 	{type = "spinner", 	text = "Healing Touch:|c0000FA9A if talent 1,3", key = "tankht",   default = 75, step = 5, width = 100},
 
+	
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "header", 	text = "Lowests (player included)", align = "center"},
 
 	{type = "spinner", 	text = "Rejuvenation",                                key = "lowestrej",  default = 85, step = 5, width = 100},
@@ -55,10 +59,12 @@ local GUI = {
 	{type = "spinner", 	text = "Regrowth", 		                              key = "lowestreg",  default = 75, step = 5, width = 100},	
 	{type = "spinner", 	text = "Swiftmend", 	                              key = "lowestsm", 	 default = 60, step = 5, width = 100},
 	{type = "spinner", 	text = "Healing Touch:|c0000FA9A if talent 1,3",      key = "lowestht",	 default = 75, step = 5, width = 100},
-	{type = "spacer"}, 
-	{type = "ruler"},
-	{type = "spinner", 	text = "|c0000FA9A Healing Touch if Abundance buff count", key = "abun_key",	 default = 4, step = 1, max = 10, width = 100},
-	{type = "ruler"}, {type = "spacer"},
+	{type = "spinner", 	text = "|c0000FA9AHealing Touch if Abundance buff count", key = "abun_key",	 default = 4, step = 1, max = 10, width = 100},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 	
 	{type = "header", size = 16, text = "Keybinds", align = "center"},
 	{type = "text", text = "|c0000FA9A Just hold the Key|r", align = "center"},
@@ -69,89 +75,72 @@ local GUI = {
     {type = "text", text = "Innervate:|c0000FA9A  in Combat only"},
 	{type = "combo",	default = "9",  key = "list3", 	list = keybind_list_3, 	width = 100},		
     {type = "text", text = "Mass Entanglement / Entangling Roots:|c0000FA9A"},
-    {type = "spacer"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 
     {type = "header", size = 16,  text = "PVP", align = "center"},
     {type = "checkbox",	text = "Unroot: |c0000FA9A Auto unroot Shapeshifting.|r", align = "left", key = "unroot", default = true},	
     {type = "checkbox",	text = "Gladiator's Medallion:|c0000FA9A Remove stun/fear/disorient/charm.|r", align = "left", key = "medal", default = true},
-	{type = "spacer"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 
 	{type = "header", size = 16, text = "Survival", align = "center"},
     {type = "checkspin", text = "Use Renewal:", key = "ren", check = true, spin = 40, width = 100, step = 5, max = 95, min = 1},	
 	{type = "checkspin", text = "Use Health Stone:", key = "hs", check = true, spin = 60, width = 100, step = 5, max = 95, min = 1},
 	{type = "checkspin", text = "Interrupt DPS:|c0000FA9A if lowest HP < |r", key = "inter_dps_key", check = true, spin = 75, width = 100, step = 5, max = 100, min = 1},
     {type = "checkbox",	text = "Root:|c0000FA9A Auto Root [Entangling Roots] or [Mass Entanglement].|r", align = "left", key = "root", default = false},
-	{type = "spacer"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 
 	{type = "header", size = 16, text = "Trinkets", align = "center"},
 	{type = "text", text = "|c0000FA9A Use Trinkets if Cooldown Toggle is enable|r", align = "center"},
 	{type = "checkbox", text = "Trinket #1", 	key = "trk1",	default = false},
 	{type = "checkbox", text = "Trinket #2", 	key = "trk2",   default = false},
 	{type = "text", text = "|c0000FA9A Enable only trinkets that are usable, otherwise it will loop the rotation !|r"},
-	{type = "ruler"},
- 
-	{type = "header", size = 16, text = "EWT cheat", align = "center"},
-    {type = "checkbox",	text = "Moving-Cast:|c0000FA9A EWT cheat, if you use it check the box and it will cast when moving|r", align = "left", key = "mc", default = false},
-    {type = "ruler"}, {type = "spacer"},
-    {type = "text", text = "In combat:|c0000FA9A if your target is friendly and dead will use Rebirth to ress|r"},
-    {type = "text", text = "Out of combat:|c0000FA9A if your target is friendly and dead will use Revive to ress|r"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+    
+	{type = "header", size = 16, text = "Others", align = "center"},
+	{type = "checkbox", text = "Auto Ress:|c0000FA9A (DEV_TEST)", key = "ress_key",	default = false},
 
 }
-	
-	--[[To Do : `@moltenhumi : only thing i´ve got mana problems. should give some target´s reju and then use healing touch when talent 1/3
-	        and maybe set health for wild growth higher so that it´s more often used
-            :Kleei - Today at 2:18 AM
-              i'll add an spinner for it]]
 
 local exeOnLoad = function()
 	
-	print('|c0000FA9A --- |r|c00FF7F00 DRUID - Restoration |r')	
+	print('|c0000FA9A --- |r|c00FF7F00 DRUID - Restoration|r|c00FF0000 for Advanced Unlocker|r')	
 	print('|c0000FA9A ------------------------PVE-------------------------------------------|r')
 	print('|c0000FA9A --- |rRecommended Talents: 1/1 - 2/1 - 3/1 - 4/X - 5/1 - 6/3 - 7/1')
 	print('|c0000FA9A ----------------------------------------------------------------------|r')
 	print("|c0000FA9A")
 	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
 
-		NeP.Interface:AddToggle({
-		key = 'dispelall',
-		icon = 'Interface\\Icons\\ability_shaman_cleansespirit.png',
-		name = 'Dispell',
-		text = 'ON/OFF Auto Dispell All',
-	})
-	
-	 	NeP.Interface:AddToggle({
-		key = 'DPS',
-		icon = 'Interface\\Icons\\ability_mage_firestarter.png',
-		name = 'DPS',
-		text = 'ON/OFF DMG when > xx% on LOWEST Health',
-	})
---[[
-	NeP.Interface:AddToggle({
-		key = "hig_en",
-		name = "Highest Enemies",
-		text = "Disable if PVP enemies nearby.",
-		icon = "Interface\\Icons\\achievement_boss_guarm",
-	})
-]]
-	NeP.Interface:AddToggle({
-		key = 'travelform',
-		icon = 'Interface\\Icons\\ability_druid_travelform',
-		name = 'Auto Travel Form',
-		text = 'ON/OFF Auto Travel Form',
-	})
+	NeP.Interface:AddToggle({key = "dispelall", icon = "Interface\\Icons\\ability_shaman_cleansespirit.png", name = "Dispell", text = "ON/OFF Auto Dispell All"})
+	NeP.Interface:AddToggle({key = "DPS", icon = "Interface\\Icons\\ability_mage_firestarter.png", name = "DPS", text = "ON/OFF DMG when > xx% on LOWEST Health"})
+    --NeP.Interface:AddToggle({key = "travelform", icon = "Interface\\Icons\\ability_druid_travelform", name = "Auto Travel Form", text = "ON/OFF Auto Travel Form"})
 
 end
 
 local Shapeshift = {
 
-    --{"Moonkin Form", "toggle(DPS) & !buff(Moonkin Form) & {!player.swimming & !toggle(travelform) || player.indoors || player.state(root) & UI(root) || target.enemy & target.alive}", "player"},
-    {"/cancelform", "!toggle(DPS) & player.buff(Moonkin Form) || !toggle(travelform) & !player.swimming & player.buff(Travel Form) || buff(Cat Form) || buff(Bear Form)", "player"},
+    {"/cancelform", "!toggle(DPS) & player.buff(Moonkin Form) || !toggle(travelform) & !player.swimming & player.buff(Travel Form) || player.buff(Cat Form) || player.buff(Bear Form)", "player"},
 	{"Bear Form", "!buff(Bear Form) & !buff(Prowl) & state(root) & UI(unroot)", "player"},
 
 	{"/cancelform", "!buff(Prowl) & !indoors & swimming & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
-	{"Travel Form", "!indoors & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & swimming & {!health <= 85 || health <= 85 & spell(Regrowth).casttime==0 || player.moving} & {!target.enemy || target.enemy & !target.alive || !target.exists}", "player"},
-	{"/cancelform", "toggle(travelform) & !indoors & !buff(Dash) & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
-    {"Travel Form", "toggle(travelform) & !indoors & !buff(Dash) & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & {!health <= 85 || health <= 85 & spell(Regrowth).casttime==0 || player.moving} & {!target.enemy || target.enemy & !target.alive || !target.exists} & !keybind(alt)", "player"},
+	{"Travel Form", "!indoors & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & swimming & {!player.health <= 85 || player.health <= 85 & spell(Regrowth).casttime==0 || player.moving} & {!target.enemy || target.enemy & !target.alive || !target.exists}", "player"},
+	--{"/cancelform", "toggle(travelform) & !indoors & !buff(Dash) & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & {!target.enemy || target.enemy & !target.alive || !target.exists} & {player.buff(Cat Form) || player.buff(Bear Form) || player.buff(Moonkin Form)}", "player"},
+    --{"Travel Form", "toggle(travelform) & !indoors & !buff(Dash) & !buff(Prowl) & !buff(Travel Form) & !area(15).enemies >= 1 & {!player.health <= 85 || player.health <= 85 & spell(Regrowth).casttime==0 || player.moving} & {!target.enemy || target.enemy & !target.alive || !target.exists} & !keybind(alt)", "player"},
 
 }
 
@@ -159,9 +148,7 @@ local Keybinds = {
 
 	{"Mass Entanglement", "talent(4,2) & inRange.spell & !debuff(Mass Entanglement) & !debuff(Entangling Roots) & !player.lastcast(Entangling Roots) & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "target"},
     {"Entangling Roots", "!debuff(Entangling Roots) & inRange.spell & !debuff(Mass Entanglement) & !player.lastcast(Mass Entanglement) & !player.lastcast(Entangling Roots) & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "target"},
-
     {"Innervate", "combat & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "player"},
-
 	{"Efflorescence", "keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2", "cursor.ground"},
 	
 }
@@ -201,27 +188,21 @@ local Innervate = {
 
 local DPS = {
 
-	{"Sunfire",  "inRange.spell & target.area(3.5).enemies >= 2 & debuff(Sunfire).duration <= 2 & player.los(target) & enemy & alive", "target"},
-    {"Moonfire", "!debuff & inRange.spell &  & player.los(target) & enemy & alive", "target"},
-	{"Moonfire", "toggle(aoe) & !debuff & combat & inRange.spell & enemy & alive", "enemies"},
+	{"Sunfire",  "inRange.spell & target.area(3.5).enemies >= 2 & debuff(Sunfire).duration <= 2 & InLOS & enemy & alive & {!target.player || target.faction.positive || target.faction.negative & player.pvp}", "target"},
+    {"Moonfire", "inRange.spell & enemy & alive & !debuff(Moonfire) & InLOS & {!target.player || target.faction.positive || target.faction.negative & player.pvp}", "target"},
+	{"Moonfire", "toggle(aoe) & inRange.spell & enemy & alive & !debuff(Moonfire) & InLOS & combat & {!target.player || target.faction.positive || target.faction.negative & player.pvp}", "enemies"},
 	
-	{"Starsurge", "{!toggle(hig_en) || target.boss || target.faction.positive || target.faction.negative & player.pvp} & inRange.spell & player.buff(Moonkin Form) & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
-	{"Starsurge", "toggle(hig_en) & !target.boss & inRange.spell & player.buff(Moonkin Form) & {UI(mc) || !UI(mc) & !player.moving}", "highestenemy"},
-	{"Lunar Strike", "{!toggle(hig_en) || target.boss || target.faction.positive || target.faction.negative & player.pvp} & inRange.spell & player.buff(Lunar Empowerment) & area(5).enemies >= 4 & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
-	{"Lunar Strike", "toggle(hig_en) & !target.boss & inRange.spell & player.buff(Lunar Empowerment) & area(4).enemies >= 4 & {UI(mc) || !UI(mc) & !player.moving}", "highestenemy"},
-	{"Solar Wrath", "{!toggle(hig_en) || target.boss || target.faction.positive || target.faction.negative & player.pvp} & inRange.spell & player.buff(Solar Empowerment) & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
-	{"Solar Wrath", "toggle(hig_en) & !target.boss & inRange.spell & player.buff(Solar Empowerment) & {UI(mc) || !UI(mc) & !player.moving}", "highestenemy"},
-	
-	{"Solar Wrath", "{!toggle(hig_en) || target.boss || target.faction.positive || target.faction.negative & player.pvp} & inRange.spell & player.los(target) & enemy & alive & {UI(mc) || !UI(mc) & !player.moving}", "target"},
-	{"Solar Wrath", "toggle(hig_en) & !target.boss & inRange.spell & player.buff(Moonkin Form) & {UI(mc) || !UI(mc) & !player.moving}", "highestenemy"},
-	
+	{"Starsurge", "inRange.spell & player.buff(Moonkin Form) & InLOS & enemy & alive & !player.moving & {!target.player || target.faction.positive || target.faction.negative & player.pvp}", "target"},
+	{"Lunar Strike", "inRange.spell & player.buff(Lunar Empowerment) & area(5).enemies >= 4 & InLOS & enemy & alive & !player.moving & {!target.player || target.faction.positive || target.faction.negative & player.pvp}", "target"},
+	{"Solar Wrath", "inRange.spell & InLOS & enemy & alive & !player.moving & {!target.player || target.faction.positive || target.faction.negative & player.pvp}", "target"},
+
 }
 
 local Moving = {
 
     --Revive
-	{"Rebirth", "player.combat & inRange.spell & !enemy & dead & player & player.area(40).enemies >= 1", "target"},
-    {"Rebirth", "player.combat & inRange.spell & player.area(40).enemies >= 1 & is(tank)", "deadgroupmember"},
+	--{"Rebirth", "UI(ress_key) & player.combat & inRange.spell & !enemy & dead & player & player.area(40).enemies >= 1", "target"},
+    {"Rebirth", "UI(ress_key) & player.combat & inRange.spell & player.area(40).enemies >= 1 & is(tank)", "deadgroupmember"},
 
 	--Dispell
 	{"&%dispelall", "toggle(dispelall) & player.spell(Nature's Cure).cooldown < 0.3"},
@@ -264,8 +245,8 @@ local oocHealing = {
 	{"&%dispelall", "toggle(dispelall) & player.spell(Nature's Cure).cooldown < 0.3"},
 	
     --MASS Ress
-    {"Revitalize", "!player.combat & inRange(Revive).spell & !player.moving", "deadgroupmember"},
-    {"Revitalize", "inRange(Revive).spell & !enemy & dead & player", "target"},
+    {"Revitalize", "UI(ress_key) & !player.combat & inRange(Revive).spell & !player.moving", "deadgroupmember"},
+    --{"Revitalize", "UI(ress_key) & inRange(Revive).spell & !enemy & dead & player", "target"},
 
 	--Clearcasting
     {"Regrowth", "inRange.spell & player.buff(Clearcasting) & health <= 85", "lowestpredicted"},
@@ -299,8 +280,8 @@ local oocHealing = {
 local Healing = { 
 
     --Revive
-	{"Rebirth", "player.combat & inRange.spell & !enemy & dead & player & player.area(40).enemies >= 1", "target"},
-    {"Rebirth", "player.combat & inRange.spell & player.area(40).enemies >= 1 & is(tank)", "deadgroupmember"},
+	--{"Rebirth", "UI(ress_key) & player.combat & inRange.spell & !enemy & dead & player & player.area(40).enemies >= 1", "target"},
+    {"Rebirth", "UI(ress_key) & player.combat & inRange.spell & player.area(40).enemies >= 1 & is(tank)", "deadgroupmember"},
 
 	--Dispell
 	{"&%dispelall", "toggle(dispelall) & player.spell(Nature's Cure).cooldown == 0.000"},
@@ -319,7 +300,7 @@ local Healing = {
 	
 	{"Lifebloom", "inRange.spell & buff.duration <= 4.5 & area(20).enemies >= 1 & {lowest.health >= 70 & group.type == 2 || group.type == 3}", "tank"},
 	
-	{"Wild Growth", "area(40,80).heal >= 2", "lowest"},
+	{"Wild Growth", "lowest.area(40,80).heal >= 2"},
 	{"Essence of G'Hanir", "lowest.area(40,80).heal >= 2 & lowest.area(40).enemies > 0"},	
 
 	{"Flourish", "talent(7,3) & player.lastcast(Wild Growth) & lowest.health <= 50"}, 
@@ -357,34 +338,34 @@ local Healing = {
 local inCombat = {
 
     {"!/stopcasting", "casting(Unnerving Howl) & interruptAt(75)", "enemies"},
-    {Shapeshift},
-    {Survival, "player.health < 100"},
+    {Shapeshift, "!IsStealthed"},
+    {Survival, "player.health < 100 & !IsStealthed"},
 	{Keybinds},
-	{Interrupts, "toggle(interrupts)"},
-	{Cooldowns, "toggle(cooldowns)"},
-	{Moving, "!UI(mc) & player.moving"},
-	{Healing, "UI(mc) || !UI(mc) & !player.moving"},
+	{Interrupts, "toggle(interrupts) & !IsStealthed"},
+	{Cooldowns, "toggle(cooldowns) & !IsStealthed"},
+	{Moving, "player.moving & !IsStealthed"},
+	{Healing, "!player.moving & !IsStealthed"},
 	{"!/stopcasting", "toggle(DPS) & lowest.health < UI(inter_dps_key_spin) & UI(inter_dps_key_check) & {player.casting(Starsurge) || player.casting(Lunar Strike) || player.casting(Solar Wrath)}"},
-    {DPS,  "toggle(DPS)"},
+    {DPS, "toggle(DPS) & !IsStealthed"},
 	
 }
 
 local outCombat = {
 
-    {Shapeshift},
+    {Shapeshift, "!IsStealthed"},
 	{Keybinds},
-	{Moving, "!UI(mc) & player.moving"},
-	{oocHealing, "UI(mc) || !UI(mc) & !player.moving"},	
+	{Moving, "player.moving & !IsStealthed"},
+	{oocHealing, "!player.moving & !IsStealthed"},	
 
 }
 
 NeP.CR:Add(105, {
-  name = '[|c00FF7F00Kleei|r]|c00FF7F00 DRUID - Restoration',
+    name = "[|c00FF7F00Kleei|r]|c00FF7F00 DRUID - Restoration",
 	ic = inCombat,
 	ooc = outCombat,
 	gui = GUI,
 	gui_st = {title="Kleei Combat Routine Settings", width="315", height="785", color="87CEFA"},	
-	wow_ver = '7.1.5',
- 	nep_ver = '1.11',
+	wow_ver = "7.1.5",
+ 	nep_ver = "1.11",
 	load = exeOnLoad
 })

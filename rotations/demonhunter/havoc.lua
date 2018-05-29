@@ -45,37 +45,55 @@ local GUI = {
 	{type = 'text', text = "Use Metamorphosis:"},
 	{type = 'combo', default = '2', key = 'list1', list = keybind_list_1, width = 100},
 	{type = 'text', text = "|c0000FA9A if Cooldowns Toggle is ON|r"},
-	
 	{type = 'spacer'},
 	{type = 'combo', default = '4', key = 'list2', list = keybind_list_2, width = 100},
     {type = 'text', text = "Use Chaos Nova:|c0000FA9A in melee >= 1 enemies:|r"},
     {type = 'text', text = "Use Imprison:|c0000FA9A ranged > 6 yards:|r"},
-	{type = 'spacer'}, {type = 'ruler'},
+	{type = 'spacer'},
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 	
     {type = 'header', size = 16, text = 'PVP', align = 'center'},
     {type = 'checkbox',	text = "Stun:|c0000FA9A Auto stun PVP Target [Chaos Nova] or [Imprison].|r", align = 'left', key = 'stun', default = true},	
     {type = 'checkbox',	text = "Gladiator's Medallion:|c0000FA9A Remove stun/fear/disorient/charm.|r", align = 'left', key = 'medal', default = true},	
-	{type = 'spacer'}, {type = 'ruler'},	
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 
 	{type = 'header', size = 16, text = 'Survival', align = 'center'},
 	{type = 'checkspin', text = 'Use Blur:', key = 'blur', check = true, spin = 70, width = 150, step = 5, max = 95, min = 1},
 	{type = 'checkspin', text = 'Use Netherwalk:', key = 'nw', check = true, spin = 25, width = 150, step = 5, max = 95, min = 1},
 	{type = 'checkspin', text = 'Use Health Stone:', key = 'hs', check = true, spin = 60, width = 150, step = 5, max = 95, min = 1},
-	{type = 'spacer'}, {type = 'ruler'},	
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------	
 
 	{type = "header", size = 16, text = "Cooldowns Toggle", align = "center"},	
     {type = "checkbox",	text = "Nemesis:|c0000FA9A if talented(5,3)", align = "left", key = "nemesis_key", default = true},
     {type = "checkbox",	text = "Chaos Blades:|c0000FA9A if talented(7,1)", align = "left", key = "chaos_key", default = true},
     {type = "checkbox",	text = "Metamorphosis:|c0000FA9A if you hold keybind", align = "left", key = "meta_key", default = true},
     {type = "checkbox",	text = "Fury of the Illidari", align = "left", key = "foti_key", default = true},
-	{type = 'spacer'}, {type = 'ruler'},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 
 	{type = 'header', size = 16, text = 'Trinkets', align = 'center'},
 	{type = 'text', text = '|c0000FA9A Use Trinkets if Cooldown Toggle is enable|r', align = 'center'},
 	{type = 'checkbox', text = 'Trinket #1', 	key = 'trk1',	default = false},
 	{type = 'checkbox', text = 'Trinket #2', 	key = 'trk2',   default = false},
 	{type = 'text', text = '|c0000FA9A Enable only trinkets that are usable, otherwise it will loop the rotation !|r'},
-	{type = 'spacer'}, {type = 'ruler'},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 
 } 
 
@@ -89,19 +107,7 @@ local exeOnLoad = function()
 	print("|c0000FA9A")
 	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
 
-		NeP.Interface:AddToggle({
-		key = 'charge',
-		name = 'Charge',
-		text = 'ON/OFF using Felblade and Fel Rush in Rotation',
-		icon = 'Interface\\Icons\\ability_demonhunter_felblade',
-	})
-	
-    NeP.Interface:AddToggle({
-		key = "target_key",
-		name = "Auto Target PVE Enemies",
-		text = "Automatically target the nearest enemy. Better works with advanced unlocker",
-		icon = "Interface\\Icons\\ability_hunter_snipershot",
-})
+	NeP.Interface:AddToggle({key = "charge", name = "Charge", text = "ON/OFF using Felblade and Fel Rush in Rotation", icon = "Interface\\Icons\\ability_demonhunter_felblade"})
 
 end
 
@@ -109,8 +115,8 @@ local Precombat = {
 
 	{"Chaos Strike", "inRange.spell", "target"},
 	{"Annihilation", "inRange.spell", "target"},
-	{"Felblade", "toggle(charge) & talent(1,2) & inRange.spell & target.infront", "target"},
-	{"Demon's Bite", "!talent(2,2) & inRange.spell", "target"},
+	{"Felblade", "toggle(charge) & fixRange <= 15 & infront & talent(1,2)", "target"},
+	{"Demon's Bite", "inRange.spell & !talent(2,2)", "target"},
 
 }
 
@@ -124,8 +130,8 @@ local Survival = {
 
 local Interrupts = {
 
-	{"!Consume Magic", "interruptAt(60) & inRange.spell & {player.level < 100 || !indungeon}", "target"},
-	{"!Consume Magic", "interruptAt(1) & inRange.spell & dungeon.interrupts & player.level > 99", "enemies"},
+	{"!Consume Magic", "inRange.spell & interruptAt(60) & {player.level < 100 || !indungeon}", "target"},
+	{"!Consume Magic", "inRange.spell & interruptAt(1) & dungeon.interrupts & player.level > 99", "enemies"},
 	{"!Arcane Torrent", "interruptAt(1) & {!player.buff(Metamorphosis) & target.inRange(Chaos Strike).spell || player.buff(Metamorphosis) & target.inRange(Annihilation).spell} & dungeon.interrupts & player.level > 99", "enemies"},
 	{"!Arcane Torrent",	"interruptAt(60) & {!player.buff(Metamorphosis) & target.inRange(Chaos Strike).spell || player.buff(Metamorphosis) & target.inRange(Annihilation).spell} & {player.level < 100 || !indungeon}", "target"},
 
@@ -215,12 +221,12 @@ local outCombat = {
 }
 
 NeP.CR:Add(577, {
-	name = '[|cff9400D3Kleei|r]|cff9400D3 Demon Hunter - Havoc',
+	name = "[|cff9400D3Kleei|r]|cff9400D3 Demon Hunter - Havoc",
 	ic = inCombat,
 	ooc = outCombat,
 	gui = GUI,
 	gui_st = {title="Kleei Combat Routine Settings", width="315", height="705", color="87CEFA"},
-	wow_ver = '7.1.5',
- 	nep_ver = '1.11',
+	wow_ver = "7.1.5",
+ 	nep_ver = "1.11",
 	load = exeOnLoad
 })

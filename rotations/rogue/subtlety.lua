@@ -2,25 +2,25 @@ local unpack = _G.unpack
 
 local keybind_list_1 = {
 
-	{key = '1', text = 'Shift Keybind'},
-	{key = '2', text = 'Control Keybind'},
-	{key = '3', text = 'Alt Keybind'},
-	{key = 'none', text = 'Disable'},	
+	{key = "1", text = "Shift Keybind"},
+	{key = "2", text = "Control Keybind"},
+	{key = "3", text = "Alt Keybind"},
+	{key = "none", text = "Disable"},	
 	
 }
 
 local keybind_list_2 = {
 
-	{key = '4', text = 'Shift Keybind'},
-	{key = '5', text = 'Control Keybind'},
-	{key = '6', text = 'Alt Keybind'},
-	{key = 'none', text = 'Disable'},	
+	{key = "4", text = "Shift Keybind"},
+	{key = "5", text = "Control Keybind"},
+	{key = "6", text = "Alt Keybind"},
+	{key = "none", text = "Disable"},	
 
 }
 
 local Logo_GUI = {
 
-	{type = 'texture', texture = 'Interface\\AddOns\\Nerdpack-Kleei\\media\\assassin.blp', width = 128, height = 128, offset = 90, y = -50, align = 'center'},
+	{type = "texture", texture = "Interface\\AddOns\\Nerdpack-Kleei\\media\\assassin.blp", width = 128, height = 128, offset = 90, y = -50, align = "center"},
 
 }
 
@@ -40,7 +40,10 @@ local GUI = {
 	{type = 'combo', default = '4', key = 'list2', list = keybind_list_2, width = 100},	
 	{type = 'text', text = "Use Cheap Shot:|c0000FA9A Stealthed:"},
 	{type = 'text', text = "Use Kidney Shot:|c0000FA9A not Stealthed:"},
-	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},
+	{type = "spacer"},
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 	
     {type = 'header', size = 16, text = 'PVP', align = 'center'},
     {type = 'checkbox',	text = "Stun:|c0000FA9A auto stun PVP Target [Kidney Shot].|r", align = 'left', key = 'stun', default = true},
@@ -48,14 +51,22 @@ local GUI = {
 --	{type = 'checkbox',	text = "Blind:|c0000FA9A target not stuned and [Vanish] is on CD", align = 'left', key = 'blind_no_van', default = false},
     {type = 'checkbox',	text = "Gladiator's Medallion , Every Man for Himself:", align = 'left', key = 'medal', default = true},
 	{type = 'text', text = "|c0000FA9A      Remove stun/fear/disorient/charm.|r"},
-	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 
 	{type = 'header', size = 16, text = 'Trinkets', align = 'center'},
 	{type = 'text', text = '|c0000FA9A Use Trinkets if Cooldown Toggle is enable|r', align = 'center'},
 	{type = 'checkbox', text = 'Trinket #1', 	key = 'trk1',	default = false},
 	{type = 'checkbox', text = 'Trinket #2', 	key = 'trk2',   default = false},
 	{type = 'text', text = '|c0000FA9A Enable only trinkets that are usable, otherwise it will loop the rotation !|r'},
-	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 	
 	{type = 'header', size = 16, text = 'Survival', align = 'center'},
 	{type = "checkspin", text = "Use Feint:|c0000FA9A [Will of Valeera]", key = "fnt", check = true, spin = 30, width = 150, step = 5, max = 95, min = 1},
@@ -63,15 +74,27 @@ local GUI = {
 	{type = 'checkspin', text = 'Use Crimson Vial:', key = 'cv', check = true, spin = 75, width = 150, step = 5, max = 95, min = 1},
 	{type = 'checkspin', text = 'Use Evasion:', key = 'eva', check = true, spin = 80, width = 150, step = 5, max = 95, min = 1},
 	{type = 'checkspin', text = 'Use Health Stone:', key = 'hs', check = true, spin = 60, width = 150, step = 5, max = 95, min = 1},
-	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},	
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 
 	{type = 'header', size = 16, text = 'Other', align = 'center'},
 	{type = 'checkbox', text = "Pick Pocket:|c0000FA9A < 10 yards when you stand and don't move", 	key = 'pp',   default = false},
-	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 	
     {type = 'text', text = "Cooldowns Toggle:"},
 	{type = 'text', text = "|c0087CEFA All if target will die in more than 10 sec|r", align = 'center'},
-    {type = 'text', text = "Shadow Blades:"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 	
 } 
 
@@ -88,12 +111,7 @@ local exeOnLoad = function()
 	print("|c0000FA9A")
 	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
 
-		NeP.Interface:AddToggle({
-		key = 'Dotting',
-		icon = 'Interface\\Icons\\ability_rogue_nightblade',
-		name = 'Nightblade',
-		text = 'Include Nightblade in rotation',
-	})
+    NeP.Interface:AddToggle({key = "Dotting", icon = "Interface\\Icons\\ability_rogue_nightblade", name = "Nightblade", text = "Include Nightblade in rotation"})
 	
 end
 
@@ -201,7 +219,7 @@ local inCombat = {
 
 local outCombat = {
 
-	{"Stealth", "!player.buff(Stealth) & !player.buff(Vanish) & target.enemy & target.alive & {!target.player || target.faction.positive || target.faction.negative & player.pvp}"},
+	{"Stealth", "!player.state(dot) & !player.buff(Stealth) & !player.buff(Vanish) & target.enemy & target.alive & {!target.player || target.faction.positive || target.faction.negative & player.pvp}"},
 	{"Crimson Vial", "player.health <= UI(cv_spin) & UI(cv_check)"},
 	{"/stopattack", "{!target.player || target.faction.positive || target.faction.negative & player.pvp} & {player.buff(Vanish) || target.immune_all}"},
     {Keybinds},

@@ -106,11 +106,11 @@ local outCombat = {
 
 NeP.CR:Add(104, {
 
-	name = '[|c00FF7F00Kleei|r]|c00FF7F00 DRUID - Guardian',
+	name = "[|c00FF7F00Kleei|r]|c00FF7F00 DRUID - Guardian",
 	ic = inCombat,
 	ooc = outCombat,
 	gui = GUI,
-	wow_ver = '7.1.5',
- 	nep_ver = '1.11',
+	wow_ver = "7.1.5",
+ 	nep_ver = "1.11",
 	load = exeOnLoad
 })

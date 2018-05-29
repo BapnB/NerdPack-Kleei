@@ -2,10 +2,10 @@ local unpack = _G.unpack
 
 local keybind_list_1 = {
 
-	{key = '1', text = 'Shift Keybind'},
-	{key = '2', text = 'Control Keybind'},
-	{key = '3', text = 'Alt Keybind'},
-	{key = 'none', text = 'Disable'},	
+	{key = "1", text = "Shift Keybind"},
+	{key = "2", text = "Control Keybind"},
+	{key = "3", text = "Alt Keybind"},
+	{key = "none", text = "Disable"},	
 	
 }
 
@@ -29,7 +29,7 @@ local keybind_list_3 = {
 
 local Logo_GUI = {
 
-	{type = 'texture', texture = 'Interface\\AddOns\\Nerdpack-Kleei\\media\\monk.blp', width = 200, height = 200, offset = 90, y = -85, align = 'center'},
+	{type = "texture", texture = "Interface\\AddOns\\Nerdpack-Kleei\\media\\monk.blp", width = 200, height = 200, offset = 90, y = -85, align = "center"},
 
 }
 
@@ -51,35 +51,57 @@ local GUI = {
 	{type = "text", text = "", align = "center"},
 	{type = "combo", default = "9", key = "list3", list = keybind_list_3, width = 100},	
     {type = "text", text = "Use Effuse:|c0000FA9A on self|r"},
-    {type = "spacer"}, {type = "ruler"},
+    {type = "spacer"},
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 	
     {type = 'header', size = 16, text = 'PVP', align = 'center'},
     {type = 'checkbox',	text = "Stun:|c0000FA9A PVP enemy in Melee [Leg Sweep], in range [Paralysis].|r", align = 'left', key = 'stun', default = true},
     {type = 'checkbox',	text = "Gladiator's Medallion , Every Man for Himself:", align = 'left', key = 'medal', default = true},
 	{type = 'text', text = "|c0000FA9A      Remove stun/fear/disorient/charm.|r"},
-	{type = 'spacer'}, {type = 'ruler'},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 
 	{type = 'header', size = 16, text = 'Survival', align = 'center'},
 	{type = 'checkspin', text = 'Use Touch of Karma:', key = 'tok', check = true, spin = 60, width = 150, step = 5, max = 95, min = 1},
 	{type = 'checkspin', text = 'Use Healing Elixir:', key = 'he', check = true, spin = 70, width = 150, step = 5, max = 95, min = 1},
 	{type = 'checkspin', text = 'Use Health Stone:', key = 'hs', check = true, spin = 60, width = 150, step = 5, max = 95, min = 1},
-	
-	{type = 'spacer'}, {type = 'ruler'},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 
 	{type = "header", size = 16, text = "Cooldowns Toggle", align = 'center'},
 	{type = 'text', text = "Touch of Death:"},
 	{type = 'text', text = "Serenity:|c0000FA9A if talented"},
-    {type = 'spacer'}, {type = 'ruler'},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 
 	{type = 'header', size = 16, text = 'Trinkets', align = 'center'},
 	{type = 'text', text = '|c0000FA9A Use Trinkets if Cooldown Toggle is enable|r', align = 'center'},
 	{type = 'checkbox', text = 'Trinket #1', 	key = 'trk1',	default = false},
 	{type = 'checkbox', text = 'Trinket #2', 	key = 'trk2',   default = false},
 	{type = 'text', text = '|c0000FA9A Enable only trinkets that are usable, otherwise it will loop the rotation !|r'},
-	{type = 'spacer'}, {type = 'ruler'},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 	
     {type = 'text', text = "In out of combat:|c0000FA9A if your target is friendly and dead will use Resuscitate to ress|r"},
-    {type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 	
 	--[[{type = 'header', size = 16, text = 'TO DO:', align = 'center'},
 	{type = 'text', text = "Touch of Karma: when we are target of target and he activate the CD's to you"},]]
@@ -88,32 +110,14 @@ local GUI = {
 
 local exeOnLoad = function()
 	
-	print('|c0000FA9A ------------------------PVE-------------------------------------------|r')
- 	print('|c0000FA9A --- |r|c0000FA9AMonk - WindWalker|r')
- 	print('|c0000FA9A --- |rRecommended Talents: 1/2 - 2/1 - 3/1 - 4/3 - 5/1 - 6/3 - 7/2')
- 	print('|c0000FA9A ----------------------------------------------------------------------|r')
-
-    NeP.Interface:AddToggle({
-		key = "target_key",
-		name = "Auto Target PVE Enemies",
-		text = "Automatically target the nearest enemy.",
-		icon = "Interface\\Icons\\ability_hunter_snipershot",
-})
-
-NeP.Interface:AddToggle({
-		key = "autopvp_key",
-		name = "Auto Target PVP enemies",
-		text = "Automatically Target PVP enemies to avoid burst on enemy pets.",
-		icon = "Interface\\Icons\\spell_shadow_charm",
-})
+	print("|c0000FA9A ------------------------PVE-------------------------------------------|r")
+ 	print("|c0000FA9A --- |r|c0000FA9AMonk - WindWalker|r")
+ 	print("|c0000FA9A --- |rRecommended Talents: 1/2 - 2/1 - 3/1 - 4/3 - 5/1 - 6/3 - 7/2")
+ 	print("|c0000FA9A ----------------------------------------------------------------------|r")
 
 end
 
 local pvp = {
-
-    --{"&/cleartarget", "toggle(target_key) & target.range > 7 & player.combat"},
-    {"&/run TargetNearestEnemy()", "toggle(target_key) & player.area(15).enemies.infront > 0 & player.combat & {!target.exists || target.dead}"},
-    --{"&/startattack", "toggle(target_key) & player.area(15).enemies.infront > 0 & player.combat & !target.exists"},
 
     {"!Every Man for Himself", "UI(medal) & state(stun)", "player"},        
     {"!Gladiator's Medallion", "UI(medal) & {target.faction.positive || target.faction.negative & player.pvp} & {player.state(stun) & player.spell(Every Man for Himself)cooldown > 0 & player.race = Human || player.state(stun) & !player.race = Human || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},

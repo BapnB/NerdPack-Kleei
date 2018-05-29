@@ -112,20 +112,8 @@ local exeOnLoad = function()
 	print("|c0000FA9A")
 	print("|c0000FA9A Please Setup Rotation Settings first before using it!|r")
 
-	NeP.Interface:AddToggle({
-		key = "autopvp",
-		name = "Auto Target PVP enemies",
-		text = "Automatically Target PVP enemies for BG to avoid burst on enemy pets or totems.",
-		icon = "Interface\\Icons\\spell_shadow_charm",
-	})
+	NeP.Interface:AddToggle({key = "hig_en", name = "Attack Highest Health Enemies", text = "Works great in dungeons.", icon = "Interface\\Icons\\achievement_boss_guarm"})
 
-	--[[NeP.Interface:AddToggle({
-		key = "hig_en",
-		name = "Attack Highest Health Enemies",
-		text = "Works great in dungeons. Disable it in PVP.",
-		icon = "Interface\\Icons\\achievement_boss_guarm",
-	})]]
-	
 end
 
 local shadowform = {
@@ -136,8 +124,6 @@ local shadowform = {
 
 local pvp = {
 
-    {"!/cleartarget", "toggle(autopvp) & player.pvp & target.exists & !target.player & target.enemy", "target"},
-    {"!/targetenemyplayer", "toggle(autopvp) & player.pvp & !target.exists & range <= 40 & infront", "enemies"},
     {"!Every Man for Himself", "UI(medal) & state(stun)", "player"},        
     {"!Gladiator's Medallion", "UI(medal) & target.pvp & player.pvp & {player.state(stun) & player.spell(Every Man for Himself)cooldown >= gcd & player.race = Human || player.state(stun) & !player.race = Human || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
 

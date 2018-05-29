@@ -91,11 +91,11 @@ local outCombat = {
 }
 
 NeP.CR:Add(581, {
-	name = '[|cffDA70D6Kleei|r]|cffDA70D6 Demon Hunter - Vengeance',
+	name = "[|cffDA70D6Kleei|r]|cffDA70D6 Demon Hunter - Vengeance",
 	ic = inCombat,
 	ooc = outCombat,
 	gui = GUI,
-	wow_ver = '7.1.5',
+	wow_ver = "7.1.5",
  	nep_ver = '1.8',
 	load = exeOnLoad
 })

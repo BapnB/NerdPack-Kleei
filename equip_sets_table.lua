@@ -1,5 +1,7 @@
 local _G = _G
 
+--Credits to Zylla
+
 setsTable = {
 		["DEATH KNIGHT"] = {
 			["T19"] = {
@@ -219,8 +221,9 @@ setsTable = {
 		},
 }
 
---USAGE "equip_set(T19) >= 2"
-NeP.DSL:Register("equip_set", function(_, num)
+--/dump NeP.DSL.Parse("equip.set(T20)", "", "")
+--USAGE "equip.set(T20) >= #"
+NeP.DSL:Register("equip.set", function(_, num)
     local equipped = 0
     local PlayerClass = select(2, _G.UnitClass("player"))
     local EquippedPieces = setsTable[PlayerClass][num] or {}

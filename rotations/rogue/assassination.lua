@@ -2,34 +2,34 @@ local unpack = _G.unpack
 
 local keybind_list_1 = {
 
-	{key = '1', text = 'Shift Keybind'},
-	{key = '2', text = 'Control Keybind'},
-	{key = '3', text = 'Alt Keybind'},
-	{key = 'none', text = 'Disable'},	
+	{key = "1", text = "Shift Keybind"},
+	{key = "2", text = "Control Keybind"},
+	{key = "3", text = "Alt Keybind"},
+	{key = "none", text = "Disable"},	
 	
 }
 
 local keybind_list_2 = {
 
-	{key = '4', text = 'Shift Keybind'},
-	{key = '5', text = 'Control Keybind'},
-	{key = '6', text = 'Alt Keybind'},
-	{key = 'none', text = 'Disable'},	
+	{key = "4", text = "Shift Keybind"},
+	{key = "5", text = "Control Keybind"},
+	{key = "6", text = "Alt Keybind"},
+	{key = "none", text = "Disable"},	
 
 }
 
 local keybind_list_3 = {
 
-	{key = '7', text = 'Shift Keybind'},
-	{key = '8', text = 'Control Keybind'},
-	{key = '9', text = 'Alt Keybind'},
-	{key = 'none', text = 'Disable'},	
+	{key = "7", text = "Shift Keybind"},
+	{key = "8", text = "Control Keybind"},
+	{key = "9", text = "Alt Keybind"},
+	{key = "none", text = "Disable"},	
 
 }
 
 local Logo_GUI = {
 
-	{type = 'texture', texture = 'Interface\\AddOns\\Nerdpack-Kleei\\media\\assassin.blp', width = 128, height = 128, offset = 90, y = -50, align = 'center'},
+	{type = "texture", texture = "Interface\\AddOns\\Nerdpack-Kleei\\media\\assassin.blp", width = 128, height = 128, offset = 90, y = -50, align = "center"},
 
 }
 
@@ -53,7 +53,10 @@ local GUI = {
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "combo", default = "9", key = "list3", list = keybind_list_3, width = 100},		
     {type = "text", text = "Use Shadowstep:|c0000FA9A on target"},
-	{type = "spacer"}, {type = "ruler"},
+	{type = "spacer"},
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 	
     {type = 'header', size = 16, text = 'PVP', align = 'center'},
     --{type = 'checkbox',	text = "Sap:|c0000FA9A auto Sap PVP Target.|r", align = 'left', key = 'sapp', default = true},
@@ -62,7 +65,11 @@ local GUI = {
 	{type = 'checkbox',	text = "Blind:|c0000FA9A target PVP not stuned and [Vanish] is on CD", align = 'left', key = 'blind_no_van', default = false},
     {type = 'checkbox',	text = "Gladiator's Medallion , Every Man for Himself:", align = 'left', key = 'medal', default = true},
 	{type = 'text', text = "|c0000FA9A      Remove stun/fear/disorient/charm.|r"},
-	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 
 	{type = 'header', size = 16, text = 'Survival', align = 'center'},
 	{type = "checkspin", text = "Use Feint:|c0000FA9A [Will of Valeera]", key = "fnt", check = true, spin = 30, width = 150, step = 5, max = 95, min = 1},
@@ -70,26 +77,43 @@ local GUI = {
 	{type = 'checkspin', text = 'Use Crimson Vial:', key = 'cv', check = true, spin = 75, width = 150, step = 5, max = 95, min = 1},
 	{type = 'checkspin', text = 'Use Evasion:', key = 'eva', check = true, spin = 80, width = 150, step = 5, max = 95, min = 1},
 	{type = 'checkspin', text = 'Use Health Stone:', key = 'hs', check = true, spin = 60, width = 150, step = 5, max = 95, min = 1},
-	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},	
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 	
 	{type = "header", size = 16, text = "Cooldowns Toggle:", align = 'center'},
     {type = "text", text = "Vendetta:"},
     {type = "text", text = "Blood Fury:"},
     {type = "text", text = "Berserking:"},
     {type = "text", text = "KingsBane:"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 
 	{type = 'header', size = 16, text = 'Other', align = 'center'},
 	{type = 'checkbox', text = "Use Tricks of the Trade:|c0000FA9A in party on tank", key = "tott", default = true},
 	{type = 'checkbox', text = "Pick Pocket:|c0000FA9A < 10 yards when you stand and don't move", key = 'pp',   default = false},
 	{type = 'checkbox', text = "Poisons:|c0000FA9A <= 10 min.", 	key = 'pos',   default = true},
-	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},	
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 
 	{type = 'header', size = 16, text = "Trinkets", align = 'center'},
 	{type = 'text', text = '|c0000FA9A Use Trinkets if Cooldown Toggle is enable|r', align = 'center'},
 	{type = 'checkbox', text = 'Trinket #1', 	key = 'trk1',	default = false},
 	{type = 'checkbox', text = 'Trinket #2', 	key = 'trk2',   default = false},
 	{type = 'text', text = '|c0000FA9A Enable only trinkets that are usable, otherwise it will loop the rotation !|r'},
-	{type = 'spacer'}, {type = 'ruler'}, {type = 'spacer'},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "ruler"}, {type = "ruler"},
+	{type = "text", text = "", align = "center"}, --------------------------------------
+	{type = "text", text = "", align = "center"}, --------------------------------------
 
 } 
 
@@ -105,21 +129,8 @@ local exeOnLoad = function()
  	print('|c0000FA9A ----------------------------------------------------------------------|r')
 	print("|c0000FA9A")
 	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
-
-    NeP.Interface:AddToggle({
-		key = "auto_target_key",
-		name = "Auto Target PVE Enemies",
-		text = "Automatically target the nearest enemy. Better works with advanced unlocker",
-		icon = "Interface\\Icons\\ability_hunter_snipershot",
-})
-
-	NeP.Interface:AddToggle({
-	key = 'Rupt',
-	icon = 'Interface\\Icons\\ability_rogue_rupture',
-	name = 'Rupture',
-	text = 'Include Rupture  in rotation',
-
-})
+    
+	NeP.Interface:AddToggle({key = "Rupt", icon = "Interface\\Icons\\ability_rogue_rupture", name = "Rupture", text = "Include Rupture  in rotation"})
 
 end
 
@@ -265,7 +276,7 @@ local outCombat = {
 
     {Shadowstep},
     {"/targetenemyplayer", "!target.exists & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}"},
-	{"Stealth", "!player.buff(Stealth) & !player.buff(Vanish) & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
+	{"Stealth", "!player.state(dot) & !player.buff(Stealth) & !player.buff(Vanish) & target.enemy & target.alive & {!target.player || player.pvp & target.player}"},
 	{"Crimson Vial", "player.health <= UI(cv_spin) & UI(cv_check)"},
 	{"/stopattack", "target.enemy & target.alive & {target.faction.positive || target.faction.negative & player.pvp} & {!player.buff(Stealth) & {target.state(disorient) || target.state(incapacitate) || target.state(fear) || target.debuff(Polymorph)} || target.buff(Touch of Karma) || player.buff(Vanish) || target.immune_all}"},
     {Keybinds, "target.enemy & target.alive & {!target.player || target.faction.positive || target.faction.negative & player.pvp}"},
