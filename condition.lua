@@ -1,7 +1,7 @@
 local _G = _G
 local NeP = NeP
 
-function Kleei.ObjectValid(Obj)
+function ObjectValid(Obj)
 	return _G.UnitInPhase(Obj)
 	and _G.UnitIsVisible(Obj)
 	and NeP.Protected.Distance("player", Obj) < 50

@@ -8,7 +8,7 @@ NeP.DSL:Register("all.enemies.area", function(unit, distance)
   local total = 0
   for i=1, _G.GetObjectCount() do
 	local Obj = _G.GetObjectWithIndex(i)
-	if Kleei.ObjectValid(Obj)
+	if ObjectValid(Obj)
 	 and _G.UnitCanAttack("player", Obj)
 	 and NeP.Protected.Distance(unit, Obj) < (tonumber(distance) or 60) then
        total = total +1
@@ -17,15 +17,17 @@ NeP.DSL:Register("all.enemies.area", function(unit, distance)
   return total
 end)
 
+--  /dump NeP.DSL.Parse("player.is.tank", "", "")
 -- USAGE: UNIT.is.tank (even if he is dead)
---[[NeP.DSL:Register("is.tank", function(Obj, num)
+NeP.DSL:Register("is.tank", function(unit, num)
  local tmp = {}
     for i=1, _G.GetObjectCount() do
 	 local Obj = _G.GetObjectWithIndex(i)
-	  if Kleei.ObjectValid(Obj)
+	  if ObjectValid(Obj)
 	   and _G.UnitIsFriend("player", Obj)
 	   and (_G.UnitInRaid(Obj) or _G.UnitInParty(Obj))
-	   and _G.UnitGroupRolesAssigned(Obj) == "TANK" then
+	   and _G.UnitGroupRolesAssigned(Obj) == "TANK"
+       and _G.UnitIsUnit(unit, Obj) then
 			tmp[#tmp+1] = {
 				key = Obj,
 				prio = _G.UnitHealthMax(Obj)
@@ -34,14 +36,14 @@ end)
 	end
 	table.sort( tmp, function(a,b) return a.prio > b.prio end )
 	return tmp[num] and tmp[num].key
-end)]]
+end)
 
 --Dead group member that can be resurrected (not ghost) 
 NeP.FakeUnits:Add({"deadgroupmember", "deadfriend"}, function()
   local tmp = {}
 	for i=1, _G.GetObjectCount() do
 		local Obj = _G.GetObjectWithIndex(i)
-	  if Kleei.ObjectValid(Obj)
+	  if ObjectValid(Obj)
 	   and _G.UnitIsDead(Obj)
 	   and not _G.UnitIsGhost(Obj)
 	   and (_G.UnitInRaid(Obj) or _G.UnitInParty(Obj))
@@ -58,7 +60,7 @@ NeP.FakeUnits:Add("highestenemy", function(num)
 	local tempTable = {}
 	for i=1, _G.GetObjectCount() do
 	  local Obj = _G.GetObjectWithIndex(i)
-		if Kleei.ObjectValid(Obj) 
+		if ObjectValid(Obj) 
 		 and _G.UnitExists(Obj)
 		 and _G.UnitAffectingCombat(Obj) 
 		 and not _G.UnitIsDeadOrGhost(Obj)
@@ -118,7 +120,7 @@ NeP.FakeUnits:Add("enemystbuff", function(_, buff)
 local tmp = {}
  for i=1, _G.GetObjectCount() do
   local Obj = _G.GetObjectWithIndex(i)
-	if Kleei.ObjectValid(Obj) 
+	if ObjectValid(Obj) 
 	  and _G.UnitExists(Obj)
       and _G.UnitCanAttack("player", Obj)
 	  and not _G.UnitIsDeadOrGhost(Obj)
@@ -174,7 +176,7 @@ NeP.DSL:Register("count.enemies.combat", function()
   local encombat = 0
   for i=1, _G.GetObjectCount() do
 	local Obj = _G.GetObjectWithIndex(i)
-      if Kleei.ObjectValid(Obj)
+      if ObjectValid(Obj)
 	   and _G.UnitCanAttack("player", Obj)
 	   and NeP.Protected.Distance("player", Obj) < 40
 	   and _G.UnitAffectingCombat(Obj)
