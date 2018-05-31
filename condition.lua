@@ -1,13 +1,6 @@
 local _G = _G
 local NeP = NeP
 
-function ObjectValid(Obj)
-	return _G.UnitInPhase(Obj)
-	and _G.UnitIsVisible(Obj)
-	and NeP.Protected.Distance("player", Obj) < 50
-	and NeP.Protected.LineOfSight("player", Obj)
-end
-
 --/dump NeP.DSL.Parse("rake.stun", "", "")
 NeP.DSL:Register("rake.stun", function(target)
     if NeP.DSL:Get("debuff.many")(target, "Rake") == 2 then

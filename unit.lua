@@ -6,76 +6,88 @@ local NeP = NeP
 NeP.DSL:Register("all.enemies.area", function(unit, distance)
  if not _G.UnitExists(unit) then return 0 end
   local total = 0
-  for i=1, _G.GetObjectCount() do
-	local Obj = _G.GetObjectWithIndex(i)
-	if ObjectValid(Obj)
-	 and _G.UnitCanAttack("player", Obj)
-	 and NeP.Protected.Distance(unit, Obj) < (tonumber(distance) or 60) then
+  for _, Obj in pairs(NeP.OM:Get("Enemy", true)) do
+	if _G.UnitInPhase(Obj.key)
+	 and _G.UnitExists(Obj.key)
+	 and _G.UnitIsVisible(Obj.key)
+	 and NeP.Protected.LineOfSight("player", Obj.key)
+	 and NeP.Protected.Distance(unit, Obj.key) < (tonumber(distance) or 60) then
        total = total +1
     end
   end
   return total
 end)
 
---  /dump NeP.DSL.Parse("player.is.tank", "", "")
--- USAGE: UNIT.is.tank (even if he is dead)
-NeP.DSL:Register("is.tank", function(unit, num)
- local tmp = {}
-    for i=1, _G.GetObjectCount() do
-	 local Obj = _G.GetObjectWithIndex(i)
-	  if ObjectValid(Obj)
-	   and _G.UnitIsFriend("player", Obj)
-	   and (_G.UnitInRaid(Obj) or _G.UnitInParty(Obj))
-	   and _G.UnitGroupRolesAssigned(Obj) == "TANK"
-       and _G.UnitIsUnit(unit, Obj) then
-			tmp[#tmp+1] = {
-				key = Obj,
-				prio = _G.UnitHealthMax(Obj)
-			}
-		end
-	end
-	table.sort( tmp, function(a,b) return a.prio > b.prio end )
-	return tmp[num] and tmp[num].key
-end)
-
 --Dead group member that can be resurrected (not ghost) 
 NeP.FakeUnits:Add({"deadgroupmember", "deadfriend"}, function()
   local tmp = {}
-	for i=1, _G.GetObjectCount() do
-		local Obj = _G.GetObjectWithIndex(i)
-	  if ObjectValid(Obj)
-	   and _G.UnitIsDead(Obj)
-	   and not _G.UnitIsGhost(Obj)
-	   and (_G.UnitInRaid(Obj) or _G.UnitInParty(Obj))
-	   and _G.UnitIsPlayer(Obj)
-	   and not _G.UnitHasIncomingResurrection(Obj) then
-	    tmp[#tmp+1] = Obj
+   for _, Obj in pairs(NeP.OM:Get("Dead")) do
+	  if _G.UnitInPhase(Obj.key)
+	   and _G.UnitExists(Obj.key)
+	   and _G.UnitIsVisible(Obj.key)
+	   and NeP.Protected.LineOfSight("player", Obj.key)
+	   and _G.UnitIsDead(Obj.key)
+	   and not _G.UnitIsGhost(Obj.key)
+	   and (_G.UnitInRaid(Obj.key) or _G.UnitInParty(Obj.key))
+	   and _G.UnitIsPlayer(Obj.key)
+	   and not _G.UnitHasIncomingResurrection(Obj.key) then
+	    tmp[#tmp+1] = Obj.key
 	  end
 	end
-	return Obj
+	return tmp.key
 end)
 
 --- Highest Health Enemy
 NeP.FakeUnits:Add("highestenemy", function(num)
-	local tempTable = {}
-	for i=1, _G.GetObjectCount() do
-	  local Obj = _G.GetObjectWithIndex(i)
-		if ObjectValid(Obj) 
-		 and _G.UnitExists(Obj)
-		 and _G.UnitAffectingCombat(Obj) 
-		 and not _G.UnitIsDeadOrGhost(Obj)
-		 and not _G.UnitIsPlayer(Obj)
-		 and not _G.UnitIsPVP(Obj, "player")
-	     and _G.UnitCanAttack("player", Obj)
-         and NeP.Protected.Infront("player", Obj) then
+   local tempTable = {}
+    for _, Obj in pairs(NeP.OM:Get("Enemy", true)) do
+	  if _G.UnitInPhase(Obj.key)
+	   and _G.UnitExists(Obj.key)
+	   and _G.UnitIsVisible(Obj.key)
+	   and NeP.Protected.LineOfSight("player", Obj.key)
+	   and _G.UnitAffectingCombat(Obj.key)
+	   and not _G.UnitIsPlayer(Obj.key)
+		 and not _G.UnitIsPVP(Obj.key, "player")
+	     and _G.UnitCanAttack("player", Obj.key)
+         and NeP.Protected.Infront("player", Obj.key) then
 			tempTable[#tempTable+1] = {
-				key = Obj,
-				health = UnitHealth(Obj)
+				key = Obj.key,
+				health = _G.UnitHealth(Obj.key)
 			}
 		end
 	end
 	table.sort( tempTable, function(a,b) return a.health > b.health end )
 	return tempTable[num] and tempTable[num].key
+end)
+
+--/dump NeP.DSL.Parse("count.enemies.combat", "", "")
+NeP.DSL:Register("count.enemies.combat", function()
+local encombat = 0
+  for _, Obj in pairs(NeP.OM:Get("Enemy", true)) do
+      if _G.UnitInPhase(Obj.key)
+	   and _G.UnitExists(Obj.key)
+	   and _G.UnitIsVisible(Obj.key)
+	   and NeP.Protected.LineOfSight("player", Obj.key)
+	   and NeP.Protected.Distance("player", Obj.key) < 40
+	   and _G.UnitAffectingCombat(Obj.key) then
+          encombat = encombat + 1
+      end
+  end
+  return encombat
+end)
+
+--/dump NeP.DSL.Parse("target.area().enemies.nocombat", "", "")
+NeP.DSL:Register("area.enemies.nocombat", function(unit, distance)
+  for _, Obj in pairs(NeP.OM:Get("Enemy", true)) do
+    if _G.UnitInPhase(Obj.key)
+	 and _G.UnitExists(Obj.key)
+	 and _G.UnitIsVisible(Obj.key)
+	 and NeP.Protected.LineOfSight("player", Obj.key)
+	 and NeP.Protected.Distance(unit, Obj.key) < (tonumber(distance) or 40)
+     and not _G.UnitAffectingCombat(Obj.key) then
+      return true
+    end
+  end
 end)
 
 --[[
@@ -105,11 +117,11 @@ end)
 	"182327"     -- Mrgggrrrll! (Haste increased by %50)
 ]]
 
-function BuffToSteal(Obj)
- local BuffToSteal = { 235450, 12042, 11426, 12472, 190319, 198111, 29166, 1044, 184662, 47536, 17, 152118, 212295, 196098, 222477, 197892, 198745, 182327 }
-  for i = 1, #BuffToSteal do
-   local BuffToStealName = _G.GetSpellInfo(BuffToSteal[i])
-	if _G.UnitBuff(Obj, BuffToStealName) then
+function BuffToSteal(unit)
+ local BTS = { 235450, 12042, 11426, 12472, 190319, 198111, 29166, 1044, 184662, 47536, 17, 152118, 212295, 196098, 222477, 197892, 198745, 182327 }
+  for i = 1, #BTS do
+   local BuffToStealName = _G.GetSpellInfo(BTS[i])
+	if _G.UnitBuff(unit, BuffToStealName) then
     	return true
 	end
   end
@@ -117,20 +129,17 @@ end
 
 --Enemies with buffs that needs to be stolen
 NeP.FakeUnits:Add("enemystbuff", function(_, buff)
-local tmp = {}
- for i=1, _G.GetObjectCount() do
-  local Obj = _G.GetObjectWithIndex(i)
-	if ObjectValid(Obj) 
-	  and _G.UnitExists(Obj)
-      and _G.UnitCanAttack("player", Obj)
-	  and not _G.UnitIsDeadOrGhost(Obj)
-      and BuffToSteal(Obj)
-      and not NeP.DSL:Get("immune_all")(Obj)
-      and not NeP.DSL:Get("immune_spell")(Obj) then
-	    tmp[#tmp+1] = Obj
+  for _, Obj in pairs(NeP.OM:Get("Enemy", true)) do
+	if _G.UnitInPhase(Obj.key)
+	 and _G.UnitExists(Obj.key)
+	 and _G.UnitIsVisible(Obj.key)
+	 and NeP.Protected.LineOfSight("player", Obj.key)
+     and BuffToSteal(Obj.key)
+     and not NeP.DSL:Get("immune_all")(Obj.key)
+     and not NeP.DSL:Get("immune_spell")(Obj.key) then
+	  return Obj.key
 	end
- end
-	return Obj
+  end
 end)
 
 --/dump NeP.DSL.Parse("target.player", "", "")
@@ -169,34 +178,6 @@ end)
 --/dump NeP.DSL.Parse("target.race", "", "")
 NeP.DSL:Register("race", function(target)
     return _G.UnitRace(target)
-end)
-
---/dump NeP.DSL.Parse("count.enemies.combat", "", "")
-NeP.DSL:Register("count.enemies.combat", function()
-  local encombat = 0
-  for i=1, _G.GetObjectCount() do
-	local Obj = _G.GetObjectWithIndex(i)
-      if ObjectValid(Obj)
-	   and _G.UnitCanAttack("player", Obj)
-	   and NeP.Protected.Distance("player", Obj) < 40
-	   and _G.UnitAffectingCombat(Obj)
-       and not _G.UnitIsDeadOrGhost(Obj) then
-          encombat = encombat + 1
-      end
-  end
-  return encombat
-end)
-
---/dump NeP.DSL.Parse("target.area().enemies.nocombat", "", "")
-NeP.DSL:Register("area.enemies.nocombat", function(unit, distance)
-  for i=1, _G.GetObjectCount() do
-	local Obj = _G.GetObjectWithIndex(i)
-      if _G.UnitCanAttack("player", Obj)
-	   and NeP.Protected.Distance(unit, Obj) < (tonumber(distance) or 40)
-       and not _G.UnitAffectingCombat(Obj) then
-        return true
-    end
-  end
 end)
 
 --/dump NeP.DSL.Parse("target.faction.positive", "", "")
