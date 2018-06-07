@@ -3,16 +3,24 @@
 
 Use with Advance Unlocker like EWT.
 
- Read GUI in every CR to understand how Keybinds are working. You can find it by right clicking on MasterToggle --> Combat Routines Settings.
+You can buy me a beer anytime :) https://www.paypal.me/thekleei
 
-- druid - restoration / feral / guardian
+Rotation Status:
 
-- demon hunter - havoc / vengeance
+- Druid - Restoration / Feral / Guardian (Unfinished)
 
-- monk - brewmaster / windwalker
+- Demon Hunter - Havoc / Vengeance
 
-- rogue - assassination / subtlety
+- Monk - Brewmaster / Windwalker
 
-- death knight - frost
+- Rogue - Assassination / Subtlety / OUTLAW
 
-- mage - fire
+- Death Knight - Frost
+
+- Mage - Fire
+
+- Hunter - Marksmanship
+
+- Paladin - Protection (Unfinished)
+
+- Priest - Shadow (Unfinished)
