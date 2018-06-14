@@ -1,6 +1,19 @@
 local _G = _G
 local NeP = NeP
 
+local UnitBuff         = UnitBuff
+local UnitDebuff       = UnitDebuff
+local GetSpellInfo     = GetSpellInfo
+local IsSpellInRange   = IsSpellInRange
+local UnitIsPlayer     = UnitIsPlayer
+local IsInInstance     = IsInInstance
+local GetSpellAutocast = GetSpellAutocast
+local HasPetUI         = HasPetUI
+local IsCurrentSpell   = IsCurrentSpell
+local UnitExists       = UnitExists
+local UnitIsVisible    = UnitIsVisible
+local IsStealthed      = IsStealthed
+
 --/dump NeP.DSL.Parse("rake.stun", "", "")
 NeP.DSL:Register("rake.stun", function(target)
     if NeP.DSL:Get("debuff.many")(target, "Rake") == 2 then
@@ -13,16 +26,18 @@ end)
 NeP.DSL:Register("immune_all",function(target)
  local immunallbuff = { 642, 133093, 63148, 186265, 19263, 122464, 122465, 122470, 124280, 125174, 45438, 145533, 41590, 36911, 27619, 47585 }
   for i = 1, #immunallbuff do
-    local BuffName = _G.GetSpellInfo(immunallbuff[i])
-	 if _G.UnitBuff(target, BuffName) then
-    	return true end
+   local BuffName = _G.GetSpellInfo(immunallbuff[i])
+   if _G.UnitBuff(target, BuffName) then
+    return true 
+   end
   end
-   local immunalldebuff = { 33786, 209753, 88010 }
-      for i = 1, #immunalldebuff do
-	    local DebuffName = _G.GetSpellInfo(immunalldebuff[i])
-	      if _G.UnitDebuff(target, DebuffName) then
-    	   return true end
-	  end
+  local immunalldebuff = { 33786, 209753, 88010 }
+  for i = 1, #immunalldebuff do
+   local DebuffName = _G.GetSpellInfo(immunalldebuff[i])
+   if _G.UnitDebuff(target, DebuffName) then
+    return true 
+   end
+  end
 end)
 
 --/dump NeP.DSL.Parse("target.immune_stun", "", "")
@@ -78,9 +93,6 @@ NeP.DSL:Register("buff_of_the_bones", function()
    end
 end)
 
---/dump NeP.DSL.Parse("target.enemy_totem", "", "")
-NeP.DSL:Register("enemy_totem", function(target)
-
 --[[  TOTEMS
 -----------------------------------
   -- 2630   -- Earthbind Totem
@@ -95,11 +107,15 @@ NeP.DSL:Register("enemy_totem", function(target)
   -- 53006  -- Spirit Link Totem
 ----------------------------------
 ]]
- local Ktotems = { 2630, 113845, 102392, 106317, 106319, 106321, 3527, 59764, 5925, 53006 }
-  for i = 1, #Ktotems do
-    local totemsName = Ktotems[i]
-	 if NeP.DSL:Get("id")(target, totemsName) then
-    	return true end
+
+--/dump NeP.DSL.Parse("target.enemy_totem", "", "")
+NeP.DSL:Register("enemy_totem", function(target)
+ local TotemsID = { 2630, 113845, 102392, 106317, 106319, 106321, 3527, 59764, 5925, 53006 }
+  for i = 1, #TotemsID do
+   local TotemsName = TotemsID[i]
+	if NeP.DSL:Get("id")(target, TotemsName) then
+    	return true
+	end
   end
 end)
 
@@ -145,7 +161,17 @@ nil --when in an unknown kind of instance, eg. in a scenario]]
 
 --/dump NeP.DSL.Parse("instanceType", "", "")
 NeP.DSL:Register("instanceType", function()
-  return select(2, _G.IsInInstance())
+  if select(1, _G.IsInInstance()) then
+   return select(2, _G.IsInInstance())
+  end
+end)
+
+--/dump NeP.DSL.Parse("pvp.area", "", "")
+NeP.DSL:Register("pvp.area", function()
+  if NeP.DSL:Get("instanceType")(nil) == "arena" or NeP.DSL:Get("instanceType")(nil) == "pvp" then
+    return true 
+  end 
+   return false
 end)
 
 --/dump NeP.DSL.Parse("indungeon", "", "")
@@ -172,6 +198,11 @@ NeP.DSL:Register("fixRange", function(target)
    return NeP.Protected.Distance("player", target)
 end)
 
+--/dump NeP.DSL.Parse("player.rangebetween(target)", "", "")
+NeP.DSL:Register("rangebetween", function(unit, unit2)
+  return NeP.Protected.Distance(unit, unit2)
+end)
+
 -- Checks if the player has autoattack toggled currently (Hunters Specificaly)
 -- Use {'/startattack', '!isshooting'}, at the top of a CR to force autoattacks
 NeP.DSL:Register("isshooting", function(target)
@@ -187,4 +218,9 @@ end)
 NeP.DSL:Register("InLOS", function(target)
   if _G.UnitExists(target) and _G.UnitIsVisible(target) then
   return NeP.Protected.LineOfSight("player", target) end
+end)
+
+--/dump NeP.DSL.Parse("IsStealthed", "", "")
+NeP.DSL:Register("IsStealthed", function()
+  return _G.IsStealthed()
 end)

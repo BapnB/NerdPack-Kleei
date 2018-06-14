@@ -1,17 +1,38 @@
 local _G = _G
 local NeP = NeP
 
+local UnitExists                   = UnitExists
+local UnitIsDead                   = UnitIsDead
+local UnitIsGhost                  = UnitIsGhost
+local UnitInRaid                   = UnitInRaid
+local UnitInParty                  = UnitInParty
+local UnitIsPlayer                 = UnitIsPlayer
+local UnitHasIncomingResurrection  = UnitHasIncomingResurrection
+local UnitAffectingCombat          = UnitAffectingCombat
+local UnitIsPVP                    = UnitIsPVP
+local UnitHealth                   = UnitHealth
+local GetSpellInfo                 = GetSpellInfo
+local UnitBuff                     = UnitBuff
+local UnitMana                     = UnitMana
+local UnitManaMax                  = UnitManaMax
+local UnitClass                    = UnitClass
+local UnitRace                     = UnitRace
+local UnitFactionGroup             = UnitFactionGroup
+local UnitCanAttack                = UnitCanAttack
+local UnitIsDeadOrGhost            = UnitIsDeadOrGhost
+local IsFlying                     = IsFlying
+local IsFalling                    = IsFalling
+local GetTime                      = GetTime
+local C_Timer                      = C_Timer
+
 --  /dump NeP.DSL.Parse("player.all.enemies(100).area", "", "")
 -- USAGE: UNIT.all.enemies(DISTANCE).area >= # all enemies (out of combat included)
 NeP.DSL:Register("all.enemies.area", function(unit, distance)
  if not _G.UnitExists(unit) then return 0 end
   local total = 0
-  for _, Obj in pairs(NeP.OM:Get("Enemy", true)) do
-	if _G.UnitInPhase(Obj.key)
-	 and _G.UnitExists(Obj.key)
-	 and _G.UnitIsVisible(Obj.key)
-	 and NeP.Protected.LineOfSight("player", Obj.key)
-	 and NeP.Protected.Distance(unit, Obj.key) < (tonumber(distance) or 60) then
+  for _, Obj in pairs(NeP.OM:Get("Enemy")) do
+	if NeP.Protected.Distance(unit, Obj.key) < (tonumber(distance) or 0)
+     and _G.UnitCanAttack(Obj.key, "player") then
        total = total +1
     end
   end
@@ -20,41 +41,54 @@ end)
 
 --Dead group member that can be resurrected (not ghost) 
 NeP.FakeUnits:Add({"deadgroupmember", "deadfriend"}, function()
-  local tmp = {}
-   for _, Obj in pairs(NeP.OM:Get("Dead")) do
-	  if _G.UnitInPhase(Obj.key)
-	   and _G.UnitExists(Obj.key)
-	   and _G.UnitIsVisible(Obj.key)
-	   and NeP.Protected.LineOfSight("player", Obj.key)
+    for _, Obj in pairs(NeP.OM:Get("Dead")) do
+	  if NeP.Protected.Distance("player", Obj.key) < 50
 	   and _G.UnitIsDead(Obj.key)
 	   and not _G.UnitIsGhost(Obj.key)
 	   and (_G.UnitInRaid(Obj.key) or _G.UnitInParty(Obj.key))
 	   and _G.UnitIsPlayer(Obj.key)
 	   and not _G.UnitHasIncomingResurrection(Obj.key) then
-	    tmp[#tmp+1] = Obj.key
+	    return Obj.key
 	  end
 	end
-	return tmp.key
+end)
+
+---Enemy UNIT with most enemies around
+NeP.FakeUnits:Add("mostenemies", function(num)
+   local tempTable = {}
+    for _, Obj in pairs(NeP.OM:Get("Enemy")) do
+	  if NeP.Protected.Distance("player", Obj.key) < 50
+	   and _G.UnitCanAttack(Obj.key, "player")
+	   and _G.UnitAffectingCombat(Obj.key)
+	   and not _G.UnitIsPlayer(Obj.key)
+	   and not _G.UnitIsPVP(Obj.key) then
+		tempTable[#tempTable+1] = {
+			key = Obj.key,
+			prio = NeP.DSL:Get("area.enemies")(Obj.key, "8")
+		}
+	  end
+	end
+	table.sort( tempTable, function(a,b) return a.prio > b.prio end )
+	return tempTable[num] and tempTable[num].key
 end)
 
 --- Highest Health Enemy
 NeP.FakeUnits:Add("highestenemy", function(num)
    local tempTable = {}
-    for _, Obj in pairs(NeP.OM:Get("Enemy", true)) do
+    for _, Obj in pairs(NeP.OM:Get("Enemy")) do
 	  if _G.UnitInPhase(Obj.key)
-	   and _G.UnitExists(Obj.key)
-	   and _G.UnitIsVisible(Obj.key)
-	   and NeP.Protected.LineOfSight("player", Obj.key)
+	   and NeP.Protected.Distance("player", Obj.key) < 50
+	   and _G.UnitCanAttack(Obj.key, "player")
 	   and _G.UnitAffectingCombat(Obj.key)
 	   and not _G.UnitIsPlayer(Obj.key)
-		 and not _G.UnitIsPVP(Obj.key, "player")
-	     and _G.UnitCanAttack("player", Obj.key)
-         and NeP.Protected.Infront("player", Obj.key) then
-			tempTable[#tempTable+1] = {
-				key = Obj.key,
-				health = _G.UnitHealth(Obj.key)
-			}
-		end
+	   and not _G.UnitIsPVP(Obj.key)
+	   and not NeP.DSL:Get("boss")(Obj.key)
+       and NeP.Protected.Infront("player", Obj.key) then
+		tempTable[#tempTable+1] = {
+			key = Obj.key,
+			health = _G.UnitHealth(Obj.key)
+		}
+	  end
 	end
 	table.sort( tempTable, function(a,b) return a.health > b.health end )
 	return tempTable[num] and tempTable[num].key
@@ -64,11 +98,8 @@ end)
 NeP.DSL:Register("count.enemies.combat", function()
 local encombat = 0
   for _, Obj in pairs(NeP.OM:Get("Enemy", true)) do
-      if _G.UnitInPhase(Obj.key)
-	   and _G.UnitExists(Obj.key)
-	   and _G.UnitIsVisible(Obj.key)
-	   and NeP.Protected.LineOfSight("player", Obj.key)
-	   and NeP.Protected.Distance("player", Obj.key) < 40
+      if NeP.Protected.Distance("player", Obj.key) < 40
+	   and _G.UnitCanAttack(Obj.key, "player")
 	   and _G.UnitAffectingCombat(Obj.key) then
           encombat = encombat + 1
       end
@@ -79,11 +110,8 @@ end)
 --/dump NeP.DSL.Parse("target.area().enemies.nocombat", "", "")
 NeP.DSL:Register("area.enemies.nocombat", function(unit, distance)
   for _, Obj in pairs(NeP.OM:Get("Enemy", true)) do
-    if _G.UnitInPhase(Obj.key)
-	 and _G.UnitExists(Obj.key)
-	 and _G.UnitIsVisible(Obj.key)
-	 and NeP.Protected.LineOfSight("player", Obj.key)
-	 and NeP.Protected.Distance(unit, Obj.key) < (tonumber(distance) or 40)
+    if NeP.Protected.Distance(unit, Obj.key) < (tonumber(distance) or 40)
+	 and _G.UnitCanAttack(Obj.key, "player")
      and not _G.UnitAffectingCombat(Obj.key) then
       return true
     end
@@ -130,10 +158,8 @@ end
 --Enemies with buffs that needs to be stolen
 NeP.FakeUnits:Add("enemystbuff", function(_, buff)
   for _, Obj in pairs(NeP.OM:Get("Enemy", true)) do
-	if _G.UnitInPhase(Obj.key)
-	 and _G.UnitExists(Obj.key)
-	 and _G.UnitIsVisible(Obj.key)
-	 and NeP.Protected.LineOfSight("player", Obj.key)
+	 if NeP.Protected.Distance("player", Obj.key) < 40
+	 and _G.UnitCanAttack(Obj.key, "player")
      and BuffToSteal(Obj.key)
      and not NeP.DSL:Get("immune_all")(Obj.key)
      and not NeP.DSL:Get("immune_spell")(Obj.key) then
@@ -180,11 +206,15 @@ NeP.DSL:Register("race", function(target)
     return _G.UnitRace(target)
 end)
 
+--/dump NeP.DSL.Parse("target.canAttack", "", "")
+NeP.DSL:Register("canAttack", function(target)
+  return _G.UnitCanAttack(target, "player")
+end)
+
 --/dump NeP.DSL.Parse("target.faction.positive", "", "")
 NeP.DSL:Register("faction.positive", function(target)
     if _G.UnitFactionGroup("player") == _G.UnitFactionGroup(target)
 	and _G.UnitIsPlayer(target)
-	and _G.UnitCanAttack("player", target)
 	and not _G.UnitIsDeadOrGhost(target) then
       return true 
     end
@@ -194,7 +224,6 @@ end)
 NeP.DSL:Register("faction.negative", function(target)
     if _G.UnitFactionGroup("player") ~= _G.UnitFactionGroup(target)
 	and _G.UnitIsPlayer(target)
-	and _G.UnitCanAttack("player", target)
 	and not _G.UnitIsDeadOrGhost(target) then
       return true 
     end
@@ -232,7 +261,20 @@ NeP.DSL:Register({"falling.duration", "fall.duration"}, function()
   return falling_for
 end)
 
---/dump NeP.DSL.Parse("IsStealthed", "", "")
-NeP.DSL:Register("IsStealthed", function()
-  return _G.IsStealthed()
-end)
+--[[function Totems(unit)
+ local TotemsID = { 59764, 53006, 3527 }
+  for i = 1, #TotemsID do
+   local TotemsName = TotemsID[i]
+	if NeP.DSL:Get("id")(target, TotemsName) then
+    	return true
+	end
+  end
+end
+
+NeP.FakeUnits:Add("totems", function()
+  for _, Obj in pairs(NeP.OM:Get("Enemy", true)) do
+	 if Totems(Obj.key) then
+	  return Obj.key
+	end
+  end
+end)]]

@@ -126,16 +126,6 @@ local GUI = {
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "text", text = "", align = "center"}, --------------------------------------
 
-	{type = "header", size = 16, text = 'EWT cheat', align = 'center'},
-    {type = "checkbox",	text = "Always-Facing:|c0000FA9A if you use it check the box|r", align = "left", key = "allfacing", default = false},
-    {type = "checkbox",	text = "Moving-Cast:|c0000FA9A if you use it check the box and it will cast when moving|r", align = "left", key = "mc", default = false},
-	{type = "text", text = "", align = "center"}, --------------------------------------
-	{type = "text", text = "", align = "center"}, --------------------------------------
-	{type = "text", text = "", align = "center"}, --------------------------------------
-	{type = "ruler"}, {type = "ruler"},
-	{type = "text", text = "", align = "center"}, --------------------------------------
-	{type = "text", text = "", align = "center"}, --------------------------------------
-
 }
 
 local exeOnLoad = function()
@@ -161,21 +151,19 @@ end
 local pvp = {
 	
     {"!Every Man for Himself", "UI(medal) & state(stun)", "player"},        
-    {"!Gladiator's Medallion", "UI(medal) & {target.faction.positive || target.faction.negative & player.pvp} & {player.state(stun) & player.spell(Every Man for Himself)cooldown > 0 & player.race = Human || player.state(stun) & !player.race = Human || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
+    {"!Gladiator's Medallion", "UI(medal) & target.player & target.canAttack & {player.state(stun) & player.spell(Every Man for Himself)cooldown > 0 & player.race = Human || player.state(stun) & !player.race = Human || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
 	
-	{"!Ring of Frost", "{keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5} & {UI(mc) || !UI(mc) & !player.moving}", "cursor.ground"},
+	{"!Ring of Frost", "player.moving & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "cursor.ground"},
 	
-	{"Spellsteal", "inRange.spell & UI(st_buff) & {player.mana >= 25 || player.buff(Innervate)} & !player", "enemystbuff"},
-	{"Spellsteal", "inRange.spell & UI(st_buff) & {player.mana >= 25 || player.buff(Innervate)} & faction.positive", "enemystbuff"},
-	{"Spellsteal", "inRange.spell & UI(st_buff) & {player.mana >= 25 || player.buff(Innervate)} & faction.negative & player.pvp", "enemystbuff"},
+	{"Spellsteal", "inRange.spell & UI(st_buff) & {player.mana >= 25 || player.buff(Innervate)}", "enemystbuff"},
 
 }
 
 local Keybinds = {
 
-    {"Polymorph", "!immune_all & !immune_spell & alive & enemy & debuff(Polymorph).duration <= 2 & !player.lastcast & inRange.spell & !focus.exists & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & {!target.player || target.faction.positive || target.faction.negative & player.pvp} & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2} & {UI(mc) || !UI(mc) & !player.moving}", "target"},
-    {"Polymorph", "!immune_all & !immune_spell & alive & enemy & debuff(Polymorph).duration <= 2 & !player.lastcast & inRange.spell & focus.exists & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & {!focus.player || focus.faction.positive || focus.faction.negative & player.pvp} & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2} & {UI(mc) || !UI(mc) & !player.moving}", "focus"},
-	{"Meteor", "UI(list4)==11 & target.alive & target.enemy & player.combat & range <= 38.5 & !target.immune_all & !target.immune_spell & {!target.player || target.faction.positive || target.faction.negative & player.pvp} & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "target.ground"},
+    {"Polymorph", "inRange.spell & canAttack & alive & enemy & !player.moving & !immune_all & !immune_spell & debuff(Polymorph).duration <= 2 & !player.lastcast & !focus.exists & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target"},
+    {"Polymorph", "inRange.spell & canAttack & alive & enemy & !player.moving & !immune_all & !immune_spell & debuff(Polymorph).duration <= 2 & !player.lastcast & focus.exists & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "focus"},
+	{"Meteor", "UI(list4)==11 & target.canAttack & target.alive & target.enemy & player.combat & target.range <= 38.5 & !target.immune_all & !target.immune_spell & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "target.ground"},
 	{"Meteor", "UI(list4)==10 & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "cursor.ground"},
 	
 }
@@ -183,7 +171,7 @@ local Keybinds = {
 local PreCombat = { 
 
 	{"Blazing Barrier", "buff(Blazing Barrier).duration <= 5", "player"},
-	{"Fireball", "inRange.spell & alive & enemy & !immune_all & !immune_spell & {!target.player || target.faction.positive || target.faction.negative & player.pvp} & {UI(allfacing) || !UI(allfacing) & target.infront} & {UI(mc) || !UI(mc) & !player.moving}", "target"},
+	{"Fireball", "inRange.spell & canAttack & alive & enemy & !immune_all & !immune_spell & infront & !player.moving", "target"},
 
     {"Conjure Refreshment", "item(80610).count < 1 & !player.moving"},
 	{"#80610", "item(80610).count >= 1 & !player.buff(Refreshment) & !player.moving & player.health <= UI(pudding_key_spin) & UI(pudding_key_check)"},
@@ -193,36 +181,33 @@ local PreCombat = {
 local Survival = {
 
 	{"!Ice Block", "area(40).enemies >= 1 & {player.health <= UI(ice_health_spin) & UI(ice_health_check) || player.debuff(Cauterize) & UI(cool_down) || player.state(stun) & player.spell(Every Man for Himself).cooldown > 0 & player.spell(Gladiator's Medallion).cooldown > 0 & !player.lastcast(Gladiator's Medallion) & UI(ice_stun)}", "player"},
-    {"!Temporal Shield", "player.health <= UI(temp_shield_spin) & UI(temp_shield_check) & area(40).enemies >= 1 & player.incdmg(3) >= player.health.max*0.05", "player"},
+    {"!Temporal Shield", "player.health <= UI(temp_shield_spin) & UI(temp_shield_check) & area(40).enemies >= 1 & player.incdmg(3) >= player.health.max*0.03", "player"},
 	
-	{"Dragon's Breath",	"toggle(cr) & !enemy_totem & fixRange <= 8 & infront & !immune_all & !immune_spell & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & !player & !player.pvp", "enemies"},
-	{"Dragon's Breath",	"toggle(cr) & !enemy_totem & fixRange <= 8 & infront & !immune_all & !immune_spell & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & faction.positive", "enemies"},
-	{"Dragon's Breath",	"toggle(cr) & !enemy_totem & fixRange <= 8 & infront & !immune_all & !immune_spell & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & faction.negative & player.pvp", "enemies"},
+	{"Dragon's Breath",	"toggle(cr) & canAttack & !enemy_totem & fixRange <= 8 & infront & !immune_all & !immune_spell & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & !pvp.area", "enemies"},
+	{"Dragon's Breath",	"toggle(cr) & canAttack & !enemy_totem & fixRange <= 8 & infront & !immune_all & !immune_spell & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & player & pvp.area", "enemies"},
 	
-	{"Frost Nova", "toggle(cr) & !enemy_totem & fixRange <= 8 & !immune_all & !immune_spell & !player.lastcast(Frost Nova) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & !player & !player.pvp", "enemies"},
-	{"Frost Nova", "toggle(cr) & !enemy_totem & fixRange <= 8 & !immune_all & !immune_spell & !player.lastcast(Frost Nova) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & faction.positive", "enemies"},
-	{"Frost Nova", "toggle(cr) & !enemy_totem & fixRange <= 8 & !immune_all & !immune_spell & !player.lastcast(Frost Nova) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & faction.negative & player.pvp", "enemies"},
+	{"Frost Nova", "toggle(cr) & canAttack & !enemy_totem & fixRange <= 8 & !immune_all & !immune_spell & !player.lastcast(Frost Nova) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & !pvp.area", "enemies"},
+	{"Frost Nova", "toggle(cr) & canAttack & !enemy_totem & fixRange <= 8 & !immune_all & !immune_spell & !player.lastcast(Frost Nova) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & player & pvp.area", "enemies"},
 
-	{"Blazing Barrier", "!buff(Ice Block) & buff(Blazing Barrier).duration < 3 & {!player.buff(Rune of Power) & !player.buff(Combustion) || {target.faction.positive || target.faction.negative & player.pvp}}", "player"},
+	{"Blazing Barrier", "!buff(Ice Block) & buff(Blazing Barrier).duration < 3 & {!player.buff(Rune of Power) & !player.buff(Combustion) || target.player & target.canAttack}", "player"},
 	{"#5512", "item(5512).count >= 1 & health <= UI(hs_spin) & UI(hs_check) & area(40).enemies >= 1", "player"}, --Health Stone
 
 }
 
 local Interrupts = {
 
-	{"!Counterspell", "inRange.spell & interruptAt(65) & !immune_spell & !immune_all", "target"},
+	{"!Counterspell", "inRange.spell & canAttack & interruptAt(65)", "target"},
 
-	{"!Dragon's Breath", "interruptAt(55) & player.spell(Counterspell).cooldown > 0 & !player.lastcast(Counterspell) & range <= 8 & infront & !immune_spell & !immune_all & faction.positive", "target"},
-	{"!Dragon's Breath", "interruptAt(55) & player.spell(Counterspell).cooldown > 0 & !player.lastcast(Counterspell) & range <= 8 & infront & !immune_spell & !immune_all & faction.negative & player.pvp", "target"},
+	{"!Dragon's Breath", "interruptAt(55) & canAttack & fixRange <= 8 & infront & player.spell(Counterspell).cooldown > 0 & !player.lastcast(Counterspell)", "target"},
 
 }
 
 local Cooldowns = {
 
-	{"Time Warp", "target.inRange(Pyroblast).spell & toggle(tw)", "player"},
+	{"&Time Warp", "target.inRange(Pyroblast).spell & toggle(tw) & !player.debuff(Temporal Displacement)"},
     {"Rune of Power", "target.inRange(Pyroblast).spell & !player.moving & !buff(Combustion) & UI(rop)", "player"},
 	{"&Combustion", "target.inRange(Pyroblast).spell & UI(fire_man) & {talent(3,2) & {player.buff(Rune of Power) || player.spell(Rune of Power).charges < 1} || !talent(3,2)}", "player"},
-	{"Meteor", "target.inRange(Pyroblast).spell & !target.player & {!player.spell(Rune of Power).cooldown <= 8 & talent(3,2) || !talent(3,2)}  & UI(mete)", "target.ground"},
+	{"Meteor", "target.inRange(Pyroblast).spell & target.canAttack & !target.moving & !target.player & {!player.spell(Rune of Power).cooldown <= 8 & talent(3,2) || !talent(3,2)}  & UI(mete)", "target.ground"},
     {"#trinket1", "target.inRange(Pyroblast).spell & UI(trk1)"},
 	{"#trinket2", "target.inRange(Pyroblast).spell & UI(trk2)"},
 
@@ -230,58 +215,56 @@ local Cooldowns = {
 
 local Combat = {
 
-	{"!Pyroblast", "{!toggle(hig_en) || target.boss || target.faction.positive || target.faction.negative & player.pvp} & inRange.spell & spell(Pyroblast).casttime==0 & {player.buff(Combustion) || player.buff(Rune of Power) || player.buff(Hot Streak!).duration <= 3} & {UI(allfacing) || !UI(allfacing) & target.infront}", "target"},
-	{"!Pyroblast", "toggle(hig_en) & !target.boss & inRange.spell & spell(Pyroblast).casttime==0 & {player.buff(Combustion) || player.buff(Rune of Power) || player.buff(Hot Streak!).duration <= 3} & UI(allfacing)", "highestenemy"},
-	{"!Pyroblast", "toggle(hig_en) & !target.boss & inRange.spell & spell(Pyroblast).casttime==0 & {player.buff(Combustion) || player.buff(Rune of Power) || player.buff(Hot Streak!).duration <= 3} & !UI(allfacing) & infront", "highestenemy"},
+	{"Meteor", "toggle(AoE) & inRange(Pyroblast).spell & !player & !moving & rangebetween(target) <= 15 & area(8).enemies >= UI(mete_aoe_spin) & UI(mete_aoe_check)", "mostenemies.ground"},
+	{"Meteor", "inRange(Pyroblast).spell & target.canAttack & target.player & {target.state(root) || target.state(stun) || target.state(disorient) || target.state(incapacitate)}", "target.ground"},
 
-	{"Meteor", "target.inRange(Pyroblast).spell & {toggle(AoE) & target.area(8).enemies >= UI(mete_aoe_spin) & UI(mete_aoe_check) & !target.player & !target.moving || {target.faction.positive || target.faction.negative & player.pvp} & {target.state(root) || target.state(stun) || target.state(disorient) || target.state(incapacitate)}}", "target.ground"},
-    {"Flamestrike", "toggle(AoE) & target.inRange(Pyroblast).spell & spell(Flamestrike).casttime==0 & target.area(8).enemies >= UI(flstrike_aoe_spin) & UI(flstrike_aoe_spin) & {UI(mc) || !UI(mc) & !player.moving}", "target.ground"},
+	{"Flamestrike", "toggle(AoE) & inRange(Pyroblast).spell & spell(Flamestrike).casttime==0 & rangebetween(target) <= 15 & area(8).enemies >= UI(flstrike_aoe_spin) & UI(flstrike_aoe_spin)", "mostenemies.ground"},
+	{"!Flamestrike", "toggle(AoE) & inRange(Pyroblast).spell & spell(Flamestrike).casttime==0 & rangebetween(target) <= 15 & area(8).enemies >= UI(flstrike_aoe_spin) & UI(flstrike_aoe_spin) & player.buff(Hot Streak!).duration <= 3", "mostenemies.ground"},
 
-	{"Pyroblast", "{!toggle(hig_en) || target.boss || target.faction.positive || target.faction.negative & player.pvp} & inRange.spell & !debuff(Dragon's Breath) & spell(Pyroblast).casttime==0 & {UI(allfacing) || !UI(allfacing) & target.infront}", "target"},
-	{"Pyroblast", "toggle(hig_en) & !target.boss & inRange.spell & !debuff(Dragon's Breath) & spell(Pyroblast).casttime==0 & UI(allfacing)", "highestenemy"},
-	{"Pyroblast", "toggle(hig_en) & !target.boss & inRange.spell & !debuff(Dragon's Breath) & spell(Pyroblast).casttime==0 & !UI(allfacing) & infront", "highestenemy"},
+	{"!Pyroblast", "{!toggle(hig_en) || target.boss || target.player} & inRange.spell & canAttack & infront & spell(Pyroblast).casttime==0 & {player.buff(Combustion) || player.buff(Rune of Power) || player.buff(Hot Streak!).duration <= 3}", "target"},
+	{"!Pyroblast", "toggle(hig_en) & !target.player & inRange.spell & spell(Pyroblast).casttime==0 & {player.buff(Combustion) || player.buff(Rune of Power) || player.buff(Hot Streak!).duration <= 3}", "highestenemy"},
 
-	{"!Phoenix's Flames", "{!toggle(hig_en) || target.boss || target.faction.positive || target.faction.negative & player.pvp} & inRange.spell & !spell(Pyroblast).casttime==0 & !debuff(Dragon's Breath) & !player.casting(Polymorph) & {player.buff(Heating up) || player.spell(Phoenix's Flames).charges >= 2 || player.spell(Fire Blast).charges >= 1} & {UI(allfacing) || !UI(allfacing) & target.infront}", "target"},
-	{"!Phoenix's Flames", "toggle(hig_en) & !target.boss & inRange.spell & !spell(Pyroblast).casttime==0 & !debuff(Dragon's Breath) & !player.casting(Polymorph) & {player.buff(Heating up) || player.spell(Phoenix's Flames).charges >= 2 || player.spell(Fire Blast).charges >= 1} & UI(allfacing)", "highestenemy"},
-	{"!Phoenix's Flames", "toggle(hig_en) & !target.boss & inRange.spell & !spell(Pyroblast).casttime==0 & !debuff(Dragon's Breath) & !player.casting(Polymorph) & {player.buff(Heating up) || player.spell(Phoenix's Flames).charges >= 2 || player.spell(Fire Blast).charges >= 1} & !UI(allfacing) & infront", "highestenemy"},
+	{"Pyroblast", "{!toggle(hig_en) || target.boss || target.player} & inRange.spell & canAttack & infront & spell(Pyroblast).casttime==0 & !debuff(Dragon's Breath)", "target"},
+	{"Pyroblast", "toggle(hig_en) & !target.player & inRange.spell & !debuff(Dragon's Breath) & spell(Pyroblast).casttime==0", "highestenemy"},
 
-	{"&Fire Blast", "{!toggle(hig_en) || target.boss || target.faction.positive || target.faction.negative & player.pvp} & inRange.spell & !spell(Pyroblast).casttime==0 & !debuff(Dragon's Breath) & !player.casting(Polymorph) & {player.buff(Heating up) || player.spell(Fire Blast).charges >= 2 || player.spell(Phoenix's Flames).charges >= 1} & {UI(allfacing) || !UI(allfacing) & target.infront}", "target"},
-	{"&Fire Blast", "toggle(hig_en) & !target.boss & inRange.spell & !spell(Pyroblast).casttime==0 & !debuff(Dragon's Breath) & !player.casting(Polymorph) & {player.buff(Heating up) || player.spell(Fire Blast).charges >= 2 || player.spell(Phoenix's Flames).charges >= 1} & UI(allfacing)", "highestenemy"},
-	{"&Fire Blast", "toggle(hig_en) & !target.boss & inRange.spell & !spell(Pyroblast).casttime==0 & !debuff(Dragon's Breath) & !player.casting(Polymorph) & {player.buff(Heating up) || player.spell(Fire Blast).charges >= 2 || player.spell(Phoenix's Flames).charges >= 1} & !UI(allfacing) & infront", "highestenemy"},
+	{"!Phoenix's Flames", "{!toggle(hig_en) || target.boss || target.player} & inRange.spell & canAttack & infront & !spell(Pyroblast).casttime==0 & !debuff(Dragon's Breath) & !player.casting(Polymorph) & {player.buff(Heating up) || player.spell(Phoenix's Flames).charges >= 2 || player.spell(Fire Blast).charges >= 1}", "target"},
+	{"!Phoenix's Flames", "toggle(hig_en) & !target.player & inRange.spell & !spell(Pyroblast).casttime==0 & !debuff(Dragon's Breath) & !player.casting(Polymorph) & {player.buff(Heating up) || player.spell(Phoenix's Flames).charges >= 2 || player.spell(Fire Blast).charges >= 1}", "highestenemy"},
 
-	{"Living Bomb", "inRange.spell & talent(6,1) & !toggle(AoE)", "target"},
-	{"Living Bomb", "inRange.spell & talent(6,1) & toggle(AoE)", "lowestenemy"},
+	{"&Fire Blast", "{!toggle(hig_en) || target.boss || target.player} & inRange.spell & canAttack & infront & !spell(Pyroblast).casttime==0 & !debuff(Dragon's Breath) & !player.casting(Polymorph) & {player.buff(Heating up) || player.spell(Fire Blast).charges >= 2 || player.spell(Phoenix's Flames).charges >= 1}", "target"},
+	{"&Fire Blast", "toggle(hig_en) & !target.player & inRange.spell & !spell(Pyroblast).casttime==0 & !debuff(Dragon's Breath) & !player.casting(Polymorph) & {player.buff(Heating up) || player.spell(Fire Blast).charges >= 2 || player.spell(Phoenix's Flames).charges >= 1}", "highestenemy"},
 
-	{"Fireball", "{!toggle(hig_en) || target.boss || target.faction.positive || target.faction.negative & player.pvp} & inRange.spell & {!player.buff(Combustion) || player.buff(Time Warp)} & {!spell(Pyroblast).casttime==0 || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {UI(mc) || !UI(mc) & !player.moving} & {UI(allfacing) || !UI(allfacing) & target.infront}", "target"},
-    {"Fireball", "toggle(hig_en) & !target.boss & inRange.spell & {!player.buff(Combustion) || player.buff(Time Warp) || hashero} & {!spell(Pyroblast).casttime==0 || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {UI(mc) || !UI(mc) & !player.moving} & UI(allfacing)", "highestenemy"},
-    {"Fireball", "toggle(hig_en) & !target.boss & inRange.spell & {!player.buff(Combustion) || player.buff(Time Warp) || hashero} & {!spell(Pyroblast).casttime==0 || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {UI(mc) || !UI(mc) & !player.moving} & !UI(allfacing) & infront", "highestenemy"},
-	{"Fireball", "{!target.player || target.faction.positive || target.faction.negative & player.pvp} & inRange.spell & {!player.buff(Combustion) || player.buff(Time Warp)} & {!spell(Pyroblast).casttime==0 || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {UI(mc) || !UI(mc) & !player.moving} & {UI(allfacing) || !UI(allfacing) & target.infront}", "target"},
+	{"Living Bomb", "inRange.spell & canAttack & talent(6,1) & !toggle(AoE)", "target"},
+	{"Living Bomb", "inRange.spell & canAttack & talent(6,1) & toggle(AoE)", "lowestenemy"},
 
-	{"Scorch", "{!toggle(hig_en) || target.boss || target.faction.positive || target.faction.negative & player.pvp} & inRange.spell & {!spell(Pyroblast).casttime==0 || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {player.moving || player.buff(Combustion) & !player.buff(Time Warp)} & {UI(allfacing) || !UI(allfacing) & target.infront}", "target"},
-	{"Scorch", "toggle(hig_en) & !target.boss & inRange.spell & {!spell(Pyroblast).casttime==0 || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {player.moving || player.buff(Combustion) & !player.buff(Time Warp)} & UI(allfacing)", "highestenemy"},
-	{"Scorch", "toggle(hig_en) & !target.boss & inRange.spell & {!spell(Pyroblast).casttime==0 || target.debuff(Dragon's Breath) || target.debuff(Polymorph)} & {player.moving || player.buff(Combustion) & !player.buff(Time Warp)} & !UI(allfacing) & infront", "highestenemy"},
+	{"Fireball", "{!toggle(hig_en) || target.boss || target.player} & inRange.spell & canAttack & infront & !player.moving & {!player.buff(Combustion) || player.buff(Time Warp)} & {!spell(Pyroblast).casttime==0 || target.debuff(Dragon's Breath) || target.debuff(Polymorph)}", "target"},
+    {"Fireball", "toggle(hig_en) & !target.player & inRange.spell & !player.moving & {!player.buff(Combustion) || player.buff(Time Warp) || hashero} & {!spell(Pyroblast).casttime==0 || target.debuff(Dragon's Breath) || target.debuff(Polymorph)}", "highestenemy"},
+	{"Fireball", "inRange.spell & canAttack & infront & !player.moving & {!player.buff(Combustion) || player.buff(Time Warp)} & {!spell(Pyroblast).casttime==0 || target.debuff(Dragon's Breath) || target.debuff(Polymorph)}", "target"},
+
+	{"Scorch", "{!toggle(hig_en) || target.boss || target.player} & inRange.spell & canAttack & infront & {player.moving || player.buff(Combustion) & !player.buff(Time Warp)}", "target"},
+	{"Scorch", "toggle(hig_en) & !target.player & inRange.spell & {player.moving || player.buff(Combustion) & !player.buff(Time Warp)}", "highestenemy"},
 
 }
 
 local inCombat = {
 
-    {"!/stopcasting", "casting(Unnerving Howl) & interruptAt(75)", "enemies"},
 	{pvp, "!player.buff(Invisibility)"},
 	{Keybinds},
 	{"Slow Fall", "falling.duration >= 1.3 & !player.buff(Slow Fall)"},
-	{Interrupts, "toggle(interrupts) & !target.casting(Vengeful Wail) & !target.casting(Runic Empowerment) & !player.buff(Invisibility) & {!target.player || target.faction.positive || !target.faction.positive & player.pvp}"},
+	{Interrupts, "toggle(interrupts) & !target.casting(Vengeful Wail) & !target.casting(Runic Empowerment) & !player.buff(Invisibility) & !target.immune_spell & !target.immune_all"},
     {Survival, "player.health <= 100 & !player.buff(Invisibility)"},
-	{Cooldowns, "toggle(cooldowns) & target.alive & target.enemy & !player.casting(Rune of Power) & !target.immune_all & !target.immune_spell & !player.buff(Invisibility) & !target.debuff(Polymorph) & !player.buff(Invisibility) & {!target.player || target.faction.positive || !target.faction.positive & player.pvp}"},
-    {Combat, "target.alive & target.enemy & !player.casting(Rune of Power) & !target.immune_all & !target.immune_spell & !player.buff(Invisibility) & !target.debuff(Polymorph)"},
+	{"!/stopattack", "target.immune_all || target.immune_spell || player.buff(Invisibility) || target.debuff(Polymorph)"},
+	{Cooldowns, "toggle(cooldowns) & target.alive & target.enemy & !player.casting(Rune of Power)"},
+    {Combat, "target.alive & target.enemy & !player.casting(Rune of Power)"},
 
 }
 
-local outCombat = {	
+local outCombat = {
 
 	{pvp, "!player.buff(Invisibility)"},
 	{Keybinds},
 	{"Slow Fall", "falling.duration >= 1.3 & !player.buff(Slow Fall)"},
-	{Combat, "UI(burst_key) & target.alive & target.enemy & !player.casting(Rune of Power) & !target.immune_all & !target.immune_spell & !player.buff(Invisibility) & !target.debuff(Polymorph) & {target.faction.positive || target.faction.negative & player.pvp}"},
+	{"!/stopattack", "target.immune_all || target.immune_spell || player.buff(Invisibility) || target.debuff(Polymorph)"},
+	{Combat, "UI(burst_key) & target.player & target.canAttack & target.alive & target.enemy & !player.casting(Rune of Power) & !target.immune_all & !target.immune_spell & !player.buff(Invisibility) & !target.debuff(Polymorph)"},
 	{PreCombat, "!player.buff(Invisibility)"},
 
 }
