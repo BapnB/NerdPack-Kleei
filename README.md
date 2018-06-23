@@ -3,7 +3,7 @@ Tested on FireStorm-PrivateServer. Legion [7.1.5] and [7.3.5]
 
 Use with Advance Unlocker like EWT.
 
-- If you like my work you can always support me <a href="https://www.paypal.me/thekleei"><img src="https://pbs.twimg.com/media/DgQW88wVAAAFWeI.jpg" alt="Donate" width="100" height="50" align = "right" /></a>
+- If you like my work you can always support me <a href="https://www.paypal.me/thekleei"><img src="https://pbs.twimg.com/media/DgQW88wVAAAFWeI.jpg" alt="Donate" width="100" height="50" align = "center" /></a>
 
 Rotation Status:
 
