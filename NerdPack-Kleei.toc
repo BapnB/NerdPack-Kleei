@@ -1,6 +1,6 @@
 ## Title: |r[|cfffffffFKleei|r] Combat Routines
 ## Notes: Combat Routines for NerdPack
-## Interface: 70100
+## Interface: 70300
 ## Author: Kleei
 ## Dependencies: NerdPack, NerdPack-Protected
 
@@ -20,13 +20,16 @@ rotations\monk\brewmaster.lua
 rotations\monk\mistweaver.lua
 rotations\monk\windwalker.lua
 
-rotations\rogue\assassination.lua
+rotations\rogue\assassination_7.1.5.lua
+rotations\rogue\assassination_7.3.5.lua
+rotations\rogue\outlaw_7.1.5.lua
+rotations\rogue\outlaw_7.3.5.lua
 rotations\rogue\subtlety.lua
-rotations\rogue\outlaw.lua
 
 rotations\deathknight\frost.lua
 
-rotations\mage\fire.lua
+rotations\mage\fire_7.1.5.lua
+rotations\mage\fire_7.3.5.lua
 rotations\mage\frost.lua
 
 rotations\warrior\fury.lua

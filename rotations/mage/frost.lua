@@ -92,7 +92,7 @@ local GUI = {
 local exeOnLoad = function()
 
  	print("|c0000FA9A ----------------------------------------------------------------------|r")
-	print("|c0000FA9A --- |r|c0000BFFF Mage - Frost |r")
+	print("|c0000FA9A --- |r|c0000BFFF Mage - Frost |r|c00FF0000 for Advanced Unlocker|r")
 	--[[print("|c0000FA9A ------------------------PVP-------------------------------------------|r")
 	print("|c0000FA9A --- |rRecommended Talents: 1/1 - 2/1 - 3/3 - 4/2 - 5/3 - 6/2 - 7/3")
 	print("|c0000FA9A --- |rHonor Talents: 1/1 - 2/1 - 3/1 - 4/1 - 5/3 - 6/2")
@@ -102,7 +102,8 @@ local exeOnLoad = function()
 	print("|c0000FA9A ----------------------------------------------------------------------|r")]]
 	print("|c0000FA9A")
 	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
-	
+	print("|c0000FA9A If you like my work you can always support me|r|c00FF0000 https://www.paypal.me/thekleei|r")
+
 	NeP.Interface:AddToggle({key = "tw", name = "Time Warp", text = "use Time Warp", icon = "Interface\\Icons\\ability_mage_timewarp"})
 	NeP.Interface:AddToggle({key = "cr", name = "Auto Control", text = "Automatically use Frost Nova & Dragon's Breath.", icon = "Interface\\Icons\\spell_frost_frostnova"})
 

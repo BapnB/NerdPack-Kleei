@@ -131,7 +131,7 @@ local GUI = {
 local exeOnLoad = function()
 
  	print("|c0000FA9A ----------------------------------------------------------------------|r")
-	print("|c0000FA9A --- |r|c0000BFFF Mage - Fire |r")
+	print("|c0000FA9A --- |r|c0000BFFF Mage - Fire |r|c00FF0000 for Advanced Unlocker|r")
 	print("|c0000FA9A ------------------------PVP-------------------------------------------|r")
 	print("|c0000FA9A --- |rRecommended Talents: 1/1 - 2/1 - 3/3 - 4/2 - 5/3 - 6/2 - 7/3")
 	print("|c0000FA9A --- |rHonor Talents: 1/1 - 2/1 - 3/1 - 4/1 - 5/3 - 6/2")
@@ -141,7 +141,8 @@ local exeOnLoad = function()
 	print("|c0000FA9A ----------------------------------------------------------------------|r")
 	print("|c0000FA9A")
 	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
-	
+	print("|c0000FA9A If you like my work you can always support me|r|c00FF0000 https://www.paypal.me/thekleei|r")
+
 	NeP.Interface:AddToggle({key = "tw", name = "Time Warp", text = "use Time Warp", icon = "Interface\\Icons\\ability_mage_timewarp"})
 	NeP.Interface:AddToggle({key = "cr", name = "Auto Control", text = "Automatically use Frost Nova & Dragon's Breath.", icon = "Interface\\Icons\\spell_frost_frostnova"})
 	NeP.Interface:AddToggle({key = "hig_en", name = "Attack Highest Health Enemies", text = "Works great in dungeons.", icon = "Interface\\Icons\\achievement_boss_guarm"})
@@ -270,12 +271,12 @@ local outCombat = {
 }
 
 NeP.CR:Add(63, {
-	name = "[|c0000BFFFKleei|r]|c0000BFFF Mage - Fire",
+	name = "[|c0000BFFFKleei|r]|c0000BFFF Mage - Fire [7.3.5]",
 	ic = inCombat,
 	ooc = outCombat,
 	gui = GUI,
 	gui_st = {title="Kleei Combat Routine Settings", width="315", height="770", color="87CEFA"},
-	wow_ver = "7.1.5",
+	wow_ver = "7.3.5",
  	nep_ver = "1.11",
 	load = exeOnLoad
 })

@@ -11,11 +11,15 @@ local GUI = {
 
 local exeOnLoad = function()
 
-	print('|cffADFF2F ------------------------PVE-------------------------------------------|r')
- 	print('|cffADFF2F --- |r|cffADFF2FMonk - Brewmaster|r')
- 	print('|cffADFF2F ---  |rRecommended Talents: 1/3 - 2/1 - 3/2 - 4/3 - 5/1 - 6/1 - 7/1')
- 	print('|cffADFF2F ----------------------------------------------------------------------|r')
-	
+ 	print("|c0000FA9A ----------------------------------------------------------------------|r")
+ 	print("|c0000FA9A --- |r|cffADFF2FMonk - Brewmaster |r|c00FF0000 for Advanced Unlocker|r")
+	print("|c0000FA9A ------------------------PVE-------------------------------------------|r")
+ 	print("|c0000FA9A --- |rRecommended Talents: 1/3 - 2/1 - 3/2 - 4/3 - 5/1 - 6/1 - 7/1")
+ 	print("|c0000FA9A ----------------------------------------------------------------------|r")
+	print("|c0000FA9A")
+	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
+	print("|c0000FA9A If you like my work you can always support me|r|c00FF0000 https://www.paypal.me/thekleei|r")
+
 end
 
 local Keybinds = {

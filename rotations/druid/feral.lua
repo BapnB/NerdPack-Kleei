@@ -153,10 +153,11 @@ local exeOnLoad = function()
 	print("|c0000FA9A --- |rRecommended Talents: 1/1 - 2/3 - 3/1 - 4/1 - 5/1 - 6/2 - 7/2-- AoE")
 	print("|c0000FA9A ----------------------------------------------------------------------|r")
 	print("|c0000FA9A")
-	print("|c0000FA9A Please Setup Rotation Settings first before using it!|r")
+	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
+	print("|c0000FA9A If you like my work you can always support me|r|c00FF0000 https://www.paypal.me/thekleei|r")
 
     NeP.Interface:AddToggle({key = "dot", icon = "Interface\\Icons\\ability_ghoulfrenzy", name = "Rip", text = "Include Rip in rotation"})
-    NeP.Interface:AddToggle({key = "travelform", icon = "Interface\\Icons\\ability_druid_travelform", name = "Auto Travel Form", text = "ON/OFF Auto Travel Form",})
+    --NeP.Interface:AddToggle({key = "travelform", icon = "Interface\\Icons\\ability_druid_travelform", name = "Auto Travel Form", text = "ON/OFF Auto Travel Form",})
 
 end
 

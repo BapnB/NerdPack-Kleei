@@ -137,6 +137,7 @@ local exeOnLoad = function()
  	print("|c0000FA9A ----------------------------------------------------------------------|r")
 	print("|c0000FA9A")
 	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
+	print("|c0000FA9A If you like my work you can always support me|r|c00FF0000 https://www.paypal.me/thekleei|r")
 
 end
 
@@ -278,12 +279,12 @@ local outCombat = {
 }
 
 NeP.CR:Add(260, {
-	name = "[|cffffff00Kleei|r]|cffffff00 ROGUE - Outlaw",
+	name = "[|cffffff00Kleei|r]|cffffff00 ROGUE - Outlaw [7.3.5]",
 	ic = inCombat,
 	ooc = outCombat,
 	gui = GUI,
 	gui_st = {title="Kleei Combat Routine Settings", width="315", height="770", color="87CEFA"},
-	wow_ver = "7.1.5",
+	wow_ver = "7.3.5",
  	nep_ver = "1.11",
 	load = exeOnLoad
 })

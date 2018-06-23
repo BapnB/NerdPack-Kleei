@@ -124,6 +124,7 @@ local exeOnLoad = function()
  	print("|c0000FA9A ----------------------------------------------------------------------|r")
 	print("|c0000FA9A")
 	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
+	print("|c0000FA9A If you like my work you can always support me|r|c00FF0000 https://www.paypal.me/thekleei|r")
 
 	NeP.Interface:AddToggle({key = "barrage_key", icon = "Interface\\Icons\\ability_hunter_rapidregeneration", name = "Auto Barrage", text = "ON/OFF"})
 

@@ -101,7 +101,7 @@ local GUI = {
 local exeOnLoad = function()
 
  	print('|c0000FA9A ----------------------------------------------------------------------|r')
- 	print('|c0000FA9A --- |r|cffffff00ROGUE - Subtlety|r')	
+ 	print("|c0000FA9A --- |r|cffffff00ROGUE - Subtlety |r|c00FF0000 for Advanced Unlocker|r")
 	print('|c0000FA9A ------------------------PVP-------------------------------------------|r')
  	print('|c0000FA9A --- |rRecommended Talents: 1/2 - 2/2 - 3/3 - 4/1 - 5/1 - 6/1 - 7/1')
     print('|c0000FA9A')
@@ -110,6 +110,7 @@ local exeOnLoad = function()
  	print('|c0000FA9A ----------------------------------------------------------------------|r')
 	print("|c0000FA9A")
 	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
+	print("|c0000FA9A If you like my work you can always support me|r|c00FF0000 https://www.paypal.me/thekleei|r")
 
     NeP.Interface:AddToggle({key = "Dotting", icon = "Interface\\Icons\\ability_rogue_nightblade", name = "Nightblade", text = "Include Nightblade in rotation"})
 	
@@ -228,12 +229,12 @@ local outCombat = {
 }
 
 NeP.CR:Add(261, {
-	name = '[|cffffff00Kleei|r]|cffffff00 ROGUE - Subtlety',
+	name = "[|cffffff00Kleei|r]|cffffff00 ROGUE - Subtlety",
 	ic = inCombat,
 	ooc = outCombat,
 	gui = GUI,
 	gui_st = {title="Kleei Combat Routine Settings", width="315", height="750", color="87CEFA"},
-	wow_ver = '7.1.5',
- 	nep_ver = '1.11',
+	wow_ver = "7.1.5",
+ 	nep_ver = "1.11",
 	load = exeOnLoad
 })

@@ -99,13 +99,14 @@ local GUI = {
 
 local exeOnLoad = function()
 
-	
-	print('|c0000FA9A ------------------------PVE-------------------------------------------|r')
- 	print('|c0000FA9A --- |r|c0000FA9ADemon Hunter - Havoc|r')
- 	print('|c0000FA9A --- |rRecommended Talents: 1/2 - 2/2 - 3/X - 4/3 - 5/X - 6/1 - 7/2')
- 	print('|c0000FA9A ----------------------------------------------------------------------|r')
+ 	print("|c0000FA9A ----------------------------------------------------------------------|r")
+ 	print("|c0000FA9A --- |r|c0000FA9ADemon Hunter - Havoc|r|c00FF0000 for Advanced Unlocker|r")
+	print("|c0000FA9A ------------------------PVE-------------------------------------------|r")
+ 	print("|c0000FA9A --- |rRecommended Talents: 1/2 - 2/2 - 3/X - 4/3 - 5/X - 6/1 - 7/2")
+ 	print("|c0000FA9A ----------------------------------------------------------------------|r")
 	print("|c0000FA9A")
 	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
+	print("|c0000FA9A If you like my work you can always support me|r|c00FF0000 https://www.paypal.me/thekleei|r")
 
 	NeP.Interface:AddToggle({key = "charge", name = "Charge", text = "ON/OFF using Felblade and Fel Rush in Rotation", icon = "Interface\\Icons\\ability_demonhunter_felblade"})
 

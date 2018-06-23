@@ -119,8 +119,8 @@ local GUI = {
 
 local exeOnLoad = function()
 
- 	print('|c0000FA9A ----------------------------------------------------------------------|r')
- 	print('|c0000FA9A --- |r|cffffff00ROGUE - Assassination|r')	
+ 	print("|c0000FA9A ----------------------------------------------------------------------|r")
+ 	print("|c0000FA9A --- |r|cffffff00ROGUE - Assassination|r|c00FF0000 for Advanced Unlocker|r")
 	print('|c0000FA9A ------------------------PVP-------------------------------------------|r')
  	print('|c0000FA9A --- |rRecommended Talents: 1/1 - 2/3 - 3/3 - 4/3 - 5/2 - 6/3 - 7/1')
     print('|c0000FA9A')
@@ -129,6 +129,7 @@ local exeOnLoad = function()
  	print('|c0000FA9A ----------------------------------------------------------------------|r')
 	print("|c0000FA9A")
 	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
+	print("|c0000FA9A If you like my work you can always support me|r|c00FF0000 https://www.paypal.me/thekleei|r")
     
 	NeP.Interface:AddToggle({key = "Rupt", icon = "Interface\\Icons\\ability_rogue_rupture", name = "Rupture", text = "Include Rupture  in rotation"})
 
@@ -286,7 +287,7 @@ local outCombat = {
 }
 
 NeP.CR:Add(259, {
-	name = '[|cffffff00Kleei|r]|cffffff00 ROGUE - Assassination',
+	name = '[|cffffff00Kleei|r]|cffffff00 ROGUE - Assassination [7.1.5]',
 	ic = inCombat,
 	ooc = outCombat,
 	gui = GUI,

@@ -9,11 +9,14 @@ local GUI = {
 
 local exeOnLoad = function()
 
-
-	print('|cffADFF2F ------------------------PVE-------------------------------------------|r')
-	print('|cffADFF2F --- |r|cffDA70D6Demon Hunter - Vengeance |r')
-	print('|cffADFF2F --- |rRecommended Talents: 1/2 - 2/3 - 3/2 - 4/3 - 5/3 - 6/1 - 7/3')
-	print('|cffADFF2F ----------------------------------------------------------------------|r')
+ 	print("|c0000FA9A ----------------------------------------------------------------------|r")
+	print("|c0000FA9A --- |r|cffDA70D6Demon Hunter - Vengeance|r|c00FF0000 for Advanced Unlocker|r")
+	print("|c0000FA9A ------------------------PVE-------------------------------------------|r")
+	print("|c0000FA9A --- |rRecommended Talents: 1/2 - 2/3 - 3/2 - 4/3 - 5/3 - 6/1 - 7/3")
+	print("|c0000FA9A ----------------------------------------------------------------------|r")
+	print("|c0000FA9A")
+	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
+	print("|c0000FA9A If you like my work you can always support me|r|c00FF0000 https://www.paypal.me/thekleei|r")
 
 end
 

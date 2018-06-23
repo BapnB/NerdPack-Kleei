@@ -119,12 +119,14 @@ local GUI = {
 
 local exeOnLoad = function()
 
-    print("|c0000FA9A ----------------------------------------------------------------------|r")
-    print("|c0000FA9A --- |r|cffF58CBAPALADIN - Protection |r")
+ 	print("|c0000FA9A ----------------------------------------------------------------------|r")
+    print("|c0000FA9A --- |r|cffF58CBAPALADIN - Protection |r|c00FF0000 for Advanced Unlocker|r")
+	print("|c0000FA9A ------------------------PVE-------------------------------------------|r")
     print("|c0000FA9A --- |rRecommended Talents: 1/2 - 2/2 - 3/3 - 4/1 - 5/2 - 6/2 - 7/3")
     print("|c0000FA9A ----------------------------------------------------------------------|r")
 	print("|c0000FA9A")
 	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
+	print("|c0000FA9A If you like my work you can always support me|r|c00FF0000 https://www.paypal.me/thekleei|r")
 
     NeP.Interface:AddToggle({key  = "AutoTaunt", name = "Auto Taunt", text = "Automatically taunt nearby enemies.", icon = "Interface\\Icons\\spell_nature_shamanrage.png"})
 

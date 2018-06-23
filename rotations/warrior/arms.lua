@@ -56,7 +56,7 @@ local GUI = {
 local exeOnLoad = function()
 
  	print("|c0000FA9A ----------------------------------------------------------------------|r")
- 	print("|c0000FA9A --- |r|cffffff00WARRIOR - Arms|r")	
+ 	print("|c0000FA9A --- |r|cffffff00WARRIOR - Arms |r|c00FF0000 for Advanced Unlocker|r")
 	print("|c0000FA9A ------------------------PVP-------------------------------------------|r")
  	print("|c0000FA9A --- |rRecommended Talents: 1/x - 2/x - 3/x - 4/x - 5/x - 6/x - 7/x")
     print("|c0000FA9A")
@@ -64,7 +64,8 @@ local exeOnLoad = function()
  	print("|c0000FA9A --- |rRecommended Talents: 1/1 - 2/3 - 3/1 - 4/1 - 5/2 - 6/3 - 7/2")
  	print("|c0000FA9A ----------------------------------------------------------------------|r")
 	print("|c0000FA9A")
-	print("|c0000FA9A Please Setup Rotation Settings first before using it!|r")
+	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
+	print("|c0000FA9A If you like my work you can always support me|r|c00FF0000 https://www.paypal.me/thekleei|r")
 
 	NeP.Interface:AddToggle({key = "WarStorm", name = "WarStorm", text = "Add Warbreaker and Bladestorm to AoE rotation", icon = "Interface\\Icons\\ability_warrior_bladestorm"})
 	NeP.Interface:AddToggle({key = "STWarbreaker", name = "STWarbreaker", icon = "Interface\\Icons\\inv_sword_2h_artifactarathor_d_01"})

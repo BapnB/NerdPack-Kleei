@@ -119,12 +119,14 @@ local GUI = {
 
 local exeOnLoad = function()
 	
-	print('|c0000FA9A --- |r|c00FF7F00 DRUID - Restoration|r|c00FF0000 for Advanced Unlocker|r')	
-	print('|c0000FA9A ------------------------PVE-------------------------------------------|r')
-	print('|c0000FA9A --- |rRecommended Talents: 1/1 - 2/1 - 3/1 - 4/X - 5/1 - 6/3 - 7/1')
-	print('|c0000FA9A ----------------------------------------------------------------------|r')
+ 	print("|c0000FA9A ----------------------------------------------------------------------|r")
+	print("|c0000FA9A --- |r|c00FF7F00 DRUID - Restoration|r|c00FF0000 for Advanced Unlocker|r")	
+	print("|c0000FA9A ------------------------PVE-------------------------------------------|r")
+	print("|c0000FA9A --- |rRecommended Talents: 1/1 - 2/1 - 3/1 - 4/X - 5/1 - 6/3 - 7/1")
+	print("|c0000FA9A ----------------------------------------------------------------------|r")
 	print("|c0000FA9A")
 	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
+	print("|c0000FA9A If you like my work you can always support me|r|c00FF0000 https://www.paypal.me/thekleei|r")
 
 	NeP.Interface:AddToggle({key = "dispelall", icon = "Interface\\Icons\\ability_shaman_cleansespirit.png", name = "Dispell", text = "ON/OFF Auto Dispell All"})
 	NeP.Interface:AddToggle({key = "DPS", icon = "Interface\\Icons\\ability_mage_firestarter.png", name = "DPS", text = "ON/OFF DMG when > xx% on LOWEST Health"})

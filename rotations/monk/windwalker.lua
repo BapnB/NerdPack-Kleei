@@ -110,10 +110,14 @@ local GUI = {
 
 local exeOnLoad = function()
 	
+ 	print("|c0000FA9A ----------------------------------------------------------------------|r")
+ 	print("|c0000FA9A --- |r|c0000FA9AMonk - WindWalker |r|c00FF0000 for Advanced Unlocker|r")
 	print("|c0000FA9A ------------------------PVE-------------------------------------------|r")
- 	print("|c0000FA9A --- |r|c0000FA9AMonk - WindWalker|r")
  	print("|c0000FA9A --- |rRecommended Talents: 1/2 - 2/1 - 3/1 - 4/3 - 5/1 - 6/3 - 7/2")
  	print("|c0000FA9A ----------------------------------------------------------------------|r")
+	print("|c0000FA9A")
+	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
+	print("|c0000FA9A If you like my work you can always support me|r|c00FF0000 https://www.paypal.me/thekleei|r")
 
 end
 

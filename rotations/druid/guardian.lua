@@ -4,10 +4,14 @@ local GUI = {
 
 local exeOnLoad = function()
 
-	print('|cffADFF2F ------------------------PVE-------------------------------------------|r')
-	print('|cffADFF2F --- |r|c00FF7F00 DRUID - Guardian |r')
-	print('|cffADFF2F --- |rRecommended Talents: 1/X - 2/X - 3/3 - 4/X - 5/X - 6/X - 7/X')
-	print('|cffADFF2F ----------------------------------------------------------------------|r')
+ 	print("|c0000FA9A ----------------------------------------------------------------------|r")
+	print("|c0000FA9A --- |r|c00FF7F00 DRUID - Guardian |r|c00FF0000 for Advanced Unlocker|r")
+	print("|c0000FA9A ------------------------PVE-------------------------------------------|r")
+	print("|c0000FA9A --- |rRecommended Talents: 1/X - 2/X - 3/3 - 4/X - 5/X - 6/X - 7/X")
+	print("|c0000FA9A ----------------------------------------------------------------------|r")
+	print("|c0000FA9A")
+	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
+	print("|c0000FA9A If you like my work you can always support me|r|c00FF0000 https://www.paypal.me/thekleei|r")
 
 end
 

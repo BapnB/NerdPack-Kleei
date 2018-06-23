@@ -71,13 +71,15 @@ local GUI = {
 
 local exeOnLoad = function()
 
-	print('|cffADFF2F --- |r|c00FF7F00 DRUID - Balance |r')
+ 	print("|c0000FA9A ----------------------------------------------------------------------|r")
+	print("|c0000FA9A --- |r|c00FF7F00 DRUID - Balance |r|c00FF0000 for Advanced Unlocker|r")
+	print("|c0000FA9A ------------------------PVE-------------------------------------------|r")
+	print("|c0000FA9A --- |rRecommended Talents: Coming Soon")
+	print("|c0000FA9A ----------------------------------------------------------------------|r")
+	print("|c0000FA9A")
+	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
+	print("|c0000FA9A If you like my work you can always support me|r|c00FF0000 https://www.paypal.me/thekleei|r")
 
-	print('|cffADFF2F ------------------------PVE-------------------------------------------|r')
-	print('|cffADFF2F --- |rRecommended Talents: Coming Soon')
-	print('|cffADFF2F ----------------------------------------------------------------------|r')
-
-	
     NeP.Interface:AddToggle({key = "travelform", icon = "Interface\\Icons\\ability_druid_travelform", name = "Auto Travel Form", text = "ON/OFF Auto Travel Form",})
 	
 end
