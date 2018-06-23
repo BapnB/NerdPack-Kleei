@@ -163,10 +163,10 @@ local pvp = {
 
 local Keybinds = {
 
-	{"Cheap Shot", "inRange.spell & canAttack & player.buff(Stealth) & !player.buff(Vanish) & !immune_stun & !state(stun) & {spell(Garrote).cooldown > gcd || keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
-	{"Kidney Shot", "inRange.spell & canAttack & !IsStealthed & !immune_stun & !state(stun) & player.combopoints >= 3 & {UI(stun) & target.player || keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
-	{"Sap", "inRange.spell & canAttack & !player.buff(Vanish) & !immune_stun & !state(stun) & !state(disorient) & !state(incapacitate) & !combat & {UI(sap_key) & target.player || keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target"},
-	{"Blind", "inRange.spell & canAttack & fixRange > 10 & !immune_stun & !state(stun) & !state(disorient) & !state(incapacitate) & !player.buff(Vanish) & {target.buff(Touch of Karma) || keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
+	{"Cheap Shot", "inRange.spell & player.buff(Stealth) & !player.buff(Vanish) & !immune_stun & !state(stun) & {spell(Garrote).cooldown > gcd || keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
+	{"Kidney Shot", "inRange.spell & !IsStealthed & !immune_stun & !state(stun) & player.combopoints >= 3 & {UI(stun) & target.player || keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
+	{"Sap", "inRange.spell & !player.buff(Vanish) & !immune_stun & !state(stun) & !state(disorient) & !state(incapacitate) & !combat & {UI(sap_key) & target.player || keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target"},
+	{"Blind", "inRange.spell & fixRange > 10 & !immune_stun & !state(stun) & !state(disorient) & !state(incapacitate) & !player.buff(Vanish) & {target.buff(Touch of Karma) || keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
 
 }
 
@@ -263,10 +263,10 @@ local inCombat = {
 	{Survival, "player.health < 100"},
 	{"!/stopattack", "player.buff(Vanish) || target.immune_all"},
     --{pvp_1v1, "player.pvp & target.player & target.enemy & target.alive"},
-    {Keybinds, "target.enemy & target.alive & target.infront"},
-    {Interrupts, "toggle(interrupts) & target.enemy & target.alive & !IsStealthed"},
-	{Cooldowns, "toggle(cooldowns) & target.enemy & target.alive & target.infront & !IsStealthed"},
-	{Combat, "target.enemy & target.alive"},
+    {Keybinds, "target.canAttack & target.alive & target.infront"},
+    {Interrupts, "toggle(interrupts) & target.canAttack & target.alive & !IsStealthed"},
+	{Cooldowns, "toggle(cooldowns) & target.canAttack & target.alive & target.infront & !IsStealthed"},
+	{Combat, "target.canAttack & target.alive"},
 
 }
 
@@ -276,8 +276,8 @@ local outCombat = {
 	{"Stealth", "UI(stealth_key) & !player.state(dot) & !IsStealthed & target.enemy & target.canAttack & target.alive"},
 	{"Crimson Vial", "player.health <= UI(cv_spin) & UI(cv_check)"},
 	{"!/stopattack", "player.buff(Vanish) || target.immune_all"},
-    {Keybinds, "target.enemy & target.alive & target.infront"},
-	{PreCombat, "target.enemy & target.alive & target.infront"},
+    {Keybinds, "target.canAttack & target.alive & target.infront"},
+	{PreCombat, "target.canAttack & target.alive & target.infront"},
 	{Poisons, "UI(poisons_key) & !player.moving & !player.buff(Vanish)"},
 
 }
