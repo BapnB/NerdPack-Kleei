@@ -17,14 +17,14 @@ Rotation Status:
   [7.1.5] - Brewmaster / Windwalker
 
 - [Rogue]
-  [7.1.5] - Assassination / Subtlety / OUTLAW
+  [7.1.5] - Assassination / Subtlety / OUTLAW |
   [7.3.5] - Assassination / OUTLAW
 
 - [Death Knight]
   [7.1.5] - Frost
 
 - [Mage]
-  [7.1.5] - Fire
+  [7.1.5] - Fire |
   [7.3.5] - Fire
 
 - [Hunter]
