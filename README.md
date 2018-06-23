@@ -19,7 +19,7 @@ Rotation Status: [7.1.5]
 
 - [Monk] - Brewmaster / Windwalker
 
-- [Rogue] - Assassination / Subtlety / OUTLAW |
+- [Rogue] - Assassination / Subtlety / OUTLAW
 
 - [Death Knight] - Frost
 
