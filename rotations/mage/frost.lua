@@ -116,9 +116,7 @@ local pvp = {
 	
 	{"!Ring of Frost", "{keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5} & {UI(mc) || !UI(mc) & !player.moving}", "cursor.ground"},
 	
-	{"Spellsteal", "!immune_all & !immune_spell & alive & enemy & inRange.spell & UI(st_buff) & {player.mana >= 25 || player.buff(Innervate)} & !player", "enemystbuff"},
-	{"Spellsteal", "!immune_all & !immune_spell & alive & enemy & inRange.spell & UI(st_buff) & {player.mana >= 25 || player.buff(Innervate)} & faction.positive", "enemystbuff"},
-	{"Spellsteal", "!immune_all & !immune_spell & alive & enemy & inRange.spell & UI(st_buff) & {player.mana >= 25 || player.buff(Innervate)} & faction.negative & player.pvp", "enemystbuff"},
+	{"Spellsteal", "inRange.spell & UI(st_buff) & {player.mana >= 25 || player.buff(Innervate)}", "enemystbuff"},
 
 }
 
@@ -140,12 +138,12 @@ local PreCombat = {
 	
 	--Pet Function
 	{"Summon Water Elemental", "!talent(1,2) & !Pet.Exists & !player.moving"},
-    {(function() _G.PetAssistMode() print("Pet Set To Assist") end), "PetUIExists & !PetSpell(Waterbolt).autocast"},
-	{(function() _G.ToggleSpellAutocast("Waterbolt") print("Pet Auto Spell |c0000BFFF[Waterbolt]|r activated") end), "PetUIExists & !PetSpell(Waterbolt).autocast"},
+    {(function() _G.PetAssistMode() print("Pet Set To Assist") end), "!PetSpell(Waterbolt).autocast"},
+	{(function() _G.ToggleSpellAutocast("Waterbolt") print("Pet Auto Spell |c0000BFFF[Waterbolt]|r activated") end), "!PetSpell(Waterbolt).autocast"},
 	---
 
-	{"Frostbolt", "inRange.spell & alive & enemy & !immune_all & !immune_spell & !player.moving & {!target.player || target.faction.positive || target.faction.negative & player.pvp}", "target"},
-
+	{"Frostbolt", "inRange.spell & alive & canAttack & !immune_all & !immune_spell & !player.moving", "target"},
+	
     {"Conjure Refreshment", "item(80610).count < 1 & !player.moving"},
 	{"#80610", "item(80610).count >= 1 & player.health <= 80 & !player.buff(Refreshment) & !player.moving"},
 
@@ -156,9 +154,8 @@ local Survival = {
 	{"!Ice Block", "area(40).enemies >= 1 & {player.health <= UI(ice_health_spin) & UI(ice_health_check) || player.debuff(Cauterize) & UI(cool_down) || player.state(stun) & player.spell(Every Man for Himself).cooldown > 0 & player.spell(Gladiator's Medallion).cooldown > 0 & !player.lastcast(Gladiator's Medallion) & UI(ice_stun)}", "player"},
     {"!Temporal Shield", "player.health <= UI(temp_shield_spin) & UI(temp_shield_check) & area(40).enemies >= 1 & player.incdmg(3) >= player.health.max*0.05", "player"},
 	
-	{"Frost Nova", "toggle(cr) & !enemy_totem & player.area(8).enemies >= 1 & !immune_all & !immune_spell & !player.lastcast(Frost Nova) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & !player & !player.pvp", "enemies"},
-	{"Frost Nova", "toggle(cr) & !enemy_totem & player.area(8).enemies >= 1 & !immune_all & !immune_spell & !player.lastcast(Frost Nova) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & faction.positive", "enemies"},
-	{"Frost Nova", "toggle(cr) & !enemy_totem & player.area(8).enemies >= 1 & !immune_all & !immune_spell & !player.lastcast(Frost Nova) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & faction.negative & player.pvp", "enemies"},
+	{"Frost Nova", "toggle(cr) & canAttack & !enemy_totem & fixRange <= 8 & !immune_all & !immune_spell & !player.lastcast(Frost Nova) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & !pvp.area", "enemies"},
+	{"Frost Nova", "toggle(cr) & canAttack & !enemy_totem & fixRange <= 8 & !immune_all & !immune_spell & !player.lastcast(Frost Nova) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & player & pvp.area", "enemies"},
 
 	{"Ice Barrier", "!buff(Ice Block) & buff.duration < 3 & {!player.buff(Rune of Power) & !player.buff(Combustion) || {target.faction.positive || target.faction.negative & player.pvp}}", "player"},
 	{"#5512", "item(5512).count >= 1 & health <= UI(hs_spin) & UI(hs_check) & area(40).enemies >= 1", "player"}, --Health Stone
@@ -185,10 +182,10 @@ local Cooldowns = {
 
 local Combat = {
 
-	{"!Flurry", "inRange.spell & spell(Flurry).casttime == 0 & {deathin >= 3 || player.buff(Brain Freeze).duration <= 5} & alive & enemy & !immune_all & !immune_spell & {!target.player || target.faction.positive || target.faction.negative & player.pvp}", "target"},
-	{"Ice Lance", "inRange.spell & alive & enemy & !immune_all & !immune_spell & {player.buff(Fingers of Frost) || player.moving || player.lastcast(Frostbolt)} & {!target.player || target.faction.positive || target.faction.negative & player.pvp}", "target"},
-	{"Frostbolt", "inRange.spell & alive & enemy & !immune_all & !immune_spell & !player.moving & {!target.player || target.faction.positive || target.faction.negative & player.pvp}", "target"},
-	{"&Fire Blast", "inRange.spell & alive & enemy & !immune_all & !immune_spell & {!target.player || target.faction.positive || target.faction.negative & player.pvp}", "target"},
+	{"!Flurry", "inRange.spell & spell(Flurry).casttime == 0 & {target.deathin >= 3 || player.buff(Brain Freeze).duration <= 5} & alive & canAttack & !immune_all & !immune_spell", "target"},
+	{"Ice Lance", "inRange.spell & alive & canAttack & !immune_all & !immune_spell & {player.buff(Fingers of Frost) || player.moving || player.lastcast(Frostbolt)}", "target"},
+	{"Frostbolt", "inRange.spell & alive & canAttack & !immune_all & !immune_spell & !player.moving", "target"},
+	{"&Fire Blast", "inRange.spell & alive & canAttack & !immune_all & !immune_spell", "target"},
 
 }
 
@@ -197,8 +194,8 @@ local inCombat = {
 	{"Slow Fall", "falling.duration >= 1.5 & !player.buff(Slow Fall)"},
 
 	--Pet Function
-    {(function() _G.PetAssistMode() print("Pet Set To Assist") end), "PetUIExists & !PetSpell(Waterbolt).autocast"},
-	{(function() _G.ToggleSpellAutocast("Waterbolt") print("Pet Auto Spell |c0000BFFF[Waterbolt]|r activated") end) , "PetUIExists & !PetSpell(Waterbolt).autocast"},
+    {(function() _G.PetAssistMode() print("Pet Set To Assist") end), "!PetSpell(Waterbolt).autocast"},
+	{(function() _G.ToggleSpellAutocast("Waterbolt") print("Pet Auto Spell |c0000BFFF[Waterbolt]|r activated") end) , "!PetSpell(Waterbolt).autocast"},
 	---
 
     {"!/stopcasting", "casting(Unnerving Howl) & interruptAt(75)", "enemies"},

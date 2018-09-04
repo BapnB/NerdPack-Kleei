@@ -238,7 +238,7 @@ local Combat = {
 	{"Death from Above", "talent(7,3) & inRange.spell & canAttack & !player.buff(Stealth) & {!player.debuff(Curse of the Dreadblades) || target.player} & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
     {"Run Through", "inRange.spell & canAttack & equipped(Thraxi's Tricksy Treads) & player.buff(Sprint) & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
 	
-	{"Roll the Bones", "!talent(7,1) & target.deathin > 7 & !buff_of_the_bones & player.combopoints > 2 & {talent(7,3) & spell(Death from Above).cooldown > 1 || player.debuff(Curse of the Dreadblades) || !talent(7,3)}", "player"},
+	{"Roll the Bones", "!talent(7,1) & {target.deathin > 7 || target.isdummy} & !buff_of_the_bones & player.combopoints > 2 & {talent(7,3) & spell(Death from Above).cooldown > 1 || player.debuff(Curse of the Dreadblades) || !talent(7,3)}", "player"},
 	{"Slice and Dice", "talent(7,1) & player.buff(Slice and Dice).duration < 3 & {target.deathin > 10 & player.combopoints > 4 || target.deathin <= 10 & player.combopoints > 1}"},
 	{"Run Through", "inRange.spell & canAttack & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
 

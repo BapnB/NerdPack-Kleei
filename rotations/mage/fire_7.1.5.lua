@@ -184,8 +184,8 @@ local Survival = {
 	{"!Ice Block", "area(40).enemies >= 1 & {player.health <= UI(ice_health_spin) & UI(ice_health_check) || player.debuff(Cauterize) & UI(cool_down) || player.state(stun) & player.spell(Every Man for Himself).cooldown > 0 & player.spell(Gladiator's Medallion).cooldown > 0 & !player.lastcast(Gladiator's Medallion) & UI(ice_stun)}", "player"},
     {"!Temporal Shield", "player.health <= UI(temp_shield_spin) & UI(temp_shield_check) & area(40).enemies >= 1 & player.incdmg(3) >= player.health.max*0.03", "player"},
 	
-	{"Dragon's Breath",	"toggle(cr) & canAttack & !enemy_totem & fixRange <= 8 & infront & !immune_all & !immune_spell & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & !pvp.area", "enemies"},
-	{"Dragon's Breath",	"toggle(cr) & canAttack & !enemy_totem & fixRange <= 8 & infront & !immune_all & !immune_spell & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & player & pvp.area", "enemies"},
+	{"Dragon's Breath",	"toggle(cr) & canAttack & !enemy_totem & fixRange <= 6 & infront & !immune_all & !immune_spell & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & !pvp.area", "enemies"},
+	{"Dragon's Breath",	"toggle(cr) & canAttack & !enemy_totem & fixRange <= 6 & infront & !immune_all & !immune_spell & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & player & pvp.area", "enemies"},
 	
 	{"Frost Nova", "toggle(cr) & canAttack & !enemy_totem & fixRange <= 8 & !immune_all & !immune_spell & !player.lastcast(Frost Nova) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & !pvp.area", "enemies"},
 	{"Frost Nova", "toggle(cr) & canAttack & !enemy_totem & fixRange <= 8 & !immune_all & !immune_spell & !player.lastcast(Frost Nova) & !state(root) & !state(stun) & !state(fear) & !state(disorient) & !state(incapacitate) & !state(charm) & player & pvp.area", "enemies"},
@@ -198,8 +198,10 @@ local Survival = {
 local Interrupts = {
 
 	{"!Counterspell", "inRange.spell & canAttack & interruptAt(65)", "target"},
-
 	{"!Dragon's Breath", "interruptAt(55) & canAttack & fixRange <= 8 & infront & player.spell(Counterspell).cooldown > 0 & !player.lastcast(Counterspell)", "target"},
+
+	{"Arcane Torrent", "interruptAt(1) & fixRange <= 7.5 & !player.casting(Barrage) & dungeon.interrupts & player.level > 99", "enemies"},
+	{"Arcane Torrent",	"interruptAt(60) & fixRange <= 7.5 & !player.casting(Barrage) & {player.level < 100 || !indungeon}", "target"},
 
 }
 

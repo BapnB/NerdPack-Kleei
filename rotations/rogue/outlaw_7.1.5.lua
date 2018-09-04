@@ -66,7 +66,7 @@ local GUI = {
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	
     {type = 'header', size = 16, text = 'PVP', align = 'center'},
-    {type = 'checkbox',	text = "Stun:|c0000FA9A auto [CS] or [BTE] PVP Target.|r", align = 'left', key = 'stun', default = true},
+    {type = 'checkbox',	text = "Stun:|c0000FA9A auto [Cheap Shot] or [BTE] PVP Target.|r", align = 'left', key = 'stun', default = true},
     {type = 'checkbox',	text = "Sap:|c0000FA9A auto [Sap] PVP Target.", align = 'left', key = 'sap_key', default = true},
 	--{type = 'checkbox',	text = "Blind:|c0000FA9A target not stuned and [Vanish] is on CD", align = 'left', key = 'blind_no_van', default = false},
     {type = 'checkbox',	text = "Gladiator's Medallion , Every Man for Himself:", align = 'left', key = 'medal', default = true},
@@ -89,7 +89,7 @@ local GUI = {
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	
-	{type = "header", size = 16, text = "Cooldowns Toggle:", align = 'center'},
+	{type = "header", size = 16, text = "Cooldowns Toggle", align = 'center'},
 	{type = 'checkbox', text = "Adrenaline Rush:", key = "adr_key", default = true},
 	{type = 'checkbox', text = "Curse of the Dreadblades:|c0000FA9A when combo points <= 3", key = "cotd_key", default = true},
 	{type = 'checkbox', text = "Thistle Tea:|c0000FA9A when energy < 40 and target boss or PVP enemy", key = "tea_key", default = true},
@@ -162,18 +162,19 @@ local Grappling_Hook = {
 
 local pvp = {
 
-    {"!Every Man for Himself", "UI(medal) & state(stun) & !buff(Stealth) & !buff(Vanish)", "player"},        
+    {"!Dismantle", "inRange.spell & honortalent(6,2) & !player.buff(Stealth) & !player.buff(Vanish) & player & canAttack & !state(stun) & disarmclass", "target"},
+    {"!Every Man for Himself", "UI(medal) & state(stun) & !buff(Stealth) & !buff(Vanish)", "player"},
     {"!Gladiator's Medallion", "UI(medal) & !buff(Stealth) & !buff(Vanish) & target.player & target.canAttack & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
 
 }
 
 local Keybinds = {
 
-	{"Cheap Shot", "inRange.spell & canAttack & player.buff(Stealth) & !player.buff(Vanish) & !target.immune_stun & !target.state(stun) & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || UI(stun) & target.player}", "target"},
-	{BtE, "target.inRange(Between the Eyes).spell & target.canAttack & !player.lastcast(Cheap Shot) & !player.buff(Stealth) & !player.buff(Vanish) & player.combopoints >= 3 & !target.immune_stun & !target.state(stun) & !target.state(disorient) & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || UI(stun) & target.player}"},
-	{"Sap", "inRange.spell & canAttack & UI(sap_key) & !player.buff(Vanish) & !target.immune_stun & !target.state(stun) & !target.state(disorient) & !target.state(incapacitate) & !target.combat & target.player", "target"},
+	{"Cheap Shot", "inRange.spell & canAttack & infront & player.buff(Stealth) & !player.buff(Vanish) & !target.immune_stun & !target.state(stun) & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || UI(stun) & target.player}", "target"},
+	{BtE, "target.inRange(Between the Eyes).spell & target.canAttack & target.infront & !player.lastcast(Cheap Shot) & !player.buff(Stealth) & !player.buff(Vanish) & player.combopoints >= 3 & !target.immune_stun & {!target.state(disarm) || !disarmclass} & !target.state(stun) & !target.state(disorient) & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || UI(stun) & target.player}"},
+	{"Sap", "inRange.spell & canAttack & infront & UI(sap_key) & !player.buff(Vanish) & !target.immune_stun & !target.state(stun) & !target.state(disorient) & !target.state(incapacitate) & !target.combat & target.player", "target"},
 	--{"Gouge", "target.inRange(Gouge).spell  & target.canAttack & player.infront.of.target & !player.buff(Stealth) & !player.buff(Vanish) & !target.immune_stun & !target.state(stun) & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "target"},
-	{"Blind", "inRange.spell & canAttack & fixRange > 10 & !target.immune_stun & !target.state(stun) & !target.state(disorient) & !target.state(incapacitate) & !player.buff(Vanish) & {target.buff(Touch of Karma) || keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target"},
+	{"Blind", "inRange.spell & canAttack & infront & {!target.inRange(Kidney Shot).spell || spell(Kidney Shot).cooldown > 1} & !target.immune_stun & !target.state(stun) & !target.state(disorient) & !target.state(incapacitate) & !player.buff(Vanish) & {target.buff(Touch of Karma) || keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2}", "target"},
 
 }
 
@@ -195,32 +196,32 @@ local PreCombat = {
 
 local Survival ={
 
-	{"#neck", "{equipped(Eternal Will of the Martyr) || equipped(Eternal Woven Ivy Necklace)} & !player.buff(Stealth) & !player.buff(Vanish) & player.health <= 40"},
-    {"Vanish", "!player.buff(Stealth) & target.player & player.health < target.health & player.health <= UI(van_spin) & UI(van_check)"},
-	{"Crimson Vial", "player.health <= UI(cv_spin) & UI(cv_check) & !isdummy"},
-	{"Riposte", "player.health <= UI(ripo_spin) & UI(ripo_check) & !player.buff(Stealth) & !player.buff(Vanish) & player.incdmg.phys(5) >= player.health.max*0.02"},
-	{"#5512", "item(5512).count >= 1 & player.health <= UI(hs_spin) & UI(hs_check)"}, --Health Stone
-    {"Feint", "!player.buff(Will of Valeera) & equipped(Will of Valeera) & player.health <= UI(fnt_spin) & UI(fnt_check) & !pvp.area"},
+	{"#neck", "{equipped(Eternal Will of the Martyr) || equipped(Eternal Woven Ivy Necklace)} & !player.buff(Stealth) & !player.buff(Vanish) & player.health <= 40", "player"},
+    {"Vanish", "!player.buff(Stealth) & target.player & player.health < target.health & player.health <= UI(van_spin) & UI(van_check)", "player"},
+	{"Crimson Vial", "player.health <= UI(cv_spin) & UI(cv_check) & !isdummy", "player"},
+	{"Riposte", "player.health <= UI(ripo_spin) & UI(ripo_check) & !player.buff(Stealth) & !player.buff(Vanish) & player.incdmg.phys(5) >= player.health.max*0.02", "player"},
+	{"#5512", "item(5512).count >= 1 & player.health <= UI(hs_spin) & UI(hs_check)", "player"}, --Health Stone
+    {"Feint", "!player.buff(Will of Valeera) & equipped(Will of Valeera) & player.health <= UI(fnt_spin) & UI(fnt_check) & !pvp.area", "player"},
 
 }
 
 local Interrupts = {
 
-	{"!Kick", "interruptAt(60) & inRange.spell & canAttack & {player.level < 100 || !indungeon}", "target"},
-	{"!Kick", "interruptAt(1) & inRange.spell & canAttack & dungeon.interrupts & player.level > 99", "enemies"},
-	{"!Arcane Torrent", "interruptAt(1) & inRange(Kick).spell & canAttack & dungeon.interrupts & player.level > 99", "enemies"},
-	{"!Arcane Torrent",	"interruptAt(60) & inRange(Kick).spell & canAttack & {player.level < 100 || !indungeon}", "target"},
+	{"!Kick", "interruptAt(60) & inRange.spell & alive & infront & canAttack & {player.level < 100 || !indungeon}", "target"},
+	{"!Kick", "interruptAt(1) & inRange.spell & alive & infront & canAttack & dungeon.interrupts & player.level > 99", "enemies"},
+	{"!Arcane Torrent", "interruptAt(1) & inRange(Kick).spell & alive & canAttack & dungeon.interrupts & player.level > 99", "enemies"},
+	{"!Arcane Torrent",	"interruptAt(60) & inRange(Kick).spell & alive & canAttack & {player.level < 100 || !indungeon}", "target"},
 
 }
 
 local Cooldowns = {
 
-    {"#7676", "target.inRange(Saber Slash).spell & UI(tea_key) & item(7676).count > 0 & player.energy < 40 & {target.boss || target.player}"},
-	{"Sprint", "target.inRange(Run Through).spell & UI(sprint_key) & target.deathin > 5 & equipped(Thraxi's Tricksy Treads) & !player.buff(Killing Spree) & {!talent(3,1) & player.combopoints >= 4 || talent(3,1) & player.combopoints >= 5}"},
+    {"#7676", "target.inRange(Saber Slash).spell & UI(tea_key) & item(7676).count > 0 & player.energy < 40 & {target.boss || target.player}", "player"},
+	{"Sprint", "target.inRange(Run Through).spell & UI(sprint_key) & target.deathin > 5 & equipped(Thraxi's Tricksy Treads) & !player.buff(Killing Spree) & {!talent(3,1) & player.combopoints >= 4 || talent(3,1) & player.combopoints >= 5}", "player"},
 	{"Killing Spree", "inRange.spell & canAttack & talent(6,3) & UI(ks_key) & !player.debuff(Curse of the Dreadblades) & !player.lastcast(Curse of the Dreadblades)", "target"}, --Curse of the Dreadblades fara CD
-	{"Marked for Death", "target.inRange(Saber Slash).spell & target.canAttack & UI(mfd_key) & talent(7,2) & player.combopoints < 2 & !player.debuff(Curse of the Dreadblades) & !player.lastcast(Curse of the Dreadblades) & !player.buff(Killing Spree)"},
-	{"Curse of the Dreadblades", "target.inRange(Saber Slash).spell & target.canAttack & UI(cotd_key) & player.combopoints <= 3 & !player.lastcast(Marked for Death) & !player.buff(Killing Spree) & !player.lastcast(Killing Spree)"}, --
-	{"Adrenaline Rush", "target.inRange(Saber Slash).spell & target.canAttack & !player.buff(Killing Spree) & !player.lastcast(Killing Spree) & UI(adr_key)"},
+	{"Marked for Death", "inRange(Saber Slash).spell & canAttack & UI(mfd_key) & talent(7,2) & player.combopoints < 2 & !player.debuff(Curse of the Dreadblades) & !player.lastcast(Curse of the Dreadblades) & !player.buff(Killing Spree)", "target"},
+	{"Curse of the Dreadblades", "target.inRange(Saber Slash).spell & target.canAttack & UI(cotd_key) & player.combopoints <= 3 & !player.lastcast(Marked for Death) & !player.buff(Killing Spree) & !player.lastcast(Killing Spree)", "player"},
+	{"Adrenaline Rush", "target.inRange(Saber Slash).spell & target.canAttack & !player.buff(Killing Spree) & !player.lastcast(Killing Spree) & UI(adr_key)", "player"},
 
 	{"#trinket1", "UI(trk1) & target.inRange(Saber Slash).spell & target.canAttack"},
 	{"#trinket2", "UI(trk2) & target.inRange(Saber Slash).spell & target.canAttack"},
@@ -230,16 +231,16 @@ local Cooldowns = {
 local Combat = {
 
 	{"Ambush", "inRange.spell & canAttack & player.buff(Stealth) & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
-    {"/startattack", "!isattacking & target.inRange(Saber Slash).spell & target.canAttack & !player.buff(Stealth)"},
+    {"/startattack", "!isattacking & inRange(Saber Slash).spell & canAttack & !player.buff(Stealth)", "target"},
     {"Tricks of the Trade", "inRange.spell & indungeon & UI(tott) & !player.buff(Stealth)", "tank"},
 
-	{"Blade Flurry", "toggle(AoE) & player.area(8).enemies >= 2 & !player.buff(Blade Flurry) || !toggle(AoE) & player.buff(Blade Flurry) || player.area(8).enemies <= 1 & player.buff(Blade Flurry)"},
+	{"Blade Flurry", "toggle(AoE) & player.area(8).enemies >= 2 & !player.buff(Blade Flurry) || !toggle(AoE) & player.buff(Blade Flurry) || player.area(8).enemies <= 1 & player.buff(Blade Flurry)", "player"},
 
 	{"Death from Above", "talent(7,3) & inRange.spell & canAttack & !player.buff(Stealth) & {!player.debuff(Curse of the Dreadblades) || target.player} & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
     {"Run Through", "inRange.spell & canAttack & equipped(Thraxi's Tricksy Treads) & player.buff(Sprint) & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
 	
-	{"Roll the Bones", "!talent(7,1) & target.deathin > 7 & !buff_of_the_bones & player.combopoints > 2 & {talent(7,3) & spell(Death from Above).cooldown > 1 || player.debuff(Curse of the Dreadblades) || !talent(7,3)}", "player"},
-	{"Slice and Dice", "talent(7,1) & player.buff(Slice and Dice).duration < 3 & {target.deathin > 10 & player.combopoints > 4 || target.deathin <= 10 & player.combopoints > 1}"},
+	{"Roll the Bones", "!talent(7,1) & {target.deathin > 7 || target.isdummy} & !buff_of_the_bones & player.combopoints > 2 & {talent(7,3) & spell(Death from Above).cooldown > 1 || player.debuff(Curse of the Dreadblades) || !talent(7,3)}", "player"},
+	{"Slice and Dice", "talent(7,1) & player.buff(Slice and Dice).duration < 3 & {target.deathin > 10 & player.combopoints > 4 || target.deathin <= 10 & player.combopoints > 1}", "player"},
 	{"Run Through", "inRange.spell & canAttack & {!talent(3,1) & player.combopoints == 5 || talent(3,1) & player.combopoints == 6}", "target"},
 
     {"Ghostly Strike", "inRange.spell & canAttack & talent(1,1) & buff(Ghostly Strike).duration < 2 & {!talent(3,1) & player.combopoints < 5 || talent(3,1) & player.combopoints < 6}", "target"},
@@ -255,12 +256,12 @@ local inCombat = {
     {pvp},
 	{Cannonball},
     {Grappling_Hook},
-    {Keybinds, "target.enemy & target.alive & !target.immune_all"},
-    {Interrupts, "toggle(interrupts) & target.enemy & target.alive & !target.immune_all & !player.buff(Stealth) & !player.buff(Vanish)"},
+    {Keybinds, "target.canAttack & target.alive & !target.immune_all"},
+    {Interrupts, "toggle(interrupts) & !target.immune_all & !player.buff(Stealth) & !player.buff(Vanish)"},
 	{Survival, "player.health < 100"},
-	{"!/stopattack", "player.buff(Vanish) || target.immune_all"},
-	{Cooldowns, "toggle(cooldowns) & target.enemy & target.alive & !target.immune_all & !player.buff(Stealth)"},
-	{Combat, "target.enemy & target.alive & !target.immune_all"},
+	{"!/stopattack", "player.buff(Vanish) || target.immune_all", "player"},
+	{Cooldowns, "toggle(cooldowns) & target.canAttack & target.alive & target.infront & !target.immune_all & !player.buff(Stealth)"},
+	{Combat, "target.canAttack & target.alive & target.infront"},
 
 }
 
@@ -269,12 +270,12 @@ local outCombat = {
     {pvp},
 	{Cannonball},
     {Grappling_Hook},
-	{"Blade Flurry", "player.area(8).enemies <= 1 & player.buff(Blade Flurry)"},
-	{"Stealth", "UI(stealth_key) & !player.state(dot) & !IsStealthed & target.enemy & target.canAttack & target.alive"},
-	{"Crimson Vial", "player.health <= UI(cv_spin) & UI(cv_check)"},
-	{"!/stopattack", "player.buff(Vanish) || target.immune_all"},
-    {Keybinds, "target.enemy & target.alive & target.infront"},
-	{PreCombat, "target.enemy & target.alive & target.infront"},
+	{"Blade Flurry", "player.area(8).enemies <= 1 & player.buff(Blade Flurry)", "player"},
+	{"Stealth", "UI(stealth_key) & !player.state(dot) & !IsStealthed & target.canAttack & target.alive", "player"},
+	{"Crimson Vial", "player.health <= UI(cv_spin) & UI(cv_check)", "player"},
+    {Keybinds, "target.canAttack & target.alive & !target.immune_all"},
+	{"!/stopattack", "player.buff(Vanish) || target.immune_all", "player"},
+	{PreCombat, "target.canAttack & target.alive & target.infront"},
 
 }
 

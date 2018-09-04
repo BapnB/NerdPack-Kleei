@@ -32,6 +32,8 @@ rotations\mage\fire_7.1.5.lua
 rotations\mage\fire_7.3.5.lua
 rotations\mage\frost.lua
 
+rotations\warlock\a.lua
+
 rotations\warrior\fury.lua
 rotations\warrior\arms.lua
 

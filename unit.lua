@@ -100,6 +100,7 @@ local encombat = 0
   for _, Obj in pairs(NeP.OM:Get("Enemy", true)) do
       if NeP.Protected.Distance("player", Obj.key) < 40
 	   and _G.UnitCanAttack(Obj.key, "player")
+	   and NeP.Protected.Infront("player", Obj.key)
 	   and _G.UnitAffectingCombat(Obj.key) then
           encombat = encombat + 1
       end
@@ -118,35 +119,27 @@ NeP.DSL:Register("area.enemies.nocombat", function(unit, distance)
   end
 end)
 
---[[
-------------------------------------------------------
-                         Buff to Steal
----------------------------PvP-------------------------
-----------------------------------------------------------
-    "235450",    -- Prismatic Barrier    -- Mage Arcane
-    "12042",     -- Arcane Power         -- Mage Arcane
-    "11426",     -- Ice Barrier          -- Mage Frost
-    "12472",     -- Ice Veins            -- Mage Frost
-    "190319",    -- Combustion           -- Mage Fire
-    "198111",    -- Temporal Shield      -- Mage Fire PVP Talent
-    "29166",     -- Innervate            -- Druid
-    "1044",      -- Blessing of Freedom  -- Paladin
-    "184662",    -- Shield of Vengeance  -- Paladin
-    "47536",     -- Rapture              -- Priest
-    "17",        -- Power Word: Shield   -- Priest
-    "152118",    -- Clarity of Will      -- Priest
-    "212295",    -- Nether Ward          -- Warlock
-    "196098",    -- Soul Harvest         -- Warlock
-    
----------------------------PVE------------------------
-    "222477"     -- Vengeful Wail (+50% DMG)
-    "197892"     -- Runic Empowerment (Damage done increased by 30%.Damage taken reduced by 30%.)
-    "198745"     -- Protective Light (Absorbs 1.500.000 damage)
-	"182327"     -- Mrgggrrrll! (Haste increased by %50)
-]]
-
 function BuffToSteal(unit)
- local BTS = { 235450, 12042, 11426, 12472, 190319, 198111, 29166, 1044, 184662, 47536, 17, 152118, 212295, 196098, 222477, 197892, 198745, 182327 }
+ local BTS = { 
+    235450,  -- Prismatic Barrier    -- Mage Arcane
+	12042,   -- Arcane Power         -- Mage Arcane
+	11426,   -- Ice Barrier          -- Mage Frost
+	12472,   -- Ice Veins            -- Mage Frost
+	190319,  -- Combustion           -- Mage Fire
+	198111,  -- Temporal Shield      -- Mage Fire PVP Talent
+	29166,   -- Innervate            -- Druid
+	1044,    -- Blessing of Freedom  -- Paladin
+	184662,  -- Shield of Vengeance  -- Paladin
+	47536,   -- Rapture              -- Priest
+	17,      -- Power Word: Shield   -- Priest
+	152118,  -- Clarity of Will      -- Priest
+	212295,  -- Nether Ward          -- Warlock
+	196098,  -- Soul Harvest         -- Warlock
+	222477,     -- Vengeful Wail (+50% DMG)
+	197892,     -- Runic Empowerment (Damage done increased by 30%.Damage taken reduced by 30%.)
+	198745,     -- Protective Light (Absorbs 1.500.000 damage)
+	182327,     -- Mrgggrrrll! (Haste increased by %50)
+}
   for i = 1, #BTS do
    local BuffToStealName = _G.GetSpellInfo(BTS[i])
 	if _G.UnitBuff(unit, BuffToStealName) then
@@ -173,20 +166,20 @@ NeP.DSL:Register("player", function(target)
     return _G.UnitIsPlayer(target)
 end)
 
---/dump NeP.DSL.Parse("player.mana.actual", "", "")
-NeP.DSL:Register("mana.actual", function(target)
-	return _G.UnitMana(target)
-end)
-
---/dump NeP.DSL.Parse("player.mana.max", "", "")
-NeP.DSL:Register("mana.max", function(target)
-	return _G.UnitManaMax(target)
-end)
-
 --/dump NeP.DSL.Parse("target.caster", "", "")
 NeP.DSL:Register("caster", function(target)
     local class = select(2, _G.UnitClass(target))
     if class == "Priest" or class == "Mage" or class == "Warlock" then
+      return true
+    end
+end)
+
+--/dump NeP.DSL.Parse("target.disarmclass", "", "")
+NeP.DSL:Register("disarmclass", function(target)
+    local class = select(2, _G.UnitClass(target))
+    if class == "WARRIOR" or class == "PALADIN" or class == "HUNTER" or 
+	class == "ROGUE" or class == "DEATHKNIGHT" or class == "MONK" or 
+	class == "DEMONHUNTER" then
       return true
     end
 end)
@@ -265,7 +258,7 @@ end)
  local TotemsID = { 59764, 53006, 3527 }
   for i = 1, #TotemsID do
    local TotemsName = TotemsID[i]
-	if NeP.DSL:Get("id")(target, TotemsName) then
+	if NeP.DSL:Get("id")(unit, TotemsName) then
     	return true
 	end
   end

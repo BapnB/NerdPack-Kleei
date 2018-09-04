@@ -178,7 +178,7 @@ local PreCombat = {
 
 	{"Pick Pocket", "inRange.spell & UI(pocket_key) & !isdummy & !target.player & !player.moving & player.buff(Stealth) & !player.lastcast(Pick Pocket) & creatureType(Humanoid)", "target"},	
 
-	{"Garrote", "inRange.spell & player.buff(Stealth)", "target"},
+	{"Garrote", "inRange.spell", "target"},
 
 }
 
@@ -226,12 +226,12 @@ local Combat = {
     {"Tricks of the Trade", "inRange.spell & indungeon & UI(tott)", "tank"},
 
     --AoEs
-    {"Fan of Knives", "toggle(AoE) & player.area(10).enemies >= 3 & {player.combopoints < 4 || !target.exists}"},
+    {"Fan of Knives", "toggle(AoE) & player.area(10).enemies >= 3 & {player.combopoints < 4 || target.fixRange > 8 || !target.exists}"},
     --{"Envenom", "toggle(AoE) & inRange.spell & player.combopoints > 3 & player.area(5).enemies >= 7", "target"},
-	{"Rupture", "toggle(AoE) & toggle(rupture_key) & inRange.spell & canAttack & infront & !pvp & target.debuff(Rupture) & !debuff(Rupture).duration < 3 & deathin > 12 & player.combopoints > 2 & count.enemies.debuffs(Rupture) < 3 & player.area(6).enemies >= 2", "enemies"},
+	{"Rupture", "toggle(AoE) & toggle(rupture_key) & inRange.spell & canAttack & infront & !pvp & target.debuff(Rupture) & debuff(Rupture).duration < 3 & deathin > 12 & player.combopoints > 2 & count.enemies.debuffs(Rupture) < 3 & player.area(6).enemies >= 2", "enemies"},
 
     --Finishers
-	{"Rupture", "toggle(rupture_key) & inRange.spell & canAttack & infront & deathin > 12 & player.combopoints > 2 & !talent(6,3) & target.debuff(Rupture).duration <= 8", "target"},
+	{"Rupture", "toggle(rupture_key) & inRange.spell & canAttack & infront & {target.deathin > 12 || target.isdummy} & player.combopoints > 2 & !talent(6,3) & target.debuff(Rupture).duration <= 8", "target"},
     {"Envenom", "talent(6,3) & inRange.spell & canAttack & infront & player.combopoints > 3  & player.spell(Exsanguinate).cooldown > 33", "target"},
 	{"Death from Above", "talent(7,3) & inRange.spell & canAttack & infront & !player.buff(Stealth) & player.combopoints > 3", "target"},
 	{"Envenom", "inRange.spell & canAttack & infront & player.combopoints > 3 & {talent(7,3) & spell(Death from Above).cooldown > 1 || !talent(7,3)}", "target"},-- & {target.debuff(Rupture).duration > 9 || target.deathin < 12 || !toggle(Rupt) || player.area(5).enemies.infront >= 3}
