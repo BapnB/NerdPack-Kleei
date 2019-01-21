@@ -1,32 +1,19 @@
-# Nerdpack-Kleei
-Tested on FireStorm-PrivateServer. Legion [7.1.5] and [7.3.5]
+# Nerdpack - Kleei's Routines [WOW Legion 7.2.5]
 
-Use with Advance Unlocker like EWT.
+Rotation Status: [7.2.5]
 
-- If you like my work you can always support me <a href="https://www.paypal.me/thekleei"><img src="https://pbs.twimg.com/media/DgQW88wVAAAFWeI.jpg" alt="Donate" width="100" height="50" align = "center" /></a>
+- [SOON]
 
-Rotation Status: [7.3.5]
+## Prerequisites
+- NerdPack :
+   - [NerdPack for 7.2.5](https://github.com/Kleei/NerdPack)
+   - [NerdPack-Protected](https://github.com/Kleei/NerdPack-Protected)
+- LUA Unlocker:  
+  - [EWT (advaned)](https://www.ewtwow.com/)   or  [oLua (generic)](http://darkenedlinux.com/uploads/oLUA%20v1.5.5%20x64%20[7.2.X].zip)
+  
+  ## Support
+You can find me on the these Discord channels:
+* [NerdPack](https://discord.gg/UU3dQkJ)
+* [Nerdpack-Kleei](https://discord.gg/HATj7PV)
 
-- [Rogue] - Assassination / OUTLAW
-
-- [Mage] - Fire
-
-Rotation Status: [7.1.5]
-
-- [Druid] - Restoration / Feral / Guardian (Unfinished)
-
-- [Demon Hunter] - Havoc / Vengeance
-
-- [Monk] - Brewmaster / Windwalker
-
-- [Rogue] - Assassination / Subtlety / OUTLAW
-
-- [Death Knight] - Frost
-
-- [Mage] - Fire
-
-- [Hunter] - Marksmanship
-
-- [Paladin] - Protection (Unfinished)
-
-- [Priest] - Shadow (Unfinished)
+- If you like my work you can always support me <a href="https://www.paypal.me/thekleei"><img src="https://pbs.twimg.com/media/DgQW88wVAAAFWeI.jpg" alt="Donate" width="100" height="50" align = "center" /></a> or      <img src="https://www.forextime.com/sites/default/files/payment/qiwi_0.png" width="100" height="50" align = "center" /></a> +37360090357
