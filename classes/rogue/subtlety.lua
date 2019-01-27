@@ -2,7 +2,7 @@ local unpack = unpack
 
 local Logo_GUI = {
 
-	{type = "texture", texture = "Interface\\AddOns\\Nerdpack-Kleei\\media\\subtlety.blp", width = 250, height = 250, offset = 250, y = -120, align = "center"},
+	{type = "texture", texture = "Interface\\AddOns\\Nerdpack-Kleei\\media\\subtlety.blp", width = 280, height = 280, offset = 225, y = -105, align = "center"},
 
 }
 
@@ -104,11 +104,11 @@ local exeOnLoad = function()
  	print('|c0000FA9A ----------------------------------------------------------------------|r')
  	print("|c0000FA9A --- |r"..ColorClass.." ROGUE - Subtlety|r")
 	print('|c0000FA9A ------------------------PVE-------------------------------------------|r')
- 	print('|c0000FA9A --- |rSupported Talents: 1/1 - 2/1 - 3/1 - 4/1 - 5/x - 6/1 - 7/3')
+ 	print('|c0000FA9A --- |rSupported Talents: 1/1 - 2/1 - 3/1 - 4/x - 5/x - 6/1 - 7/3')
  	print('|c0000FA9A ----------------------------------------------------------------------|r')
 	print("|c0000FA9A")
 	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
-	print("|c0000FA9A If you like my work you can always support me|r")
+	print("|c0000FA9A If you like my work you can always buy me a beer|r")
 
     NeP.Interface:AddToggle({key = "Dotting", icon = "Interface\\Icons\\ability_rogue_nightblade", name = "Nightblade", text = "Include Nightblade in rotation"})
 	
