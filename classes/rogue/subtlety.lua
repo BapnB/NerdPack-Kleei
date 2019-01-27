@@ -158,7 +158,7 @@ local Survival ={
 local Cooldowns ={
 
     {"#7676", "target.inRange(Shadowstrike).spell & UI(tea_key) & item(7676).count > 0 & energy < 40 & {target.boss || target.player}", "player"},
-	{"Shadow Blades", "target.inRange(Backstab).spell", "player"},
+	{"Shadow Blades", "target.inRange(Backstab).spell & combopoints.deficit >= 2", "player"},
 	{"Arcane Torrent", "target.inRange(Shadowstrike).spell & energy < 50 & deathin > 10", "player"},
 	--{"Vanish", "target.inRange(Backstab).spell & combopoints.deficit == 0 & spell(Death from Above).cooldown == 0 & equipped(Mantle of the Master Assassin) & {player.buff(Finality: Eviscerate).duration > 2 || !artifact(Finality).enabled}", "player"},
 	{"Blood Fury", "UI(bloodfury_key) & target.inRange(Sinister Strike).spell", "player"},
