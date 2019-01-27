@@ -177,20 +177,20 @@ local Combat = {
 
 	{"Shadow Blades", "toggle(cooldowns) & target.inRange(Shadowstrike).spell & {player.buff(Stealth) || player.buff(Shadow Dance) || player.buff(Subterfuge)}", "player"},	
 
-    {"/startattack", "!isattacking & target.inmelee"},
+    {"/startattack", "!isattacking & target.inmelee & !IsStealthed"},
     {"Tricks of the Trade", "inRange.spell & player.aggro & indungeon & player.los(tank) & !player.buff(Stealth)", "tank"},
 
     --Empower Death from Above
-	{"/cast Shadow Dance", "buff(Shadow Dance).duration < 2 & player.buff(Finality: Eviscerate) & lastcast(Death from Above).succeed", "player"},
+	{"/cast Shadow Dance", "buff(Shadow Dance).duration < 2 & player.buff(Finality: Eviscerate) & lastcast(Death from Above).succeed & target.canAttack", "player"},
 	
 	{"Symbols of Death", "target.inRange(Death from Above).spell & combopoints.deficit < 4 & deathin > 10 & {spell(Death from Above).cooldown <= 3 & !combopoints.deficit == 0 || spell(Death from Above).cooldown == 0} & {target.debuff(Nightblade).duration > 5 || target.deathin <= 10} & {player.buff(Finality: Eviscerate).duration > 5 || !artifact(Finality).enabled}", "player"},	
 	
 	--Finishers  
-	{"Nightblade", "toggle(Dotting) & inRange.spell & combopoints.deficit == 0 & deathin > 12 & health >= player.health.max * 0.9 & !debuff & player.combat.time < 10 & !target.name(Fel Explosives) & player.buff(Symbols of Death).duration < 4", "target"},
-	{"Nightblade", "toggle(Dotting) & inRange.spell & combopoints.deficit == 0 & deathin > 12 & health >= player.health.max * 0.9 & !target.name(Fel Explosives) & player.buff(Symbols of Death).duration < 4 & {target.debuff(Nightblade).duration < 4 || spell(Death from Above).cooldown > 0 & target.debuff(Nightblade).duration < 6} & {player.buff(Finality: Eviscerate).duration > 2 || !artifact(Finality).enabled}", "target"},
+	{"Nightblade", "toggle(Dotting) & inRange.spell & combopoints.deficit == 0 & deathin > 12 & {target.health.actual >= player.health.max * 1.2 || target.isdummy} & !debuff & player.combat.time < 10 & !target.name(Fel Explosives) & player.buff(Symbols of Death).duration < 4", "target"},
+	{"Nightblade", "toggle(Dotting) & inRange.spell & combopoints.deficit == 0 & deathin > 12 & {target.health.actual >= player.health.max * 1.2 || target.isdummy} & !target.name(Fel Explosives) & player.buff(Symbols of Death).duration < 4 & {target.debuff(Nightblade).duration < 4 || spell(Death from Above).cooldown > 0 & target.debuff(Nightblade).duration < 6} & {player.buff(Finality: Eviscerate).duration > 2 || !artifact(Finality).enabled}", "target"},
 	--wait if Symbols of Death is still in cd and have left 3 sec 
 	{"%pause", "combopoints.deficit == 0 & spell(Symbols of Death).cooldown > 0 & spell(Symbols of Death).cooldown <= 3 & {target.debuff(Nightblade).duration > 2 || target.deathin <= 10} & {player.buff(Finality: Eviscerate).duration > 2 || !artifact(Finality).enabled}", "player"},
-	{"Death from Above", "inRange.spell & combopoints.deficit == 0 & {player.buff(Finality: Eviscerate).duration > 2 || !artifact(Finality).enabled}", "target"},
+	{"Death from Above", "{target.inRange(Death from Above).spell & !IsStealthed || target.distance < 7 & player.buff(Stealth)} & combopoints.deficit == 0 & {player.buff(Finality: Eviscerate).duration > 2 || !artifact(Finality).enabled}", "target"},
 	--wait if DFA is still cd and have left 3 sec 
 	{"%pause", "combopoints.deficit == 0 & spell(Death from Above).cooldown > 0 & spell(Death from Above).cooldown <= 3 & {target.debuff(Nightblade).duration > 2 || target.deathin <= 10} & {player.buff(Finality: Eviscerate).duration > 2 || !artifact(Finality).enabled}", "player"},
 	{"Eviscerate", "inRange.spell & combopoints.deficit == 0", "target"},
