@@ -125,7 +125,7 @@ local pvp = {
 
     {"Every Man for Himself", "UI(medal) & state(stun) & !buff(Stealth) & !buff(Vanish)", "player"},        
     {"Gladiator's Medallion", "UI(medal) & !buff(Vanish) & !buff(Stealth) & {state(stun) & spell(Every Man for Himself)cooldown >= gcd & race = Human || state(stun) & !race = Human || state(fear) || state(disorient) || state(charm)}", "player"},        
-	{"/stopattack", "target.state(disorient) & !player.buff(Stealth) || target.debuff(Blind) & !player.buff(Stealth) || player.buff(Vanish)"},
+	--{"/stopattack", "target.state(disorient) & !player.buff(Stealth) || target.debuff(Blind) & !player.buff(Stealth) || player.buff(Vanish)"},
     --{"Kidney Shot", "inmelee & !player.buff(Stealth) & !player.buff(Vanish) & player.combopoints >= 3 & UI(stun) & target.debuff(Cheap Shot).duration <= 0.5", "target"},
 
     --{"Vanish", "!player.buff(Stealth) & !player.buff(Cloak of Shadows) & !target.debuff(Sap) & UI(van_no_stun) & !target.state(stun) & !target.state(disorient) & !player.lastcast(Kidney Shot) & player.spell(Kidney Shot).cooldown >= gcd & !player.buff(Evasion)  & {target.class(Rogue) & player.spell(Blind).cooldown >= gcd || !target.class(Rogue)}"}, --test  & targettarget.is(player)
@@ -136,7 +136,7 @@ local pvp = {
 local Keybinds = {
 
 	{"Shadowstep", "inRange.spell & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "mouseover"},
-	---------------------------------------Cheap Shot pause until ready-------------------
+	---------------TO-DO----need-to-%pause-until-Cheap Shot-is-ready-------------------
 	{"Cheap Shot", "inRange.spell & canAttack & infront & !player.buff(Vanish) & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || UI(stun) & target.player & !target.state(stun)}", {"mouseover", "target"}},
 	{"Kidney Shot", "inRange.spell & canAttack & infront & !IsStealthed & !player.buff(Shadow Dance) & !player.buff(Subterfuge) & player.combopoints >= 3 & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || UI(stun) & !target.state(stun) & target.player}", {"mouseover", "target"}},
 	{"Sap", "inRange.spell & canAttack & infront & UI(sap_key) & !player.buff(Vanish) & !state(stun) & !state(disorient) & !state(incapacitate) & !combat & player", {"mouseover", "target"}},
@@ -186,8 +186,8 @@ local Combat = {
 	{"Symbols of Death", "target.inRange(Death from Above).spell & combopoints.deficit < 4 & deathin > 10 & {spell(Death from Above).cooldown <= 3 & !combopoints.deficit == 0 || spell(Death from Above).cooldown == 0} & {target.debuff(Nightblade).duration > 5 || target.deathin <= 10} & {player.buff(Finality: Eviscerate).duration > 5 || !artifact(Finality).enabled}", "player"},	
 	
 	--Finishers  
-	{"Nightblade", "toggle(Dotting) & inRange.spell & combopoints.deficit == 0 & deathin > 15 & !debuff & player.combat.time < 10 & !target.name(Fel Explosives) & player.buff(Symbols of Death).duration < 4", "target"},
-	{"Nightblade", "toggle(Dotting) & inRange.spell & combopoints.deficit == 0 & deathin > 15 & !target.name(Fel Explosives) & player.buff(Symbols of Death).duration < 4 & {target.debuff(Nightblade).duration < 4 || spell(Death from Above).cooldown > 0 & target.debuff(Nightblade).duration < 6} & {player.buff(Finality: Eviscerate).duration > 2 || !artifact(Finality).enabled}", "target"},
+	{"Nightblade", "toggle(Dotting) & inRange.spell & combopoints.deficit == 0 & deathin > 12 & health.max >= player.health.max * 0.9 & !debuff & player.combat.time < 10 & !target.name(Fel Explosives) & player.buff(Symbols of Death).duration < 4", "target"},
+	{"Nightblade", "toggle(Dotting) & inRange.spell & combopoints.deficit == 0 & deathin > 12 & health.max >= player.health.max * 0.9 & !target.name(Fel Explosives) & player.buff(Symbols of Death).duration < 4 & {target.debuff(Nightblade).duration < 4 || spell(Death from Above).cooldown > 0 & target.debuff(Nightblade).duration < 6} & {player.buff(Finality: Eviscerate).duration > 2 || !artifact(Finality).enabled}", "target"},
 	--wait if Symbols of Death is still in cd and have left 3 sec 
 	{"%pause", "combopoints.deficit == 0 & spell(Symbols of Death).cooldown > 0 & spell(Symbols of Death).cooldown <= 3 & {target.debuff(Nightblade).duration > 2 || target.deathin <= 10} & {player.buff(Finality: Eviscerate).duration > 2 || !artifact(Finality).enabled}", "player"},
 	{"Death from Above", "inRange.spell & combopoints.deficit == 0 & {player.buff(Finality: Eviscerate).duration > 2 || !artifact(Finality).enabled}", "target"},
@@ -196,16 +196,22 @@ local Combat = {
 	{"Eviscerate", "inRange.spell & combopoints.deficit == 0", "target"},
 	
 	--Shadow Dance || spell(Shadow Dance).charges == 2 & !toggle(cooldowns)
-    {"Shadow Dance", "target.inRange(Shadowstrike).spell & !buff & !buff(Subterfuge) & !IsStealthed & combopoints.deficit > 0 & energy >= 34 & {spell(Shadow Dance).charges == 2 & lastcast(Nightblade).succeed || spell(Shadow Dance).charges == 2 & player.combat.time > 10 || spell(Shadow Dance).charges == 1 & shadow_dance_timing}", "player"},
+    {"Shadow Dance", "target.inRange(Shadowstrike).spell & !buff & !buff(Subterfuge) & !IsStealthed & combopoints.deficit > 0 & energy >= 34 & {spell(Shadow Dance).charges == 2 & {lastcast(Nightblade).succeed || lastcast(Eviscerate).succeed} || spell(Shadow Dance).charges == 2 & player.combat.time > 10 || spell(Shadow Dance).charges == 1 & shadow_dance_timing}", "player"},
     
 	--Energy ress
 	{"Goremaw's Bite", "inRange.spell & player.combopoints <= 3 & player.energy < 50 & deathin > 10", "target"},
 	
 	--Build Combo Point
+	--Fel Explosives
+	{Shadowstrike, "target.inRange(Shadowstrike).spell & target.name(Fel Explosives) & {player.buff(Stealth) || player.buff(Shadow Dance) || player.buff(Subterfuge)} & combopoints.deficit > 0"},
+	{"Backstab", "inRange.spell & combopoints.deficit > 0 & target.name(Fel Explosives)", "target"},
+	{"Gloomblade", "inRange.spell & combopoints.deficit > 0 & target.name(Fel Explosives)", "target"},
+	
 	{"Shuriken Storm", "toggle(aoe) & combopoints.deficit > 0 & {player.area(10).enemies >= 3 || player.buff(The Dreadlord's Deceit).count >= 30}", "player"},
-	{Shadowstrike, "{target.inRange(Shadowstrike).spell & player.combat || target.distance < 7 & !player.combat} & {player.buff(Stealth) || player.buff(Shadow Dance) || player.buff(Subterfuge)} & combopoints.deficit > 0"},
-	{"Backstab", "inRange.spell & combopoints.deficit > 0", "target"},
-	{"Gloomblade", "inRange.spell & combopoints.deficit > 0", "target"},
+	{Shadowstrike, "target.inRange(Shadowstrike).spell & player.combat & {player.buff(Stealth) || player.buff(Shadow Dance) || player.buff(Subterfuge)} & combopoints.deficit > 0"},
+	{"Shadowstrike", "target.distance < 7 & !player.combat & combopoints.deficit > 0", "target"},
+	{"Backstab", "inRange.spell & combopoints.deficit > 0 & !IsStealthed", "target"},
+	{"Gloomblade", "inRange.spell & combopoints.deficit > 0 & !IsStealthed", "target"},
 
 }
 
@@ -214,8 +220,6 @@ local PreCombat = {
 	{"Pick Pocket", "inRange.spell & UI(pp) & !player.moving & creatureType(Humanoid) & !islooting & !player & !isdummy & targettimeout(pocket, 2)", "target"},		
    
 	{"Shadow Blades", "toggle(cooldowns) & target.inRange(Backstab).spell", "player"},
-	--{"Shadowstrike", "inRange(Backstab).spell & combopoints.deficit > 0", "target"},
-	--{"Backstab", "inRange.spell & combopoints.deficit > 0 & !player.buff(Vanish) & player.level < 12", "target"},
 	{Combat},
 
 }
@@ -224,9 +228,6 @@ local inCombat = {
 
     {"*%target", "inRange(Backstab).spell & canAttack & !IsStealthed & {!target.exists || target.dead}", "enemies"},
     {"*%target", "inRange(Shadowstrike).spell & name(Fel Explosives) & !target.name(Fel Explosives)", "enemies"},
-	{Shadowstrike, "target.inRange(Shadowstrike).spell & target.name(Fel Explosives) & {player.buff(Stealth) || player.buff(Shadow Dance) || player.buff(Subterfuge)} & combopoints.deficit > 0"},
-	{"Backstab", "inRange.spell & combopoints.deficit > 0 & target.name(Fel Explosives)", "target"},
-	{"Gloomblade", "inRange.spell & combopoints.deficit > 0 & target.name(Fel Explosives)", "target"},
 	
     {pvp, "target.player & target.canAttack"},
 	{Keybinds},
