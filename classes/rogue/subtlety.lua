@@ -121,6 +121,13 @@ local Shadowstrike = {
 
 }
 
+local Feint = {
+
+    {"%pause", "energy <= 34", "player"},
+    {"Feint", nil, "player"},
+
+}
+
 local pvp = {
 
     {"!Every Man for Himself", "UI(medal) & state(stun) & !IsStealthed", "player"},
@@ -147,19 +154,19 @@ local Keybinds = {
 local Survival ={
 
     {"Blind", "target.buff(Touch of Karma) & !player.buff(Stealth) & !player.buff(Vanish)", "target"}, -- || many more target CD's
-    {"Vanish", "player.combat & !player.buff(Stealth) & player.health < target.health & player.health <= UI(van_spin) & UI(van_check)"},
-	{"Crimson Vial", "player.health <= UI(cv_spin) & UI(cv_check)"},
-	{"Evasion", "player.health <= UI(eva_spin) & UI(eva_check) & !player.buff(Stealth) & !player.buff(Vanish) & player.incdmg.phys(5) >= 100000"},
-	{"#5512", "item(5512).count >= 1 & player.health <= UI(hs_spin) & UI(hs_check)"}, --Health Stone
-    {"Feint", "!player.buff(Will of Valeera) & equipped(Will of Valeera) & player.health <= UI(fnt_spin) & UI(fnt_check) & !instanceType == pvp & !instanceType == arena"},
-	
+    {"Vanish", "player.combat & !player.buff(Stealth) & player.health < target.health & player.health <= UI(van_spin) & UI(van_check)", "player"},
+	{"Crimson Vial", "player.health <= UI(cv_spin) & UI(cv_check)", "player"},
+	{"Evasion", "player.health <= UI(eva_spin) & UI(eva_check) & !player.buff(Stealth) & !player.buff(Vanish) & player.incdmg.phys(5) >= 100000", "player"},
+	{"#5512", "item(5512).count >= 1 & player.health <= UI(hs_spin) & UI(hs_check)", "player"}, --Health Stone
+    --{Feint, "!player.buff(Will of Valeera) & equipped(Will of Valeera) & player.health <= UI(fnt_spin) & UI(fnt_check) & !instanceType == pvp & !instanceType == arena"},
+    {Feint, "player.health <= UI(fnt_spin) & UI(fnt_check) & !player.buff(Food & Drink) & !player.buff(Will of Valeera) & equipped(Will of Valeera) & !pvp.area"},
 }
 
 local Cooldowns ={
 
     {"#7676", "target.distance < 25 & UI(tea_key) & item(7676).count > 0 & energy < 40 & {target.boss || target.player}", "player"},
-	{"Shadow Blades", "{target.distance < 7 & IsStealthed || target.distance < 25 & !IsStealthed} & combopoints.deficit >= 2 & energy >= 34", "player"},
-	{"Arcane Torrent", "target.distance < 25 & energy < 50 & deathin > 10", "player"},
+	{"Shadow Blades", "{target.inRange(Shadowstrike).spell & IsStealthed || target.inRange(Backstab).spell & !IsStealthed} & combopoints.deficit >= 2 & energy >= 34", "player"},
+	{"Arcane Torrent", "target.distance < 7 & energy < 50 & deathin > 10", "player"},
 	--{"Vanish", "target.inRange(Backstab).spell & combopoints.deficit == 0 & spell(Death from Above).cooldown == 0 & equipped(Mantle of the Master Assassin) & {player.buff(Finality: Eviscerate).duration > 2 || !artifact(Finality).enabled}", "player"},
 	{"Blood Fury", "UI(bloodfury_key) & target.inRange(Backstab).spell", "player"},
     {"Berserking", "UI(berserking_key) & target.inRange(Backstab).spell", "player"},
@@ -229,7 +236,7 @@ local inCombat = {
 
     --{(function() print("Target Time To Die : ", NeP.DSL.Parse("target.deathin", "", "")) end), "target.exists", "player"},
     --{"*%target", "inRange(Backstab).spell & canAttack & !IsStealthed & {!target.exists || target.dead}", "enemies"},
-    {"*%target", "target.distance < 25 & name(Fel Explosives) & !target.name(Fel Explosives)", "enemies"},
+    {"*%target", "distance < 20 & name(Fel Explosives) & !target.name(Fel Explosives)", "enemies"},
 	
     {pvp, "target.player & target.canAttack"},
 	{Keybinds},
@@ -245,7 +252,7 @@ local outCombat = {
     {pvp},
 	{"Stealth", "UI(stealth_key) & !state(dot) & !IsStealthed & target.canAttack", "player"},
 	{"Crimson Vial", "health <= UI(cv_spin) & UI(cv_check) & !buff(Food & Drink) & {!equipped(Will of Valeera) || pvp.area}", "player"},
-    {"Feint", "health <= 80 & !buff(Food & Drink) & !buff(Will of Valeera) & equipped(Will of Valeera) & !pvp.area", "player"},
+    {"Feint", "health <= 90 & !buff(Food & Drink) & !buff(Will of Valeera) & equipped(Will of Valeera) & !pvp.area", "player"},
     {Keybinds},
 	{PreCombat, "target.canAttack & target.infront"},
 
