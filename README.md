@@ -2,7 +2,7 @@
 
 Rotation Status: [7.2.5]
 
-- [SOON]
+- [ROGUE] - Subtlety , Outlaw
 
 ## Prerequisites
 - NerdPack :
