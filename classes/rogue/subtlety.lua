@@ -204,7 +204,7 @@ local Combat = {
 	{"Eviscerate", "inRange.spell & combopoints.deficit == 0", "target"},
 	
 	--Shadow Dance
-    {"Shadow Dance", "target.distance < 25 & !buff & !buff(Subterfuge) & !IsStealthed & combopoints.deficit > 2 & energy >= 34 & {target.health.actual >= player.health.max * 0.4 || target.isdummy} & {spell(Shadow Dance).charges == 2 & {lastcast(Nightblade).succeed || lastcast(Eviscerate).succeed} || spell(Shadow Dance).charges == 2 & player.combat.time > 10 || spell(Shadow Dance).charges == 1 & shadow_dance_timing}", "player"},
+    {"Shadow Dance", "target.distance < 25 & target.canAttack & !buff & !buff(Subterfuge) & !IsStealthed & combopoints.deficit > 2 & energy >= 34 & {target.health.actual >= player.health.max * 0.4 || target.isdummy} & {spell(Shadow Dance).charges == 2 & {lastcast(Nightblade).succeed || lastcast(Eviscerate).succeed} || spell(Shadow Dance).charges == 2 & player.combat.time > 10 || spell(Shadow Dance).charges == 1 & shadow_dance_timing}", "player"},
     
 	--Energy ress
 	{"Goremaw's Bite", "inRange.spell & player.combopoints <= 3 & player.energy < 50 & {target.health.actual >= player.health.max || target.isdummy}", "target"},
@@ -234,8 +234,6 @@ local PreCombat = {
 
 local inCombat = {
 
-    {"*%target", "distance < 20 & name(Fel Explosives) & !target.name(Fel Explosives)", "enemies"},
-	
     {pvp, "target.player & target.canAttack"},
 	{Keybinds},
 	{Interrupts, "toggle(interrupts) & !IsStealthed"},
