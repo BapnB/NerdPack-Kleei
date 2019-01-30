@@ -9,7 +9,7 @@ Rotation Status: [7.2.5]
    - [NerdPack for 7.2.5](https://github.com/Kleei/NerdPack)
    - [NerdPack-Protected](https://github.com/Kleei/NerdPack-Protected)
 - LUA Unlocker:  
-  - [EWT (advaned)](https://www.ewtwow.com/)   or  [oLua (generic)](http://darkenedlinux.com/uploads/oLUA%20v1.5.5%20x64%20[7.2.X].zip)
+  - [EWT (advanced)](https://www.ewtwow.com/)   or  [oLua (generic)](http://darkenedlinux.com/uploads/oLUA%20v1.5.5%20x64%20[7.2.X].zip)
   
   ## Support
 You can find me on the these Discord channels:

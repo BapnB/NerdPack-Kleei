@@ -145,7 +145,7 @@ local Keybinds = {
 	{"Shadowstep", "inRange.spell & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", "mouseover"},
 	---------------TO-DO----need-to-%pause-until-Cheap Shot-is-ready-------------------
 	{"Cheap Shot", "inRange.spell & canAttack & infront & !player.buff(Vanish) & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || UI(stun) & target.player & !target.state(stun)}", {"mouseover", "target"}},
-	{"Kidney Shot", "inRange.spell & canAttack & infront & !IsStealthed & !player.buff(Shadow Dance) & !player.buff(Subterfuge) & player.combopoints >= 3 & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || UI(stun) & !target.state(stun) & target.player}", {"mouseover", "target"}},
+	{"Kidney Shot", "inRange.spell & canAttack & infront & !IsStealthed & !player.buff(Shadow Dance) & !player.buff(Subterfuge) & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || UI(stun) & player.combopoints >= 3 & !target.state(stun) & target.player}", {"mouseover", "target"}},
 	{"Sap", "inRange.spell & canAttack & infront & UI(sap_key) & !player.buff(Vanish) & !state(stun) & !state(disorient) & !state(incapacitate) & !combat & player", {"mouseover", "target"}},
 	{"Blind", "inRange.spell & canAttack & !player.buff(Vanish) & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "mouseover"},
 
@@ -158,8 +158,8 @@ local Survival ={
 	{"Crimson Vial", "player.health <= UI(cv_spin) & UI(cv_check)", "player"},
 	{"Evasion", "player.health <= UI(eva_spin) & UI(eva_check) & !player.buff(Stealth) & !player.buff(Vanish) & player.incdmg.phys(5) >= 100000", "player"},
 	{"#5512", "item(5512).count >= 1 & player.health <= UI(hs_spin) & UI(hs_check)", "player"}, --Health Stone
-    --{Feint, "!player.buff(Will of Valeera) & equipped(Will of Valeera) & player.health <= UI(fnt_spin) & UI(fnt_check) & !instanceType == pvp & !instanceType == arena"},
     {Feint, "player.health <= UI(fnt_spin) & UI(fnt_check) & !player.buff(Food & Drink) & !player.buff(Will of Valeera) & equipped(Will of Valeera) & !pvp.area"},
+	
 }
 
 local Cooldowns ={
@@ -185,7 +185,7 @@ local Interrupts = {
 
 local Combat = {
 
-    {"/startattack", "!isattacking & target.inRange(Backstab).spell & !IsStealthed"},
+    {"/startattack", "!isattacking & target.inRange(Backstab).spell & !IsStealthed", "target"},
     {"Tricks of the Trade", "inRange.spell & player.aggro & indungeon & player.los(tank) & !player.buff(Stealth)", "tank"},
 
     --Empower Death from Above
@@ -234,8 +234,6 @@ local PreCombat = {
 
 local inCombat = {
 
-    --{(function() print("Target Time To Die : ", NeP.DSL.Parse("target.deathin", "", "")) end), "target.exists", "player"},
-    --{"*%target", "inRange(Backstab).spell & canAttack & !IsStealthed & {!target.exists || target.dead}", "enemies"},
     {"*%target", "distance < 20 & name(Fel Explosives) & !target.name(Fel Explosives)", "enemies"},
 	
     {pvp, "target.player & target.canAttack"},
