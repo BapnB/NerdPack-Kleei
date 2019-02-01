@@ -43,22 +43,22 @@ local GUI = {
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	
-    {type = 'header', size = 16, text = 'PVP', align = 'center'},
-    {type = 'checkbox',	text = "Stun:|c0000FA9A auto stun PVP Target [Kidney Shot].|r", align = 'left', key = 'stun', default = true},
-    {type = 'checkbox',	text = "Gladiator's Medallion , Every Man for Himself:", align = 'left', key = 'medal', default = true},
-	{type = 'text', text = "|c0000FA9A      Remove stun/fear/disorient/charm.|r"},
+    {type = "header", size = 16, text = "PVP", align = "center"},
+    {type = "checkbox",	text = "Stun:|c0000FA9A auto stun PVP Target [Kidney Shot].|r", align = "left", key = "stun", default = true},
+    {type = "checkbox",	text = "Gladiator's Medallion , Every Man for Himself:", align = "left", key = "medal", default = true},
+	{type = "text", text = "|c0000FA9A      Remove stun/fear/disorient/charm.|r"},
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "ruler"}, {type = "ruler"},
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "text", text = "", align = "center"}, --------------------------------------
 
-	{type = 'header', size = 16, text = 'Survival', align = 'center'},
-	{type = "checkspin", text = "Use Feint:|c0000FA9A [Will of Valeera]", key = "fnt", check = true, spin = 30, width = 150, step = 5, max = 95, min = 1},
-	{type = 'checkspin', text = 'Use Vanish:', key = 'van', check = true, spin = 15, width = 150, step = 5, max = 95, min = 1},
-	{type = 'checkspin', text = 'Use Crimson Vial:', key = 'cv', check = true, spin = 75, width = 150, step = 5, max = 95, min = 1},
-	{type = 'checkspin', text = 'Use Evasion:', key = 'eva', check = true, spin = 80, width = 150, step = 5, max = 95, min = 1},
-	{type = 'checkspin', text = 'Use Health Stone:', key = 'hs', check = true, spin = 60, width = 150, step = 5, max = 95, min = 1},
+	{type = "header", size = 16, text = "Survival", align = "center"},
+	{type = "checkspin", text = "Use Feint:|c0000FA9A [Will of Valeera]", key = "fnt", check = false, spin = 55, width = 150, step = 5, max = 95, min = 1},
+	{type = "checkspin", text = "Use Vanish:", key = "van", check = false, spin = 15, width = 150, step = 5, max = 95, min = 1},
+	{type = "checkspin", text = "Use Crimson Vial:", key = "cv", check = true, spin = 65, width = 150, step = 5, max = 95, min = 1},
+	{type = "checkspin", text = "Use Evasion:", key = "eva", check = true, spin = 70, width = 150, step = 5, max = 95, min = 1},
+	{type = "checkspin", text = "Use Health Stone:", key = "hs", check = true, spin = 60, width = 150, step = 5, max = 95, min = 1},
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "ruler"}, {type = "ruler"},
@@ -66,8 +66,9 @@ local GUI = {
 	{type = "text", text = "", align = "center"}, --------------------------------------
 
 	{type = "header", size = 16, text = "Cooldowns Toggle", align = 'center'},
-	{type = 'checkbox', text = "Thistle Tea:|c0000FA9A when energy < 40 and target boss or PVP enemy", key = "tea_key", default = true},
-	{type = 'checkbox', text = "Sprint:|c0000FA9A if equipped [Thraxi's Tricksy Treads]", key = "sprint_key", default = true},
+	{type = "checkbox", text = "Thistle Tea:|c0000FA9A when energy < 40 and target boss or PVP enemy", key = "tea_key", default = false},
+	{type = "checkbox", text = "Vanish:|c0000FA9A combo if equipped [Mantle of the Master Assassin]", key = "vanish_DFA_combo_key", default = true},
+	{type = "checkbox", text = "Sprint:|c0000FA9A if equipped [Thraxi's Tricksy Treads]", key = "sprint_key", default = true},
 	{type = "checkbox", text = "Blood Fury:|c0000FA9A ORC Racial", key = "bloodfury_key", default = true},
 	{type = "checkbox", text = "Berserking:|c0000FA9A Troll Racial", key = "berserking_key", default = true},
 	{type = "text", text = "", align = "center"}, --------------------------------------
@@ -76,21 +77,21 @@ local GUI = {
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "text", text = "", align = "center"}, --------------------------------------
 
-	{type = 'header', size = 16, text = 'Other', align = 'center'},
-	{type = 'checkbox', text = "Auto Stealth:|c0000FA9A when you have enemy target", key = "stealth_key", default = true},
-	{type = 'checkbox', text = "Use Tricks of the Trade:|c0000FA9A in party on tank", key = "tott", default = true},
-	{type = 'checkbox', text = "Pick Pocket:|c0000FA9A < 10 yards when you stand and don't move", 	key = 'pp',   default = false},
+	{type = "header", size = 16, text = "Other", align = "center"},
+	{type = "checkbox", text = "Auto Stealth:|c0000FA9A when you have enemy target", key = "stealth_key", default = true},
+	{type = "checkbox", text = "Use Tricks of the Trade:|c0000FA9A in party on tank", key = "tott", default = false},
+	{type = "checkbox", text = "Pick Pocket:|c0000FA9A < 10 yards when you stand and don't move", 	key = "pp",   default = false},
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "ruler"},{type = "ruler"},
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	
-	{type = 'header', size = 16, text = 'Trinkets', align = 'center'},
-	{type = 'text', text = '|c0000FA9A Use Trinkets if Cooldown Toggle is enable|r', align = 'center'},
-	{type = 'checkbox', text = 'Trinket #1', 	key = 'trk1',	default = false},
-	{type = 'checkbox', text = 'Trinket #2', 	key = 'trk2',   default = false},
-	{type = 'text', text = '|c0000FA9A Enable only trinkets that are usable, otherwise it will loop the rotation !|r'},
+	{type = "header", size = 16, text = "Trinkets", align = "center"},
+	{type = "text", text = "|c0000FA9A Use Trinkets if Cooldown Toggle is enable|r", align = "center"},
+	{type = "checkbox", text = "Trinket #1", 	key = "trk1",	default = false},
+	{type = "checkbox", text = "Trinket #2", 	key = "trk2",   default = false},
+	{type = "text", text = "|c0000FA9A Enable only trinkets that are usable, otherwise it will loop the rotation !|r"},
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "ruler"}, {type = "ruler"},
@@ -108,7 +109,7 @@ local exeOnLoad = function()
  	print('|c0000FA9A ----------------------------------------------------------------------|r')
 	print("|c0000FA9A")
 	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
-	print("|c0000FA9A If you like my work you can always buy me a beer|r")
+	print("|c0000FA9A If you like my work you can buy me a beer|r")
 
     NeP.Interface:AddToggle({key = "Dotting", icon = "Interface\\Icons\\ability_rogue_nightblade", name = "Nightblade", text = "Include Nightblade in rotation"})
 	
@@ -125,6 +126,13 @@ local Feint = {
 
     {"%pause", "energy <= 34", "player"},
     {"Feint", nil, "player"},
+
+}
+
+local DFA = {
+
+    {"Vanish", "toggle(cooldowns) & UI(vanish_DFA_combo_key) & equipped(Mantle of the Master Assassin) & !IsStealthed", "player"},
+    {"Death from Above", nil, "target"},
 
 }
 
@@ -149,7 +157,7 @@ local Keybinds = {
 local Survival ={
 
     {"Blind", "target.buff(Touch of Karma) & !player.buff(Stealth) & !player.buff(Vanish)", "target"}, -- || many more target CD's
-    {"Vanish", "player.combat & !player.buff(Stealth) & player.health < target.health & player.health <= UI(van_spin) & UI(van_check)", "player"},
+    {"Vanish", "player.combat & target.player & !player.buff(Stealth) & player.health < target.health & player.health <= UI(van_spin) & UI(van_check)", "player"},
 	{"Crimson Vial", "player.health <= UI(cv_spin) & UI(cv_check)", "player"},
 	{"Evasion", "player.health <= UI(eva_spin) & UI(eva_check) & !player.buff(Stealth) & !player.buff(Vanish) & player.incdmg.phys(5) >= 100000", "player"},
 	{"#5512", "item(5512).count >= 1 & player.health <= UI(hs_spin) & UI(hs_check)", "player"}, --Health Stone
@@ -161,8 +169,7 @@ local Cooldowns ={
 
     {"#7676", "target.distance < 25 & UI(tea_key) & item(7676).count > 0 & energy < 40 & {target.boss || target.player}", "player"},
 	{"Shadow Blades", "{target.inRange(Shadowstrike).spell & IsStealthed || target.inRange(Backstab).spell & !IsStealthed} & combopoints.deficit >= 2 & energy >= 34", "player"},
-	{"Arcane Torrent", "target.distance < 7 & energy < 50 & deathin > 10", "player"},
-	--{"Vanish", "target.inRange(Backstab).spell & combopoints.deficit == 0 & spell(Death from Above).cooldown == 0 & equipped(Mantle of the Master Assassin) & {player.buff(Finality: Eviscerate).duration > 2 || !artifact(Finality).enabled}", "player"},
+	{"Arcane Torrent", "target.distance < 7 & energy < 40 & {target.health.actual >= player.health.max || target.isdummy}", "player"},
 	{"Blood Fury", "UI(bloodfury_key) & target.inRange(Backstab).spell", "player"},
     {"Berserking", "UI(berserking_key) & target.inRange(Backstab).spell", "player"},
 	
@@ -181,18 +188,19 @@ local Interrupts = {
 local Combat = {
 
     {"/startattack", "!isattacking & target.inRange(Backstab).spell & !IsStealthed", "target"},
-    {"Tricks of the Trade", "inRange.spell & player.aggro & indungeon & player.los(tank) & !player.buff(Stealth)", "tank"},
+    {"Tricks of the Trade", "inRange.spell & indungeon & UI(tott) & !IsStealthed", "tank"},
+
+	--Nightblade 
+	{"Nightblade", "toggle(Dotting) & inRange.spell & combopoints.deficit == 0 & {target.health.actual >= player.health.max * 4 || target.isdummy} & !debuff & player.combat.time < 10 & !target.name(Fel Explosives) & player.buff(Symbols of Death).duration < 4", "target"},
+	{"Nightblade", "toggle(Dotting) & inRange.spell & combopoints.deficit == 0 & {target.health.actual >= player.health.max * 4 || target.isdummy} & !target.name(Fel Explosives) & player.buff(Symbols of Death).duration < 4 & {target.debuff(Nightblade).duration < 4 || spell(Death from Above).cooldown > 0 & target.debuff(Nightblade).duration < 6} & {player.buff(Finality: Eviscerate).duration > 2 || !artifact(Finality).enabled}", "target"},
 
     --Empower Death from Above
 	{"/cast Shadow Dance", "buff(Shadow Dance).duration < 2 & player.buff(Finality: Eviscerate) & lastcast(Death from Above).succeed & {target.health.actual >= player.health.max * 0.6 || target.isdummy}", "player"},
-	{"Symbols of Death", "target.inRange(Death from Above).spell & combopoints.deficit < 4 & {target.health.actual >= player.health.max || target.isdummy} & {spell(Death from Above).cooldown <= 3 & !combopoints.deficit == 0 || spell(Death from Above).cooldown == 0} & {target.debuff(Nightblade).duration > 5 || target.deathin <= 10} & {player.buff(Finality: Eviscerate).duration > 5 || !artifact(Finality).enabled}", "player"},	
+	{"Symbols of Death", "target.inRange(Death from Above).spell & combopoints.deficit < 4 & {target.health.actual >= player.health.max || target.isdummy} & {spell(Death from Above).cooldown <= 3 & combopoints.deficit > 1 || spell(Death from Above).cooldown == 0} & {target.debuff(Nightblade).duration > 5 || target.deathin <= 10} & {player.buff(Finality: Eviscerate).duration > 5 || !artifact(Finality).enabled}", "player"},	
 	
-	--Finishers  
-	{"Nightblade", "toggle(Dotting) & inRange.spell & combopoints.deficit == 0 & {target.health.actual >= player.health.max * 3 || target.isdummy} & !debuff & player.combat.time < 10 & !target.name(Fel Explosives) & player.buff(Symbols of Death).duration < 4", "target"},
-	{"Nightblade", "toggle(Dotting) & inRange.spell & combopoints.deficit == 0 & {target.health.actual >= player.health.max * 2 || target.isdummy} & !target.name(Fel Explosives) & player.buff(Symbols of Death).duration < 4 & {target.debuff(Nightblade).duration < 4 || spell(Death from Above).cooldown > 0 & target.debuff(Nightblade).duration < 6} & {player.buff(Finality: Eviscerate).duration > 2 || !artifact(Finality).enabled}", "target"},
-
-	{"Death from Above", "{target.inRange(Death from Above).spell & !IsStealthed || target.distance < 7 & player.buff(Stealth)} & {target.health.actual >= player.health.max * 0.8 || target.isdummy} & combopoints.deficit == 0 & {player.buff(Finality: Eviscerate).duration > 2 || !artifact(Finality).enabled}", "target"},
-	{"%pause", "combopoints.deficit == 0 & spell(Death from Above).cooldown > 0 & spell(Death from Above).cooldown <= 2 & {target.health.actual >= player.health.max * 0.8 || target.isdummy} & {player.buff(Finality: Eviscerate).duration > 2 || !artifact(Finality).enabled}", "player"},
+	--Finishers 
+	{DFA, "spell(Death from Above).cooldown == 0 & combopoints.deficit == 0 & {target.inRange(Death from Above).spell & !IsStealthed || target.distance < 7 & IsStealthed} & {target.health.actual >= player.health.max * 0.8 || target.isdummy} & {player.buff(Finality: Eviscerate).duration > 2 || !artifact(Finality).enabled}"},
+	{"%pause", "combopoints.deficit == 0 & spell(Death from Above).cooldown > 0 & spell(Death from Above).cooldown <= 3 & {target.health.actual >= player.health.max * 0.8 || target.isdummy} & {player.buff(Finality: Eviscerate).duration > 2 || !artifact(Finality).enabled}", "player"},
 	{"Eviscerate", "inRange.spell & combopoints.deficit == 0", "target"},
 	
 	--Shadow Dance
