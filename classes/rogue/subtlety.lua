@@ -109,7 +109,7 @@ local exeOnLoad = function()
  	print('|c0000FA9A ----------------------------------------------------------------------|r')
 	print("|c0000FA9A")
 	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
-	print("|c0000FA9A If you like my work you can buy me a beer|r")
+	print("|c0000FA9A If you like my work you can buy me a beer|r|c00FF0000 https://www.paypal.me/thekleei|r")
 
     NeP.Interface:AddToggle({key = "Dotting", icon = "Interface\\Icons\\ability_rogue_nightblade", name = "Nightblade", text = "Include Nightblade in rotation"})
 	
@@ -139,7 +139,7 @@ local DFA = {
 local pvp = {
 
     {"!Every Man for Himself", "UI(medal) & state(stun) & !IsStealthed", "player"},
-    {"!Gladiator's Medallion", "UI(medal) & !IsStealthed & target.player & target.canAttack & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
+    {"!Gladiator's Medallion", "UI(medal) & !IsStealthed & target.player & {player.state(stun) || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
 	
 }
 
@@ -229,7 +229,7 @@ local PreCombat = {
 
 local inCombat = {
 
-    {pvp, "target.player & target.canAttack"},
+    {pvp, "target.canAttack"},
 	{Keybinds},
 	{Interrupts, "toggle(interrupts) & !IsStealthed"},
 	{Survival, "player.health < 100"},

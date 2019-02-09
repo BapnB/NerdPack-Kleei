@@ -12,11 +12,13 @@
 	<!-- classes -->
 	<Script file="classes\rogue\outlaw.lua" />
 	<Script file="classes\rogue\subtlety.lua" /> 
+	<Script file="classes\monk\windwalker.lua" />
 	
 	<!--
+	<Script file="classes\warrior\fury.lua" />
+	<Script file="classes\demonhunter\havoc.lua" />
 	<Script file="classes\hunter\mm.lua" /> 
 	<Script file="classes\druid\guardian.lua" />
-	<Script file="classes\monk\windwalker.lua" />
 	-->
 
 </Ui>

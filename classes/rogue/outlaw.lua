@@ -127,7 +127,7 @@ local exeOnLoad = function()
  	print("|c0000FA9A ----------------------------------------------------------------------|r")
 	print("|c0000FA9A")
 	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
-	print("|c0000FA9A If you like my work you can buy me a beer|r")
+	print("|c0000FA9A If you like my work you can buy me a beer|r|c00FF0000 https://www.paypal.me/thekleei|r")
 
 	NeP.Interface:AddToggle({key = "RTB_key", icon = "Interface\\Icons\\ability_rogue_rollthebones", name = "Roll the Bones", text = "Include Roll the Bones in rotation."})
 
