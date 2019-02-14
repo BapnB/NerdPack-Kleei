@@ -95,7 +95,7 @@ local exeOnLoad = function()
  	print("|c0000FA9A ----------------------------------------------------------------------|r")
 	print("|c0000FA9A")
 	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
-	print("|c0000FA9A If you like my work you can buy me a beer|r|c00FF0000 https://www.paypal.me/thekleei|r")
+	print("|c0000FA9A Like my work ? buy me a beer or six|r|c00FF0000 https://www.paypal.me/thekleei|r")
 
     NeP.Interface:AddToggle({key = "avatar_key", icon = "Interface\\Icons\\warrior_talent_icon_avatar", name = "Avatar", text = "Include Avatar in rotation"})
 	
@@ -121,7 +121,7 @@ local PreCombat = {
 	{"Whirlwind", "player.buff(Wrecking Ball) & player.area(8).enemies >= 1", "target"},
     {"Whirlwind", "toggle(AoE) & player.area(8).enemies >= 2"},
 	{"Bloodthirst", "inRange.spell & canAttack", "target"},
-	{"Raging Blow", "inmelee & player.area(8).enemies < 3", "target"},
+	{"Raging Blow", "inRange.spell & canAttack", "target"},
 	{"Furious Slash", "inRange.spell & canAttack", "target"},
     {"/startattack", "inRange(Bloodthirst).spell & canAttack & !isattacking", "target"},
 
