@@ -43,10 +43,10 @@ local GUI = {
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	
-    {type = 'header', size = 16, text = 'PVP', align = 'center'},
-    {type = 'checkbox',	text = "Stun:|c0000FA9A PVP enemy in Melee [Leg Sweep], in range [Paralysis].|r", align = 'left', key = 'stun', default = true},
-    {type = 'checkbox',	text = "Gladiator's Medallion , Every Man for Himself:", align = 'left', key = 'medal', default = true},
-	{type = 'text', text = "|c0000FA9A      Remove stun/fear/disorient/charm.|r"},
+    {type = "header", size = 16, text = "PVP", align = "center"},
+    {type = "checkbox",	text = "Stun:|c0000FA9A PVP enemy in Melee [Leg Sweep], in range [Paralysis].|r", align = "left", key = "stun", default = true},
+    {type = "checkbox",	text = "Gladiator's Medallion , Every Man for Himself:", align = "left", key = "medal", default = true},
+	{type = "text", text = "|c0000FA9A      Remove stun/fear/disorient/charm.|r"},
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "ruler"}, {type = "ruler"},
@@ -158,7 +158,7 @@ local Cooldowns = {
 local Combat = {
 
 	{"&/cast Storm, Earth, and Fire: Fixate", "area(10).enemies <= 2 & buff(Storm, Earth, and Fire) & !player.lastcast(Fists of Fury) & target.targettimeout(fixit, 25)", "player"},
-    {"/startattack", "target.inRange(Tiger Palm).spell & !isattacking & !lastcast(Fists of Fury).succeed", "target"},
+    {"/startattack", "inRange(Tiger Palm).spell & !isattacking & !lastcast(Fists of Fury).succeed", "target"},
 	{"Chi Wave", "target.distance < 10 & infront & player.buff(Hit Combo).count < 6 & talent(6,3)", "player"},
 	{"Rising Sun Kick", "inRange.spell & infront & player.buff(Hit Combo).count < 6 & talent(6,3)", "target"},
 	{"Fists of Fury", "inRange.spell & infront & {spell(Storm, Earth, and Fire).cooldown >= 5 || target.health.actual < player.health.max || !toggle(cooldowns) || player.buff(Storm, Earth, and Fire)} & {toggle(AoE) & player.area(8).enemies >= 3 || target.health.actual >= player.health.max * 0.3 || target.isdummy}", "target"},

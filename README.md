@@ -2,7 +2,9 @@
 
 Rotation Status: [7.2.5]
 
-- [ROGUE] - Subtlety , Outlaw
+- [ROGUE]   - Subtlety , Outlaw
+- [MONK]    - Windwalker
+- [Warrior] - Fury
 
 ## Prerequisites
 - NerdPack :
