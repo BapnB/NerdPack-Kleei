@@ -53,10 +53,10 @@ local GUI = {
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	
 	{type = "header", size = 16, text = "Survival", align = "center"},
-	{type = "checkspin", text = "Use Commanding Shout:", key = "cs", check = true, spin = 30, width = 150, step = 5, max = 95, min = 1},
+	{type = "checkspin", text = "Use Commanding Shout:", key = "cs", check = true, spin = 50, width = 150, step = 5, max = 95, min = 1},
 	{type = "checkspin", text = "Use Intimidating Shout:", key = "is", check = true, spin = 25, width = 150, step = 5, max = 95, min = 1},
 	{type = "checkspin", text = "Use Health Stone:", key = "hs", check = true, spin = 60, width = 150, step = 5, max = 95, min = 1},
-	{type = "checkspin", text = "Use Enraged Regeneration:", key = "enr_regen", check = true, spin = 40, width = 150, step = 5, max = 95, min = 1},
+	{type = "checkspin", text = "Use Enraged Regeneration:", key = "enr_regen", check = true, spin = 60, width = 150, step = 5, max = 95, min = 1},
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "ruler"}, {type = "ruler"},
@@ -103,9 +103,17 @@ end
 
 local pvp = {
 
+    {"Berserker Rage", "player.state(incapacitate) ||  player.state(fear)", "player"},
     {"!Every Man for Himself", "UI(medal) & state(stun)", "player"},        
     {"!Gladiator's Medallion", "UI(medal) & target.player & {player.state(stun) & player.spell(Every Man for Himself)cooldown > 0 & player.race = Human || player.state(stun) & !player.race = Human || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
 
+}
+
+local Bloodthirst_surv = {
+
+	{"Bloodthirst", "inRange.spell & canAttack", "target"},
+	{"%pause", "spell(Bloodthirst).cooldown < = 1,6", "player"},
+	
 }
 
 local Keybinds = {
@@ -118,8 +126,8 @@ local Keybinds = {
 
 local PreCombat = {
 
-	{"Whirlwind", "player.buff(Wrecking Ball) & player.area(8).enemies >= 1", "target"},
-    {"Whirlwind", "toggle(AoE) & player.area(8).enemies >= 2"},
+	{"Whirlwind", "player.buff(Wrecking Ball) & area(8).enemies >= 1", "player"},
+    {"Whirlwind", "toggle(AoE) & area(8).enemies >= 2", "player"},
 	{"Bloodthirst", "inRange.spell & canAttack", "target"},
 	{"Raging Blow", "inRange.spell & canAttack", "target"},
 	{"Furious Slash", "inRange.spell & canAttack", "target"},
@@ -156,18 +164,17 @@ local Cooldowns = {
 local Combat = {
 
     {"/startattack", "inRange(Bloodthirst).spell & canAttack & !isattacking", "target"},
-	{"Bloodthirst", "inRange.spell & canAttack & player.health < 30", "target"},
 	{"Execute", "inRange.spell & canAttack & !isdummy & !player.buff(Battle Cry) & player.area(8).enemies <= 3", "target"},
 	{"Raging Blow", "inRange.spell & canAttack & player.area(8).enemies <= 3 & player.buff(Enraged)", "target"},
-	{"Whirlwind", "toggle(AoE) & area(8).enemies == 2 & player.level > 54 &  !lastcast(Whirlwind).succeed & {!talent(5,2) & player.rage >= 83 || talent(5,2) & player.rage >= 98}", "player"},
+	{"Whirlwind", "toggle(AoE) & area(8).enemies == 2 & player.level > 54 & !lastcast(Whirlwind).succeed & {!talent(5,2) & player.rage >= 83 || talent(5,2) & player.rage >= 98}", "player"},
 	{"Rampage", "inRange.spell & canAttack & {talent(5,2) & player.buff(Frothing Berserker) || !talent(5,2) || player.buff(Battle Cry)}", "target"},	
 	{"Odyn's Fury", "toggle(cooldowns) & player.area(14).enemies > 2 & {player.buff(Battle Cry) || spell(Battle Cry).cooldown > 45}", "player"},
 	{"Whirlwind", "toggle(AoE) & area(8).enemies >= 3 & {player.level < 55 || !lastcast(Whirlwind).succeed || player.area(8).enemies >= 8}", "player"},
 	{"Raging Blow", "inRange.spell & canAttack & player.buff(Battle Cry) & {player.area(8).enemies == 3 & equip.set(T20) == 4 || player.area(8).enemies < 3}", "target"},
 	{"Odyn's Fury", "toggle(cooldowns) & player.area(14).enemies > 0 & {player.buff(Battle Cry) || spell(Battle Cry).cooldown > 45}", "player"},
 	{"Bloodthirst", "inRange.spell & canAttack", "target"},
-	{"Raging Blow", "inRange.spell & canAttack & {player.area(8).enemies == 3 & equip.set(T20) == 4 || player.area(8).enemies < 3}", "target"},
-	{"Whirlwind", "toggle(AoE) & target.inRange(Bloodthirst).spell & {artifact(Wild Slashes).traits_count < 2 || player.area(8).enemies >= 2}", "player"},
+	{"Raging Blow", "inRange.spell & canAttack & player.area(8).enemies <= 3", "target"},
+	{"Whirlwind", "toggle(AoE) & target.inRange(Bloodthirst).spell & {artifact(Wild Slashes).traits_count < 2 || player.area(8).enemies > 2}", "player"},
 	{"Furious Slash", "inRange.spell & canAttack", "target"},
 
 }
@@ -175,9 +182,11 @@ local Combat = {
 local inCombat = {
 
     {pvp, "target.canAttack"},
+	{Bloodthirst_surv, "player.buff(Enraged Regeneration)"},
     {Keybinds},
     {Interrupts, "toggle(interrupts) & target.infront & target.canAttack"},
 	{Survival, "player.health < 100"},
+	{"%pause", "target.immune_all", "player"},
 	{Cooldowns, "toggle(cooldowns) & target.canAttack"},
 	{Combat},
 
@@ -187,6 +196,7 @@ local outCombat = {
 
     {pvp, "target.canAttack"},
     {Keybinds},
+	{"%pause", "target.immune_all", "player"},
 	{PreCombat},
 
 }

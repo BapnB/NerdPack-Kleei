@@ -109,7 +109,7 @@ local exeOnLoad = function()
  	print('|c0000FA9A ----------------------------------------------------------------------|r')
 	print("|c0000FA9A")
 	print("|c0000FA9A Please Setup Rotation Settings first before using it|r")
-	print("|c0000FA9A If you like my work you can buy me a beer|r|c00FF0000 https://www.paypal.me/thekleei|r")
+	print("|c0000FA9A Like my work ? buy me a beer or six|r|c00FF0000 https://www.paypal.me/thekleei|r")
 
     NeP.Interface:AddToggle({key = "Dotting", icon = "Interface\\Icons\\ability_rogue_nightblade", name = "Nightblade", text = "Include Nightblade in rotation"})
 	
