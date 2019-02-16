@@ -137,9 +137,9 @@ local PreCombat = {
 
 local Survival ={
 
-    {"Enraged Regeneration", "health <= UI(enr_regen_spin) & UI(enr_regen_check) & incdmg(5) >= health.max * 0.2", "player"},
-	{"Commanding Shout", "health <= UI(cs_spin) & UI(cs_check) & incdmg(5) >= health.max * 0.2 & target.canAttack", "player"},
-	{"Intimidating Shout", "health <= UI(is_spin) & UI(is_check) & player.incdmg(5) >= player.health.max * 0.2 & player.area(8).enemies > 0"},
+    {"Enraged Regeneration", "health <= UI(enr_regen_spin) & UI(enr_regen_check) & player.area(8).enemies > 0 & incdmg(5) >= health.max * 0.1", "player"},
+	{"Commanding Shout", "health <= UI(cs_spin) & UI(cs_check) & incdmg(5) >= health.max * 0.1 & target.canAttack", "player"},
+	{"Intimidating Shout", "health <= UI(is_spin) & UI(is_check) & player.incdmg(5) >= player.health.max * 0.1 & player.area(8).enemies > 0"},
 
 }
 
@@ -166,7 +166,7 @@ local Combat = {
     {"/startattack", "inRange(Bloodthirst).spell & canAttack & !isattacking", "target"},
 	{"Execute", "inRange.spell & canAttack & !isdummy & !player.buff(Battle Cry) & player.area(8).enemies <= 3", "target"},
 	{"Raging Blow", "inRange.spell & canAttack & player.area(8).enemies <= 3 & player.buff(Enraged)", "target"},
-	{"Whirlwind", "toggle(AoE) & area(8).enemies == 2 & player.level > 54 & !lastcast(Whirlwind).succeed & {!talent(5,2) & player.rage >= 83 || talent(5,2) & player.rage >= 98}", "player"},
+	{"Whirlwind", "toggle(AoE) & area(8).enemies >= 2 & player.level > 54 & !lastcast(Whirlwind).succeed & {!talent(5,2) & player.rage >= 84 || talent(5,2) & player.rage >= 99}", "player"},
 	{"Rampage", "inRange.spell & canAttack & {talent(5,2) & player.buff(Frothing Berserker) || !talent(5,2) || player.buff(Battle Cry)}", "target"},	
 	{"Odyn's Fury", "toggle(cooldowns) & player.area(14).enemies > 2 & {player.buff(Battle Cry) || spell(Battle Cry).cooldown > 45}", "player"},
 	{"Whirlwind", "toggle(AoE) & area(8).enemies >= 3 & {player.level < 55 || !lastcast(Whirlwind).succeed || player.area(8).enemies >= 8}", "player"},
