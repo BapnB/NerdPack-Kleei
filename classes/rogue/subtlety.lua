@@ -202,11 +202,11 @@ local Combat = {
 
     --Empower Death from Above
     {"/cast Shadow Dance", "buff(Shadow Dance).duration < 2 & player.buff(Finality: Eviscerate) & lastcast(Death from Above).succeed & {target.health.actual >= player.health.max * 0.6 || target.isdummy || target.player}", "player"},
-    {"Symbols of Death", "target.inRange(Death from Above).spell & combopoints.deficit < 4 & {target.health.actual >= player.health.max * 1.3 || target.isdummy || target.player} & {spell(Death from Above).cooldown <= 3 & combopoints.deficit > 1 || spell(Death from Above).cooldown == 0} & {target.debuff(Nightblade).duration > 5 || target.deathin <= 10 & !target.isdummy} & {player.buff(Finality: Eviscerate).duration > 5 || !artifact(Finality).enabled}", "player"},	
+    {"Symbols of Death", "target.inRange(Death from Above).spell & combopoints.deficit < 4 & {target.health.actual >= player.health.max * 3 || target.isdummy || target.player} & {spell(Death from Above).cooldown <= 3 & combopoints.deficit > 1 || spell(Death from Above).cooldown == 0} & {target.debuff(Nightblade).duration > 7 || target.deathin <= 10 & !target.isdummy} & {player.buff(Finality: Eviscerate).duration > 5 || !artifact(Finality).enabled}", "player"},	
 	
 	--Finishers 
-    {DFA, "spell(Death from Above).cooldown == 0 & combopoints.deficit == 0 & {target.inRange(Death from Above).spell & !IsStealthed || target.distance < 7 & IsStealthed} & {target.health.actual >= player.health.max * 0.7 || target.isdummy || target.player} & {player.buff(Finality: Eviscerate).duration > 2 || !artifact(Finality).enabled}"},
-    {"Eviscerate", "inRange.spell & combopoints.deficit <= 1 & {!player.buff(Finality: Eviscerate) || spell(Death from Above).cooldown > 2 || target.health.actual < player.health.max * 0.7 & !target.isdummy & !target.player}", "target"},
+    {DFA, "spell(Death from Above).cooldown == 0 & !target.name(Krosus) & combopoints.deficit == 0 & {target.inRange(Death from Above).spell & !IsStealthed || target.distance < 7 & IsStealthed} & {target.health.actual >= player.health.max * 0.7 || target.isdummy || target.player} & {player.buff(Finality: Eviscerate).duration > 2 || !artifact(Finality).enabled}"},
+    {"Eviscerate", "inRange.spell & combopoints.deficit <= 1 & {!player.buff(Finality: Eviscerate) || target.name(Krosus) || spell(Death from Above).cooldown > 3 || target.health.actual < player.health.max * 0.7 & !target.isdummy & !target.player}", "target"},
 	
 	--Shadow Dance
     {"Shadow Dance", "target.distance < 25 & !buff & !buff(Subterfuge) & !IsStealthed & combopoints.deficit > 2 & energy >= 34 & {target.health.actual >= player.health.max * 0.4 || target.isdummy || target.player} & {spell(Shadow Dance).charges == 2 & {lastcast(Nightblade).succeed || lastcast(Eviscerate).succeed} || spell(Shadow Dance).charges == 2 & player.combat.time > 10 || spell(Shadow Dance).charges == 1 & shadow_dance_timing}", "player"},
@@ -216,8 +216,8 @@ local Combat = {
 	
 	--Build Combo Points
     {"Shuriken Storm", "toggle(aoe) & combopoints.deficit > 0 & !target.name(Fel Explosives) & !lastcast(Vanish).succeed & !buff(Vanish) & {player.area(8).enemies >= 3 || player.buff(The Dreadlord's Deceit).count >= 30}", "player"},
-    {Shadowstrike, "target.inRange(Shadowstrike).spell & player.combat & !target.player & {player.buff(Stealth) || player.buff(Shadow Dance) || player.buff(Subterfuge)} & combopoints.deficit > 0"},
-    {"Shadowstrike", "{target.inRange(Backstab).spell & !player.combat || target.player & target.inRange(Shadowstrike).spell & !IsStealthed} & combopoints.deficit > 0", "target"},
+    {Shadowstrike, "target.inRange(Shadowstrike).spell & player.combat & !target.player & {player.buff(Stealth) || player.buff(Shadow Dance) || player.buff(Subterfuge)} & combopoints.deficit > 0 & !target.name(Krosus)"},
+    {"Shadowstrike", "{target.inRange(Backstab).spell & !player.combat || target.player & target.inRange(Shadowstrike).spell & !IsStealthed} & combopoints.deficit > 0 & !name(Krosus)", "target"},
     {"Backstab", "inRange.spell & combopoints.deficit > 0 & !IsStealthed", "target"},
     {"Gloomblade", "inRange.spell & combopoints.deficit > 0 & !IsStealthed", "target"},
 
@@ -248,10 +248,10 @@ local inCombat = {
 local outCombat = {
 
     {pvp},
+    {"/stopattack", "buff(Vanish) & target.player & target.canAttack", "player"},
     {"Stealth", "UI(stealth_key) & !state(dot) & !IsStealthed & target.canAttack", "player"},
     {"Crimson Vial", "health <= UI(cv_spin) & UI(cv_check) & !buff(Food & Drink) & {!equipped(Will of Valeera) || pvp.area}", "player"},
-    {"/stopattack", "buff(Vanish) & target.player & target.canAttack", "player"},
-    {"Feint", "health <= 90 & !buff(Food & Drink) & !buff(Will of Valeera) & equipped(Will of Valeera) & !pvp.area", "player"},
+    {"Feint", "!IsStealthed & health <= 90 & !buff(Food & Drink) & !buff(Will of Valeera) & equipped(Will of Valeera) & !pvp.area", "player"},
     {"%pause", "target.immune_all", "player"},
     {Keybinds},
     {PreCombat, "target.canAttack & target.infront"},

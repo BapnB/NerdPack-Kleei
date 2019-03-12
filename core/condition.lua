@@ -32,7 +32,7 @@ NeP.DSL:Register("shadow_dance_timing", function()
   local chargeTime = NeP.DSL:Get("spell.recharge")(nil, "Shadow Dance")
     chargeTime = chargeTime - 10
   if NeP.DSL:Get("canAttack")("target") then
-   if NeP.DSL:Get("debuff.duration")("target", "Nightblade") < 5 then
+   if NeP.DSL:Get("debuff.duration")("target", "Nightblade") < 7 then
     chargeTime = chargeTime - 9
    end
    if not NeP.DSL:Get("buff")("player", "Finality: Eviscerate") then
