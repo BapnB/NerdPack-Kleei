@@ -91,14 +91,6 @@ local GUI = {
 	{type = "ruler"},{type = "ruler"},
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "text", text = "", align = "center"}, --------------------------------------
-	
-	{type = "text", size = 11, text = "Between the Eyes:|c0000FA9A will be usable when:", align = "center"},
-	{type = "spinner", text = "|c0000FA9Ahave combo points more or equal with", key = "combopoints_bte_key", default = 3, width = 100, step = 1, min = 1, max = 6},
-	{type = "text", text = "", align = "center"}, --------------------------------------
-	{type = "text", text = "", align = "center"}, --------------------------------------
-	{type = "ruler"}, {type = "ruler"},
-	{type = "text", text = "", align = "center"}, --------------------------------------
-	{type = "text", text = "", align = "center"}, --------------------------------------
 
 	{type = "header", size = 16, text = "Trinkets", align = "center"},
 	{type = 'text', text = '|c0000FA9A Use Trinkets if Cooldown Toggle is enable|r', align = 'center'},
@@ -170,7 +162,7 @@ local pvp = {
 local Keybinds = {
 
 	{"Cheap Shot", "inRange.spell & canAttack & infront & player.buff(Stealth) & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || UI(stun) & target.player & !player.buff(Vanish) & !target.state(stun)}", "target"},
-	{BtE, "target.inRange(Between the Eyes).spell & target.canAttack & !IsStealthed & target.infront & !player.lastcast(Cheap Shot) & player.combopoints >= UI(combopoints_bte_key) & !target.state(disarm) & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || UI(stun) & !target.state(stun) & target.player}"},
+	{BtE, "target.inRange(Between the Eyes).spell & target.canAttack & !IsStealthed & target.infront & !lastcast(Cheap Shot).succeed & !target.state(disarm) & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || UI(stun) & !target.state(stun) & target.player & player.combopoints >= 3}"},
 	{"Sap", "inRange.spell & canAttack & infront & UI(sap_key) & !player.buff(Vanish) & !state(stun) & !state(disorient) & !state(incapacitate) & !combat & player", {"mouseover", "target"}},
 	{Gouge, "target.inRange(Gouge).spell & target.canAttack & !IsStealthed & {target.buff(Touch of Karma) || keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}"},
 	{"Blind", "inRange.spell & canAttack & !player.buff(Vanish) & {target.buff(Touch of Karma) || keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "mouseover"},
@@ -213,12 +205,12 @@ local Cooldowns = {
 
     {"#7676", "target.inRange(Saber Slash).spell & UI(tea_key) & item(7676).count > 0 & energy < 40 & {target.boss || target.player}", "player"},
 	{"Sprint", "target.inRange(Run Through).spell & UI(sprint_key) & equipped(Thraxi's Tricksy Treads) & !buff(Killing Spree) & combopoints.deficit < 2", "player"},
-	{"Killing Spree", "inRange.spell & canAttack & talent(6,3) & UI(ks_key) & !player.debuff(Curse of the Dreadblades) & !player.lastcast(Curse of the Dreadblades)", "target"}, --Curse of the Dreadblades fara CD
+	{"Killing Spree", "inRange.spell & canAttack & UI(ks_key) & !player.debuff(Curse of the Dreadblades) & !lastcast(Curse of the Dreadblades).succeed & {talent(3,1) & player.energy <= 70 || !talent(3,1) & player.energy <= 50}", "target"},
 	{"Marked for Death", "inRange(Saber Slash).spell & canAttack & UI(mfd_key) & talent(7,2) & player.combopoints < 2 & !player.debuff(Curse of the Dreadblades) & !player.lastcast(Curse of the Dreadblades) & !player.buff(Killing Spree)", "target"},
 	{"Curse of the Dreadblades", "target.inRange(Saber Slash).spell & target.canAttack & UI(cotd_key) & combopoints <= 3 & !lastcast(Marked for Death) & !buff(Killing Spree) & !lastcast(Killing Spree)", "player"},
-	{"Adrenaline Rush", "target.inRange(Saber Slash).spell & target.canAttack & !buff(Killing Spree) & !lastcast(Killing Spree) & UI(adr_key)", "player"},
-	{"Blood Fury", "UI(bloodfury_key) & target.inRange(Sinister Strike).spell", "player"},
-    {"Berserking", "UI(berserking_key) & target.inRange(Sinister Strike).spell", "player"},
+	{"Adrenaline Rush", "target.inRange(Saber Slash).spell & target.canAttack & !buff(Killing Spree) & !lastcast(Killing Spree).succeed & UI(adr_key)", "player"},
+	{"Blood Fury", "UI(bloodfury_key) & target.inRange(Saber Slash).spell", "player"},
+    {"Berserking", "UI(berserking_key) & target.inRange(Saber Slash).spell", "player"},
 
 	{"#trinket1", "UI(trk1) & target.inRange(Saber Slash).spell & target.canAttack"},
 	{"#trinket2", "UI(trk2) & target.inRange(Saber Slash).spell & target.canAttack"},
@@ -227,8 +219,6 @@ local Cooldowns = {
 
 local Combat = {
 
-	{"*%target", "canAttack & !IsStealthed & {!target.exists || target.dead}", "mouseover"},
-	
 	{"Ambush", "inRange.spell & combopoints.deficit > 0", "target"},
     {"/startattack", "!isattacking & inRange(Saber Slash).spell & !IsStealthed", "target"},
     {"Tricks of the Trade", "inRange.spell & indungeon & UI(tott) & !IsStealthed", "tank"},

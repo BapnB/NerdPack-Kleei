@@ -123,6 +123,14 @@ end)
 -------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------
 
+--/dump NeP.DSL.Parse("target.immune_heal", "", "")
+NeP.DSL:Register("immune_heal", function(target)
+  return NeP.DSL:Get("debuff.count.any")(target, GetSpellInfo(209858)) > 29 or NeP.DSL:Get("buff.any")(target, GetSpellInfo(20711))
+end)
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
 --/dump NeP.DSL.Parse("target.Garrote_Silence", "", "")
 NeP.DSL:Register("Garrote_Silence", function(unit)
   return NeP.DSL:Get("debuff")(unit, _G.GetSpellInfo(1330))
@@ -192,17 +200,6 @@ end)
 -------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------
 
--- Arcane Mage 3x(Arcane Missile!) Condition 
---/dump NeP.DSL.Parse("missile.ready", "", "")
-NeP.DSL:Register("missile.ready", function()
-  if NeP.DSL:Get("buff.count")("player", _G.GetSpellInfo(79683)) == 3 then
-   return true
-  end
-end)
-
--------------------------------------------------------------------------------------------------------------------------------------------------
--------------------------------------------------------------------------------------------------------------------------------------------------
-
 local cast = { 
     196392, 226206, 226269, 226285, 211007, 203176,  -- Arcway
     194657, 199514, 198405, 194266, 195293, 198407, 198495,  -- MoS
@@ -222,7 +219,7 @@ local cast = {
 NeP.DSL:Register("dungeon.interrupts", function(unit)
   for i = 1, #cast do
   local SpellName = _G.GetSpellInfo(cast[i])
-   if NeP.DSL:Get("casting")(unit, SpellName) and not _G.UnitIsPlayer(unit) and NeP.DSL:Get("indungeon")(nil) then
+   if NeP.DSL:Get("casting")(unit, SpellName) and NeP.DSL:Get("indungeon")(nil) then
     return true
    end
   end

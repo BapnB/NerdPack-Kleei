@@ -15,9 +15,7 @@ end)
 --/dump NeP.DSL.Parse("target.caster", "", "")
 NeP.DSL:Register("caster", function(target)
     local class = select(2, _G.UnitClass(target))
-    if class == "Priest" or class == "Mage" or class == "Warlock" then
-      return true
-    end
+    return class == "Priest" or class == "Mage" or class == "Warlock"
 end)
 
 -------------------------------------------------------------------------------------------------------------------------------------------------
@@ -26,11 +24,7 @@ end)
 --/dump NeP.DSL.Parse("target.disarmclass", "", "")
 NeP.DSL:Register("disarmclass", function(target)
     local class = select(2, _G.UnitClass(target))
-    if class == "WARRIOR" or class == "PALADIN" or class == "HUNTER" or 
-	class == "ROGUE" or class == "DEATHKNIGHT" or class == "MONK" or 
-	class == "DEMONHUNTER" then
-      return true
-    end
+    return class == "WARRIOR" or class == "PALADIN" or class == "HUNTER" or class == "ROGUE" or class == "DEATHKNIGHT" or class == "MONK" or class == "DEMONHUNTER"
 end)
 
 -------------------------------------------------------------------------------------------------------------------------------------------------
@@ -70,11 +64,7 @@ end)
 
 --/dump NeP.DSL.Parse("target.faction.positive", "", "")
 NeP.DSL:Register("faction.positive", function(target)
-    if _G.UnitFactionGroup("player") == _G.UnitFactionGroup(target)
-	and _G.UnitIsPlayer(target)
-	and not _G.UnitIsDeadOrGhost(target) then
-      return true 
-    end
+    return _G.UnitFactionGroup(target) == _G.UnitFactionGroup("player") and _G.UnitIsPlayer(target)
 end)
 
 -------------------------------------------------------------------------------------------------------------------------------------------------
@@ -82,11 +72,7 @@ end)
 
 --/dump NeP.DSL.Parse("target.faction.negative", "", "")
 NeP.DSL:Register("faction.negative", function(target)
-    if _G.UnitFactionGroup("player") ~= _G.UnitFactionGroup(target)
-	and _G.UnitIsPlayer(target)
-	and not _G.UnitIsDeadOrGhost(target) then
-      return true 
-    end
+    return _G.UnitFactionGroup(target) ~= _G.UnitFactionGroup("player") and _G.UnitIsPlayer(target)
 end)
 
 -------------------------------------------------------------------------------------------------------------------------------------------------
@@ -95,6 +81,14 @@ end)
 --/dump NeP.DSL.Parse("flying", "", "")
 NeP.DSL:Register("flying", function()
   return _G.IsFlying()
+end)
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+--/dump NeP.DSL.Parse("resting", "", "")
+NeP.DSL:Register("resting", function()
+  return _G.IsResting()
 end)
 
 -------------------------------------------------------------------------------------------------------------------------------------------------

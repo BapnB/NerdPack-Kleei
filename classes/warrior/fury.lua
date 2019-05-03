@@ -10,9 +10,9 @@ local GUI = {
 
 	unpack(Logo_GUI),
 
-	{type = 'header', size = 16, text = 'Keybinds', align = 'center'},
-	{type = 'text', text = "|c0000FA9A Just hold the Key|r", align = 'center'},
-	{type = 'text', text = "|c0087CEFA Choose Keybind:", align = 'center'},
+	{type = "header", size = 16, text = "Keybinds", align = "center"},
+	{type = "text", text = "|c0000FA9A Just hold the Key|r", align = "center"},
+	{type = "text", text = "|c0087CEFA Choose Keybind:", align = "center"},
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	{type = "dropdown", text = "Use Charge:|c0000FA9A", key = "list1", width = 100, list = {
 	{key = "1", text = "Shift Keybind"},
@@ -103,7 +103,7 @@ end
 
 local pvp = {
 
-    {"Berserker Rage", "player.state(incapacitate) ||  player.state(fear)", "player"},
+    {"Berserker Rage", "{player.state(incapacitate) ||  player.state(fear)}", "player"},
     {"!Every Man for Himself", "UI(medal) & state(stun)", "player"},        
     {"!Gladiator's Medallion", "UI(medal) & target.player & {player.state(stun) & player.spell(Every Man for Himself)cooldown > 0 & player.race = Human || player.state(stun) & !player.race = Human || player.state(fear) || player.state(disorient) || player.state(charm)}", "player"},
 
@@ -174,7 +174,7 @@ local Combat = {
 	{"Odyn's Fury", "toggle(cooldowns) & player.area(14).enemies > 0 & {player.buff(Battle Cry) || spell(Battle Cry).cooldown > 45}", "player"},
 	{"Bloodthirst", "inRange.spell & canAttack", "target"},
 	{"Raging Blow", "inRange.spell & canAttack & player.area(8).enemies <= 3", "target"},
-	{"Whirlwind", "toggle(AoE) & target.inRange(Bloodthirst).spell & {artifact(Wild Slashes).traits_count < 2 || player.area(8).enemies > 2}", "player"},
+	{"Whirlwind", "toggle(AoE) & area(6).enemies > 0 & {artifact(Wild Slashes).traits_count < 2 || player.area(8).enemies > 2}", "player"},
 	{"Furious Slash", "inRange.spell & canAttack", "target"},
 
 }

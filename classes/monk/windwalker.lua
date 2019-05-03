@@ -44,7 +44,7 @@ local GUI = {
 	{type = "text", text = "", align = "center"}, --------------------------------------
 	
     {type = "header", size = 16, text = "PVP", align = "center"},
-    {type = "checkbox",	text = "Stun:|c0000FA9A PVP enemy in Melee [Leg Sweep], in range [Paralysis].|r", align = "left", key = "stun", default = true},
+    {type = "checkbox",	text = "Stun:|c0000FA9A PVP enemy in Melee [Leg Sweep].|r", align = "left", key = "stun", default = true},
     {type = "checkbox",	text = "Gladiator's Medallion , Every Man for Himself:", align = "left", key = "medal", default = true},
 	{type = "text", text = "|c0000FA9A      Remove stun/fear/disorient/charm.|r"},
 	{type = "text", text = "", align = "center"}, --------------------------------------
@@ -112,7 +112,7 @@ local pvp = {
 
 local Keybinds = {
 
-	{"Leg Sweep", "area(5).enemies > 0 & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || target.player & target.inRange(Tiger Palm).spell & target.canAttack & !target.state(stun) & !target.state(disorient) & UI(stun)}", "player"},
+	{"Leg Sweep", "area(5).enemies > 0 & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || target.player & target.canAttack & target.inRange(Tiger Palm).spell & !target.state(stun) & !target.state(disorient) & UI(stun)}", "player"},
 	{"Paralysis", "inRange.spell & canAttack & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "mouseover"},
 	{"Effuse", "inRange.spell & !player.moving & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", {"mouseover", "player"}},
 

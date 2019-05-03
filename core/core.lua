@@ -24,11 +24,13 @@ ColorClass = KleeiColorClassTable[PlayerClass]
 -------------------------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------------------------
 
+local icon = "Interface\\Icons\\ability_hunter_snipershot"
 --USAGE in CR:
 --{"%target", CONDITION, TARGET}
-NeP.Actions:Add('target', function(eval)
+NeP.Actions:Add("target", function(eval)
   eval.exe = function(eva)
     _G.TargetUnit(eva.target)
+    NeP.ActionLog:Add("Auto Target", "Target", icon, eva.target)
     return true
   end
   return true
