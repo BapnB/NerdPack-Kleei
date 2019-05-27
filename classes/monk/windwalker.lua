@@ -21,7 +21,7 @@ local GUI = {
 	{key = "none", text = "Disable"},
 	}, default = "1" },	
 	{type = "text", text = "", align = "center"}, --------------------------------------
-	{type = "dropdown", text = "Use Paralysis:|c0000FA9A on mouseover", key = "list2", width = 100, list = {
+	{type = "dropdown", text = "Use Paralysis:|c0000FA9A on mouseover, target", key = "list2", width = 100, list = {
 	{key = "4", text = "Shift Keybind"},
 	{key = "5", text = "Control Keybind"},
 	{key = "6", text = "Alt Keybind"},
@@ -113,7 +113,7 @@ local pvp = {
 local Keybinds = {
 
 	{"Leg Sweep", "area(5).enemies > 0 & {keybind(alt) & UI(list1)==3 || keybind(shift) & UI(list1)==1 || keybind(control) & UI(list1)==2 || target.player & target.canAttack & target.inRange(Tiger Palm).spell & !target.state(stun) & !target.state(disorient) & UI(stun)}", "player"},
-	{"Paralysis", "inRange.spell & canAttack & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", "mouseover"},
+	{"Paralysis", "inRange.spell & canAttack & {keybind(alt) & UI(list2)==6 || keybind(shift) & UI(list2)==4 || keybind(control) & UI(list2)==5}", {"mouseover", "target"}},
 	{"Effuse", "inRange.spell & !player.moving & {keybind(alt) & UI(list3)==9 || keybind(shift) & UI(list3)==7 || keybind(control) & UI(list3)==8}", {"mouseover", "player"}},
 
 }

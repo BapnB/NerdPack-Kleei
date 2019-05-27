@@ -25,7 +25,7 @@ end)
 NeP.DSL:Register("count.enemies.combat", function()
   local encombat = 0
   for _, Obj in pairs(NeP.OM:Get("Enemy", true)) do
-   if NeP.DSL:Get("distancefrom")(unit, Obj.key) < 40
+   if NeP.DSL:Get("distancefrom")("player", Obj.key) < 40
     and _G.UnitCanAttack(Obj.key, "player")
     and NeP.Protected.Infront("player", Obj.key)
     and _G.UnitAffectingCombat(Obj.key) then

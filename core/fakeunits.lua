@@ -58,9 +58,11 @@ NeP.FakeUnits:Add("deadmember", function(num, role)
   local tempTable = {}
   for _, Obj in pairs(NeP.OM:Get("Dead", true)) do
    if Obj.distance < 50 and (_G.UnitInRaid(Obj.key) or _G.UnitInParty(Obj.key))
-    and _G.UnitIsPlayer(Obj.key) and not _G.UnitIsGhost(Obj.key) and not not _G.UnitIsDeadOrGhost(Obj.key) 
-    and not _G.UnitHasIncomingResurrection(Obj.key) and 
-	(not role or (role and _G.UnitGroupRolesAssigned(Obj.key) == role:upper())) then
+    and _G.UnitIsPlayer(Obj.key) 
+    and not _G.UnitIsGhost(Obj.key) 
+    and not not _G.UnitIsDeadOrGhost(Obj.key) 
+    and not _G.UnitHasIncomingResurrection(Obj.key) 
+    and (not role or (role and _G.UnitGroupRolesAssigned(Obj.key) == role:upper())) then
      tempTable[#tempTable+1] = {
       key = Obj.key,
       healthMax = _G.UnitHealthMax(Obj.key)
