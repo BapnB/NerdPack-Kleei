@@ -158,8 +158,8 @@ local Cooldowns = {
 	{"Apocalypse", "inRange.spell & canAttack & debuff(Festering Wound).count >= 5", "target"},
 	{"Festering Strike", "inRange.spell & debuff(Festering Wound).count <= 5 & spell(Apocalypse).cooldown <= 3", "target"},
 	
-	{"#trinket1", "UI(trk1) & target.inRange(Frost Strike).spell"},
-	{"#trinket2", "UI(trk2) & target.inRange(Frost Strike).spell"},
+	{"#trinket1", "UI(trk1) & target.inRange(Festering Strike).spell"},
+	{"#trinket2", "UI(trk2) & target.inRange(Festering Strike).spell"},
 
 }
 
